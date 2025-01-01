@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+	"all": "wuxiacraft:blocks/sky_and_earth_crystal_vein"
+  }
+}

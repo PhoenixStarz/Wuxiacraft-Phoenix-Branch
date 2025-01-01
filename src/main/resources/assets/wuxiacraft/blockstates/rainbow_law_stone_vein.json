@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"normal": {"model":  "wuxiacraft:rainbow_law_stone_vein"},
+    "inventory": {"model":  "wuxiacraft:rainbow_law_stone_vein"}
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"normal": {"model":  "wuxiacraft:immortal_will_stone_vein"},
+	"inventory": {"model":  "wuxiacraft:immortal_will_stone_vein"}
+  }
+}

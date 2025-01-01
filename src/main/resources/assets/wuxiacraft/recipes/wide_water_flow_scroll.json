@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"result": {
+		"item": "wuxiacraft:wide_water_flow.scroll",
+		"count": 1
+	},
+	"ingredients": [
+		{
+		"item": "minecraft:water_bucket"
+		},
+		{
+		"item": "wuxiacraft:natural_oddity_low"
+		},
+		{
+		"item": "minecraft:writable_book"
+		}
+	]
+}

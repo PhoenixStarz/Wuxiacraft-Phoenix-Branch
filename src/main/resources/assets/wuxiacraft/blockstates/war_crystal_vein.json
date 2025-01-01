@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"normal": {"model":  "wuxiacraft:war_crystal_vein"},
+    "inventory": {"model":  "wuxiacraft:war_crystal_vein"}
+  }
+}

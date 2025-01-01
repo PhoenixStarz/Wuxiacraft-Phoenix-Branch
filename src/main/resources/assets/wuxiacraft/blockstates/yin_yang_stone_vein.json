@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"normal": {"model":  "wuxiacraft:yin_yang_stone_vein"},
+    "inventory": {"model":  "wuxiacraft:yin_yang_stone_vein"}
+  }
+}

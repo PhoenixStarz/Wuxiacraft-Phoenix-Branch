@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"normal": {"model":  "wuxiacraft:gold_spirit_stone_vein"},
+    "inventory": {"model":  "wuxiacraft:gold_spirit_stone_vein"}
+  }
+}

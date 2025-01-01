@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"normal": {"model":  "wuxiacraft:pure_qi_crystal_vein"},
+    "inventory": {"model":  "wuxiacraft:pure_qi_crystal_vein"}
+  }
+}

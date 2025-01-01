@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"normal": {"model":  "wuxiacraft:weak_life_stone_vein"},
+    "inventory": {"model":  "wuxiacraft:weak_life_stone_vein"}
+  }
+}
