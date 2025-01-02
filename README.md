@@ -9,7 +9,7 @@ Right now it's just the start, soon after I plan to make add-on mods to make the
 
 ### Cultivation system
 
-The ideia is that as the player cultivates, he/she will progress through many levels, being each time harder to breakthrough and sometimes breaking though. I made a system based on what is most read on wuxia novels but it still need tweaking. The levels are the following:
+The idea is that as the player cultivates, he/she will progress through many levels, being each time harder to breakthrough and sometimes breaking though. I made a system based on what is most read on wuxia novels but it still need tweaking. The levels are the following:
 
 * Energy Perception (5 levels each)
 	* Body Refinement
