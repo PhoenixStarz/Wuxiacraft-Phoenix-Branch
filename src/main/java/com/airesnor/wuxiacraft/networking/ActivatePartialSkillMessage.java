@@ -70,6 +70,10 @@ public class ActivatePartialSkillMessage implements IMessage {
 						else if ("damageEveryoneNear".equals(message.skillName)) {
 							Skills.DAMAGE_EVERYONE_NEAR.activate(player);
 							CultivationUtils.getCultivationFromEntity(player).remEnergy(message.energy);
+						}						
+						else if ("fulminateEveryoneNear".equals(message.skillName)) {
+							Skills.FULMINATE_EVERYONE_NEAR.activate(player);
+							CultivationUtils.getCultivationFromEntity(player).remEnergy(message.energy);
 						}
 					}
 				});

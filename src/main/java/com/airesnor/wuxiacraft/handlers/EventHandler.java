@@ -443,7 +443,7 @@ public class EventHandler {
 	 * <p>
 	 * Extra from techniques if attacker kills using buddha soul technique, he loses sub levels and progress and foundation
 	 * Extra from techniques, if attacker has nine springs, he can deal extra damage against living
-	 *
+	 *								^ or yin body art
 	 * @param event Description of whats happening
 	 */
 	@SubscribeEvent
@@ -466,28 +466,12 @@ public class EventHandler {
 								/ cultTech.getDivineTechnique().getTechnique().getMaxProficiency()) * 0.5;
 						event.setAmount(event.getAmount() * (1 + (float) modifier));
 					}
-				}
-				NetworkWrapper.INSTANCE.sendTo(new CultivationMessage(cultivation), (EntityPlayerMP) player);
-			}
-			ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
-			if (stack.getItem() instanceof ItemDagger) {
-				event.setAmount(1);
-			}
-		}
-	}
-	@SubscribeEvent
-	public void onPlayerHitEntity2(LivingDamageEvent event) {
-		if (event.getSource().getTrueSource() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-			if (!player.world.isRemote) {
-				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(player);
-				CultivationUtils.cultivatorAddProgress(player, Cultivation.System.ESSENCE, 0.25f, false, false);
-				ICultTech cultTech = CultivationUtils.getCultTechFromEntity(event.getEntityLiving());
-				if (cultTech.getBodyTechnique() != null) {
-					if (cultTech.getBodyTechnique().getTechnique().equals(Techniques.YIN_BODY_ART)) {
-						double modifier = cultivation.getBodyModifier() * (cultTech.getBodyTechnique().getProficiency()
-								/ cultTech.getBodyTechnique().getTechnique().getMaxProficiency()) * 0.5;
-						event.setAmount(event.getAmount() * (1 + (float) modifier));
+					if (cultTech.getBodyTechnique() != null) {
+						if (cultTech.getBodyTechnique().getTechnique().equals(Techniques.YIN_BODY_ART)) {
+							double modifier = cultivation.getBodyModifier() * (cultTech.getBodyTechnique().getProficiency()
+									/ cultTech.getBodyTechnique().getTechnique().getMaxProficiency()) * 0.5;
+							event.setAmount(event.getAmount() * (1 + (float) modifier));
+						}
 					}
 				}
 				NetworkWrapper.INSTANCE.sendTo(new CultivationMessage(cultivation), (EntityPlayerMP) player);

@@ -4,6 +4,7 @@ import com.airesnor.wuxiacraft.cultivation.Cultivation;
 import com.airesnor.wuxiacraft.cultivation.ICultivation;
 import com.airesnor.wuxiacraft.cultivation.elements.Element;
 import com.airesnor.wuxiacraft.cultivation.skills.threads.ThreadWoodenPrison;
+import com.airesnor.wuxiacraft.cultivation.techniques.CultTech;
 import com.airesnor.wuxiacraft.cultivation.techniques.ICultTech;
 import com.airesnor.wuxiacraft.cultivation.techniques.Techniques;
 import com.airesnor.wuxiacraft.entities.skills.*;
@@ -17,6 +18,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -90,9 +92,11 @@ public class Skills {
 		SKILLS.add(SPIRIT_ARROW);
 		SKILLS.add(SPIRIT_PRESSURE);
 		SKILLS.add(DIVINE_AUTHORITY);
+		SKILLS.add(STORM_AUTHORITY);
 		SKILLS.add(WIND_BLADE);
 		SKILLS.add(WOODEN_PRISON);
 		SKILLS.add(WEAK_LIGHTNING_BOLT);
+		SKILLS.add(STRONG_LIGHTNING_BOLT);
 		SKILLS.add(LANDSLIDE);
 	}
 
@@ -242,19 +246,18 @@ public class Skills {
 				return true;
 			});
 
-	public static final Skill ORE_SUCTION = new Skill("ore_suction", false, false, 120f, 2.5f, 80f, 0f).setAction(actor -> {
+	public static final Skill ORE_SUCTION = new Skill("ore_suction", true, false, 120f, 2.5f, 80f, 0f).setAction(actor -> {
 		boolean activated = false;
-		final int max_range = 32;
+		final int max_range = 16;
 		float strength = (float) CultivationUtils.getStrengthFromEntity(actor);
-		int range = Math.min(max_range, 8 + (int) (Math.floor(0.01 * (strength))));
+		int range = Math.min(max_range, 4 + (int) (Math.floor(0.01 * (strength))));
 		List<BlockPos> positions = OreUtils.findOres(actor.world, actor.getPosition(), range);
 		IBlockState stone = Blocks.STONE.getDefaultState();
 		for (BlockPos pos : positions) {
 			if (actor.world instanceof WorldServer) {
 				IBlockState block = actor.world.getBlockState(pos);
 				actor.world.setBlockState(pos, stone);
-				ItemStack item = new ItemStack(block.getBlock().getItemDropped(block, actor.world.rand, 0));
-				item.setCount(block.getBlock().quantityDropped(actor.world.rand));
+				ItemStack item = new ItemStack(block.getBlock());
 				EntityItem oreItem = new EntityItem(actor.world, actor.posX, actor.posY, actor.posZ, item);
 				oreItem.setNoPickupDelay();
 				//oreItem.setOwner(actor.getName());
@@ -638,7 +641,7 @@ public class Skills {
 	public static final ISkillAction DAMAGE_EVERYONE_NEAR = actor -> {
 		ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
 		boolean activated = false;
-		if (cultivation.hasEnergy(1.2f)) {
+		if (cultivation.hasEnergy(2.4f)) {
 			activated = true;
 			AxisAlignedBB range = new AxisAlignedBB(new BlockPos(actor.posX, actor.posY, actor.posZ))
 					.grow(Math.min(cultivation.getDivineModifier(), 16));
@@ -659,7 +662,52 @@ public class Skills {
 		return activated;
 	};
 
-	public static final Skill SPIRIT_PRESSURE = new Skill("spirit_pressure", true, true, 0f, 0f, 500f, 1f)
+	public static final ISkillAction FULMINATE_EVERYONE_NEAR = actor -> {
+		ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+		boolean activated = false;
+		if (cultivation.hasEnergy(4.8f)) {
+			activated = true;
+			AxisAlignedBB range = new AxisAlignedBB(new BlockPos(actor.posX, actor.posY, actor.posZ))
+					.grow(Math.min(cultivation.getDivineModifier(), 12));
+			if (actor.world instanceof WorldServer) {
+				List<EntityLivingBase> targets = actor.world.getEntitiesWithinAABB(EntityLivingBase.class, range, t -> t != actor);
+				for (EntityLivingBase target : targets) {
+				WorldServer world = (WorldServer) actor.world;
+				world.addScheduledTask(() -> {
+					EntityLightningBolt lightningBolt = new EntityLightningBolt(world, target.posX, target.posY + 1.0, target.posZ, true); // effect only won't cause damage
+					world.addWeatherEffect(lightningBolt);
+					target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) 20);
+						ICultivation targetCultivation = CultivationUtils.getCultivationFromEntity(target);
+						ICultTech targetCultTech = CultivationUtils.getCultTechFromEntity(target);
+						float strength = (float) cultivation.getDivineModifier();
+						if (targetCultTech.getBodyTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_A)
+						 || targetCultTech.getDivineTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_B)
+						 || targetCultTech.getEssenceTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_C)) {
+						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.4 && targetCultTech.hasElement(Element.LIGHTNING)) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) (strength));
+						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.6 && targetCultTech.hasElement(Element.LIGHTNING)) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.8));
+						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.8 && targetCultTech.hasElement(Element.LIGHTNING)) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.4));
+						} else if (targetCultivation.getDivineModifier() >= cultivation.getDivineModifier() * 0.8 && targetCultTech.hasElement(Element.LIGHTNING)) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.2));
+						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.4) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.5));
+						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.6) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.4));
+						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.8) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.2));
+						} else if (targetCultivation.getDivineModifier() >= cultivation.getDivineModifier() * 0.8) {
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.1));
+						}				
+					});
+				}
+			}
+		}
+		return activated;
+	};
+
+	public static final Skill SPIRIT_PRESSURE = new Skill("spirit_pressure", true, true, 12f, 0f, 500f, 1f)
 			.setAction(actor -> true)
 			.setWhenCasting(actor -> {
 				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
@@ -671,13 +719,25 @@ public class Skills {
 				return false;
 			});
 
-public static final Skill DIVINE_AUTHORITY = new Skill("divine_authority", true, true, 0f, 0f, 500f, 1f)
+	public static final Skill DIVINE_AUTHORITY = new Skill("divine_authority", true, true, 24f, 0f, 500f, 1f)
 			.setAction(actor -> true)
 			.setWhenCasting(actor -> {
 				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-				if (cultivation.hasEnergy(1.2f)) {
-					cultivation.remEnergy(1.2f);
-					NetworkWrapper.INSTANCE.sendToServer(new ActivatePartialSkillMessage("damageEveryoneNear", 1.2f, actor.getUniqueID()));
+				if (cultivation.hasEnergy(2.4f)) {
+					cultivation.remEnergy(2.4f);
+					NetworkWrapper.INSTANCE.sendToServer(new ActivatePartialSkillMessage("damageEveryoneNear", 2.4f, actor.getUniqueID()));
+					return true;
+				}
+				return false;
+			});
+
+	public static final Skill STORM_AUTHORITY = new Skill("storm_authority", true, true, 48f, 0f, 1f, 20f)
+			.setAction(actor -> true)
+			.setWhenCasting(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				if (cultivation.hasEnergy(4.8f)) {
+					cultivation.remEnergy(4.8f);
+					NetworkWrapper.INSTANCE.sendToServer(new ActivatePartialSkillMessage("fulminateEveryoneNear", 4.8f, actor.getUniqueID()));
 					return true;
 				}
 				return false;
@@ -706,6 +766,20 @@ public static final Skill DIVINE_AUTHORITY = new Skill("divine_authority", true,
 					float strength = (float) cultivation.getEssenceModifier() * 1.1f;
 					ThunderBoltThrowable thunderBoltThrowable = new ThunderBoltThrowable(actor.world, actor, strength, 300);
 					thunderBoltThrowable.shoot(actor, actor.rotationPitch, actor.rotationYawHead, 0.3f, Math.min(3.2f, 0.8f + strength * 0.4f * 0.12f), 0.2f);
+					WorldUtils.spawnEntity((WorldServer) actor.world, thunderBoltThrowable);
+				}
+				actor.swingArm(EnumHand.MAIN_HAND);
+				return true;
+			});
+
+
+	public static final Skill STRONG_LIGHTNING_BOLT = new Skill("strong_lightning_bolt", false, true, 75f, 4.4f, 42f, 0f)
+			.setAction(actor -> {
+				if (!actor.world.isRemote) {
+					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					float strength = (float) cultivation.getEssenceModifier() * 3.3f;
+					ThunderBoltThrowable thunderBoltThrowable = new ThunderBoltThrowable(actor.world, actor, strength, 400);
+					thunderBoltThrowable.shoot(actor, actor.rotationPitch, actor.rotationYawHead, 0.3f, Math.min(3.2f, 0.8f + strength * 0.8f * 0.18f), 0.2f);
 					WorldUtils.spawnEntity((WorldServer) actor.world, thunderBoltThrowable);
 				}
 				actor.swingArm(EnumHand.MAIN_HAND);

@@ -20,7 +20,7 @@ public class Technique {
 	private final List<Element> elements;
 	private final double cultivationSpeed;
 	private final double maxProficiency;
-	private final double efficientTillModifier; // this technique may work well until the system level modifier
+	private final int techniqueRank; 
 
 	public ISkillAction cultivationEffect;
 
@@ -45,13 +45,13 @@ public class Technique {
 		return baseModifiers;
 	}
 
-	public Technique(String uName, Cultivation.System system, TechniqueModifiers baseModifiers, double cultSpeed, double maxProficiency, double efficientTillModifier) {
+	public Technique(String uName, Cultivation.System system, TechniqueModifiers baseModifiers, double cultSpeed, double maxProficiency, int techniqueRank) {
 		this.system = system;
 		this.uName = uName;
 		this.baseModifiers = baseModifiers;
 		this.cultivationSpeed = cultSpeed;
 		this.maxProficiency = maxProficiency;
-		this.efficientTillModifier = efficientTillModifier;
+		this.techniqueRank = techniqueRank;
 		this.elements = new ArrayList<>();
 		this.effects = new ArrayList<>();
 		this.skills = new ArrayList<>();
@@ -106,8 +106,8 @@ public class Technique {
 		return maxProficiency;
 	}
 
-	public double getEfficientTillModifier() {
-		return efficientTillModifier;
+	public int getTechniqueRank() {
+		return techniqueRank;
 	}
 
 	public List<Pair<Double, PotionEffect>> getEffects() {

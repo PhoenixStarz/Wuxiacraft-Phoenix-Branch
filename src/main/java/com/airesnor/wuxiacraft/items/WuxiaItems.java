@@ -146,7 +146,7 @@ public class WuxiaItems {
 	public static final Item GIANT_BEE_CORE = new ItemMonsterCore("giant_bee_core").setUseDuration(80)
 			.setWhenUsing(actor -> {
 				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 0.45786f, false, true);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 0.45786f, false, true);
 				return true;
 			})
 			.setUseAction(actor -> {

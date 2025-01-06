@@ -304,6 +304,12 @@ wuxiacraft.techniques.martial_dragon_divinity_manual=Martial Dragon Divinity Man
 item.martial_dragon_divinity_manual.scroll.name=Martial Dragon Divinity Manual
 wuxiacraft.techniques.martial_dragon_qi_gathering_manual=Martial Dragon Qi Gathering Manual
 item.martial_dragon_qi_gathering_manual.scroll.name=Martial Dragon Qi Gathering Manual
+wuxiacraft.forbidden_lightning_a=Primordial Lightning Forbidden Body Refinement
+item.forbidden_lightning_a.scroll.name=Primordial Lightning Forbidden Body Refinement
+wuxiacraft.forbidden_lightning_b=Divine Storm God Forbidden Scripture
+item.forbidden_lightning_b.scroll.name=Divine Storm God Forbidden Scripture
+wuxiacraft.techniques.forbidden_lightning_c=Origin Thunder forbidden Art
+item.forbidden_lightning_c.scroll.name=Origin Thunder forbidden Art
 
 #Elements
 wuxiacraft.elements.fire=Fire
@@ -348,8 +354,10 @@ wuxiacraft.skills.spirit_pressure=Spiritual Pressure
 wuxiacraft.skills.wind_blade=Wind Blade
 wuxiacraft.skills.wooden_prison=Wooden Prison
 wuxiacraft.skills.weak_lightning_bolt=Lightning Arrow
+wuxiacraft.skills.strong_lightning_bolt=Thunder Spear
 wuxiacraft.skills.landslide=Landslide
 wuxiacraft.skills.divine_authority=Divine Authority
+wuxiacraft.skills.storm_authority=Storm Authority
 
 #Recipes
 wuxiacraft.recipes.name.body_refinement_pill_recipe=Body Refinement Pill Recipe

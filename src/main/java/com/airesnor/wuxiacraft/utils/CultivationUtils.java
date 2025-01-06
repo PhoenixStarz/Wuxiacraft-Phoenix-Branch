@@ -9,6 +9,7 @@ import com.airesnor.wuxiacraft.cultivation.skills.SkillCap;
 import com.airesnor.wuxiacraft.cultivation.skills.Skills;
 import com.airesnor.wuxiacraft.cultivation.techniques.CultTech;
 import com.airesnor.wuxiacraft.cultivation.techniques.ICultTech;
+import com.airesnor.wuxiacraft.cultivation.techniques.Techniques;
 import com.airesnor.wuxiacraft.entities.effects.EntityLevelUpHalo;
 import com.airesnor.wuxiacraft.entities.mobs.EntityCultivator;
 import com.airesnor.wuxiacraft.networking.NetworkWrapper;
@@ -350,6 +351,25 @@ public class CultivationUtils {
 			this.player = player;
 			this.strength = strength;
 			this.reward = reward;
+
+			ICultivation cultivation = getCultivationFromEntity(player);
+			ICultTech cultTech = getCultTechFromEntity(player);
+			if (cultTech.getBodyTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_A)
+			||	cultTech.getDivineTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_B)
+			||	cultTech.getEssenceTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_C)) {
+				if (!cultTech.getBodyTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_A)) {
+					strength *= 2;
+					reward *= 0.5;
+				}
+				if (!cultTech.getDivineTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_B)) {
+					strength *= 2;
+					reward *= 0.5;
+				}
+				if (!cultTech.getEssenceTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_C)) {
+					strength *= 2;
+					reward *= 0.5;
+				}
+			}
 		}
 
 		@Override
@@ -369,8 +389,17 @@ public class CultivationUtils {
 				world.addScheduledTask(() -> {
 					if (player.isEntityAlive()) {
 						ICultivation cultivation = CultivationUtils.getCultivationFromEntity(player);
+						ICultTech cultTech = getCultTechFromEntity(player);
 						try {
-							cultivation.addBodyProgress(this.reward, false);
+							if (cultTech.hasElement(Element.LIGHTNING)) {
+								cultivation.addBodyProgress(this.reward, false);
+							}
+							if (cultTech.hasElement(Element.LIGHTNING)) {
+								cultivation.addDivineProgress(this.reward, false);
+							}
+							if (cultTech.hasElement(Element.LIGHTNING)) {
+								cultivation.addEssenceProgress(this.reward, false);
+							}
 						} catch (Cultivation.RequiresTribulation tribulation) {
 							WuxiaCraft.logger.error("Something is wrong with " + player.getName() + " cultivation technique...");
 						}

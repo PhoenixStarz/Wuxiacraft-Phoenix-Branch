@@ -55,18 +55,8 @@ public class ItemScroll extends Item {
 		this.technique = technique;
 		this.maxStackSize = 1;
 		WuxiaItems.ITEMS.add(this);
-		final double modifier = this.technique.getEfficientTillModifier();
-		BaseSystemLevel aux = BaseSystemLevel.DEFAULT_ESSENCE_LEVEL;
-		int i = 0;
-		while(aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS) != aux) {
-			i++;
-			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
-			if(aux.baseModifier > modifier) {
-				i--;
-				break;
-			}
-		}
-		this.techniqueTier = tiers.get(i);
+		final int rank = this.technique.getTechniqueRank();
+		this.techniqueTier = tiers.get(rank);
 
 	}
 
