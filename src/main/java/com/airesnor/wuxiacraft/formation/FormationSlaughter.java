@@ -102,7 +102,7 @@ public class FormationSlaughter extends Formation {
 			});
 			for (EntityLivingBase target : targets) {
 				if (parent.hasEnergy(this.getOperationCost() * (activated + 1))) {
-					target.attackEntityFrom(DamageSource.GENERIC, this.strength * 20);
+					target.attackEntityFrom(DamageSource.GENERIC, this.strength * 5);
 					activated++;
 				}
 			}

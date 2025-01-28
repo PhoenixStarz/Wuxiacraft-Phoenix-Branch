@@ -1,194 +1,194 @@
 {
-	"formationName": "wuxiacraft:weak_slaughter_formation",
+	"formationName": "wuxiacraft:strong_slaughter_formation",
 	"positions": [
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 0,
 			"y": 0,
 			"z": -4
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 3,
 			"y": 0,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 4,
 			"y": 0,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 3,
 			"y": 0,
 			"z": 3
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 0,
 			"y": 0,
 			"z": 4
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": -3,
 			"y": 0,
 			"z": 3
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": -4,
 			"y": 0,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": -3,
 			"y": 0,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 0,
 			"y": 1,
 			"z": -4
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 3,
 			"y": 1,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 4,
 			"y": 1,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 3,
 			"y": 1,
 			"z": 3
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": 0,
 			"y": 1,
 			"z": 4
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": -3,
 			"y": 1,
 			"z": 3
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": -4,
 			"y": 1,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:stone",
+			"blockState": "minecraft:diamond_block",
 			"x": -3,
 			"y": 1,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": 0,
 			"y": 2,
 			"z": -4
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": 4,
 			"y": 2,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": -4,
 			"y": 2,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": 0,
 			"y": 2,
 			"z": 4
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": -3,
 			"y": 2,
 			"z": 3
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": -3,
 			"y": 2,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": 3,
 			"y": 2,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:netherrack",
+			"blockState": "minecraft:diamond_block",
 			"x": 3,
 			"y": 2,
 			"z": 3
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": 0,
 			"y": 3,
 			"z": -4
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": 4,
 			"y": 3,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": -4,
 			"y": 3,
 			"z": 0
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": 0,
 			"y": 3,
 			"z": 4
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": -3,
 			"y": 3,
 			"z": 3
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": -3,
 			"y": 3,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": 3,
 			"y": 3,
 			"z": -3
 		},
 		{
-			"blockState": "minecraft:fire",
+			"blockState": "minecraft:obsidian",
 			"x": 3,
 			"y": 3,
 			"z": 3

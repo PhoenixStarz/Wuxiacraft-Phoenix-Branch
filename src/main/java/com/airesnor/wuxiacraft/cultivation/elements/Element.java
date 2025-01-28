@@ -78,7 +78,6 @@ public class Element {
 
 		WATER.AddCounter(WOOD);
 		WATER.AddCounter(EARTH);
-		WATER.AddCounter(ICE);
 
 		WOOD.AddCounter(FIRE);
 		WOOD.AddCounter(METAL);

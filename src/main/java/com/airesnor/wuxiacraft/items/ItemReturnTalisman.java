@@ -1,7 +1,10 @@
 package com.airesnor.wuxiacraft.items;
 
+import com.airesnor.wuxiacraft.utils.TeleportationUtil;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,61 +21,38 @@ import java.util.List;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class ItemSpawnTalisman extends ItemBase {
+public class ItemReturnTalisman extends ItemBase {
 
-	public ItemSpawnTalisman(String item_name) {
+	public ItemReturnTalisman(String item_name) {
 		super(item_name);
 		setMaxStackSize(1);
 	}
 
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		ItemStack actualTalisman = playerIn.getHeldItem(handIn);
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayerMP playerMP, EnumHand handIn) {
+		ItemStack actualTalisman = playerMP.getHeldItem(EnumHand.MAIN_HAND);
 		NBTTagCompound tag = actualTalisman.getTagCompound();
 		if (tag == null) {
 			tag = new NBTTagCompound();
 		}
 		boolean activated = false;
 		BlockPos targetPos = new BlockPos(0, 0, 0);
-		if (worldIn.provider.getDimension() == 0) { // Only works in OverWorld
 			int usageStep = tag.hasKey("usageStep") ? tag.getInteger("usageStep") : 0;
 			switch (usageStep) {
 				case 0:
 					targetPos = worldIn.getSpawnPoint();
 					tag.setInteger("usageStep", 1); // to use next
-					tag.setInteger("iniX", (int) playerIn.posX);
-					tag.setInteger("iniY", (int) playerIn.posY);
-					tag.setInteger("iniZ", (int) playerIn.posZ);
+					tag.setInteger("iniX", (int) playerMP.posX);
+					tag.setInteger("iniY", (int) playerMP.posY);
+					tag.setInteger("iniZ", (int) playerMP.posZ);
 					activated = true;
 					break;
-				case 1:
-					if (tag.hasKey("iniX") && tag.hasKey("iniY") && tag.hasKey("iniZ")) {
-						targetPos = new BlockPos(tag.getInteger("iniX"), tag.getInteger("iniY"), tag.getInteger("iniZ"));
-						tag.setInteger("usageStep", 0);
-						tag.removeTag("iniX"); //save space
-						tag.removeTag("iniY");
-						tag.removeTag("iniZ");
-						activated = true;
-						break;
-					} else {
-						//probably wrong usage, so tp to spawn
-						targetPos = worldIn.getSpawnPoint();
-						tag.setInteger("usageStep", 1);
-						tag.setInteger("iniX", (int) playerIn.posX);
-						tag.setInteger("iniY", (int) playerIn.posY);
-						tag.setInteger("iniZ", (int) playerIn.posZ);
-						activated = true;
-					}
 			}
-		}
 		actualTalisman.setTagCompound(tag);
 		if (activated) {
-			playerIn.setPositionAndUpdate(targetPos.getX(), targetPos.getY(), targetPos.getZ());
-			if(tag.getInteger("usageStep") == 0) { // which means will go back to where player was
-				actualTalisman.shrink(1);
-				if (actualTalisman.getCount() <= 0) {
-					actualTalisman = ItemStack.EMPTY;
-				}
+			TeleportationUtil.teleportPlayerToDimension((EntityPlayerMP) playerMP, 0, targetPos.getX(), targetPos.getY(), targetPos.getZ(), 0f, 0f);
+			actualTalisman.shrink(1);
+			if (actualTalisman.getCount() <= 0) {
+				actualTalisman = ItemStack.EMPTY;
 			}
 		}
 		return new ActionResult<>(activated ? EnumActionResult.SUCCESS : EnumActionResult.PASS, actualTalisman);
@@ -93,12 +73,7 @@ public class ItemSpawnTalisman extends ItemBase {
 			y = tag.hasKey("iniY") ? tag.getInteger("iniY") : worldIn.getSpawnPoint().getY();
 			z = tag.hasKey("iniZ") ? tag.getInteger("iniZ") : worldIn.getSpawnPoint().getZ();
 		}
-		if(usageStep == 0) {
-			tooltip.add(TextFormatting.GOLD + "Going to world center");
-			tooltip.add(TextFormatting.GOLD + "x = " + x + ", y = " + y + ", z = " + z);
-		} else if (usageStep == 1) {
-			tooltip.add(TextFormatting.GREEN + "Returning to previous position");
-			tooltip.add(TextFormatting.GREEN + "x = " + x + ", y = " + y + ", z = " + z);
-		}
+		tooltip.add(TextFormatting.GOLD + "Going to world center");
+		tooltip.add(TextFormatting.GOLD + "x = " + x + ", y = " + y + ", z = " + z);
 	}
 }

@@ -64,6 +64,13 @@ public class WuxiaItems {
 				return true;
 			})
 			.setMaxStackSize(64).setCreativeTab(WUXIACRAFT_GENERAL);
+	
+	public static final Item TIME_BANANA = new ItemMonsterCore("time_banana").setUseDuration(20)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.ESSENCE, 720F, false, true);
+				return true;
+			});
 
 	//pills
 	public static final Item BODY_REFINEMENT_PILL = new ItemProgressPill("body_refinement_pill", Cultivation.System.BODY, 240f, 100);
@@ -130,23 +137,98 @@ public class WuxiaItems {
 	public static final Item FEATHER_FAN = new ItemFan("feather_fan").setMaxStrength(10f).setStrength(1f);
 
 	//Monster cores
-	public static final Item GIANT_ANT_CORE = new ItemMonsterCore("giant_ant_core").setUseDuration(100)
+	public static final Item GIANT_ANT_CORE = new ItemMonsterCore("giant_ant_core").setUseDuration(10)
 			.setWhenUsing(actor -> {
 				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 0.45786f, false, true);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 1f, false, true);
 				return true;
 			})
 			.setUseAction(actor -> {
 				if(!actor.world.isRemote) {
 					actor.world.createExplosion(actor, actor.posX, actor.posY, actor.posZ, 5.0f, true);
 				}
-				actor.attackEntityFrom(DamageSource.causeExplosionDamage(actor), 120f);
+				actor.attackEntityFrom(DamageSource.causeExplosionDamage(actor), 2f);
 				return true;
 			});
-	public static final Item GIANT_BEE_CORE = new ItemMonsterCore("giant_bee_core").setUseDuration(80)
+
+	public static final Item GIANT_ANT_CORE_2 = new ItemMonsterCore("giant_ant_core_2").setUseDuration(10)
 			.setWhenUsing(actor -> {
 				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 0.45786f, false, true);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 2f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				if(!actor.world.isRemote) {
+					actor.world.createExplosion(actor, actor.posX, actor.posY, actor.posZ, 5.0f, true);
+				}
+				actor.attackEntityFrom(DamageSource.causeExplosionDamage(actor), 4f);
+				return true;
+			});	
+
+	public static final Item GIANT_ANT_CORE_3 = new ItemMonsterCore("giant_ant_core_3").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 6f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				if(!actor.world.isRemote) {
+					actor.world.createExplosion(actor, actor.posX, actor.posY, actor.posZ, 5.0f, true);
+				}
+				actor.attackEntityFrom(DamageSource.causeExplosionDamage(actor), 12f);
+				return true;
+			});	
+		
+	public static final Item GIANT_ANT_CORE_4 = new ItemMonsterCore("giant_ant_core_4").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 24f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				if(!actor.world.isRemote) {
+					actor.world.createExplosion(actor, actor.posX, actor.posY, actor.posZ, 5.0f, true);
+				}
+				actor.attackEntityFrom(DamageSource.causeExplosionDamage(actor), 48);
+				return true;
+			});	
+			
+	public static final Item GIANT_ANT_CORE_5 = new ItemMonsterCore("giant_ant_core_5").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 120f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				if(!actor.world.isRemote) {
+					actor.world.createExplosion(actor, actor.posX, actor.posY, actor.posZ, 5.0f, true);
+				}
+				actor.attackEntityFrom(DamageSource.causeExplosionDamage(actor), 240);
+				return true;
+			});	
+			
+	public static final Item GIANT_ANT_CORE_6 = new ItemMonsterCore("giant_ant_core_6").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.BODY, 720f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				if(!actor.world.isRemote) {
+					actor.world.createExplosion(actor, actor.posX, actor.posY, actor.posZ, 5.0f, true);
+				}
+				actor.attackEntityFrom(DamageSource.causeExplosionDamage(actor), 1440);
+				return true;
+			});	
+			
+
+
+
+
+	public static final Item GIANT_BEE_CORE = new ItemMonsterCore("giant_bee_core").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 1f, false, true);
 				return true;
 			})
 			.setUseAction(actor -> {
@@ -154,6 +236,67 @@ public class WuxiaItems {
 				actor.addPotionEffect(effect);
 				return true;
 			});
+
+	public static final Item GIANT_BEE_CORE_2 = new ItemMonsterCore("giant_bee_core_2").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 2f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				PotionEffect effect = new PotionEffect(MobEffects.POISON, 20*60*5, 1, false, false);
+				actor.addPotionEffect(effect);
+				return true;
+			});
+
+	public static final Item GIANT_BEE_CORE_3 = new ItemMonsterCore("giant_bee_core_3").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 6f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				PotionEffect effect = new PotionEffect(MobEffects.POISON, 20*60*5, 3, false, false);
+				actor.addPotionEffect(effect);
+				return true;
+			});
+			
+	public static final Item GIANT_BEE_CORE_4 = new ItemMonsterCore("giant_bee_core_4").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 24f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				PotionEffect effect = new PotionEffect(MobEffects.POISON, 20*60*5, 7, false, false);
+				actor.addPotionEffect(effect);
+				return true;
+			});
+	
+	public static final Item GIANT_BEE_CORE_5 = new ItemMonsterCore("giant_bee_core_5").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 120f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				PotionEffect effect = new PotionEffect(MobEffects.POISON, 20*60*5, 15, false, false);
+				actor.addPotionEffect(effect);
+				return true;
+			});
+			
+	public static final Item GIANT_BEE_CORE_6 = new ItemMonsterCore("giant_bee_core_6").setUseDuration(10)
+			.setWhenUsing(actor -> {
+				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+				CultivationUtils.cultivatorAddProgress(actor, Cultivation.System.DIVINE, 720f, false, true);
+				return true;
+			})
+			.setUseAction(actor -> {
+				PotionEffect effect = new PotionEffect(MobEffects.POISON, 20*60*5, 31, false, false);
+				actor.addPotionEffect(effect);
+				return true;
+			});
+	
 
 	public static final Item RECIPE_SCROLL = new ItemRecipe("recipe_scroll");
 
@@ -182,6 +325,7 @@ public class WuxiaItems {
 	public static final Item PRIMORDIAL_CHAOS_STONE = new ItemSpiritStone("primordial_chaos_stone", 0xe4de1c).setAmount(13685289.995); // True God 1
 
 	public static final Item SPAWN_TALISMAN = new ItemSpawnTalisman("spawn_talisman");
+	public static final Item RETURN_TALISMAN = new ItemReturnTalisman("return_talisman");
 	public static final Item PAINT_BRUSH = new ItemPaintBrush("paint_brush");
 	public static final Item GOLD_DAGGER = new ItemDagger("gold_dagger");
 	public static final Item BLOOD_BOTTLE = new ItemBloodContainer("blood_bottle");

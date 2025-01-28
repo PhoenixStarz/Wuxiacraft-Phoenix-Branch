@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "wuxiacraft:spawn_talisman",
+		"count": 1
+	},
+	"pattern": [
+		"ggg",
+		"ese",
+		"ggg"
+	],
+	"key": {
+		"s": {
+			"item": "wuxiacraft:spatial_stone"
+		},
+		"e": {
+			"item": "minecraft:emerald"
+		},
+		"g": {
+			"item": "wuxiacraft:dust_gold"
+		}
+	}
+}

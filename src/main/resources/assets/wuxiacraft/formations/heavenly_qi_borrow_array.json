@@ -242,6 +242,204 @@
 			"z": 5
 		},
 		{
+			"blockState": "minecraft:iron_block",
+			"x": -4,
+			"y": 3,
+			"z": -4
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": -3,
+			"y": 3,
+			"z": -3
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": -2,
+			"y": 3,
+			"z": -2
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": 4,
+			"y": 3,
+			"z": 4
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": 3,
+			"y": 3,
+			"z": 3
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": 2,
+			"y": 3,
+			"z": 2
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": -4,
+			"y": 3,
+			"z": 4
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": -3,
+			"y": 3,
+			"z": 3
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": -2,
+			"y": 3,
+			"z": 2
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": 4,
+			"y": 3,
+			"z": -4
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": 3,
+			"y": 3,
+			"z": -3
+		},
+		{
+			"blockState": "minecraft:iron_block",
+			"x": 2,
+			"y": 3,
+			"z": -2
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 1,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 2,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 3,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 1,
+			"y": 2,
+			"z": 2
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 1,
+			"y": 2,
+			"z": 3
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -1,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -2,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -3,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -1,
+			"y": 2,
+			"z": -2
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -1,
+			"y": 2,
+			"z": -3
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -1,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -1,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -2,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -3,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -1,
+			"y": 2,
+			"z": 2
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": -1,
+			"y": 2,
+			"z": 3
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 1,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 2,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 3,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 1,
+			"y": 2,
+			"z": -2
+		},
+		{
+			"blockState": "minecraft:diamond_block",
+			"x": 1,
+			"y": 2,
+			"z": -3
+		},
+		{
 			"blockState": "wuxiacraft:paint_rune",
 			"x": -1,
 			"y": 0,
@@ -360,6 +558,198 @@
 			"x": 1,
 			"y": 0,
 			"z": 5
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 4,
+			"y": 2,
+			"z": 0
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 4,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 4,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -4,
+			"y": 2,
+			"z": 0
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -4,
+			"y": 2,
+			"z": 1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -4,
+			"y": 2,
+			"z": -1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 0,
+			"y": 2,
+			"z": 4
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 1,
+			"y": 2,
+			"z": 4
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -1,
+			"y": 2,
+			"z": 4
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 0,
+			"y": 2,
+			"z": -4
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 1,
+			"y": 2,
+			"z": -4
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -1,
+			"y": 2,
+			"z": -4
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 3,
+			"y": 2,
+			"z": 3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 2,
+			"y": 2,
+			"z": 3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 3,
+			"y": 2,
+			"z": 2
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -3,
+			"y": 2,
+			"z": -3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -2,
+			"y": 2,
+			"z": -3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -3,
+			"y": 2,
+			"z": -2
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -3,
+			"y": 2,
+			"z": 3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -3,
+			"y": 2,
+			"z": 2
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -2,
+			"y": 2,
+			"z": 3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 3,
+			"y": 2,
+			"z": -3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 3,
+			"y": 2,
+			"z": -2
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 2,
+			"y": 2,
+			"z": -3
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 1,
+			"y": 4,
+			"z": 1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 1,
+			"y": 4,
+			"z": 0
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 1,
+			"y": 4,
+			"z": -1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -1,
+			"y": 4,
+			"z": 1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -1,
+			"y": 4,
+			"z": 0
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": -1,
+			"y": 4,
+			"z": -1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 0,
+			"y": 4,
+			"z": 1
+		},
+		{
+			"blockState": "wuxiacraft:paint_rune",
+			"x": 0,
+			"y": 4,
+			"z": -1
 		}
 	]
 }

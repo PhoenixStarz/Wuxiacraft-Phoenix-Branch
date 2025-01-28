@@ -2,6 +2,7 @@ package com.airesnor.wuxiacraft.utils;
 
 import com.airesnor.wuxiacraft.WuxiaCraft;
 import com.airesnor.wuxiacraft.capabilities.*;
+import com.airesnor.wuxiacraft.config.WuxiaCraftConfig;
 import com.airesnor.wuxiacraft.cultivation.*;
 import com.airesnor.wuxiacraft.cultivation.elements.Element;
 import com.airesnor.wuxiacraft.cultivation.skills.ISkillCap;
@@ -177,9 +178,11 @@ public class CultivationUtils {
 		//get world extra modifier
 		List<Pair<Element, DimensionType>> elementsDim = new ArrayList<>();
 		elementsDim.add(Pair.of(Element.FIRE, WuxiaDimensions.FIRE));
+		elementsDim.add(Pair.of(Element.LIGHTNING, WuxiaDimensions.FIRE));
 		elementsDim.add(Pair.of(Element.EARTH, WuxiaDimensions.EARTH));
 		elementsDim.add(Pair.of(Element.METAL, WuxiaDimensions.METAL));
 		elementsDim.add(Pair.of(Element.WATER, WuxiaDimensions.WATER));
+		elementsDim.add(Pair.of(Element.ICE, WuxiaDimensions.WATER));
 		elementsDim.add(Pair.of(Element.WOOD, WuxiaDimensions.WOOD));
 		for (Pair<Element, DimensionType> pair : elementsDim) {
 			if (player.world.provider.getDimension() == pair.getValue().getId()) {
@@ -191,6 +194,7 @@ public class CultivationUtils {
 				}
 			}
 		}
+		amount *= Math.max(WuxiaCraftConfig.serverCultivationSpeed, 0.000001);
 		if(system == Cultivation.System.ESSENCE) {
 			amount *= MathUtils.clamp(cultivation.getDivineModifier() / cultivation.getEssenceLevel().getModifierBySubLevel(cultivation.getEssenceSubLevel()), 1, 20);
 		}

@@ -790,7 +790,7 @@ public class Techniques {
 	//From Fallencelestialgod
 	//Rank divine 3
 	public static final Technique FORBIDDEN_LIGHTNING_A = new Technique("forbidden_lightning_a", Cultivation.System.BODY,
-		new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 1.0, 190000000.0 * 8, 9)
+		new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 10, 190000000.0 * 8, 9)
 			.addCheckpoint(4570.0 * 8, 0.125f, "Lightning Cell Nourishment")
 			.addCheckpoint(20890.0 * 8, 0.25f, "Lightning Bolt Muscles")
 			.addCheckpoint(95400.0 * 8, 0.375f, "Thunder Blood Marrow")
@@ -807,14 +807,14 @@ public class Techniques {
 				if (!actor.world.isRemote) {
 					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.50) {
-						CultivationUtils.callCustomThunder(actor, cultivation.getBodyModifier() * 2, 0.05 * cultivation.getBodyModifier());
+						CultivationUtils.callCustomThunder(actor, cultivation.getBodyModifier() * 2, 0.50 * cultivation.getBodyModifier());
 					}
 				}
 				return true;
 			});		
 			
 	public static final Technique FORBIDDEN_LIGHTNING_B = new Technique("forbidden_lightning_b", Cultivation.System.DIVINE,
-			new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 1.0, 190000000.0 * 8, 9)
+			new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 10, 190000000.0 * 8, 9)
 			.addCheckpoint(4570.0 * 8, 0.125f, "Spark Soul")
 			.addCheckpoint(20890.0 * 8, 0.25f, "Thunder Soul Forming")
 			.addCheckpoint(95400.0 * 8, 0.375f, "Thunder Reinforcement")
@@ -831,14 +831,14 @@ public class Techniques {
 				if (!actor.world.isRemote) {
 					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.50) {
-						CultivationUtils.callCustomThunder(actor, cultivation.getDivineModifier() * 2, 0.05 * cultivation.getDivineModifier());
+						CultivationUtils.callCustomThunder(actor, cultivation.getDivineModifier() * 2, 0.50 * cultivation.getDivineModifier());
 					}
 				}
 				return true;
 			});
 
 	public static final Technique FORBIDDEN_LIGHTNING_C = new Technique("forbidden_lightning_c", Cultivation.System.ESSENCE,
-			new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 1.0, 190000000.0 * 8, 9)
+			new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 10, 190000000.0 * 8, 9)
 			.addCheckpoint(4570.0 * 8, 0.125f, "Breeze Stage")
 			.addCheckpoint(20890.0 * 8, 0.25f, "Gust Stage")
 			.addCheckpoint(95400.0 * 8, 0.375f, "Violent Gust Stage")
@@ -855,7 +855,7 @@ public class Techniques {
 				if (!actor.world.isRemote) {
 					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.50) {
-						CultivationUtils.callCustomThunder(actor, cultivation.getEssenceModifier() * 2, 0.05 * cultivation.getEssenceModifier());
+						CultivationUtils.callCustomThunder(actor, cultivation.getEssenceModifier() * 2, 0.50 * cultivation.getEssenceModifier());
 					}
 				}
 				return true;

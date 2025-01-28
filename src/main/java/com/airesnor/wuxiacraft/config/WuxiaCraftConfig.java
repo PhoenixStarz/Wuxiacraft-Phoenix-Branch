@@ -44,6 +44,7 @@ public class WuxiaCraftConfig {
 
 	public static final String CATEGORY_SERVER= "server";
 	public static float maxServerSpeed;
+	public static float serverCultivationSpeed;
 
 	public static void preInit() {
 		File configFile = new File(Loader.instance().getConfigDir(), "WuxiaCraft.cfg");
@@ -148,6 +149,10 @@ public class WuxiaCraftConfig {
 		propMaxServerSpeed.setComment("Sets the maximum speed a player can have in the server");
 		propMaxServerSpeed.setDefaultValue(10.0);
 
+		Property propCultivationSpeed = config.get(CATEGORY_SERVER, "server_cultivation_speed", 1.0);
+		propCultivationSpeed.setComment("Sets the speed a player can cultivate");
+		propCultivationSpeed.setDefaultValue(1.0);
+
 		List<String> propOrder = new ArrayList<>();
 		propOrder.add(propHandicap.getName());
 		propOrder.add(propMaxSpeed.getName());
@@ -183,6 +188,7 @@ public class WuxiaCraftConfig {
 			DIMENSION_WOOD = propDimensionWood.getInt();
 			EXTREME_QI_BIOME_SPAWN = propExtremeQiBiomeSpawn.getBoolean();
 			maxServerSpeed = (float) propMaxServerSpeed.getDouble();
+			serverCultivationSpeed = (float) propCultivationSpeed.getDouble();
 		}
 
 		propHandicap.set(speedHandicap);
@@ -199,6 +205,7 @@ public class WuxiaCraftConfig {
 		propDimensionWood.set(DIMENSION_WOOD);
 		propExtremeQiBiomeSpawn.set(EXTREME_QI_BIOME_SPAWN);
 		propMaxServerSpeed.set(maxServerSpeed);
+		propCultivationSpeed.set(serverCultivationSpeed);
 
 		if (config.hasChanged())
 			config.save();

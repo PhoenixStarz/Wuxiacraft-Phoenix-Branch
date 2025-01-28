@@ -37,10 +37,10 @@ public class Formations {
 	//Cultivation formations
 	public static final Formation SOUL_GATHERING_FORMATION = new FormationCultivationHelper("soul_gathering_formation", 25, 220f, 8f, 1f);
 	public static final Formation QI_PATHS_OPENER_ARRAY = new FormationCultivationHelper("qi_paths_opener_array", 90, 440f, 8f, 3f);
-	public static final Formation DANTIAN_FORMING_ARRAY = new FormationCultivationHelper("dantian_forming_array", 180, 782.22, 8f, 5);
-	public static final Formation EARTH_QI_INTENSIFIER_FORMATION = new FormationCultivationHelper("earth_qi_intensifier_formation", 800, 1460.66, 8f, 10);
-	public static final Formation SKY_QI_INTENSIFIER_FORMATION = new FormationCultivationHelper("sky_qi_intensifier_formation", 48, 3544.44, 8f, 4.8f); //don't have diagram
-	public static final Formation LAW_PROJECTION_FORMATION = new FormationCultivationHelper("law_projection_formation", 153.3, 11244.44, 8f, 15.33f); //don't have diagram
+	public static final Formation DANTIAN_FORMING_ARRAY = new FormationCultivationHelper("dantian_forming_array", 180, 880f, 8f, 5);
+	public static final Formation EARTH_QI_INTENSIFIER_FORMATION = new FormationCultivationHelper("earth_qi_intensifier_formation", 432, 1760f, 8f, 10);
+	public static final Formation SKY_QI_INTENSIFIER_FORMATION = new FormationCultivationHelper("sky_qi_intensifier_formation", 1037, 3520f, 8f, 20f); 
+	public static final Formation LAW_PROJECTION_FORMATION = new FormationCultivationHelper("law_projection_formation", 2488, 7040f, 8f, 40f);			
 	public static final Formation HEAVENLY_WAR_FORMATION = new FormationCultivationHelper("heavenly_war_formation", 383.33, 28111.11, 8f, 38.33f); //don't have diagram
 	public static final Formation IMMORTAL_GRASP_FORMATION = new FormationCultivationHelper("immortal_grasp_formation", 1316.6, 96555.55, 8f, 131.66f); //don't have diagram
 	public static final Formation IMMORTAL_ASCENSION_FORMATION = new FormationCultivationHelper("immortal_ascension_formation", 3500, 256666.66, 8f, 350f); //don't have diagram
@@ -63,5 +63,7 @@ public class Formations {
 	public static final Formation WOOD_DIMENSION = new FormationDimensionChanger("wood_dimension_array", 2.03, 2100,  WuxiaDimensions.WOOD.getId());
 
 	//Slaughter
-	public static final Formation WEAK_SLAUGHTER_FORMATION = new FormationSlaughter("weak_slaughter_formation", 7, 650, 24, 3f);
+	public static final Formation WEAK_SLAUGHTER_FORMATION = new FormationSlaughter("weak_slaughter_formation", 7, 650, 16, 3f);
+	public static final Formation AVERAGE_SLAUGHTER_FORMATION = new FormationSlaughter("average_slaughter_formation", 14, 650, 24, 12f);
+	public static final Formation STRONG_SLAUGHTER_FORMATION = new FormationSlaughter("strong_slaughter_formation", 42, 650, 32, 48f);
 }

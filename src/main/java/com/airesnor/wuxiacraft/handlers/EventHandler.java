@@ -44,6 +44,8 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
@@ -56,6 +58,7 @@ import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -516,6 +519,39 @@ public class EventHandler {
 		}
 		event.setNewSpeed(baseSpeed + hasteModifier); //so we don't remove vanilla modifier, just add over it
 	}
+	
+	@SubscribeEvent
+	public void onPlayerBreakSpeed(net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck event) {
+		ICultivation cultivation = CultivationUtils.getCultivationFromEntity(event.getEntityPlayer());
+		double dexterityModifier = CultivationUtils.getDexterityFromEntity(event.getEntityLiving());
+		double strengthModifier = CultivationUtils.getStrengthFromEntity(event.getEntityLiving());
+		float hasteModifier = (float) (strengthModifier * 0.7 + dexterityModifier * 0.3);
+		if(hasteModifier >= 1 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
+			ItemStack pick = new ItemStack(Items.WOODEN_PICKAXE);
+			if(pick.canHarvestBlock(event.getTargetBlock())) {
+				event.setCanHarvest(true);
+			}
+		} else
+		if(hasteModifier >= 3 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
+			ItemStack pick = new ItemStack(Items.STONE_PICKAXE);
+			if(pick.canHarvestBlock(event.getTargetBlock())) {
+				event.setCanHarvest(true);
+			}
+		} else
+		if(hasteModifier >= 8 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
+			ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
+			if(pick.canHarvestBlock(event.getTargetBlock())) {
+				event.setCanHarvest(true);
+			}
+		} else
+		if(hasteModifier >= 15 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
+			ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
+			if(pick.canHarvestBlock(event.getTargetBlock())) {
+				event.setCanHarvest(true);
+			}
+		}
+	}
+
 
 	/**
 	 * When the player die, he gets punished
@@ -944,10 +980,9 @@ public class EventHandler {
 	 */
 	public void handleBarrier(LivingAttackEvent event, IBarrier barrier, EntityPlayer player) {
 		if (event.isCanceled()) return;
-		if (event.getSource().isDamageAbsolute()) {
 			if (barrier.getBarrierAmount() > 0.0f && event.getAmount() <= barrier.getBarrierAmount()) {
-				event.setCanceled(true);
 				barrier.removeBarrierAmount(event.getAmount());
+				event.setCanceled(true);
 			} else if (barrier.getBarrierAmount() > 0.0f && event.getAmount() > barrier.getBarrierAmount()) {
 				float remainingDamage = event.getAmount() - barrier.getBarrierAmount();
 				barrier.removeBarrierAmount(barrier.getBarrierAmount());
@@ -959,32 +994,10 @@ public class EventHandler {
 					player.attackEntityFrom(event.getSource(), remainingDamage);
 				}
 			} else if (barrier.getBarrierAmount() <= 0.0f) {
-				barrier.setBarrierCooldown(Math.min(barrier.getBarrierMaxCooldown(), 3000 + (100 * barrier.getBarrierHits())));
+				barrier.setBarrierCooldown(Math.min(barrier.getBarrierMaxCooldown(), 300 + (100 * barrier.getBarrierHits())));
 				barrier.setBarrierBroken(true);
 				barrier.setBarrierActive(false);
 			}
-		} else {
-			ICultivation cultivation = CultivationUtils.getCultivationFromEntity(player);
-			float armour = (float) Math.max(1, cultivation.getEssenceModifier() * 0.6);
-			if (barrier.getBarrierAmount() > 0.0f && (event.getAmount() - armour) < barrier.getBarrierAmount()) {
-				event.setCanceled(true);
-				barrier.removeBarrierAmount(event.getAmount() - armour);
-			} else if (barrier.getBarrierAmount() > 0.0f && (event.getAmount() - armour) > barrier.getBarrierAmount()) {
-				float remainingDamage = (event.getAmount() - armour) - barrier.getBarrierAmount();
-				barrier.removeBarrierAmount(barrier.getBarrierAmount());
-				barrier.setBarrierCooldown(Math.min(barrier.getBarrierMaxCooldown(), 3000 + (100 * barrier.getBarrierHits())));
-				barrier.setBarrierBroken(true);
-				barrier.setBarrierActive(false);
-				event.setCanceled(true);
-				if (remainingDamage > 0) {
-					player.attackEntityFrom(event.getSource(), Math.max(0, remainingDamage));
-				}
-			} else if (barrier.getBarrierAmount() <= 0.0f) {
-				barrier.setBarrierCooldown(Math.min(barrier.getBarrierMaxCooldown(), 3000 + (100 * barrier.getBarrierHits())));
-				barrier.setBarrierBroken(true);
-				barrier.setBarrierActive(false);
-			}
-		}
 		NetworkWrapper.INSTANCE.sendTo(new BarrierMessage(barrier, player.getUniqueID()), (EntityPlayerMP) player);
 	}
 
