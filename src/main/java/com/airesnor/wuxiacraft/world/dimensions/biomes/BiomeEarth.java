@@ -17,7 +17,8 @@ public class BiomeEarth extends Biome {
 
         topBlock = Blocks.GRASS.getDefaultState();
         fillerBlock = Blocks.DIRT.getDefaultState();
-        this.decorator.treesPerChunk = 3;
+        
+        this.decorator.treesPerChunk = 2;
 
         this.spawnableCaveCreatureList.clear();
         this.spawnableCreatureList.clear();

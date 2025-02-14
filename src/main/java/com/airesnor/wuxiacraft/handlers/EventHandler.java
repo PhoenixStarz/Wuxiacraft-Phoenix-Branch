@@ -521,31 +521,31 @@ public class EventHandler {
 	}
 	
 	@SubscribeEvent
-	public void onPlayerBreakSpeed(net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck event) {
+	public void onPlayerBreakStrength(net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck event) {
 		ICultivation cultivation = CultivationUtils.getCultivationFromEntity(event.getEntityPlayer());
 		double dexterityModifier = CultivationUtils.getDexterityFromEntity(event.getEntityLiving());
 		double strengthModifier = CultivationUtils.getStrengthFromEntity(event.getEntityLiving());
 		float hasteModifier = (float) (strengthModifier * 0.7 + dexterityModifier * 0.3);
-		if(hasteModifier >= 1 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
-			ItemStack pick = new ItemStack(Items.WOODEN_PICKAXE);
+		if(hasteModifier >= 15 ) {
+			ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
 			if(pick.canHarvestBlock(event.getTargetBlock())) {
 				event.setCanHarvest(true);
 			}
 		} else
-		if(hasteModifier >= 3 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
-			ItemStack pick = new ItemStack(Items.STONE_PICKAXE);
-			if(pick.canHarvestBlock(event.getTargetBlock())) {
-				event.setCanHarvest(true);
-			}
-		} else
-		if(hasteModifier >= 8 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
+		if(hasteModifier >= 8) {
 			ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
 			if(pick.canHarvestBlock(event.getTargetBlock())) {
 				event.setCanHarvest(true);
 			}
 		} else
-		if(hasteModifier >= 15 && event.getEntityPlayer().getHeldItemMainhand().isEmpty()) {
-			ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
+		if(hasteModifier >= 3 ) {
+			ItemStack pick = new ItemStack(Items.STONE_PICKAXE);
+			if(pick.canHarvestBlock(event.getTargetBlock())) {
+				event.setCanHarvest(true);
+			}
+		} else
+		if(hasteModifier >= 1 ) {
+			ItemStack pick = new ItemStack(Items.WOODEN_PICKAXE);
 			if(pick.canHarvestBlock(event.getTargetBlock())) {
 				event.setCanHarvest(true);
 			}
@@ -664,51 +664,14 @@ public class EventHandler {
 						if (CultivationUtils.getMaxEnergy(event.player) > 100000) { //if energy may work as a parameter for levels
 							double playerPosX = event.player.posX;
 							double playerPosZ = event.player.posZ;
-							ICultTech cultTech = CultivationUtils.getCultTechFromEntity(event.player);
 							boolean found = false;
-							int targetDimension = WuxiaDimensions.FIRE.getId();
-							if (cultTech.hasElement(Element.FIRE) || cultTech.hasElement(Element.EARTH) || cultTech.hasElement(Element.METAL) || cultTech.hasElement(Element.WATER) || cultTech.hasElement(Element.WOOD)) {
-								found = true;
-								if (cultTech.hasElement(Element.EARTH)) {
-									targetDimension = WuxiaDimensions.EARTH.getId();
-								} else if (cultTech.hasElement(Element.METAL)) {
-									targetDimension = WuxiaDimensions.METAL.getId();
-								} else if (cultTech.hasElement(Element.WATER)) {
-									targetDimension = WuxiaDimensions.WATER.getId();
-								} else if (cultTech.hasElement(Element.WOOD)) {
-									targetDimension = WuxiaDimensions.WOOD.getId();
-								}
-							}
-							if (!found) { //couldn't find one element
-								int target = event.player.getRNG().nextInt(5); //0 to 4
-								switch (target) {
-									case 0:
-										targetDimension = WuxiaDimensions.FIRE.getId();
-										break;
-									case 1:
-										targetDimension = WuxiaDimensions.EARTH.getId();
-										break;
-									case 2:
-										targetDimension = WuxiaDimensions.METAL.getId();
-										break;
-									case 3:
-										targetDimension = WuxiaDimensions.WATER.getId();
-										break;
-									case 4:
-										targetDimension = WuxiaDimensions.WOOD.getId();
-										break;
-								}
-							}
+							int targetDimension = WuxiaDimensions.ELEMENTAL.getId();
 							TeleportationUtil.teleportPlayerToDimension((EntityPlayerMP) event.player, targetDimension, playerPosX, 1512, playerPosZ, event.player.rotationYaw, event.player.rotationPitch);
 							double resistance = cultivation.getBodyModifier() * 0.4 + cultivation.getEssenceModifier() * 0.8 + cultivation.getEssenceModifier() + 0.3;
 							event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(1, 3200 - resistance));
 						}
 					} else if (MathUtils.inGroup(event.player.world.provider.getDimension(),
-							WuxiaDimensions.EARTH.getId(),
-							WuxiaDimensions.WOOD.getId(),
-							WuxiaDimensions.METAL.getId(),
-							WuxiaDimensions.WATER.getId(),
-							WuxiaDimensions.FIRE.getId(),
+							WuxiaDimensions.ELEMENTAL.getId(),
 							WuxiaDimensions.MINING.getId())) {
 						double playerPosX = event.player.posX;
 						double playerPosZ = event.player.posZ;
@@ -716,6 +679,40 @@ public class EventHandler {
 						TeleportationUtil.teleportPlayerToDimension((EntityPlayerMP) event.player, 0, playerPosX + 0.5, 1512, playerPosZ + 0.5, event.player.rotationYaw, event.player.rotationPitch);
 						}
 					}
+					if (event.player.posY <= -1536) {
+						if (event.player.world.provider.getDimension() == 1) {
+							if (CultivationUtils.getMaxEnergy(event.player) > 10000000) { //if energy may work as a parameter for levels
+								double playerPosX = event.player.posX;
+								double playerPosZ = event.player.posZ;
+								boolean found = false;
+								int targetDimension = WuxiaDimensions.SKY.getId();
+								TeleportationUtil.teleportPlayerToDimension((EntityPlayerMP) event.player, targetDimension, playerPosX, 500, playerPosZ, event.player.rotationYaw, event.player.rotationPitch);
+								double resistance = cultivation.getBodyModifier() * 0.4 + cultivation.getEssenceModifier() * 0.8 + cultivation.getDivineModifier() + 0.3;
+								event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(1, 3200000 - resistance));
+							}
+						}
+					}
+					if (event.player.world.provider.getDimension() == WuxiaDimensions.SKY.getId()) {
+						if (event.player.posY >= 1536) {
+							double playerPosX = event.player.posX;
+							double playerPosZ = event.player.posZ;
+							//back to over world
+							TeleportationUtil.teleportPlayerToDimension((EntityPlayerMP) event.player, 1, playerPosX + 0.5, -500, playerPosZ + 0.5, event.player.rotationYaw, event.player.rotationPitch);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void skyDamageOverTime(TickEvent.PlayerTickEvent event) {
+		ICultivation cultivation = CultivationUtils.getCultivationFromEntity(event.player);
+		if (event.side == Side.SERVER) {
+			if (event.player.world.provider.getDimension() == WuxiaDimensions.SKY.getId()) {
+				if (cultivation.getUpdateTimer() == 90) {
+					double resistance = cultivation.getBodyModifier() * 0.15 + cultivation.getEssenceModifier() * 0.2 + cultivation.getDivineModifier() + 0.4;
+					event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(1, Math.max(100 - (0.001 * resistance), 10000 - resistance)));
 				}
 			}
 		}

@@ -17,6 +17,7 @@ public class BiomeWood extends Biome {
 
         topBlock = Blocks.GRASS.getDefaultState();
         fillerBlock = Blocks.DIRT.getDefaultState();
+
         this.decorator.treesPerChunk = 3;
 
         this.spawnableCaveCreatureList.clear();

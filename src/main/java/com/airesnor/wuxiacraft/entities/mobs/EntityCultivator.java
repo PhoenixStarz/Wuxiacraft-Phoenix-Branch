@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
+
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
@@ -271,4 +272,5 @@ public abstract class EntityCultivator extends EntityCreature implements IEntity
 	}
 
 	protected abstract void applyCultivation(World worldIn);
+
 }

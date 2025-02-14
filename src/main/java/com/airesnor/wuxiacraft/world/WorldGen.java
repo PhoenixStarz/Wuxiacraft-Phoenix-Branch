@@ -23,16 +23,14 @@ public class WorldGen implements IWorldGenerator {
 			generateOverworld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 		} else if (world.provider.getDimension() == WuxiaDimensions.MINING.getId()) {
 			generateMiningWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(Blocks.STONE));
-		} else if (world.provider.getDimension() == WuxiaDimensions.FIRE.getId()) {
-			generateFireWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(WuxiaBlocks.FIERY_STONE));
-		} else if (world.provider.getDimension() == WuxiaDimensions.EARTH.getId()) {
-			generateEarthWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(Blocks.DIRT));
-		} else if (world.provider.getDimension() == WuxiaDimensions.METAL.getId()) {
-			generateMetalWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(WuxiaBlocks.METALLIC_STONE));
-		} else if (world.provider.getDimension() == WuxiaDimensions.WATER.getId()) {
-			generateWaterWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(WuxiaBlocks.ICY_STONE));
-		} else if (world.provider.getDimension() == WuxiaDimensions.WOOD.getId()) {
-			generateWoodWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(Blocks.STONE));
+		} else if (world.provider.getDimension() == WuxiaDimensions.ELEMENTAL.getId()) {
+			generateElementalWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(Blocks.STONE));
+			generateElementalWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(Blocks.DIRT));
+			generateElementalWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(WuxiaBlocks.ICY_STONE));
+			generateElementalWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(WuxiaBlocks.METALLIC_STONE));
+			generateElementalWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(WuxiaBlocks.FIERY_STONE));
+		} else if (world.provider.getDimension() == WuxiaDimensions.SKY.getId()) {
+			generateSkyWorld(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider, BlockMatcher.forBlock(Blocks.STONE));
 		}
 	}
 
@@ -46,100 +44,45 @@ public class WorldGen implements IWorldGenerator {
 		generateOre(WuxiaBlocks.EARTH_LAW_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2);
 	}
 
-	private void generateFireWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
-		generateOre(Blocks.COAL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 12, 8, replaceWithOre);
-		generateOre(Blocks.IRON_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 4, 6, replaceWithOre);
-		generateOre(Blocks.GOLD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 50, 4, 5, replaceWithOre);
-		generateOre(Blocks.DIAMOND_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 3, 3, replaceWithOre);
-		generateOre(Blocks.EMERALD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-
-		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 50, 4, 4, replaceWithOre);
-		generateOre(WuxiaBlocks.WAR_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 7, replaceWithOre);
-		generateOre(WuxiaBlocks.GOLD_SPIRIT_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 6, replaceWithOre);
-		generateOre(WuxiaBlocks.YIN_YANG_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 5, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.ASCENDED_IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTAL_WILL_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2, replaceWithOre);
-	}
-
-	private void generateWaterWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
-		generateOre(Blocks.COAL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 12, 8, replaceWithOre);
-		generateOre(Blocks.IRON_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 4, 6, replaceWithOre);
-		generateOre(Blocks.GOLD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 50, 4, 5, replaceWithOre);
-		generateOre(Blocks.DIAMOND_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 3, 3, replaceWithOre);
-		generateOre(Blocks.EMERALD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-
-		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 50, 4, 4, replaceWithOre);
-		generateOre(WuxiaBlocks.WAR_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 7, replaceWithOre);
-		generateOre(WuxiaBlocks.GOLD_SPIRIT_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 6, replaceWithOre);
-		generateOre(WuxiaBlocks.YIN_YANG_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 5, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.ASCENDED_IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTAL_WILL_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2, replaceWithOre);
-	}
-
-	private void generateEarthWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
-		generateOre(Blocks.COAL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 12, 8, replaceWithOre);
-		generateOre(Blocks.IRON_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 4, 6, replaceWithOre);
-		generateOre(Blocks.GOLD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 50, 4, 5, replaceWithOre);
-		generateOre(Blocks.DIAMOND_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 3, 3, replaceWithOre);
-		generateOre(Blocks.EMERALD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-
-		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 50, 4, 4, replaceWithOre);
-		generateOre(WuxiaBlocks.WAR_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 7, replaceWithOre);
-		generateOre(WuxiaBlocks.GOLD_SPIRIT_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 6, replaceWithOre);
-		generateOre(WuxiaBlocks.YIN_YANG_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 5, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.ASCENDED_IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTAL_WILL_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2, replaceWithOre);
-	}
-
-	private void generateWoodWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
-		generateOre(Blocks.COAL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 12, 8, replaceWithOre);
-		generateOre(Blocks.IRON_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 4, 6, replaceWithOre);
-		generateOre(Blocks.GOLD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 50, 4, 5, replaceWithOre);
-		generateOre(Blocks.DIAMOND_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 3, 3, replaceWithOre);
-		generateOre(Blocks.EMERALD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-
-		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 50, 4, 4, replaceWithOre);
-		generateOre(WuxiaBlocks.WAR_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 7, replaceWithOre);
-		generateOre(WuxiaBlocks.GOLD_SPIRIT_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 6, replaceWithOre);
-		generateOre(WuxiaBlocks.YIN_YANG_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 5, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.ASCENDED_IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTAL_WILL_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2, replaceWithOre);
-	}
-
-	private void generateMetalWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
-		generateOre(Blocks.COAL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 12, 9, replaceWithOre);
-		generateOre(Blocks.IRON_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 4, 7, replaceWithOre);
-		generateOre(Blocks.GOLD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 50, 4, 6, replaceWithOre);
-		generateOre(Blocks.DIAMOND_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 3, 4, replaceWithOre);
-		generateOre(Blocks.EMERALD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 4, replaceWithOre);
-
-		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 50, 4, 4, replaceWithOre);
-		generateOre(WuxiaBlocks.WAR_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 7, replaceWithOre);
-		generateOre(WuxiaBlocks.GOLD_SPIRIT_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 6, replaceWithOre);
-		generateOre(WuxiaBlocks.YIN_YANG_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 5, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.ASCENDED_IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.IMMORTAL_WILL_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2, replaceWithOre);
-	}
-
 	private void generateMiningWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
 		generateOre(Blocks.IRON_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 120, 4, 8, replaceWithOre);
 		generateOre(Blocks.GOLD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 90, 4, 7, replaceWithOre);
 		generateOre(Blocks.DIAMOND_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 60, 3, 5, replaceWithOre);
 		generateOre(Blocks.EMERALD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 60, 3, 5, replaceWithOre);
-		
+
 		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 90, 4, 4, replaceWithOre);
-		generateOre(WuxiaBlocks.EARTH_LAW_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 120, 4, 7, replaceWithOre);
-		generateOre(WuxiaBlocks.SKY_LAW_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 120, 5, 7, replaceWithOre);
-		generateOre(WuxiaBlocks.HEAVENLY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 120, 4, 6, replaceWithOre);
-		generateOre(WuxiaBlocks.RAINBOW_LAW_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 90, 4, 5, replaceWithOre);
-		generateOre(WuxiaBlocks.SKY_AND_EARTH_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 60, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.LAW_NEXUS_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 60, 3, 3, replaceWithOre);
-		generateOre(WuxiaBlocks.WAR_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 45, 2, 2, replaceWithOre);
+		generateOre(WuxiaBlocks.EARTH_LAW_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 7, replaceWithOre);
+		generateOre(WuxiaBlocks.SKY_LAW_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 6, replaceWithOre);
+		generateOre(WuxiaBlocks.HEAVENLY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 5, replaceWithOre);
+		generateOre(WuxiaBlocks.RAINBOW_LAW_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
+		generateOre(WuxiaBlocks.SKY_AND_EARTH_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 3, replaceWithOre);
+		generateOre(WuxiaBlocks.LAW_NEXUS_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2, replaceWithOre);
+	}
+
+	private void generateElementalWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
+		generateOre(Blocks.COAL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 12, 8, replaceWithOre);
+		generateOre(Blocks.IRON_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 0, 80, 4, 6, replaceWithOre);
+		generateOre(Blocks.GOLD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 50, 4, 5, replaceWithOre);
+		generateOre(Blocks.DIAMOND_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 3, 3, replaceWithOre);
+		generateOre(Blocks.EMERALD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
+
+		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 50, 4, 4, replaceWithOre);
+		generateOre(WuxiaBlocks.LAW_NEXUS_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 7, replaceWithOre);
+		generateOre(WuxiaBlocks.WAR_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 6, replaceWithOre);
+		generateOre(WuxiaBlocks.GOLD_SPIRIT_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 5, replaceWithOre);
+		generateOre(WuxiaBlocks.YIN_YANG_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
+		generateOre(WuxiaBlocks.TRANSCENDENT_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 3, replaceWithOre);
+		generateOre(WuxiaBlocks.IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 2, replaceWithOre);
+	}
+
+	private void generateSkyWorld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider, Predicate<IBlockState> replaceWithOre) {
+		generateOre(WuxiaBlocks.NATURAL_ODDITY_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 50, 4, 4, replaceWithOre);
+		generateOre(WuxiaBlocks.IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 20, 40, 5, 4, replaceWithOre);
+		generateOre(WuxiaBlocks.ASCENDED_IMMORTALITY_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 10, 30, 4, 4, replaceWithOre);
+		generateOre(WuxiaBlocks.IMMORTAL_WILL_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 25, 4, 3, replaceWithOre);
+		generateOre(WuxiaBlocks.STELLAR_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 20, 3, 3, replaceWithOre);
+		generateOre(WuxiaBlocks.DIVINE_ORIGIN_STONE_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 3, 2, replaceWithOre);
+		generateOre(WuxiaBlocks.BOUNDLESS_VOID_CRYSTAL_VEIN.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 15, 2, 1, replaceWithOre);
 	}
 
 	private void generateOre(IBlockState ore, World world, Random random, int x, int z, int minY, int maxY, int size, int chances) {

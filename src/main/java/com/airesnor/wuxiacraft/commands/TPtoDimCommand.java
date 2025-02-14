@@ -60,12 +60,9 @@ public class TPtoDimCommand extends CommandBase {
 
                         if(args[0].equalsIgnoreCase("list")) {
                             String message = String.format("Dimension IDs:" +
-                                    "\nFire: %d" +
-                                    "\nWater: %d" +
-                                    "\nWood: %d" +
-                                    "\nEarth: %d" +
-                                    "\nMetal: %d" +
-                                    "\nMining: %d", WuxiaDimensions.FIRE.getId(), WuxiaDimensions.WATER.getId(), WuxiaDimensions.WOOD.getId(), WuxiaDimensions.EARTH.getId(), WuxiaDimensions.METAL.getId(), WuxiaDimensions.MINING.getId());
+                                    "\nElemental: %d" +
+                                    "\nMining: %d",
+                                    "\nSky: %d", WuxiaDimensions.ELEMENTAL.getId(), WuxiaDimensions.MINING.getId(), WuxiaDimensions.SKY.getId());
                             TextComponentString text = new TextComponentString(message);
                             sender.sendMessage(text);
                             wrongUsage = false;
@@ -78,18 +75,12 @@ public class TPtoDimCommand extends CommandBase {
                                 dimensionID = 0;
                             } else if (dimension.equalsIgnoreCase("end")) {
                                 dimensionID = 1;
-                            } else if (dimension.equalsIgnoreCase("water")) {
-                                dimensionID = WuxiaDimensions.WATER.getId();
-                            } else if (dimension.equalsIgnoreCase("fire")) {
-                                dimensionID = WuxiaDimensions.FIRE.getId();
-                            } else if (dimension.equalsIgnoreCase("wood")) {
-                                dimensionID = WuxiaDimensions.WOOD.getId();
-                            } else if (dimension.equalsIgnoreCase("earth")) {
-                                dimensionID = WuxiaDimensions.EARTH.getId();
-                            } else if (dimension.equalsIgnoreCase("metal")) {
-                                dimensionID = WuxiaDimensions.METAL.getId();
+                            } else if (dimension.equalsIgnoreCase("elemental")) {
+                                dimensionID = WuxiaDimensions.ELEMENTAL.getId();
                             } else if (dimension.equalsIgnoreCase("mining")) {
                                 dimensionID = WuxiaDimensions.MINING.getId();
+                            } else if (dimension.equalsIgnoreCase("sky")) {
+                                dimensionID = WuxiaDimensions.SKY.getId();
                             } else {
                                 dimensionID = Integer.parseInt(dimension);
                             }
@@ -142,18 +133,12 @@ public class TPtoDimCommand extends CommandBase {
                 completions.add("overworld");
             if ("end".startsWith(args[0]))
                 completions.add("end");
-            if ("fire".startsWith(args[0]))
-                completions.add("fire");
-            if ("water".startsWith(args[0]))
-                completions.add("water");
-            if ("wood".startsWith(args[0]))
-                completions.add("wood");
-            if ("metal".startsWith(args[0]))
-                completions.add("metal");
-            if ("earth".startsWith(args[0]))
-                completions.add("earth");
+            if ("elemental".startsWith(args[0]))
+                completions.add("elemental");
             if ("mining".startsWith(args[0]))
                 completions.add("mining");
+            if ("sky".startsWith(args[0]))
+            completions.add("sky");
         }
         return completions;
     }

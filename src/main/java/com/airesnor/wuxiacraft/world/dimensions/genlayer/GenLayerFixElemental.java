@@ -4,10 +4,10 @@ import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.GenLayerVoronoiZoom;
 import net.minecraft.world.gen.layer.GenLayerZoom;
 
-public class GenLayerFixEarth {
+public class GenLayerFixElemental {
 
     public static GenLayer[] createWorld(long seed) {
-        GenLayer biomes = new GenLayerEarth(1l);
+        GenLayer biomes = new GenLayerElemental(1l);
         biomes = new GenLayerZoom(1000l, biomes);
         biomes = new GenLayerZoom(1001l, biomes);
         biomes = new GenLayerZoom(1002l, biomes);

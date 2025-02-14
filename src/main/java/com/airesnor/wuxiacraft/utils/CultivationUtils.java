@@ -16,7 +16,7 @@ import com.airesnor.wuxiacraft.entities.mobs.EntityCultivator;
 import com.airesnor.wuxiacraft.networking.NetworkWrapper;
 import com.airesnor.wuxiacraft.networking.UnifiedCapabilitySyncMessage;
 import com.airesnor.wuxiacraft.world.data.WorldVariables;
-import com.airesnor.wuxiacraft.world.dimensions.WuxiaDimensions;
+import com.airesnor.wuxiacraft.world.dimensions.biomes.WuxiaBiomes;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,10 +24,12 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.DimensionType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import org.apache.commons.lang3.tuple.Pair;
+
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -176,22 +178,22 @@ public class CultivationUtils {
 			cultTech.progress(amount, system);
 		}
 		//get world extra modifier
-		List<Pair<Element, DimensionType>> elementsDim = new ArrayList<>();
-		elementsDim.add(Pair.of(Element.FIRE, WuxiaDimensions.FIRE));
-		elementsDim.add(Pair.of(Element.LIGHTNING, WuxiaDimensions.FIRE));
-		elementsDim.add(Pair.of(Element.EARTH, WuxiaDimensions.EARTH));
-		elementsDim.add(Pair.of(Element.METAL, WuxiaDimensions.METAL));
-		elementsDim.add(Pair.of(Element.WATER, WuxiaDimensions.WATER));
-		elementsDim.add(Pair.of(Element.ICE, WuxiaDimensions.WATER));
-		elementsDim.add(Pair.of(Element.WOOD, WuxiaDimensions.WOOD));
-		for (Pair<Element, DimensionType> pair : elementsDim) {
-			if (player.world.provider.getDimension() == pair.getValue().getId()) {
+		List<Pair<Element, Biome>> elementsBio = new ArrayList<>();
+		elementsBio.add(Pair.of(Element.FIRE, WuxiaBiomes.FIRE));
+		elementsBio.add(Pair.of(Element.LIGHTNING, WuxiaBiomes.FIRE));
+		elementsBio.add(Pair.of(Element.EARTH, WuxiaBiomes.EARTH));
+		elementsBio.add(Pair.of(Element.METAL, WuxiaBiomes.METAL));
+		elementsBio.add(Pair.of(Element.WATER, WuxiaBiomes.WATER));
+		elementsBio.add(Pair.of(Element.ICE, WuxiaBiomes.WATER));
+		elementsBio.add(Pair.of(Element.WOOD, WuxiaBiomes.WOOD));
+		for (Pair<Element, Biome> pair : elementsBio) {
+			if (player.getEntityWorld().getBiome(new BlockPos(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ())) == pair.getValue()) {
 				if (cultTech.hasElement(pair.getKey())) {
-					amount *= 1.75;
+					amount *= 2.4;
 				}
 				for (Element element : pair.getKey().getCounters()) {
-					if (cultTech.hasElement(element)) amount *= 0.75;
-				}
+					if (cultTech.hasElement(element)) amount *= 0.60;
+				}	
 			}
 		}
 		amount *= Math.max(WuxiaCraftConfig.serverCultivationSpeed, 0.000001);
@@ -383,7 +385,7 @@ public class CultivationUtils {
 				world.addScheduledTask(() -> {
 					EntityLightningBolt lightningBolt = new EntityLightningBolt(world, player.posX, player.posY + 1.0, player.posZ, true); // effect only won't cause damage
 					world.addWeatherEffect(lightningBolt);
-					player.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) this.strength);
+					player.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageBypassesArmor(), (float) this.strength);
 				});
 				try {
 					sleep(750);

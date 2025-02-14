@@ -5,11 +5,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-public class GenLayerFire extends GenLayer {
+public class GenLayerElemental extends GenLayer {
 
-    private Biome[] biomes = {WuxiaBiomes.FIRE};
+    private Biome[] biomes = {WuxiaBiomes.WATER, WuxiaBiomes.WOOD, WuxiaBiomes.FIRE, WuxiaBiomes.EARTH, WuxiaBiomes.METAL};
 
-    public GenLayerFire(long worldSeed) {
+    public GenLayerElemental(long worldSeed) {
         super(worldSeed);
     }
 

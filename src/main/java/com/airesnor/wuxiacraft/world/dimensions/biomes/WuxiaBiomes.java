@@ -17,6 +17,7 @@ public class WuxiaBiomes {
     public static final Biome WOOD = new BiomeWood();
     public static final Biome WATER = new BiomeWater();
     public static final Biome EARTH = new BiomeEarth();
+    public static final Biome SKY = new BiomeSky();
     public static final Biome EXTREMEQI = new BiomeExtremeQi();
 
     private static Biome registerBiome(Biome biome, String biomeName, BiomeType biomeType, boolean spawnInOverworld, int weight, Type... types) {
@@ -41,6 +42,7 @@ public class WuxiaBiomes {
         registerBiome(WATER, "Water", BiomeType.COOL, false, 5, Type.MAGICAL, Type.OCEAN, Type.BEACH);
         registerBiome(FIRE, "Fire", BiomeType.DESERT, false, 5, Type.MAGICAL, Type.HOT);
         registerBiome(EARTH, "Earth", BiomeType.WARM, false, 5, Type.MAGICAL, Type.MOUNTAIN, Type.HILLS, Type.LUSH, Type.PLAINS, Type.DENSE);
+        registerBiome(SKY, "SKY", BiomeType.COOL, false, 5, Type.MAGICAL, Type.DRY, Type.COLD);
         registerBiome(EXTREMEQI, "ExtremeQi", BiomeType.WARM, WuxiaCraftConfig.EXTREME_QI_BIOME_SPAWN, 5, Type.MAGICAL, Type.MOUNTAIN, Type.LUSH, Type.DENSE, Type.RARE);
     }
 }

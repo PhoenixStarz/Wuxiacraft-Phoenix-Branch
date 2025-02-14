@@ -3,7 +3,6 @@ package com.airesnor.wuxiacraft.world.dimensions.ChunkGen;
 import java.util.List;
 import java.util.Random;
 
-import com.airesnor.wuxiacraft.blocks.WuxiaBlocks;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,12 +23,12 @@ import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
-public class WaterChunkGen implements IChunkGenerator {
-    protected static final IBlockState STONE = WuxiaBlocks.ICY_STONE.getDefaultState();
-    protected static final IBlockState GRAVEL = Blocks.WATER.getDefaultState();
-    protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
+public class ElementalChunkGen implements IChunkGenerator {
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
+    protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
+    protected static final IBlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
     protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
+    protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
     private final Random rand;
     private NoiseGeneratorOctaves field_185991_j;
     private NoiseGeneratorOctaves field_185992_k;
@@ -54,7 +53,7 @@ public class WaterChunkGen implements IChunkGenerator {
     private MapGenBase caveGenerator;
     // private MapGenBaseMeta bigCaveGenerator;
 
-    public WaterChunkGen(World worldIn, long seed) {
+    public ElementalChunkGen(World worldIn, long seed) {
         this.world = worldIn;
         this.terrainType = worldIn.getWorldInfo().getTerrainType();
         this.rand = new Random(seed);

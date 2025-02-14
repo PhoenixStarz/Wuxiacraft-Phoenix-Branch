@@ -1,6 +1,6 @@
 package com.airesnor.wuxiacraft.world.dimensions.biomes;
 
-import com.airesnor.wuxiacraft.world.dimensions.genlayer.GenLayerFixMetal;
+import com.airesnor.wuxiacraft.world.dimensions.genlayer.GenLayerFixElemental;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
@@ -15,24 +15,24 @@ import net.minecraft.world.gen.layer.IntCache;
 import java.util.List;
 import java.util.Random;
 
-public class BiomeProviderMetal extends BiomeProvider {
+public class BiomeProviderElemental extends BiomeProvider {
 
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
     private BiomeCache biomeCache;
 
-    public BiomeProviderMetal() {
+    public BiomeProviderElemental() {
         this.biomeCache = new BiomeCache(this);
     }
 
-    public BiomeProviderMetal(long seed) {
+    public BiomeProviderElemental(long seed) {
         this();
-        GenLayer[] aGenLayer = GenLayerFixMetal.createWorld(seed);
+        GenLayer[] aGenLayer = GenLayerFixElemental.createWorld(seed);
         this.genBiomes = aGenLayer[0];
         this.biomeIndexLayer = aGenLayer[1];
     }
 
-    public BiomeProviderMetal(World world) {
+    public BiomeProviderElemental(World world) {
         this(world.getSeed());
     }
 

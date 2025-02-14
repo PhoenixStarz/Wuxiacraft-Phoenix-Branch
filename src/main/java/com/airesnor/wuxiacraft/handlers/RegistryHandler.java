@@ -90,7 +90,7 @@ public class RegistryHandler {
 				.name("giant_ant")
 				.tracker(80, 3, false)
 				.egg(0xDA5917, 0xC35D35)
-				.spawn(EnumCreatureType.MONSTER, 35, 1, 3,
+				.spawn(EnumCreatureType.MONSTER, 2, 1, 2,
 						Biomes.BEACH,
 						Biomes.BIRCH_FOREST,
 						Biomes.DESERT,
@@ -104,14 +104,17 @@ public class RegistryHandler {
 						Biomes.TAIGA_HILLS,
 						Biomes.PLAINS,
 						Biomes.JUNGLE_EDGE,
-						Biomes.MESA,
+						Biomes.MESA
+						)
+				.spawn(EnumCreatureType.MONSTER, 4, 1, 3,
 						WuxiaBiomes.MINING,
 						WuxiaBiomes.EARTH,
 						WuxiaBiomes.FIRE,
 						WuxiaBiomes.METAL,
 						WuxiaBiomes.WATER,
+						WuxiaBiomes.SKY,
 						WuxiaBiomes.WOOD
-				)
+						)
 				.build();
 		EntityEntry giantBeeEntity = EntityEntryBuilder.create()
 				.entity(GiantBee.class)
@@ -119,7 +122,7 @@ public class RegistryHandler {
 				.name("giant_bee")
 				.tracker(80, 3, false)
 				.egg(0xFACB27, 0x202020)
-				.spawn(EnumCreatureType.MONSTER, 35, 1, 2,
+				.spawn(EnumCreatureType.MONSTER, 2, 1, 1,
 						Biomes.BEACH,
 						Biomes.BIRCH_FOREST,
 						Biomes.DESERT,
@@ -133,14 +136,17 @@ public class RegistryHandler {
 						Biomes.TAIGA_HILLS,
 						Biomes.PLAINS,
 						Biomes.JUNGLE_EDGE,
-						Biomes.MESA,
+						Biomes.MESA
+						)
+				.spawn(EnumCreatureType.MONSTER, 4, 1, 2,
 						WuxiaBiomes.MINING,
 						WuxiaBiomes.EARTH,
 						WuxiaBiomes.FIRE,
 						WuxiaBiomes.METAL,
 						WuxiaBiomes.WATER,
+						WuxiaBiomes.SKY,
 						WuxiaBiomes.WOOD
-				)
+						)
 				.build();
 		EntityEntry wanderingCultivatorEntity = EntityEntryBuilder.create()
 				.entity(WanderingCultivator.class)
@@ -176,6 +182,7 @@ public class RegistryHandler {
 						WuxiaBiomes.METAL,
 						WuxiaBiomes.WATER,
 						WuxiaBiomes.WOOD,
+						WuxiaBiomes.SKY,
 						WuxiaBiomes.EXTREMEQI)
 				.build();
 		EntityEntry fireThrowable = EntityEntryBuilder.create()

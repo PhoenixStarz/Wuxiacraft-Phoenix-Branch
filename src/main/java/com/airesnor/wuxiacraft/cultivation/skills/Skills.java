@@ -69,6 +69,7 @@ public class Skills {
 		SKILLS.add(CULTIVATE_DIVINE);
 		SKILLS.add(CULTIVATE_ESSENCE);
 		SKILLS.add(GATHER_WOOD);
+		SKILLS.add(WOOD_SUCTION);
 		SKILLS.add(ACCELERATE_GROWTH);
 		SKILLS.add(FLAMES);
 		SKILLS.add(FIRE_BAll);
@@ -95,6 +96,7 @@ public class Skills {
 		SKILLS.add(STORM_AUTHORITY);
 		SKILLS.add(WIND_BLADE);
 		SKILLS.add(WOODEN_PRISON);
+	//	SKILLS.add(GRAND_WOODEN_PRISON);
 		SKILLS.add(WEAK_LIGHTNING_BOLT);
 		SKILLS.add(STRONG_LIGHTNING_BOLT);
 		SKILLS.add(LANDSLIDE);
@@ -148,6 +150,28 @@ public class Skills {
 				}
 				return activated;
 			});
+
+	
+	public static final Skill WOOD_SUCTION = new Skill("wood_suction", true, false, 120f, 2.5f, 80f, 0f).setAction(actor -> {
+		boolean activated = false;
+		final int max_range = 24;
+		float strength = (float) CultivationUtils.getStrengthFromEntity(actor);
+		int range = Math.min(max_range, 6 + (int) (Math.floor(0.01 * (strength))));
+		List<BlockPos> positions = OreUtils.findLogs(actor.world, actor.getPosition(), range);
+		IBlockState air = Blocks.AIR.getDefaultState();
+		for (BlockPos pos : positions) {
+			if (actor.world instanceof WorldServer) {
+				IBlockState block = actor.world.getBlockState(pos);
+				actor.world.setBlockState(pos, air);
+				ItemStack item = new ItemStack(block.getBlock());
+				EntityItem logItem = new EntityItem(actor.world, actor.posX, actor.posY, actor.posZ, item);
+				logItem.setNoPickupDelay();
+				actor.world.spawnEntity(logItem);
+			}
+			activated = true;
+		}
+		return activated;
+	});
 
 	public static final Skill ACCELERATE_GROWTH = new Skill("accelerate_growth", false, false, 60f, 1f, 15f, 0f)
 			.setAction(actor -> {
@@ -684,21 +708,21 @@ public class Skills {
 						 || targetCultTech.getDivineTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_B)
 						 || targetCultTech.getEssenceTechnique().getTechnique().equals(Techniques.FORBIDDEN_LIGHTNING_C)) {
 						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.4 && targetCultTech.hasElement(Element.LIGHTNING)) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) (strength));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) (strength));
 						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.6 && targetCultTech.hasElement(Element.LIGHTNING)) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.8));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) ((strength)*0.8));
 						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.8 && targetCultTech.hasElement(Element.LIGHTNING)) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.4));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) ((strength)*0.4));
 						} else if (targetCultivation.getDivineModifier() >= cultivation.getDivineModifier() * 0.8 && targetCultTech.hasElement(Element.LIGHTNING)) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.2));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) ((strength)*0.2));
 						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.4) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.5));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) ((strength)*0.5));
 						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.6) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.4));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) ((strength)*0.4));
 						} else if (targetCultivation.getDivineModifier() < cultivation.getDivineModifier() * 0.8) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.2));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) ((strength)*0.2));
 						} else if (targetCultivation.getDivineModifier() >= cultivation.getDivineModifier() * 0.8) {
-							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT.setDamageIsAbsolute().setDamageBypassesArmor(), (float) ((strength)*0.1));
+							target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, (float) ((strength)*0.1));
 						}				
 					});
 				}
@@ -759,6 +783,23 @@ public class Skills {
 				return true;
 			});
 
+/* 
+	public static final Skill GRAND_WOODEN_PRISON = new Skill("grand_wooden_prison", false, true, 128f, 4.2f, 43f, 1f)
+			.setAction(actor -> {
+				BlockPos target = actor.getPosition().down();
+				Entity entity = SkillUtils.rayTraceEntities(actor, 30, 0f);
+				if (entity != null) {
+					target = entity.getPosition().down();
+				} else {
+					BlockPos position = SkillUtils.rayTraceBlock(actor, 30, 0f);
+					target = position != null ? position : target;
+				}
+				if (actor.world instanceof WorldServer) {
+					new ThreadWoodenPrison((WorldServer) actor.world, target).start();
+				}
+				return true;
+			});
+*/
 	public static final Skill WEAK_LIGHTNING_BOLT = new Skill("weak_lightning_bolt", false, true, 25f, 1.2f, 14f, 0f)
 			.setAction(actor -> {
 				if (!actor.world.isRemote) {

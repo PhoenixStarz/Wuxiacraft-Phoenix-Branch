@@ -21,11 +21,7 @@ public class WorldVariables extends WorldSavedData {
 		if(dimId == 0) {
 			tribulationMultiplier = 3;
 		}
-		else if(dimId == WuxiaDimensions.EARTH.getId() ||
-			dimId == WuxiaDimensions.FIRE.getId() ||
-			dimId == WuxiaDimensions.METAL.getId() ||
-			dimId == WuxiaDimensions.WATER.getId() ||
-			dimId == WuxiaDimensions.WOOD.getId()) {
+		else if(dimId == WuxiaDimensions.ELEMENTAL.getId()) {
 			tribulationMultiplier = 2;
 		}
 	}

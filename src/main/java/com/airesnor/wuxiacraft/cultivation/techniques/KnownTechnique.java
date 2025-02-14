@@ -77,6 +77,11 @@ public class KnownTechnique {
 				skills.add(skill.getValue());
 			}
 		}
+		if(this.technique.getSystem() == Cultivation.System.BODY) {
+			if (this.proficiency > 200000*8) {
+				skills.add(Skills.SELF_HEALING);
+			}
+		}
 		if(this.technique.getSystem() == Cultivation.System.DIVINE) {
 			if (this.proficiency > 2000*8) {
 				skills.add(Skills.SPIRIT_PRESSURE);

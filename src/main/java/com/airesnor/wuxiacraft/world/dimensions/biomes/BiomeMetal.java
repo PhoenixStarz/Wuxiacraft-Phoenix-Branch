@@ -13,6 +13,7 @@ public class BiomeMetal extends Biome {
 
         topBlock = Blocks.GRASS.getDefaultState();
         fillerBlock = WuxiaBlocks.METALLIC_STONE.getDefaultState();
+
         this.decorator.treesPerChunk = 1;
 
         this.spawnableCaveCreatureList.clear();

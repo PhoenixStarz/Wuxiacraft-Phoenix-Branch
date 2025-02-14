@@ -36,11 +36,8 @@ public class WuxiaCraftConfig {
 
 	public static final String CATEGORY_DIMENSION = "dimensions";
 	public static int DIMENSION_MINING;
-	public static int DIMENSION_FIRE;
-	public static int DIMENSION_EARTH;
-	public static int DIMENSION_METAL;
-	public static int DIMENSION_WATER;
-	public static int DIMENSION_WOOD;
+	public static int DIMENSION_ELEMENTAL;
+	public static int DIMENSION_SKY;
 
 	public static final String CATEGORY_SERVER= "server";
 	public static float maxServerSpeed;
@@ -119,25 +116,13 @@ public class WuxiaCraftConfig {
 		propDimensionMining.setComment("Set the ID for the Mining Dimension");
 		propDimensionMining.setDefaultValue(200);
 
-		Property propDimensionFire = config.get(CATEGORY_DIMENSION, "dimension_fire", 202);
-		propDimensionFire.setComment("Set the ID for the Fire Dimension");
-		propDimensionFire.setDefaultValue(202);
+		Property propDimensionElemental = config.get(CATEGORY_DIMENSION, "dimension_elemental", 201);
+		propDimensionElemental.setComment("Set the ID for the Elemental Dimension");
+		propDimensionElemental.setDefaultValue(201);
 
-		Property propDimensionEarth = config.get(CATEGORY_DIMENSION, "dimension_earth", 203);
-		propDimensionEarth.setComment("Set the ID for the Earth Dimension");
-		propDimensionEarth.setDefaultValue(203);
-
-		Property propDimensionMetal = config.get(CATEGORY_DIMENSION, "dimension_metal", 204);
-		propDimensionMetal.setComment("Set the ID for the Metal Dimension");
-		propDimensionMetal.setDefaultValue(204);
-
-		Property propDimensionWater = config.get(CATEGORY_DIMENSION, "dimension_water", 205);
-		propDimensionWater.setComment("Set the ID for the Water Dimension");
-		propDimensionWater.setDefaultValue(205);
-
-		Property propDimensionWood = config.get(CATEGORY_DIMENSION, "dimension_wood", 206);
-		propDimensionWood.setComment("Set the ID for the Wood Dimension");
-		propDimensionWood.setDefaultValue(206);
+		Property propDimensionSky = config.get(CATEGORY_DIMENSION, "dimension_sky", 202);
+		propDimensionSky.setComment("Set the ID for the Sky Dimension");
+		propDimensionSky.setDefaultValue(202);
 
 		//Miscellaneous
 		Property propExtremeQiBiomeSpawn = config.get(CATEGORY_MISCELLANEOUS, "extreme_qi_biome_spawn", true);
@@ -163,11 +148,8 @@ public class WuxiaCraftConfig {
 		config.setCategoryPropertyOrder(CATEGORY_GAMEPLAY, propOrder);
 
 		propOrder.add(propDimensionMining.getName());
-		propOrder.add(propDimensionFire.getName());
-		propOrder.add(propDimensionEarth.getName());
-		propOrder.add(propDimensionMetal.getName());
-		propOrder.add(propDimensionWater.getName());
-		propOrder.add(propDimensionWood.getName());
+		propOrder.add(propDimensionElemental.getName());
+		propOrder.add(propDimensionSky.getName());
 		config.setCategoryPropertyOrder(CATEGORY_DIMENSION, propOrder);
 
 		propOrder.add(propExtremeQiBiomeSpawn.getName());
@@ -181,11 +163,8 @@ public class WuxiaCraftConfig {
 			jumpLimit = (float) propJumpLimit.getDouble();
 			stepAssistLimit = (float) propStepAssistLimit.getDouble();
 			DIMENSION_MINING = propDimensionMining.getInt();
-			DIMENSION_FIRE = propDimensionFire.getInt();
-			DIMENSION_EARTH = propDimensionEarth.getInt();
-			DIMENSION_METAL = propDimensionMetal.getInt();
-			DIMENSION_WATER = propDimensionWater.getInt();
-			DIMENSION_WOOD = propDimensionWood.getInt();
+			DIMENSION_ELEMENTAL = propDimensionElemental.getInt();
+			DIMENSION_SKY = propDimensionSky.getInt();
 			EXTREME_QI_BIOME_SPAWN = propExtremeQiBiomeSpawn.getBoolean();
 			maxServerSpeed = (float) propMaxServerSpeed.getDouble();
 			serverCultivationSpeed = (float) propCultivationSpeed.getDouble();
@@ -198,11 +177,8 @@ public class WuxiaCraftConfig {
 		propJumpLimit.set(jumpLimit);
 		propStepAssistLimit.set(stepAssistLimit);
 		propDimensionMining.set(DIMENSION_MINING);
-		propDimensionFire.set(DIMENSION_FIRE);
-		propDimensionEarth.set(DIMENSION_EARTH);
-		propDimensionMetal.set(DIMENSION_METAL);
-		propDimensionWater.set(DIMENSION_WATER);
-		propDimensionWood.set(DIMENSION_WOOD);
+		propDimensionSky.set(DIMENSION_SKY);
+		propDimensionElemental.set(DIMENSION_ELEMENTAL);
 		propExtremeQiBiomeSpawn.set(EXTREME_QI_BIOME_SPAWN);
 		propMaxServerSpeed.set(maxServerSpeed);
 		propCultivationSpeed.set(serverCultivationSpeed);

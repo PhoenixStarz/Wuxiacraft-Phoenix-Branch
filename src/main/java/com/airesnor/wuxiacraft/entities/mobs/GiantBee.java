@@ -4,6 +4,7 @@ import com.airesnor.wuxiacraft.WuxiaCraft;
 import com.airesnor.wuxiacraft.cultivation.BaseSystemLevel;
 import com.airesnor.wuxiacraft.cultivation.skills.Skills;
 import com.airesnor.wuxiacraft.entities.ai.EntityAIReleaseSkills;
+import com.airesnor.wuxiacraft.world.dimensions.WuxiaDimensions;
 import com.airesnor.wuxiacraft.utils.MathUtils;
 import com.airesnor.wuxiacraft.entities.ai.EntityCustomFlyHelper;
 import net.minecraft.block.state.IBlockState;
@@ -37,6 +38,9 @@ public class GiantBee extends EntityCultivator implements EntityFlying {
 	private static final ResourceLocation DROP_TABLE_4 = new ResourceLocation(WuxiaCraft.MOD_ID, "entities/giant_bee_l4");
 	private static final ResourceLocation DROP_TABLE_5 = new ResourceLocation(WuxiaCraft.MOD_ID, "entities/giant_bee_l5");
 	private static final ResourceLocation DROP_TABLE_6 = new ResourceLocation(WuxiaCraft.MOD_ID, "entities/giant_bee_l6");
+	private static final ResourceLocation DROP_TABLE_7 = new ResourceLocation(WuxiaCraft.MOD_ID, "entities/giant_bee_l7");
+	private static final ResourceLocation DROP_TABLE_8 = new ResourceLocation(WuxiaCraft.MOD_ID, "entities/giant_bee_l8");
+	private static final ResourceLocation DROP_TABLE_9 = new ResourceLocation(WuxiaCraft.MOD_ID, "entities/giant_bee_l9");
 
 	public GiantBee(World worldIn) {
 		super(worldIn);
@@ -132,7 +136,8 @@ public class GiantBee extends EntityCultivator implements EntityFlying {
 				}
 			}
 		}
-		if(world.provider.getDimensionType().getId() != 0) {
+
+		if(world.provider.getDimensionType().getId() == WuxiaDimensions.MINING.getId() || world.provider.getDimensionType().getId() == WuxiaDimensions.ELEMENTAL.getId()) {
 			int result = world.rand.nextInt(100);
 			BaseSystemLevel aux = BaseSystemLevel.DEFAULT_ESSENCE_LEVEL.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
 			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);//third level minimum
@@ -166,6 +171,43 @@ public class GiantBee extends EntityCultivator implements EntityFlying {
 				skillCap.addSkill(Skills.WATER_BLADE);
 			}
 		}
+
+		if(world.provider.getDimensionType().getId() == WuxiaDimensions.SKY.getId()) {
+			int result = world.rand.nextInt(100);
+			BaseSystemLevel aux = BaseSystemLevel.DEFAULT_ESSENCE_LEVEL.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			if(MathUtils.between(result, 48, 100)) { 
+				this.cultivation.setEssenceLevel(aux);
+				this.experienceValue = 25;
+			}
+			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			if(MathUtils.between(result, 0, 30)) {
+				this.cultivation.setEssenceLevel(aux);
+				this.experienceValue = 40;
+			}
+			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			if(MathUtils.between(result, 31, 41)) {
+				this.cultivation.setEssenceLevel(aux);
+				this.experienceValue = 60;
+			}
+			aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS); 
+			if(MathUtils.between(result, 42, 47)) {
+				this.cultivation.setEssenceLevel(aux);
+				this.experienceValue = 100;
+			}
+			result = 1+world.rand.nextInt(35);
+			this.cultivation.setEssenceSubLevel(5-(int)Math.floor(Math.sqrt(result)));
+			result = world.rand.nextInt(100);
+			if(result < 50) {
+				skillCap.addSkill(Skills.WIND_BLADE);
+				skillCap.addSkill(Skills.WIND_BLADE);
+			} else {
+				skillCap.addSkill(Skills.WATER_BLADE);
+				skillCap.addSkill(Skills.WATER_BLADE);
+			}
+		}
 	}
 
 	@Override
@@ -196,6 +238,18 @@ public class GiantBee extends EntityCultivator implements EntityFlying {
 		aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
 		if(this.getCultivationLevel() == aux) {
 			table = DROP_TABLE_6;
+		}
+		aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+		if(this.getCultivationLevel() == aux) {
+			table = DROP_TABLE_7;
+		}
+		aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+		if(this.getCultivationLevel() == aux) {
+			table = DROP_TABLE_8;
+		}
+		aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+		if(this.getCultivationLevel() == aux) {
+			table = DROP_TABLE_9;
 		}
 		return table;
 	}

@@ -1,5 +1,6 @@
 package com.airesnor.wuxiacraft.world.dimensions.biomes;
 
+import com.airesnor.wuxiacraft.blocks.WuxiaBlocks;
 import com.airesnor.wuxiacraft.entities.mobs.WanderingCultivator;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -10,7 +11,7 @@ public class BiomeFire extends Biome {
         super(new BiomeProperties("Fire").setBaseHeight(1.0f).setHeightVariation(1.0f).setTemperature(3.0f).setRainDisabled().setWaterColor(16711680));
 
         topBlock = Blocks.DIRT.getDefaultState();
-        fillerBlock = Blocks.MAGMA.getDefaultState();
+        fillerBlock = WuxiaBlocks.FIERY_STONE.getDefaultState();
 
         this.spawnableCaveCreatureList.clear();
         this.spawnableCreatureList.clear();

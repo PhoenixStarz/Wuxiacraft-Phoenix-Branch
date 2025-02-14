@@ -1,7 +1,7 @@
 package com.airesnor.wuxiacraft.world.dimensions;
 
-import com.airesnor.wuxiacraft.world.dimensions.ChunkGen.EarthChunkGen;
-import com.airesnor.wuxiacraft.world.dimensions.biomes.BiomeProviderEarth;
+import com.airesnor.wuxiacraft.world.dimensions.ChunkGen.ElementalChunkGen;
+import com.airesnor.wuxiacraft.world.dimensions.biomes.BiomeProviderElemental;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -10,21 +10,21 @@ import net.minecraft.world.WorldProvider;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.gen.IChunkGenerator;
 
-public class DimensionEarth extends WorldProvider {
+public class DimensionElemental extends WorldProvider {
 
     @Override
     protected void init() {
-        this.biomeProvider = new BiomeProviderEarth(this.world.getSeed());
+        this.biomeProvider = new BiomeProviderElemental(this.world.getSeed());
     }
 
     @Override
     public DimensionType getDimensionType() {
-        return WuxiaDimensions.EARTH;
+        return WuxiaDimensions.ELEMENTAL;
     }
 
     @Override
     public IChunkGenerator createChunkGenerator() {
-        return new EarthChunkGen(this.world, this.world.getSeed());
+        return new ElementalChunkGen(this.world, this.world.getSeed());
     }
 
     @Override

@@ -59,6 +59,9 @@ public class Techniques {
 		TECHNIQUES.add(NINE_SPRINGS_SOUL);
 		TECHNIQUES.add(BUDDHA_S_HEAVENLY_WAY);
 		TECHNIQUES.add(RAGEFUL_ABNEGATION_SAINT_ARTS);
+	//	TECHNIQUES.add(YGGDRASIL_BODY); 
+	//	TECHNIQUES.add(YGGDRASIL_DIVINE); 
+	//	TECHNIQUES.add(YGGDRASIL_ESSENCE); 
 		TECHNIQUES.add(MARTIAL_DRAGON_PHYSIQUE_MANUAL); 
 		TECHNIQUES.add(MARTIAL_DRAGON_DIVINITY_MANUAL);
 		TECHNIQUES.add(MARTIAL_DRAGON_QI_GATHERING_MANUAL);
@@ -202,9 +205,10 @@ public class Techniques {
 			.addSkill(3000 * 8, Skills.WEAK_LIGHTNING_BOLT)
 			.setCultivationEffect(actor -> {
 				if (!actor.world.isRemote) {
+					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.01) {
-						ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-						CultivationUtils.callCustomThunder(actor, cultivation.getBodyModifier() * 2, 0.15 * cultivation.getBodyModifier());
+						CultivationUtils.callCustomThunder(actor, Math.max(1, (cultivation.getBodyModifier() * 2) - (cultTech.getBodyTechnique().getProficiency() * 0.5)), 0.15 * cultivation.getBodyModifier());
 					}
 				}
 				return true;
@@ -323,9 +327,10 @@ public class Techniques {
 			.addCompatible(Techniques.WIND_STORM_ART)
 			.setCultivationEffect(actor -> {
 				if (!actor.world.isRemote) {
+					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.01) {
-						ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-						CultivationUtils.callCustomThunder(actor, cultivation.getEssenceModifier() * 2, 0.15 * cultivation.getBodyModifier());
+						CultivationUtils.callCustomThunder(actor, Math.max(1, (cultivation.getEssenceModifier() * 2) - (cultTech.getEssenceTechnique().getProficiency() * 0.5)), 0.15 * cultivation.getEssenceModifier());
 					}
 				}
 				return true;
@@ -407,9 +412,10 @@ public class Techniques {
 			.addSkill(3000 * 8, Skills.WEAK_LIGHTNING_BOLT)
 			.setCultivationEffect(actor -> {
 				if (!actor.world.isRemote) {
+					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.01) {
-						ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-						CultivationUtils.callCustomThunder(actor, cultivation.getEssenceModifier() * 2, 0.15 * cultivation.getBodyModifier());
+						CultivationUtils.callCustomThunder(actor, Math.max(1, (cultivation.getEssenceModifier() * 2) - (cultTech.getEssenceTechnique().getProficiency() * 0.5)), 0.15 * cultivation.getEssenceModifier());
 					}
 				}
 				return true;
@@ -605,9 +611,10 @@ public class Techniques {
 			.addSkill(3000 * 8, Skills.WEAK_LIGHTNING_BOLT)
 			.setCultivationEffect(actor -> {
 				if (!actor.world.isRemote) {
+					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.01) {
-						ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
-						CultivationUtils.callCustomThunder(actor, cultivation.getBodyModifier() * 2, 0.15 * cultivation.getBodyModifier());
+						CultivationUtils.callCustomThunder(actor, Math.max(1, (cultivation.getDivineModifier() * 2) - (cultTech.getDivineTechnique().getProficiency() * 0.5)), 0.15 * cultivation.getDivineModifier());
 					}
 				}
 				return true;
@@ -705,6 +712,87 @@ public class Techniques {
 			.addEffect(32000 * 8, STRENGTH_I)
 			.addSkill(6000 * 8, Skills.HEALING_HANDS)
 			.addSkill(18000 * 8, Skills.SELF_HEALING);
+
+	//From VioletRose
+	//Rank divine 3
+	public static final Technique YGGDRASIL_BODY = new Technique("yggdrasil_body", Cultivation.System.BODY,
+			new TechniqueModifiers(5.0, 1.5, 6.0, 1.5, 5.0, 6.5), 25, 1800000000000.0 * 8, 9)
+			.addCheckpoint(1350.0 * 8, 0.08f, "Yggdrasil Bark")
+			.addCheckpoint(9121.0 * 8, 0.16f, "Yggdrasil Cambium")
+			.addCheckpoint(61601.0 * 8, 0.25f, "Yggdrasil Sapwood")
+			.addCheckpoint(416016.0 * 8, 0.33f, "Yggdrasil Heartwood")
+			.addCheckpoint(2809512.0 * 8, 0.41f, "Yggdrasil Pith")
+			.addCheckpoint(18973665.0 * 8, 0.50f, "Yggdrasil Godly Bark")
+			.addCheckpoint(128136087.0 * 8, 0.58f, "Yggdrasil Godly Cambium")
+			.addCheckpoint(865349742.0 * 8, 0.66f, "Yggdrasil Godly Sapwood") 
+			.addCheckpoint(5844022478.0 * 8, 0.75f, "Yggdrasil Godly Heartwood")
+			.addCheckpoint(39466815629.0 * 8, 0.83f, "Yggdrasil Godly Pith")
+			.addCheckpoint(266533802983.0 * 8, 0.91f, "Yggdrasil Trunk")
+			.addCheckpoint(1800000000000.0 * 8, 1.0f, "Yggdrasil Body")
+			.addElement(Element.WOOD)
+			.addSkill(3200 * 8, Skills.GATHER_WOOD)
+			.addSkill(12000 * 8, Skills.ACCELERATE_GROWTH)
+	//		.addSkill(36000 * 8, Skills.GROWTH_FOREST)
+			.addSkill(15000 * 8, Skills.WOODEN_PRISON)
+			.addSkill(6000 * 8, Skills.HEALING_HANDS)
+			.addSkill(18000 * 8, Skills.SELF_HEALING)
+			.addEffect(4500 * 8, REGENERATION_I)
+			.addEffect(18000 * 8, REGENERATION_II)
+			.addEffect(360000 * 8, REGENERATION_IV);
+
+	//From VioletRose
+	//Rank divine 3
+	public static final Technique YGGDRASIL_DIVINE = new Technique("yggdrasil_divine", Cultivation.System.DIVINE,
+			new TechniqueModifiers(5.0, 1.5, 6.0, 1.5, 5.0, 6.5), 25, 1800000000000.0 * 8, 9)
+			.addCheckpoint(1350.0 * 8, 0.08f, "Yggdrasil Gathering")
+			.addCheckpoint(9121.0 * 8, 0.16f, "Yggdrasil Path")
+			.addCheckpoint(61601.0 * 8, 0.25f, "Yggdrasil Dantian")
+			.addCheckpoint(416016.0 * 8, 0.33f, "Yggdrasil Earthen")
+			.addCheckpoint(2809512.0 * 8, 0.41f, "Yggdrasil Sky")
+			.addCheckpoint(18973665.0 * 8, 0.50f, "Yggdrasil Law")
+			.addCheckpoint(128136087.0 * 8, 0.58f, "Yggdrasil Heaven")
+			.addCheckpoint(865349742.0 * 8, 0.66f, "Yggdrasil Immortal") 
+			.addCheckpoint(5844022478.0 * 8, 0.75f, "Yggdrasil Ascension")
+			.addCheckpoint(39466815629.0 * 8, 0.83f, "Yggdrasil Reach")
+			.addCheckpoint(266533802983.0 * 8, 0.91f, "Yggdrasil Divinity")
+			.addCheckpoint(1800000000000.0 * 8, 1.0f, "Yggdrasil Godhood")
+			.addElement(Element.WOOD)
+			.addSkill(3200 * 8, Skills.GATHER_WOOD)
+			.addSkill(12000 * 8, Skills.ACCELERATE_GROWTH)
+			.addSkill(15000 * 8, Skills.WOODEN_PRISON)
+	//		.addSkill(45000 * 8, Skills.GRAND_WOODEN_PRISON)
+			.addSkill(6000 * 8, Skills.HEALING_HANDS)
+			.addSkill(18000 * 8, Skills.SELF_HEALING)
+			.addEffect(4500 * 8, REGENERATION_I)
+			.addEffect(18000 * 8, REGENERATION_II)
+			.addEffect(360000 * 8, REGENERATION_IV);
+
+	//From VioletRose
+	//Rank divine 3
+	public static final Technique YGGDRASIL_ESSENCE = new Technique("yggdrasil_essence", Cultivation.System.ESSENCE,
+			new TechniqueModifiers(5.0, 1.5, 6.0, 1.5, 5.0, 6.5), 25, 1800000000000.0 * 8, 9)
+			.addCheckpoint(1350.0 * 8, 0.08f, "Yggdrasil half")
+			.addCheckpoint(9121.0 * 8, 0.16f, "Yggdrasil quater")
+			.addCheckpoint(61601.0 * 8, 0.25f, "Yggdrasil eighth")
+			.addCheckpoint(416016.0 * 8, 0.33f, "Yggdrasil sixteenth")
+			.addCheckpoint(2809512.0 * 8, 0.41f, "Yggdrasil thirty-second")
+			.addCheckpoint(18973665.0 * 8, 0.50f, "Yggdrasil sixty-fouth")
+			.addCheckpoint(128136087.0 * 8, 0.58f, "Yggdrasil one-twenty-eighth")
+			.addCheckpoint(865349742.0 * 8, 0.66f, "Yggdrasil two-fifty-sixth") 
+			.addCheckpoint(5844022478.0 * 8, 0.75f, "Yggdrasil five-sixteenth")
+			.addCheckpoint(39466815629.0 * 8, 0.83f, "Yggdrasil ten-thirty-second")
+			.addCheckpoint(266533802983.0 * 8, 0.91f, "Yggdrasil twenty-sixty-fouth")
+			.addCheckpoint(1800000000000.0 * 8, 1.0f, "Yggdrasil forty-one-twenty-eighth")
+			.addElement(Element.WOOD)
+			.addSkill(3200 * 8, Skills.GATHER_WOOD)
+			.addSkill(16000 * 8, Skills.WOOD_SUCTION)
+			.addSkill(12000 * 8, Skills.ACCELERATE_GROWTH)
+			.addSkill(15000 * 8, Skills.WOODEN_PRISON)
+			.addSkill(6000 * 8, Skills.HEALING_HANDS)
+			.addSkill(18000 * 8, Skills.SELF_HEALING)
+			.addEffect(4500 * 8, REGENERATION_I)
+			.addEffect(18000 * 8, REGENERATION_II)
+			.addEffect(360000 * 8, REGENERATION_IV);
 			
 	//From Wulong 
 	//Rank divine 3
@@ -790,7 +878,7 @@ public class Techniques {
 	//From Fallencelestialgod
 	//Rank divine 3
 	public static final Technique FORBIDDEN_LIGHTNING_A = new Technique("forbidden_lightning_a", Cultivation.System.BODY,
-		new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 10, 190000000.0 * 8, 9)
+		new TechniqueModifiers(1.0, 1.2, 1.2, 1.2, 1.0, 1.0), 10, 190000000.0 * 8, 9)
 			.addCheckpoint(4570.0 * 8, 0.125f, "Lightning Cell Nourishment")
 			.addCheckpoint(20890.0 * 8, 0.25f, "Lightning Bolt Muscles")
 			.addCheckpoint(95400.0 * 8, 0.375f, "Thunder Blood Marrow")
@@ -800,21 +888,22 @@ public class Techniques {
 			.addCheckpoint(41582360.0 * 8, 0.875f, "Thunder Meridians Nourishment")
 			.addCheckpoint(190000000.0 * 8, 1f, "Complete Lightning Thunder Body")
 			.addElement(Element.LIGHTNING)
-			.addElement(Element.DARK)
+			.addElement(Element.WIND)
 			.addSkill(3000 * 8, Skills.WEAK_LIGHTNING_BOLT)
 			.addEffect(32000 * 8, SPEED_III)
 			.setCultivationEffect(actor -> {
 				if (!actor.world.isRemote) {
 					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.50) {
-						CultivationUtils.callCustomThunder(actor, cultivation.getBodyModifier() * 2, 0.50 * cultivation.getBodyModifier());
+						CultivationUtils.callCustomThunder(actor, Math.max(1, (cultivation.getBodyModifier() * 2) - (cultTech.getBodyTechnique().getProficiency() * 0.5)), 0.25 * cultivation.getBodyModifier());
 					}
 				}
 				return true;
 			});		
 			
 	public static final Technique FORBIDDEN_LIGHTNING_B = new Technique("forbidden_lightning_b", Cultivation.System.DIVINE,
-			new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 10, 190000000.0 * 8, 9)
+			new TechniqueModifiers(1.0, 1.2, 1.2, 1.2, 1.0, 1.0), 10, 190000000.0 * 8, 9)
 			.addCheckpoint(4570.0 * 8, 0.125f, "Spark Soul")
 			.addCheckpoint(20890.0 * 8, 0.25f, "Thunder Soul Forming")
 			.addCheckpoint(95400.0 * 8, 0.375f, "Thunder Reinforcement")
@@ -824,21 +913,22 @@ public class Techniques {
 			.addCheckpoint(41582360.0 * 8, 0.875f, "True Thunder Soul")
 			.addCheckpoint(190000000.0 * 8, 1f, "Perfect Thunder Soul")
 			.addElement(Element.LIGHTNING)
-			.addElement(Element.DARK)
+			.addElement(Element.WIND)
 			.addSkill(3000 * 8, Skills.WEAK_LIGHTNING_BOLT)
 			.addSkill(75000 * 8, Skills.STORM_AUTHORITY)
 			.setCultivationEffect(actor -> {
 				if (!actor.world.isRemote) {
 					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.50) {
-						CultivationUtils.callCustomThunder(actor, cultivation.getDivineModifier() * 2, 0.50 * cultivation.getDivineModifier());
+						CultivationUtils.callCustomThunder(actor, Math.max(1, (cultivation.getDivineModifier() * 2) - (cultTech.getDivineTechnique().getProficiency() * 0.5)), 0.25 * cultivation.getDivineModifier());
 					}
 				}
 				return true;
 			});
 
 	public static final Technique FORBIDDEN_LIGHTNING_C = new Technique("forbidden_lightning_c", Cultivation.System.ESSENCE,
-			new TechniqueModifiers(1.0, 1.1, 1.1, 1.0, 1.0, 1.0), 10, 190000000.0 * 8, 9)
+			new TechniqueModifiers(1.0, 1.2, 1.2, 1.2, 1.0, 1.0), 10, 190000000.0 * 8, 9)
 			.addCheckpoint(4570.0 * 8, 0.125f, "Breeze Stage")
 			.addCheckpoint(20890.0 * 8, 0.25f, "Gust Stage")
 			.addCheckpoint(95400.0 * 8, 0.375f, "Violent Gust Stage")
@@ -848,14 +938,15 @@ public class Techniques {
 			.addCheckpoint(41582360.0 * 8, 0.875f, "Tornadoes Stage")
 			.addCheckpoint(190000000.0 * 8, 1f, "Monsoon Stage")
 			.addElement(Element.LIGHTNING)
-			.addElement(Element.DARK)
+			.addElement(Element.WIND)
 			.addSkill(3000 * 8, Skills.WEAK_LIGHTNING_BOLT)
 			.addSkill(13000 * 8, Skills.STRONG_LIGHTNING_BOLT)
 			.setCultivationEffect(actor -> {
 				if (!actor.world.isRemote) {
 					ICultivation cultivation = CultivationUtils.getCultivationFromEntity(actor);
+					ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
 					if (actor.getRNG().nextFloat() < 0.50) {
-						CultivationUtils.callCustomThunder(actor, cultivation.getEssenceModifier() * 2, 0.50 * cultivation.getEssenceModifier());
+						CultivationUtils.callCustomThunder(actor, Math.max(1, (cultivation.getEssenceModifier() * 2) - (cultTech.getEssenceTechnique().getProficiency() * 0.5)), 0.25 * cultivation.getEssenceModifier());
 					}
 				}
 				return true;

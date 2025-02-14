@@ -1,6 +1,9 @@
 package com.airesnor.wuxiacraft.world.dimensions.biomes;
 
-import com.airesnor.wuxiacraft.world.dimensions.genlayer.GenLayerFixEarth;
+import java.util.List;
+import java.util.Random;
+
+import com.airesnor.wuxiacraft.world.dimensions.genlayer.GenLayerFixSky;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
@@ -12,27 +15,24 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-import java.util.List;
-import java.util.Random;
-
-public class BiomeProviderEarth extends BiomeProvider {
+public class BiomeProviderSky extends BiomeProvider {
 
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
     private BiomeCache biomeCache;
 
-    public BiomeProviderEarth() {
+    public BiomeProviderSky() {
         this.biomeCache = new BiomeCache(this);
     }
 
-    public BiomeProviderEarth(long seed) {
+    public BiomeProviderSky(long seed) {
         this();
-        GenLayer[] aGenLayer = GenLayerFixEarth.createWorld(seed);
+        GenLayer[] aGenLayer = GenLayerFixSky.createWorld(seed);
         this.genBiomes = aGenLayer[0];
         this.biomeIndexLayer = aGenLayer[1];
     }
 
-    public BiomeProviderEarth(World world) {
+    public BiomeProviderSky(World world) {
         this(world.getSeed());
     }
 

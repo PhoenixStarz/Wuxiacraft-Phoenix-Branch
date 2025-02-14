@@ -21,9 +21,13 @@ public class OreUtils {
 
 	public static final List<Pair<BlockPos, Block>> foundOres = new ArrayList<>();
 
+	public static final List<Pair<BlockPos, Block>> foundLogs = new ArrayList<>();
+
 	public static final List<Block> oresToFind = new ArrayList<>();
 
 	public static final List<Block> earthTypes = new ArrayList<>();
+
+	public static final List<Block> logsToFind = new ArrayList<>();
 
 	public static void loadOresToFind() {
 		oresToFind.add(Blocks.IRON_ORE);
@@ -67,6 +71,8 @@ public class OreUtils {
 		earthTypes.add(Blocks.GRASS_PATH);
 		earthTypes.add(Blocks.NETHERRACK);
 		earthTypes.add(Blocks.SOUL_SAND);
+		logsToFind.add(Blocks.LOG);
+		logsToFind.add(Blocks.LOG2);
 	}
 
 	public static List<BlockPos> findOres(World world, BlockPos source, int radius) {
@@ -81,6 +87,26 @@ public class OreUtils {
 					BlockPos aux = new BlockPos(x, y, z);
 					if (oresToFind.contains(world.getBlockState(aux).getBlock())) {
 						foundOres.add(Pair.of(aux, world.getBlockState(aux).getBlock()));
+						found.add(aux);
+					}
+				}
+			}
+		}
+		return found;
+	}
+
+	public static List<BlockPos> findLogs(World world, BlockPos source, int radius) {
+		List<BlockPos> found = new ArrayList<>();
+		int minX = source.getX() - radius;
+		int minY = Math.max(0, source.getY() - radius);
+		int minZ = source.getZ() - radius;
+		foundLogs.clear();
+		for (int x = minX; x < minX + 2 * radius; x++) {
+			for (int z = minZ; z < minZ + 2 * radius; z++) {
+				for (int y = minY; y < minY + 2 * radius; y++) {
+					BlockPos aux = new BlockPos(x, y, z);
+					if (logsToFind.contains(world.getBlockState(aux).getBlock())) {
+						foundLogs.add(Pair.of(aux, world.getBlockState(aux).getBlock()));
 						found.add(aux);
 					}
 				}

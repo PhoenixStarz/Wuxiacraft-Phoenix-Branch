@@ -10,6 +10,7 @@ import com.airesnor.wuxiacraft.networking.ProgressMessage;
 import com.airesnor.wuxiacraft.networking.SpawnParticleMessage;
 import com.airesnor.wuxiacraft.utils.CultivationUtils;
 import com.airesnor.wuxiacraft.world.dimensions.biomes.WuxiaBiomes;
+import net.minecraft.init.Biomes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
@@ -73,6 +74,9 @@ public class SkillCultivate extends Skill {
 					if (actor instanceof EntityPlayer) {
 						if (actor.getEntityWorld().getBiome(new BlockPos(actor.getPosition().getX(), actor.getPosition().getY(), actor.getPosition().getZ())) == WuxiaBiomes.EXTREMEQI) {
 							amount *= 1.5;
+						}
+						if (actor.getEntityWorld().getBiome(new BlockPos(actor.getPosition().getX(), actor.getPosition().getY(), actor.getPosition().getZ())) == WuxiaBiomes.SKY) {
+							amount *= 5;
 						}
 						CultivationUtils.cultivatorAddProgress(actor, system, amount, true, false);
 						cultivation.remEnergy(energy);
