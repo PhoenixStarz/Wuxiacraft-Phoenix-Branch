@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"#"
+	],
+	"key": {
+		"#": {
+			"item": "raw_celestial_iron_block"
+		}
+	},
+	"result": {
+		"item": "wuxiacraft:raw_celestial_iron",
+		"count": 9
+	}
+}

@@ -1,6 +1,0 @@
-{
-  "variants": {
-	"normal": {"model":  "wuxiacraft:boundless_void_crystal_vein"},
-    "inventory": {"model":  "wuxiacraft:boundless_void_crystal_vein"}
-  }
-}

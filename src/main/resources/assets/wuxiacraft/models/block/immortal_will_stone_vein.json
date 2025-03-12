@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-	"all": "wuxiacraft:blocks/immortal_will_stone_vein"
-  }
-}

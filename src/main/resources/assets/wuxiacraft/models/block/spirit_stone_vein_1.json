@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/cube_all",
+	"textures": {
+		"all": "wuxiacraft:blocks/spirit_stone_vein"
+	}
+}

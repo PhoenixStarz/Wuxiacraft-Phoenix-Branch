@@ -20,6 +20,8 @@ build
 # other
 eclipse
 run
+logs
+.vscode
 
-#Secret
-/src/main/java/com/airesnor/wuxiacraft/profession/alchemy/Recipes.java
+# Files from Forge MDK
+forge*changelog.txt

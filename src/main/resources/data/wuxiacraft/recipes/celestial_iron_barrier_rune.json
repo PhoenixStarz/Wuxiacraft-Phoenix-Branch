@@ -1,0 +1,11 @@
+{
+	"type":"wuxiacraft:runemaking",
+	"mining_level":"minecraft:netherite",
+	"rune": 1,
+	"ingredient": {
+		"item": "wuxiacraft:celestial_iron_block"
+	},
+	"result": {
+		"item": "wuxiacraft:celestial_iron_barrier_rune"
+	}
+}

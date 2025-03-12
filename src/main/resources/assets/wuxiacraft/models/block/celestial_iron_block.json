@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/cube_all",
+	"textures": {
+		"all": "wuxiacraft:blocks/celestial_iron_block"
+	}
+}

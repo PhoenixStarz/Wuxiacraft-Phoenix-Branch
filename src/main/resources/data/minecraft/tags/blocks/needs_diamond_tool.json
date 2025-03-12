@@ -1,0 +1,10 @@
+{
+	"replace": false,
+	"values": [
+		"wuxiacraft:spirit_stone_vein_3",
+		"wuxiacraft:deepslate_celestial_iron_ore",
+		"wuxiacraft:celestial_iron_ore",
+		"wuxiacraft:celestial_iron_block",
+		"wuxiacraft:raw_celestial_iron_block"
+	]
+}

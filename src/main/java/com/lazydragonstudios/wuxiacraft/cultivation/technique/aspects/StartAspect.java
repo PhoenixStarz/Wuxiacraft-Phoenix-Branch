@@ -1,0 +1,56 @@
+package com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects;
+
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.TranslatableComponent;
+import com.lazydragonstudios.wuxiacraft.client.gui.widgets.WuxiaLabel;
+import com.lazydragonstudios.wuxiacraft.client.gui.widgets.WuxiaLabelBox;
+
+import javax.annotation.Nonnull;
+import java.math.BigDecimal;
+import java.util.LinkedList;
+
+public class StartAspect extends TechniqueAspect {
+
+	@Override
+	public boolean canConnect(TechniqueAspect aspect) {
+		if (aspect instanceof ElementalGenerator) {
+			return super.canConnect(aspect);	
+		}
+		if (aspect instanceof DualElementalGenerator) {
+			return super.canConnect(aspect);	
+		}
+		if (aspect instanceof TriElementalGenerator) {
+			return super.canConnect(aspect);	
+		}
+		if (aspect instanceof QuadElementalGenerator) {
+			return super.canConnect(aspect);	
+		}
+		if (aspect instanceof QuinElementalGenerator) {
+			return super.canConnect(aspect);	
+		}
+		return false;
+	}
+
+	@Override
+	public int canConnectFromCount() {
+		return 0;
+	}
+
+	@Override
+	public int canConnectToCount() {
+		return -1;
+	}
+
+	@Nonnull
+	@Override
+	public LinkedList<AbstractWidget> getStatsSheetDescriptor(BigDecimal proficiency) {
+		var nameLocation = this.getRegistryName();
+		if (nameLocation == null) return new LinkedList<>();
+		WuxiaLabel nameLabel = new WuxiaLabel(5, 2, new TranslatableComponent("wuxiacraft.aspect." + nameLocation.getPath() + ".name"), 0xFFAA00);
+		WuxiaLabelBox descriptionLabel = new WuxiaLabelBox(5, 12, 190, new TranslatableComponent("Description: wuxiacraft.aspect." + nameLocation.getPath() + ".description"));
+		LinkedList<AbstractWidget> widgets = new LinkedList<>();
+		widgets.add(nameLabel);
+		widgets.add(descriptionLabel);
+		return widgets;
+	}
+}

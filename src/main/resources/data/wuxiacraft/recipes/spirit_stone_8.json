@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"##",
+		"##"
+	],
+	"key": {
+		"#": {
+			"item": "wuxiacraft:spirit_stone_7"
+		}
+	},
+	"result": {
+		"item": "wuxiacraft:spirit_stone_8"
+	}
+}
