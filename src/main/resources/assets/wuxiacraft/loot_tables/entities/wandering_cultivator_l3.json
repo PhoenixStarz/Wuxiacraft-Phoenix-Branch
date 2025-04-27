@@ -384,6 +384,123 @@
 					"weight": 5
 				}
 			]
+		},
+		{
+			"name": "wandering_cultivator_technique",
+			"conditions": [
+				{
+					"condition": "random_chance",
+					"chance": 0.05
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "wuxiacraft:body_strength.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:light_feet.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:yin_body_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:bedrock_skin_notes.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:white_tiger_tempering.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:merciful_palm_of_buddha.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:cat_body_transformation_arts.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:wide_water_flow.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:basic_lightning_guide.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:forest_heart_manual.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:light_cloud_steps.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:colossal_mountain_control.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:earth_splitting_sword_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:thunder_fire_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:divine_fart_cultivation_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:ignited_soul.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:thunder_wall_soul_arts.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:aquatic_soul_manipulation.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:sun_soul_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:amorphous_metallic_soul.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:nine_springs_soul.scroll",
+					"weight": 1
+				}
+			]
 		}
 	]
 }

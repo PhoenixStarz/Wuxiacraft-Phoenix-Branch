@@ -93,6 +93,7 @@ item.blood_bottle.name=Blood Bottle
 item.paint_brush.name=Paint Brush
 item.paint_bottle.name=Paint Bottle
 item.gold_dagger.name=Golden Dagger
+item.demonic_devotion.name=Demonic Devotion
 item.training_post_diamond.name=Diamond Training Post
 item.training_post_iron.name=Iron Training Post
 item.training_post_stone.name=Stone Training Post
@@ -328,6 +329,12 @@ wuxiacraft.techniques.forbidden_lightning_b=Divine Storm God Forbidden Scripture
 item.forbidden_lightning_b.scroll.name=Divine Storm God Forbidden Scripture
 wuxiacraft.techniques.forbidden_lightning_c=Origin Thunder forbidden Art
 item.forbidden_lightning_c.scroll.name=Origin Thunder forbidden Art
+wuxiacraft.techniques.yggdrasil_body=Sacred Body Refining Of Yggdrasil
+item.yggdrasil_body.scroll.name=Sacred Body Refining Of Yggdrasil
+wuxiacraft.techniques.yggdrasil_divine=Nine Worlds Divine Soul Of Yggdrasil
+item.yggdrasil_divine.scroll.name=Nine Worlds Divine Soul Of Yggdrasil
+wuxiacraft.techniques.yggdrasil_essence=Wood Venerable Cultivation Of Yggdrasil
+item.yggdrasil_essence.scroll.name=Wood Venerable Cultivation Of Yggdrasil
 
 #Elements
 wuxiacraft.elements.fire=Fire
@@ -358,6 +365,8 @@ wuxiacraft.skills.water_needle=Water Needle
 wuxiacraft.skills.water_blade=Water Blade
 wuxiacraft.skills.self_healing=Self Healing
 wuxiacraft.skills.healing_hands=Healing Hands
+wuxiacraft.skills.improved_self_healing=Improved Self Healing
+wuxiacraft.skills.greater_healing_hands=Greater Healing Hands
 wuxiacraft.skills.wall_crossing=Wall Crossing
 wuxiacraft.skills.weak_sword_beam=Weak Sword Beam
 wuxiacraft.skills.sword_beam_barrage=Sword Beam Barrage
@@ -376,6 +385,8 @@ wuxiacraft.skills.strong_lightning_bolt=Thunder Spear
 wuxiacraft.skills.landslide=Landslide
 wuxiacraft.skills.divine_authority=Divine Authority
 wuxiacraft.skills.storm_authority=Storm Authority
+wuxiacraft.skills.demonic_will=Demonic Will 
+wuxiacraft.skills.demonic_transformation=Demonic Transformation 
 
 #Recipes
 wuxiacraft.recipes.name.body_refinement_pill_recipe=Body Refinement Pill Recipe

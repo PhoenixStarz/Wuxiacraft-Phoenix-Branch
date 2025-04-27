@@ -316,6 +316,8 @@ public class WuxiaItems {
 	public static final Item EMPTY_BOTTLE = new ItemBase("empty_bottle").setMaxStackSize(16);
 	public static final Item PAINT_BOTTLE = new ItemBase("paint_bottle").setMaxStackSize(1).setMaxDamage(100);
 
+	public static final Item DEMONIC_DEVOTION = new ItemDemonBlade("demonic_devotion").setAmount(0.25).setAmount2(0.1).setMaxDamage(150);
+
 	//Training posts
 	public static final Map<String, Item> TRAINING_POSTS = new HashMap<>();
 	static {

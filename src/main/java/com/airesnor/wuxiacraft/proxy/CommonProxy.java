@@ -20,6 +20,7 @@ import com.airesnor.wuxiacraft.handlers.RegistryHandler;
 import com.airesnor.wuxiacraft.networking.*;
 import com.airesnor.wuxiacraft.utils.FormationUtils;
 import com.airesnor.wuxiacraft.utils.OreUtils;
+import com.airesnor.wuxiacraft.world.event.Events;
 import com.airesnor.wuxiacraft.world.WorldGen;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -89,6 +90,7 @@ public class CommonProxy {
 
 		MinecraftForge.EVENT_BUS.register(new CapabilitiesHandler());
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
+		MinecraftForge.EVENT_BUS.register(new Events());
 		MinecraftForge.EVENT_BUS.register(new FormationEventHandler());
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(WuxiaCraft.instance, new GuiHandler());

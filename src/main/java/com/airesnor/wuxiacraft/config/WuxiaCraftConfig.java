@@ -42,6 +42,10 @@ public class WuxiaCraftConfig {
 	public static final String CATEGORY_SERVER= "server";
 	public static float maxServerSpeed;
 	public static float serverCultivationSpeed;
+	public static boolean enabledEvents;
+	public static float worldEvent1Chance;
+	public static float worldEvent2Chance;
+	public static float worldEvent3Chance;
 
 	public static void preInit() {
 		File configFile = new File(Loader.instance().getConfigDir(), "WuxiaCraft.cfg");
@@ -138,6 +142,20 @@ public class WuxiaCraftConfig {
 		propCultivationSpeed.setComment("Sets the speed a player can cultivate");
 		propCultivationSpeed.setDefaultValue(1.0);
 
+		Property enableEvents = config.get(CATEGORY_SERVER, "enable_events", true);
+		enableEvents.setComment("World event1 chance");
+		enableEvents.set(true);
+
+		Property event1Chance = config.get(CATEGORY_SERVER, "event1_chance", 0.01);
+		event1Chance.setComment("World event1 chance");
+		event1Chance.setDefaultValue(0.01);
+		Property event2Chance = config.get(CATEGORY_SERVER, "event2_chance", 0.01);
+		event2Chance.setComment("World event2 chance");
+		event2Chance.setDefaultValue(0.01);
+		Property event3Chance = config.get(CATEGORY_SERVER, "event3_chance", 0.005);
+		event3Chance.setComment("World event3 chance");
+		event3Chance.setDefaultValue(0.005);
+
 		List<String> propOrder = new ArrayList<>();
 		propOrder.add(propHandicap.getName());
 		propOrder.add(propMaxSpeed.getName());
@@ -168,6 +186,10 @@ public class WuxiaCraftConfig {
 			EXTREME_QI_BIOME_SPAWN = propExtremeQiBiomeSpawn.getBoolean();
 			maxServerSpeed = (float) propMaxServerSpeed.getDouble();
 			serverCultivationSpeed = (float) propCultivationSpeed.getDouble();
+			enabledEvents = enableEvents.getBoolean();
+			worldEvent1Chance = (float) event1Chance.getDouble();
+			worldEvent2Chance = (float) event2Chance.getDouble();
+			worldEvent3Chance = (float) event3Chance.getDouble();
 		}
 
 		propHandicap.set(speedHandicap);
@@ -182,6 +204,10 @@ public class WuxiaCraftConfig {
 		propExtremeQiBiomeSpawn.set(EXTREME_QI_BIOME_SPAWN);
 		propMaxServerSpeed.set(maxServerSpeed);
 		propCultivationSpeed.set(serverCultivationSpeed);
+		enableEvents.set(enabledEvents);
+		event1Chance.set(worldEvent1Chance);
+		event2Chance.set(worldEvent2Chance);
+		event3Chance.set(worldEvent3Chance);
 
 		if (config.hasChanged())
 			config.save();

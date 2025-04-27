@@ -14,6 +14,7 @@ import com.airesnor.wuxiacraft.cultivation.skills.Skill;
 import com.airesnor.wuxiacraft.cultivation.skills.Skills;
 import com.airesnor.wuxiacraft.cultivation.techniques.ICultTech;
 import com.airesnor.wuxiacraft.cultivation.techniques.Techniques;
+import com.airesnor.wuxiacraft.world.event.Events;
 import com.airesnor.wuxiacraft.entities.mobs.WanderingCultivator;
 import com.airesnor.wuxiacraft.entities.tileentity.SpiritStoneStackTileEntity;
 import com.airesnor.wuxiacraft.items.ItemDagger;
@@ -111,6 +112,23 @@ public class EventHandler {
 		TextComponentString text = new TextComponentString("For a quick tutorial on the mod. \nPlease use the /culthelp command");
 		text.getStyle().setColor(TextFormatting.GOLD);
 		player.sendMessage(text);
+		if (!player.world.isRemote) {
+			if (Events.getWorldEvent1() == true) {
+				TextComponentString startText = new TextComponentString("The air thickens.");
+				startText.getStyle().setColor(TextFormatting.BLUE);
+				player.sendMessage(startText);
+			} else
+			if (Events.getWorldEvent2() == true) {
+				TextComponentString startText = new TextComponentString("The air thins.");
+				startText.getStyle().setColor(TextFormatting.GRAY);
+				player.sendMessage(startText);
+			}
+			if (Events.getWorldEvent3() == true) {
+				TextComponentString startText = new TextComponentString("The air broils with rage.");
+				startText.getStyle().setColor(TextFormatting.RED);
+				player.sendMessage(startText);
+			}
+		}
 	}
 
 	/**
@@ -450,7 +468,7 @@ public class EventHandler {
 	 * @param event Description of whats happening
 	 */
 	@SubscribeEvent
-	public void onPlayerHitEntity1(LivingDamageEvent event) {
+	public void onPlayerHitEntity(LivingDamageEvent event) {
 		if (event.getSource().getTrueSource() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
 			if (!player.world.isRemote) {
@@ -458,23 +476,15 @@ public class EventHandler {
 				CultivationUtils.cultivatorAddProgress(player, Cultivation.System.BODY, 0.25f, false, false);
 				ICultTech cultTech = CultivationUtils.getCultTechFromEntity(event.getEntityLiving());
 				if (cultTech.getDivineTechnique() != null) {
-					if (event.getEntityLiving().getHealth() <= 0) {
-						if (cultTech.getDivineTechnique().getTechnique().equals(Techniques.BUDDHA_S_HEAVENLY_WAY)) {
-							cultivation.setDivineSubLevel(0);
-							cultivation.setDivineProgress(0);
-							cultivation.setDivineFoundation(cultivation.getDivineFoundation() * 0.3);
-						}
-					} else if (cultTech.getDivineTechnique().getTechnique().equals(Techniques.NINE_SPRINGS_SOUL)) {
-						double modifier = cultivation.getDivineModifier() * (cultTech.getDivineTechnique().getProficiency()
-								/ cultTech.getDivineTechnique().getTechnique().getMaxProficiency()) * 0.5;
+					if (cultTech.getDivineTechnique().getTechnique().equals(Techniques.NINE_SPRINGS_SOUL)) {
+						double modifier = cultivation.getDivineModifier() * (cultTech.getDivineTechnique().getProficiency() / 8000);
 						event.setAmount(event.getAmount() * (1 + (float) modifier));
 					}
-					if (cultTech.getBodyTechnique() != null) {
-						if (cultTech.getBodyTechnique().getTechnique().equals(Techniques.YIN_BODY_ART)) {
-							double modifier = cultivation.getBodyModifier() * (cultTech.getBodyTechnique().getProficiency()
-									/ cultTech.getBodyTechnique().getTechnique().getMaxProficiency()) * 0.5;
-							event.setAmount(event.getAmount() * (1 + (float) modifier));
-						}
+				}
+				if (cultTech.getBodyTechnique() != null) {
+					if (cultTech.getBodyTechnique().getTechnique().equals(Techniques.YIN_BODY_ART)) {
+						double modifier = cultivation.getBodyModifier() * (cultTech.getBodyTechnique().getProficiency() / 8000);
+						event.setAmount(event.getAmount() * (1 + (float) modifier));
 					}
 				}
 				NetworkWrapper.INSTANCE.sendTo(new CultivationMessage(cultivation), (EntityPlayerMP) player);
@@ -528,30 +538,49 @@ public class EventHandler {
 		float hasteModifier = (float) (strengthModifier * 0.7 + dexterityModifier * 0.3);
 		if(hasteModifier >= 15 ) {
 			ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
-			if(pick.canHarvestBlock(event.getTargetBlock())) {
+			ItemStack axe = new ItemStack(Items.DIAMOND_AXE);
+			ItemStack shovel = new ItemStack(Items.DIAMOND_SHOVEL);
+
+			if( pick.canHarvestBlock(event.getTargetBlock())||
+				axe.canHarvestBlock(event.getTargetBlock()) ||
+				shovel.canHarvestBlock(event.getTargetBlock())) {
 				event.setCanHarvest(true);
 			}
 		} else
 		if(hasteModifier >= 8) {
 			ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
-			if(pick.canHarvestBlock(event.getTargetBlock())) {
+			ItemStack axe = new ItemStack(Items.IRON_AXE);
+			ItemStack shovel = new ItemStack(Items.IRON_SHOVEL);
+
+			if( pick.canHarvestBlock(event.getTargetBlock())||
+				axe.canHarvestBlock(event.getTargetBlock()) ||
+				shovel.canHarvestBlock(event.getTargetBlock())) {
 				event.setCanHarvest(true);
 			}
 		} else
 		if(hasteModifier >= 3 ) {
 			ItemStack pick = new ItemStack(Items.STONE_PICKAXE);
-			if(pick.canHarvestBlock(event.getTargetBlock())) {
+			ItemStack axe = new ItemStack(Items.STONE_AXE);
+			ItemStack shovel = new ItemStack(Items.STONE_SHOVEL);
+
+			if( pick.canHarvestBlock(event.getTargetBlock())||
+				axe.canHarvestBlock(event.getTargetBlock()) ||
+				shovel.canHarvestBlock(event.getTargetBlock())) {
 				event.setCanHarvest(true);
 			}
 		} else
 		if(hasteModifier >= 1 ) {
 			ItemStack pick = new ItemStack(Items.WOODEN_PICKAXE);
-			if(pick.canHarvestBlock(event.getTargetBlock())) {
+			ItemStack axe = new ItemStack(Items.WOODEN_AXE);
+			ItemStack shovel = new ItemStack(Items.WOODEN_SHOVEL);
+
+			if( pick.canHarvestBlock(event.getTargetBlock())||
+				axe.canHarvestBlock(event.getTargetBlock()) ||
+				shovel.canHarvestBlock(event.getTargetBlock())) {
 				event.setCanHarvest(true);
 			}
 		}
 	}
-
 
 	/**
 	 * When the player die, he gets punished
@@ -631,10 +660,9 @@ public class EventHandler {
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
 		if (event.getEntity() instanceof WanderingCultivator) {
-			//scrolls
 			Random rnd = event.getEntity().world.rand;
-			ItemStack drop = new ItemStack(WuxiaItems.TECHNIQUES_SCROLL.get(rnd.nextInt(WuxiaItems.TECHNIQUES_SCROLL.size())), 1);
-			if (rnd.nextInt(50) == 1) {
+			ItemStack drop = new ItemStack(WuxiaItems.DEMONIC_DEVOTION, 1);
+			if (rnd.nextInt(100) == 1 && Events.getWorldEvent3() == true) {
 				event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, drop));
 			}
 			for (EntityItem item : event.getDrops()) {
@@ -661,15 +689,13 @@ public class EventHandler {
 			if (event.phase == TickEvent.Phase.END) {
 				if (event.player.posY >= 3072) {
 					if (event.player.world.provider.getDimension() == 0) {
-						if (CultivationUtils.getMaxEnergy(event.player) > 100000) { //if energy may work as a parameter for levels
 							double playerPosX = event.player.posX;
 							double playerPosZ = event.player.posZ;
 							boolean found = false;
 							int targetDimension = WuxiaDimensions.ELEMENTAL.getId();
 							TeleportationUtil.teleportPlayerToDimension((EntityPlayerMP) event.player, targetDimension, playerPosX, 1512, playerPosZ, event.player.rotationYaw, event.player.rotationPitch);
 							double resistance = cultivation.getBodyModifier() * 0.4 + cultivation.getEssenceModifier() * 0.8 + cultivation.getEssenceModifier() + 0.3;
-							event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(1, 3200 - resistance));
-						}
+							event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(0, 3200 - resistance));
 					} else if (MathUtils.inGroup(event.player.world.provider.getDimension(),
 							WuxiaDimensions.ELEMENTAL.getId(),
 							WuxiaDimensions.MINING.getId())) {
@@ -681,15 +707,13 @@ public class EventHandler {
 					}
 					if (event.player.posY <= -1536) {
 						if (event.player.world.provider.getDimension() == 1) {
-							if (CultivationUtils.getMaxEnergy(event.player) > 10000000) { //if energy may work as a parameter for levels
 								double playerPosX = event.player.posX;
 								double playerPosZ = event.player.posZ;
 								boolean found = false;
 								int targetDimension = WuxiaDimensions.SKY.getId();
 								TeleportationUtil.teleportPlayerToDimension((EntityPlayerMP) event.player, targetDimension, playerPosX, 500, playerPosZ, event.player.rotationYaw, event.player.rotationPitch);
 								double resistance = cultivation.getBodyModifier() * 0.4 + cultivation.getEssenceModifier() * 0.8 + cultivation.getDivineModifier() + 0.3;
-								event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(1, 3200000 - resistance));
-							}
+								event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(0, 32000 - resistance));
 						}
 					}
 					if (event.player.world.provider.getDimension() == WuxiaDimensions.SKY.getId()) {
@@ -712,7 +736,7 @@ public class EventHandler {
 			if (event.player.world.provider.getDimension() == WuxiaDimensions.SKY.getId()) {
 				if (cultivation.getUpdateTimer() == 90) {
 					double resistance = cultivation.getBodyModifier() * 0.15 + cultivation.getEssenceModifier() * 0.2 + cultivation.getDivineModifier() + 0.4;
-					event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(1, Math.max(100 - (0.001 * resistance), 10000 - resistance)));
+					event.player.attackEntityFrom(DamageSource.OUT_OF_WORLD, (float) Math.max(0, Math.max(100 - (0.001 * resistance), 10000 - resistance)));
 				}
 			}
 		}
@@ -860,7 +884,6 @@ public class EventHandler {
 		for (PotionEffect effect : cultTech.getTechniquesEffects()) {
 			player.addPotionEffect(new PotionEffect(effect.getPotion(), effect.getDuration() + 19, effect.getAmplifier(), effect.getIsAmbient(), effect.doesShowParticles()));
 		}
-
 		double spd = CultivationUtils.getAgilityFromEntity(player);
 		if (WuxiaCraftConfig.maxServerSpeed >= 0) {
 			spd = Math.min(spd, WuxiaCraftConfig.maxServerSpeed);
@@ -871,6 +894,12 @@ public class EventHandler {
 		double hp = CultivationUtils.getConstitutionFromEntity(player);
 		double armor = CultivationUtils.getResistanceFromEntity(player);
 		double atk_sp = CultivationUtils.getDexterityFromEntity(player);
+
+		ISkillCap skillCap = CultivationUtils.getSkillCapFromEntity(player);
+		if (skillCap.getKnownSkills().contains(Skills.DEMONIC_TRANSFORMATION)) {
+			str *= 2;
+			hp *= 1.5;
+		}
 
 		AttributeModifier strength_mod = new AttributeModifier(strength_mod_name, str, 0);
 		AttributeModifier health_mod = new AttributeModifier(health_mod_name, hp, 0);
@@ -1007,6 +1036,7 @@ public class EventHandler {
 	public void onPlayerBarrierUpdate(LivingEvent.LivingUpdateEvent event) {
 		if (event.getEntity() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntity();
+			ISkillCap skillCap = CultivationUtils.getSkillCapFromEntity(player);
 			if (!player.world.isRemote && player.ticksExisted % 20 == 0) {
 				IBarrier barrier = CultivationUtils.getBarrierFromEntity(player);
 				ICultivation cultivation = CultivationUtils.getCultivationFromEntity(player);
@@ -1017,11 +1047,20 @@ public class EventHandler {
 					cultivation.remEnergy(CultivationUtils.getMaxEnergy(player) * 0.00005F);
 				}
 				// Barrier regen when the barrier is not broken
-				if (!barrier.isBarrierBroken() && barrier.isBarrierRegenActive() && barrier.getBarrierAmount() + barrier.getBarrierRegenRate() < barrier.getBarrierMaxAmount()) {
-					barrier.addBarrierAmount(barrier.getBarrierRegenRate());
-					cultivation.remEnergy(CultivationUtils.getMaxEnergy(player) * 0.00005F);
-				} else if (barrier.getBarrierAmount() + barrier.getBarrierRegenRate() >= barrier.getBarrierMaxAmount()) {
-					barrier.setBarrierAmount(barrier.getBarrierMaxAmount());
+				if (skillCap.getKnownSkills().contains(Skills.DEMONIC_WILL)) {
+					if (!barrier.isBarrierBroken() && barrier.isBarrierRegenActive() && barrier.getBarrierAmount() + barrier.getBarrierRegenRate() < (barrier.getBarrierMaxAmount()*1.5)) {
+						barrier.addBarrierAmount(barrier.getBarrierRegenRate()*2);
+						cultivation.remEnergy(CultivationUtils.getMaxEnergy(player) * 0.0001F);
+					} else if (barrier.getBarrierAmount() + barrier.getBarrierRegenRate() >= (barrier.getBarrierMaxAmount()*1.5)) {
+						barrier.setBarrierAmount((barrier.getBarrierMaxAmount()*1.5f));
+					}
+				} else {
+					if (!barrier.isBarrierBroken() && barrier.isBarrierRegenActive() && barrier.getBarrierAmount() + barrier.getBarrierRegenRate() < barrier.getBarrierMaxAmount()) {
+						barrier.addBarrierAmount(barrier.getBarrierRegenRate());
+						cultivation.remEnergy(CultivationUtils.getMaxEnergy(player) * 0.00005F);
+					} else if (barrier.getBarrierAmount() + barrier.getBarrierRegenRate() >= barrier.getBarrierMaxAmount()) {
+						barrier.setBarrierAmount(barrier.getBarrierMaxAmount());
+					}
 				}
 				// Cooldown
 				if (barrier.getBarrierCooldown() <= 0) {

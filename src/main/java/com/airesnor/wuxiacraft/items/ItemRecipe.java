@@ -74,17 +74,11 @@ public class ItemRecipe extends Item {
 		tag.setInteger("recipe-count", items);
 		List<Pair<Float, Item>> recipeItems = recipe.getRecipe();
 		for(int i = 0; i < items; i++) {
-			result = rand.nextInt(100);
-			if(result < 95) {
 				NBTTagCompound itemTag = new NBTTagCompound();
 				ItemStack is = new ItemStack(recipeItems.get(i).getRight(), 1);
 				is.writeToNBT(itemTag);
 				tag.setTag("item-" + i, itemTag);
-			}
-			result = rand.nextInt(100);
-			if(result < 75) {
 				tag.setString("temp-" + i, RecipeTemperature.getFromTemperature(recipeItems.get(i).getLeft()).toString());
-			}
 		}
 		stack.setTagCompound(tag);
 	}

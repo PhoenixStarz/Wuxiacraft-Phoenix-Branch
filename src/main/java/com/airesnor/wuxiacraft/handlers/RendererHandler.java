@@ -541,33 +541,40 @@ public class RendererHandler {
 		GlStateManager.popMatrix();
 	}
 
-	public static String getShortHealthAmount(int amount) {
+	public static String getShortHealthAmount(float amount) {
 		String value = "";
 		if (amount < 0) {
 			value += "-";
 		}
 		amount = Math.abs(amount);
-		if (amount < 1000) {
+		if (amount < 1000f) {
 			value += amount;
-		} else if (amount < 10000) {
+		} else if (amount < 10000f) {
 			float mills = amount / 1000f;
 			value += String.format("%.1fk", mills);
-		} else if (amount < 100000) {
+		} else if (amount < 1000000f) {
 			float mills = amount / 1000f;
 			value += String.format("%.0fk", mills);
-		} else if (amount < 1000000) {
-			float mills = amount / 1000000f;
-			value += String.format("%.2fM", mills);
-		} else if (amount < 10000000) {
+		} else if (amount < 10000000f) {
 			float mills = amount / 1000000f;
 			value += String.format("%.1fM", mills);
-		} else if (amount < 100000000) {
+		} else if (amount < 1000000000f) {
 			float mills = amount / 1000000f;
 			value += String.format("%.0fM", mills);
-		} else if (amount < 1000000000) {
+		} else if (amount < 10000000000f) {
 			float mills = amount / 1000000000f;
-			value += String.format("%.2fG", mills);
+			value += String.format("%.1fB", mills);
+		} else if (amount < 1000000000000f) {
+			float mills = amount / 1000000000f;
+			value += String.format("%.0fB", mills);
+		} else if (amount < 10000000000000f) {
+			float mills = amount / 1000000000000f;
+			value += String.format("%.1fT", mills);
+		} else if (amount < 1000000000000000f) {
+			float mills = amount / 1000000000000f;
+			value += String.format("%.0fT", mills);
 		}
+
 		return value;
 	}
 }

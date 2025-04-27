@@ -409,6 +409,83 @@
 					"weight": 8
 				}
 			]
+		},
+		{
+			"name": "wandering_cultivator_technique_2",
+			"conditions": [
+				{
+					"condition": "random_chance",
+					"chance": 0.05
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "wuxiacraft:wind_storm_art.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:azure_thearch_longevity_body.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:lightning_thunder_body_art.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:monkey_king_vitality_art.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:blooming_forest_art.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:yang_healing_art.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:earth_assimilating_qi.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:great_way_of_the_buddha.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:phoenix_body_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:dragon_spear_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:cold_sword_art.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:burning_flame_soul.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:thunder_wall_soul_arts.scroll",
+					"weight": 2
+				}
+			]
 		}
 	]
 }

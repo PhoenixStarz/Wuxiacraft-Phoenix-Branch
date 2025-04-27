@@ -305,6 +305,13 @@ public interface ICultivation {
 	void resetTimer();
 
 	/**
+	 * @return Gets Multi for breakthough stat increase
+	 */
+	int getBreakthoughMultiBod();
+	int getBreakthoughMultiEss();
+	int getBreakthoughMultiDiv();
+
+	/**
 	 * @return The cooldown that has to be waited until take another pill
 	 */
 	int getPillCooldown();

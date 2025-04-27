@@ -56,8 +56,8 @@ public class Formations {
 
 	//Dimension
 	public static final Formation MINING_DIMENSION = new FormationDimensionChanger("mining_dimension_array", 0.85, 1300, WuxiaDimensions.MINING.getId());
-	public static final Formation ELEMENTAL_DIMENSION = new FormationDimensionChanger("elemental_dimension_array", 2.03, 2100,  WuxiaDimensions.ELEMENTAL.getId());
-	public static final Formation SKY_DIMENSION = new FormationDimensionChanger("sky_dimension_array", 2.03, 2100,  WuxiaDimensions.SKY.getId());
+	public static final Formation ELEMENTAL_DIMENSION = new FormationDimensionChanger("elemental_dimension_array", 2.0, 2100,  WuxiaDimensions.ELEMENTAL.getId());
+	public static final Formation SKY_DIMENSION = new FormationDimensionChanger("sky_dimension_array", 2000000, 1000,  WuxiaDimensions.SKY.getId());
 
 	//Slaughter
 	public static final Formation WEAK_SLAUGHTER_FORMATION = new FormationSlaughter("weak_slaughter_formation", 7, 650, 16, 3f);

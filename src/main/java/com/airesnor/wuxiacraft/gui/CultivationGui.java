@@ -363,8 +363,8 @@ public class CultivationGui extends GuiScreen {
 		if (cultTech.getBodyTechnique() != null) {
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 51, 45, 164, 9, 9); //rem button bg
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 51, 72, 164, 9, 9); //rem button
-			int bodyTech = (int) (138.0 * cultTech.getBodyTechnique().getProficiency()
-					/ cultTech.getBodyTechnique().getTechnique().getMaxProficiency());
+			int bodyTech = (int) (138.0 * //cultTech.getBodyTechnique().getProficiency()
+					1/ 8000);
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 61, 0, 161, bodyTech, 3);
 		}
 		double foundationOverMaxBase = cultivation.getBodyFoundation() / cultivation.getBodyLevel().getProgressBySubLevel(cultivation.getBodySubLevel());
@@ -415,8 +415,8 @@ public class CultivationGui extends GuiScreen {
 		if (cultTech.getDivineTechnique() != null) {
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 92, 45, 164, 9, 9); //rem button bg
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 92, 72, 164, 9, 9); //rem button
-			int divineTech = (int) (138.0 * cultTech.getDivineTechnique().getProficiency()
-					/ cultTech.getDivineTechnique().getTechnique().getMaxProficiency());
+			int divineTech = (int) (138.0 * //cultTech.getDivineTechnique().getProficiency()
+					1/ 8000);
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 102, 0, 161, divineTech, 3);
 		}
 		foundationOverMaxBase = cultivation.getDivineFoundation() / cultivation.getDivineLevel().getProgressBySubLevel(cultivation.getDivineSubLevel());
@@ -467,8 +467,8 @@ public class CultivationGui extends GuiScreen {
 		if (cultTech.getEssenceTechnique() != null) {
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 133, 45, 164, 9, 9); //rem button bg
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 133, 72, 164, 9, 9); //rem button
-			int essenceTech = (int) (138.0 * cultTech.getEssenceTechnique().getProficiency()
-					/ cultTech.getEssenceTechnique().getTechnique().getMaxProficiency());
+			int essenceTech = (int) (138.0 * //cultTech.getEssenceTechnique().getProficiency()
+					1/ 8000);
 			drawTexturedModalRect(this.guiLeft + 7, this.guiTop + 143, 0, 161, essenceTech, 3);
 		}
 		foundationOverMaxBase = cultivation.getEssenceFoundation() / cultivation.getEssenceLevel().getProgressBySubLevel(cultivation.getEssenceSubLevel());
@@ -527,7 +527,7 @@ public class CultivationGui extends GuiScreen {
 		for (KnownTechnique t : toDisplay) {
 			int index = toDisplay.indexOf(t);
 			if (index >= this.offset && index < (this.offset + Tabs.TECHNIQUES.maxDisplayItems)) {
-				int progressFill = (int) (t.getProficiency() * 139.0 / t.getTechnique().getMaxProficiency());
+				int progressFill = (int) (t.getProficiency() * 139.0 / 8000);
 				drawTexturedModalRect(this.guiLeft + 19, this.guiTop + 35 + index * 19 + 11, 0, 136, 139, 3);
 				drawTexturedModalRect(this.guiLeft + 19, this.guiTop + 35 + index * 19 + 11, 0, 139, progressFill, 3);
 				drawTexturedModalRect(this.guiLeft + 8, this.guiTop + 35 + index * 19 + 4, 45, 142, 9, 9);
@@ -624,26 +624,32 @@ public class CultivationGui extends GuiScreen {
 			value += "-";
 		}
 		amount = Math.abs(amount);
-		if (amount < 1000) {
+		if (amount < 1000f) {
 			value += amount;
-		} else if (amount < 10000) {
+		} else if (amount < 10000f) {
 			float mills = amount / 1000f;
 			value += String.format("%.1fk", mills);
-		} else if (amount < 100000) {
+		} else if (amount < 1000000f) {
 			float mills = amount / 1000f;
 			value += String.format("%.0fk", mills);
-		} else if (amount < 1000000) {
-			float mills = amount / 1000000f;
-			value += String.format("%.2fM", mills);
-		} else if (amount < 10000000) {
+		} else if (amount < 10000000f) {
 			float mills = amount / 1000000f;
 			value += String.format("%.1fM", mills);
-		} else if (amount < 100000000) {
+		} else if (amount < 1000000000f) {
 			float mills = amount / 1000000f;
 			value += String.format("%.0fM", mills);
-		} else if (amount < 1000000000) {
+		} else if (amount < 10000000000f) {
 			float mills = amount / 1000000000f;
-			value += String.format("%.2fG", mills);
+			value += String.format("%.1fB", mills);
+		} else if (amount < 1000000000000f) {
+			float mills = amount / 1000000000f;
+			value += String.format("%.0fB", mills);
+		} else if (amount < 10000000000000f) {
+			float mills = amount / 1000000000000f;
+			value += String.format("%.1fT", mills);
+		} else if (amount < 1000000000000000f) {
+			float mills = amount / 1000000000000f;
+			value += String.format("%.0fT", mills);
 		}
 		return value;
 	}

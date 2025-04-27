@@ -81,6 +81,8 @@ public class Skills {
 		SKILLS.add(WATER_BLADE);
 		SKILLS.add(SELF_HEALING);
 		SKILLS.add(HEALING_HANDS);
+		SKILLS.add(IMPROVED_SELF_HEALING);
+		SKILLS.add(GREATER_HEALING_HANDS);
 		SKILLS.add(WALL_CROSSING);
 		SKILLS.add(WEAK_SWORD_BEAM);
 		SKILLS.add(SWORD_BEAM_BARRAGE);
@@ -96,10 +98,12 @@ public class Skills {
 		SKILLS.add(STORM_AUTHORITY);
 		SKILLS.add(WIND_BLADE);
 		SKILLS.add(WOODEN_PRISON);
-	//	SKILLS.add(GRAND_WOODEN_PRISON);
 		SKILLS.add(WEAK_LIGHTNING_BOLT);
 		SKILLS.add(STRONG_LIGHTNING_BOLT);
 		SKILLS.add(LANDSLIDE);
+
+		SKILLS.add(DEMONIC_WILL);
+		SKILLS.add(DEMONIC_TRANSFORMATION);
 	}
 
 	public static final Potion ENLIGHTENMENT = new EnlightenmentPotion("enlightenment");
@@ -429,6 +433,34 @@ public class Skills {
 			super("healing", damageSourceEntityIn);
 		}
 	}
+	
+	public static final Skill IMPROVED_SELF_HEALING = new Skill("improved_self_healing", false, false, 3200f, 1f, 80f, 0f).setAction(actor -> {
+		float strength = (float) actor.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+		actor.heal(Math.max(1500f, strength * 0.05f));
+		return true;
+	});
+
+	public static final Skill GREATER_HEALING_HANDS = new Skill("greater_healing_hands", false, false, 4400f, 1.4f, 120f, 0f).setAction(actor -> {
+		boolean activated = false;
+		Entity result = SkillUtils.rayTraceEntities(actor, 10f, 1f);
+		if (result instanceof EntityLivingBase) {
+			EntityLivingBase entity = (EntityLivingBase) result;
+			ICultTech cultTech = CultivationUtils.getCultTechFromEntity(actor);
+			float strength = Math.min(300f, (float) CultivationUtils.getStrengthFromEntity(actor));
+			if (cultTech.getDivineTechnique() != null) {
+				if (cultTech.getDivineTechnique().getTechnique().equals(Techniques.RAGEFUL_ABNEGATION_SAINT_ARTS)) {
+					strength = (float) Math.max(3, strength - CultivationUtils.getCultivationFromEntity(entity).getDivineModifier() * 0.3);
+					entity.attackEntityFrom(new HealingDamageSource(actor).setDamageBypassesArmor(), strength);
+					activated = true;
+				}
+			}
+			if(!activated) {
+				entity.heal(Math.max(1800f, strength * 0.05f));
+				activated = true;
+			}
+		}
+		return activated;
+	});
 
 	public static final Skill HEALING_HANDS = new Skill("healing_hands", false, false, 70f, 1.4f, 15f, 0f).setAction(actor -> {
 		boolean activated = false;
@@ -783,23 +815,6 @@ public class Skills {
 				return true;
 			});
 
-/* 
-	public static final Skill GRAND_WOODEN_PRISON = new Skill("grand_wooden_prison", false, true, 128f, 4.2f, 43f, 1f)
-			.setAction(actor -> {
-				BlockPos target = actor.getPosition().down();
-				Entity entity = SkillUtils.rayTraceEntities(actor, 30, 0f);
-				if (entity != null) {
-					target = entity.getPosition().down();
-				} else {
-					BlockPos position = SkillUtils.rayTraceBlock(actor, 30, 0f);
-					target = position != null ? position : target;
-				}
-				if (actor.world instanceof WorldServer) {
-					new ThreadWoodenPrison((WorldServer) actor.world, target).start();
-				}
-				return true;
-			});
-*/
 	public static final Skill WEAK_LIGHTNING_BOLT = new Skill("weak_lightning_bolt", false, true, 25f, 1.2f, 14f, 0f)
 			.setAction(actor -> {
 				if (!actor.world.isRemote) {
@@ -869,4 +884,12 @@ public class Skills {
 	public static final Skill WEAK_SWORD_FLIGHT = new SkillSwordFlight("weak_sword_flight", 0.6f, 0.9f, 9f, 500f, 0f, "Aires Adures");
 
 	public static final Skill ADEPT_SWORD_FLIGHT = new SkillSwordFlight("adept_sword_flight", 0.8f, 1.5f, 26f, 2000f, 0f, "Aires Adures");
+
+	public static final Skill DEMONIC_WILL = new Skill("demonic_will", false, false, 160f, 1f, 80f, 0f).setAction(actor -> {
+		return false;
+	});
+
+	public static final Skill DEMONIC_TRANSFORMATION = new Skill("demonic_transformation", false, false, 160f, 1f, 80f, 0f).setAction(actor -> {
+		return false;
+	});
 }

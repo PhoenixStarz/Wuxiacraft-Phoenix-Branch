@@ -19,7 +19,6 @@ public class Technique {
 	private final TechniqueModifiers baseModifiers;
 	private final List<Element> elements;
 	private final double cultivationSpeed;
-	private final double maxProficiency;
 	private final int techniqueRank; 
 
 	public ISkillAction cultivationEffect;
@@ -45,12 +44,11 @@ public class Technique {
 		return baseModifiers;
 	}
 
-	public Technique(String uName, Cultivation.System system, TechniqueModifiers baseModifiers, double cultSpeed, double maxProficiency, int techniqueRank) {
+	public Technique(String uName, Cultivation.System system, TechniqueModifiers baseModifiers, double cultSpeed, int techniqueRank) {
 		this.system = system;
 		this.uName = uName;
 		this.baseModifiers = baseModifiers;
 		this.cultivationSpeed = cultSpeed;
-		this.maxProficiency = maxProficiency;
 		this.techniqueRank = techniqueRank;
 		this.elements = new ArrayList<>();
 		this.effects = new ArrayList<>();
@@ -100,10 +98,6 @@ public class Technique {
 
 	public double getCultivationSpeed() {
 		return cultivationSpeed;
-	}
-
-	public double getMaxProficiency() {
-		return maxProficiency;
 	}
 
 	public int getTechniqueRank() {

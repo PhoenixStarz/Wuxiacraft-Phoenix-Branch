@@ -51,7 +51,7 @@ public class KeyHandler {
 				ISkillCap skillCap = CultivationUtils.getSkillCapFromEntity(player);
 				skillCap.setCasting(true);
 		}
-		if (Keyboard.getEventKey() == keyBindings[3].getKeyCode() && !Keyboard.getEventKeyState()) {
+		if (Keyboard.getEventKey() == keyBindings[3].getKeyCode() && !Keyboard.getEventKeyState() && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 				ISkillCap skillCap = CultivationUtils.getSkillCapFromEntity(player);
 				skillCap.setCasting(false);
 				skillCap.setDoneCasting(true);

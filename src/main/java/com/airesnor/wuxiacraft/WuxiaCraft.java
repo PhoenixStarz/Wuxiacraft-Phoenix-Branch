@@ -53,6 +53,7 @@ public class WuxiaCraft {
 		event.registerServerCommand(new SkillsCommand());
 		event.registerServerCommand(new CreateRecipeCommand());
 		event.registerServerCommand(new CultInfoCommand());
+		event.registerServerCommand(new EventCommand());
 		event.registerServerCommand(new CultHelpCommand());
 		event.registerServerCommand(new TPtoDimCommand());
 		event.registerServerCommand(new EnergyCommand());

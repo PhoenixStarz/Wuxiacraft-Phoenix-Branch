@@ -17,6 +17,7 @@ import com.airesnor.wuxiacraft.networking.NetworkWrapper;
 import com.airesnor.wuxiacraft.networking.UnifiedCapabilitySyncMessage;
 import com.airesnor.wuxiacraft.world.data.WorldVariables;
 import com.airesnor.wuxiacraft.world.dimensions.biomes.WuxiaBiomes;
+import com.airesnor.wuxiacraft.world.event.Events;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -197,6 +198,14 @@ public class CultivationUtils {
 			}
 		}
 		amount *= Math.max(WuxiaCraftConfig.serverCultivationSpeed, 0.000001);
+		if (player.world.provider.getDimension() == 0) {
+			if (Events.getWorldEvent1() == true) {
+				amount *= 5;
+			} else 
+			if (Events.getWorldEvent2() == true) {
+				amount *= 0.2;
+			}
+		} 
 		if(system == Cultivation.System.ESSENCE) {
 			amount *= MathUtils.clamp(cultivation.getDivineModifier() / cultivation.getEssenceLevel().getModifierBySubLevel(cultivation.getEssenceSubLevel()), 1, 20);
 		}

@@ -103,7 +103,7 @@ public class KnownTechnique {
 	}
 
 	public double getCultivationSpeed(double modifier) {
-		double speed = technique.getCultivationSpeed() + (0.5 + 2.5 * this.proficiency / this.technique.getMaxProficiency());
+		double speed = technique.getCultivationSpeed() + Math.min(1000, this.proficiency / 32000);
 		return speed;
 	}
 }

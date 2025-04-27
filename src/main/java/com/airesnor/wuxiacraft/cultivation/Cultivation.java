@@ -1,5 +1,7 @@
 package com.airesnor.wuxiacraft.cultivation;
 
+import com.airesnor.wuxiacraft.utils.MathUtils;
+
 import java.util.Random;
 
 public class Cultivation implements ICultivation {
@@ -9,16 +11,19 @@ public class Cultivation implements ICultivation {
 	private BaseSystemLevel bodyLevel;
 	private int bodySubLevel;
 	private double bodyFoundation;
+	private int breakthoughMultiBod;
 
 	private double divineProgress;
 	private BaseSystemLevel divineLevel;
 	private int divineSubLevel;
 	private double divineFoundation;
+	private int breakthoughMultiDiv;
 
 	private double essenceProgress;
 	private BaseSystemLevel essenceLevel;
 	private int essenceSubLevel;
 	private double essenceFoundation;
+	private int breakthoughMultiEss;
 
 	private double energy;
 	public int handicap;
@@ -65,6 +70,9 @@ public class Cultivation implements ICultivation {
 		this.bodyFoundation = 0;
 		this.divineFoundation = 0;
 		this.essenceFoundation = 0;
+		this.breakthoughMultiBod = 1;
+		this.breakthoughMultiEss = 1;
+		this.breakthoughMultiDiv = 1;
 		this.energy = 0;
 		this.handicap = 100;
 		this.timer = 0;
@@ -86,6 +94,7 @@ public class Cultivation implements ICultivation {
 			this.bodyProgress = this.bodyLevel.getProgressBySubLevel(this.bodySubLevel) + 200.0;
 		}
 		if (allowBreakthrough) {
+			double foundationOverMaxBase = this.getBodyFoundation() / this.getBodyLevel().getProgressBySubLevel(this.getBodySubLevel());
 			if (this.bodyProgress >= this.bodyLevel.getProgressBySubLevel(this.bodySubLevel)) {
 				Random rnd = new Random();
 				// if this then all above
@@ -107,7 +116,18 @@ public class Cultivation implements ICultivation {
 						if (rnd.nextFloat() > (this.bodyProgress + this.bodyFoundation) / (4 * this.bodyLevel.getProgressBySubLevel(this.bodySubLevel))
 								&& this.bodyLevel != BaseSystemLevel.DEFAULT_BODY_LEVEL) {
 							applySystemPenalty(System.BODY);
+							this.breakthoughMultiBod--;
 						} else {
+							if (MathUtils.between(foundationOverMaxBase, 6, 10)) {
+								this.breakthoughMultiBod++;
+							} else if (MathUtils.between(foundationOverMaxBase, 10, 20)) {
+								this.breakthoughMultiBod++;
+								this.breakthoughMultiBod++;
+							} else if (foundationOverMaxBase > 20) {
+								this.breakthoughMultiBod++;
+								this.breakthoughMultiBod++;
+								this.breakthoughMultiBod++;
+							}
 							this.bodyProgress -= this.bodyLevel.getProgressBySubLevel(this.bodySubLevel);
 							this.bodySubLevel = 0;
 							this.bodyLevel = this.bodyLevel.nextLevel(BaseSystemLevel.BODY_LEVELS);
@@ -117,7 +137,18 @@ public class Cultivation implements ICultivation {
 						if (rnd.nextFloat() > (this.bodyProgress + this.bodyFoundation) / (4 * this.bodyLevel.getProgressBySubLevel(this.bodySubLevel))
 								&& this.bodyLevel != BaseSystemLevel.DEFAULT_BODY_LEVEL) {
 							applySystemPenalty(System.BODY);
+							this.breakthoughMultiBod--;
 						} else {
+							if (MathUtils.between(foundationOverMaxBase, 6, 10)) {
+								this.breakthoughMultiBod++;
+							} else if (MathUtils.between(foundationOverMaxBase, 10, 20)) {
+								this.breakthoughMultiBod++;
+								this.breakthoughMultiBod++;
+							} else if (foundationOverMaxBase > 20) {
+								this.breakthoughMultiBod++;
+								this.breakthoughMultiBod++;
+								this.breakthoughMultiBod++;
+							}
 							this.bodyProgress -= this.bodyLevel.getProgressBySubLevel(this.bodySubLevel);
 							this.bodySubLevel++;
 							leveled = true;
@@ -144,6 +175,7 @@ public class Cultivation implements ICultivation {
 			this.divineProgress = this.divineLevel.getProgressBySubLevel(this.divineSubLevel) + 200.0;
 		}
 		if (allowBreakthrough) {
+			double foundationOverMaxBase = this.getDivineFoundation() / this.getDivineLevel().getProgressBySubLevel(this.getDivineSubLevel());
 			if (this.divineProgress >= this.divineLevel.getProgressBySubLevel(this.divineSubLevel)) {
 				Random rnd = new Random();
 				// if this then all above
@@ -165,7 +197,18 @@ public class Cultivation implements ICultivation {
 						if (rnd.nextFloat() > (this.divineProgress + this.divineFoundation) / (4 * this.divineLevel.getProgressBySubLevel(this.divineSubLevel))
 								&& this.divineLevel != BaseSystemLevel.DEFAULT_DIVINE_LEVEL) {
 							applySystemPenalty(System.DIVINE);
+							this.breakthoughMultiDiv--;
 						} else {
+							if (MathUtils.between(foundationOverMaxBase, 6, 10)) {
+								this.breakthoughMultiDiv++;
+							} else if (MathUtils.between(foundationOverMaxBase, 10, 20)) {
+								this.breakthoughMultiDiv++;
+								this.breakthoughMultiDiv++;
+							} else if (foundationOverMaxBase > 20) {
+								this.breakthoughMultiDiv++;
+								this.breakthoughMultiDiv++;
+								this.breakthoughMultiDiv++;
+							}
 							this.divineProgress -= this.divineLevel.getProgressBySubLevel(this.divineSubLevel);
 							this.divineSubLevel = 0;
 							this.divineLevel = this.divineLevel.nextLevel(BaseSystemLevel.DIVINE_LEVELS);
@@ -175,7 +218,18 @@ public class Cultivation implements ICultivation {
 						if (rnd.nextFloat() > (this.divineProgress + this.divineFoundation) / (4 * this.divineLevel.getProgressBySubLevel(this.divineSubLevel))
 								&& this.divineLevel != BaseSystemLevel.DEFAULT_DIVINE_LEVEL) {
 							applySystemPenalty(System.DIVINE);
+							this.breakthoughMultiDiv--;
 						} else {
+							if (MathUtils.between(foundationOverMaxBase, 6, 10)) {
+								this.breakthoughMultiDiv++;
+							} else if (MathUtils.between(foundationOverMaxBase, 10, 20)) {
+								this.breakthoughMultiDiv++;
+								this.breakthoughMultiDiv++;
+							} else if (foundationOverMaxBase > 20) {
+								this.breakthoughMultiDiv++;
+								this.breakthoughMultiDiv++;
+								this.breakthoughMultiDiv++;
+							}
 							this.divineProgress -= this.divineLevel.getProgressBySubLevel(this.divineSubLevel);
 							this.divineSubLevel++;
 							leveled = true;
@@ -202,6 +256,7 @@ public class Cultivation implements ICultivation {
 			this.essenceProgress = this.essenceLevel.getProgressBySubLevel(this.essenceSubLevel) + 200.0;
 		}
 		if (allowBreakthrough) {
+			double foundationOverMaxBase = this.getEssenceFoundation() / this.getEssenceLevel().getProgressBySubLevel(this.getEssenceSubLevel());
 			if (this.essenceProgress >= this.essenceLevel.getProgressBySubLevel(this.essenceSubLevel)) {
 				Random rnd = new Random();
 				boolean bodyCondition = (this.bodyProgress >= this.bodyLevel.getProgressBySubLevel(this.bodyLevel.subLevels - 1)
@@ -222,7 +277,18 @@ public class Cultivation implements ICultivation {
 						if (rnd.nextFloat() > (this.essenceProgress + this.essenceFoundation) / (4 * this.essenceLevel.getProgressBySubLevel(this.essenceSubLevel))
 								&& this.essenceLevel != BaseSystemLevel.DEFAULT_ESSENCE_LEVEL) {
 							applySystemPenalty(System.ESSENCE);
+							this.breakthoughMultiEss--;
 						} else {
+							if (MathUtils.between(foundationOverMaxBase, 6, 10)) {
+								this.breakthoughMultiEss++;
+							} else if (MathUtils.between(foundationOverMaxBase, 10, 20)) {
+								this.breakthoughMultiEss++;
+								this.breakthoughMultiEss++;
+							} else if (foundationOverMaxBase > 20) {
+								this.breakthoughMultiEss++;
+								this.breakthoughMultiEss++;
+								this.breakthoughMultiEss++;
+							}
 							this.essenceProgress -= this.essenceLevel.getProgressBySubLevel(this.essenceSubLevel);
 							this.essenceSubLevel = 0;
 							this.essenceLevel = this.essenceLevel.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
@@ -232,7 +298,18 @@ public class Cultivation implements ICultivation {
 						if (rnd.nextFloat() > (this.essenceProgress + this.essenceFoundation) / (4 * this.essenceLevel.getProgressBySubLevel(this.essenceSubLevel))
 								&& this.essenceLevel != BaseSystemLevel.DEFAULT_ESSENCE_LEVEL) {
 							applySystemPenalty(System.ESSENCE);
+							this.breakthoughMultiEss--;
 						} else {
+							if (MathUtils.between(foundationOverMaxBase, 6, 10)) {
+								this.breakthoughMultiEss++;
+							} else if (MathUtils.between(foundationOverMaxBase, 10, 20)) {
+								this.breakthoughMultiEss++;
+								this.breakthoughMultiEss++;
+							} else if (foundationOverMaxBase > 20) {
+								this.breakthoughMultiEss++;
+								this.breakthoughMultiEss++;
+								this.breakthoughMultiEss++;
+							}
 							this.essenceProgress -= this.essenceLevel.getProgressBySubLevel(this.essenceSubLevel);
 							this.essenceSubLevel++;
 							leveled = true;
@@ -533,6 +610,21 @@ public class Cultivation implements ICultivation {
 	}
 
 	@Override
+	public int getBreakthoughMultiBod() {
+		return this.breakthoughMultiBod;
+	}
+
+	@Override
+	public int getBreakthoughMultiEss() {
+		return this.breakthoughMultiEss;
+	}
+
+	@Override
+	public int getBreakthoughMultiDiv() {
+		return this.breakthoughMultiDiv;
+	}
+
+	@Override
 	public int getPillCooldown() {
 		return this.pillCooldown;
 	}
@@ -632,27 +724,32 @@ public class Cultivation implements ICultivation {
 
 	@Override
 	public double getAgilityModifier() {
-		return ((this.getBodyModifier() - 1) * 0.2 + (this.getEssenceModifier() - 1) * 0.4 + (this.getDivineModifier() - 1) * 0.1) * 0.03;
+		return (((this.getBodyModifier() - 1) * 0.2 + (this.getEssenceModifier() - 1) * 0.4 + (this.getDivineModifier() - 1) * 0.1) * 0.03)*Math.max(0.1,	
+		(this.getBreakthoughMultiBod()/100 + this.getBreakthoughMultiDiv()/100 + this.getBreakthoughMultiEss()/100)+1);
 	}
 
 	@Override
 	public double getConstitutionModifier() {
-		return ((this.getBodyModifier() - 1) + (this.getEssenceModifier() - 1) * 0.4 + (this.getDivineModifier() - 1) * 0.1) * 0.8;
+		return (((this.getBodyModifier() - 1) + (this.getEssenceModifier() - 1) * 0.4 + (this.getDivineModifier() - 1) * 0.1) * 0.8)*Math.max(0.1,
+		(this.getBreakthoughMultiBod()/100 + this.getBreakthoughMultiDiv()/100 + this.getBreakthoughMultiEss()/100)+1);
 	}
 
 	@Override
 	public double getDexterityModifier() {
-		return ((this.getBodyModifier() - 1) * 0.4 + (this.getEssenceModifier() - 1) * 0.8 + (this.getDivineModifier() - 1) * 0.1) * 0.01;
+		return (((this.getBodyModifier() - 1) * 0.4 + (this.getEssenceModifier() - 1) * 0.8 + (this.getDivineModifier() - 1) * 0.1) * 0.01)*Math.max(0.1,	
+		(this.getBreakthoughMultiBod()/100 + this.getBreakthoughMultiDiv()/100 + this.getBreakthoughMultiEss()/100)+1);
 	}
 
 	@Override
 	public double getResistanceModifier() {
-		return ((this.getBodyModifier() - 1) * 0.7 + (this.getEssenceModifier() - 1) * 0.7 + (this.getDivineModifier() - 1)*0.1)* 0.062;
+		return (((this.getBodyModifier() - 1) * 0.7 + (this.getEssenceModifier() - 1) * 0.7 + (this.getDivineModifier() - 1)*0.1)* 0.062)*Math.max(0.1,	
+		(this.getBreakthoughMultiBod()/100 + this.getBreakthoughMultiDiv()/100 + this.getBreakthoughMultiEss()/100)+1);
 	}
 
 	@Override
 	public double getStrengthModifier() {
-		return ((this.getBodyModifier() - 1) * 0.8 + (this.getEssenceModifier() - 1) * 0.6 + (this.getDivineModifier() - 1) * 0.14) * 0.2;
+		return (((this.getBodyModifier() - 1) * 0.8 + (this.getEssenceModifier() - 1) * 0.6 + (this.getDivineModifier() - 1) * 0.14) * 0.2)*Math.max(0.1,	
+		(this.getBreakthoughMultiBod()/100 + this.getBreakthoughMultiDiv()/100 + this.getBreakthoughMultiEss()/100)+1);
 	}
 
 	@Override

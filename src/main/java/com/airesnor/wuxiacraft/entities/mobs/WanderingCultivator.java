@@ -6,6 +6,7 @@ import com.airesnor.wuxiacraft.cultivation.skills.Skills;
 import com.airesnor.wuxiacraft.entities.ai.EntityAIReleaseSkills;
 import com.airesnor.wuxiacraft.world.dimensions.WuxiaDimensions;
 import com.airesnor.wuxiacraft.utils.MathUtils;
+import com.airesnor.wuxiacraft.world.event.Events;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.*;
@@ -57,6 +58,9 @@ public class WanderingCultivator extends EntityCultivator implements IMob {
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityWitch.class, true));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, GiantBee.class, true));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, GiantAnt.class, true));
+		if (Events.getWorldEvent3() == true && this.world.provider.getDimension() == 0) {
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+		}
 		this.experienceValue=5;
 	}
 
@@ -65,6 +69,13 @@ public class WanderingCultivator extends EntityCultivator implements IMob {
 		if(world.provider.getDimensionType().getId() == 0) {
 			int result = world.rand.nextInt(100);
 			BaseSystemLevel aux = BaseSystemLevel.DEFAULT_ESSENCE_LEVEL.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			if (Events.getWorldEvent1() == true) {
+				if(MathUtils.between(result, 0, 30)) {
+					this.cultivation.setEssenceLevel(aux);
+					this.experienceValue = 7;
+				}
+				aux = aux.nextLevel(BaseSystemLevel.ESSENCE_LEVELS);
+			}else
 			if(MathUtils.between(result, 0, 30)) {
 				this.cultivation.setEssenceLevel(aux);
 				this.experienceValue = 7;

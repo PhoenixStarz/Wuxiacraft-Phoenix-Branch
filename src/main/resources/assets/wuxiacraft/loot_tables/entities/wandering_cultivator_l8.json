@@ -409,6 +409,78 @@
 					"weight": 8
 				}
 			]
+		},
+		{
+			"name": "wandering_cultivator_technique_3",
+			"conditions": [
+				{
+					"condition": "random_chance",
+					"chance": 0.025
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "wuxiacraft:dragon_body_tempering.scroll",
+					"weight": 3
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:buddha_s_heavenly_way.scroll",
+					"weight": 3
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:rageful_abnegation_saint_arts.scroll",
+					"weight": 3
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:yggdrasil_body.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:yggdrasil_divine.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:yggdrasil_essence.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:martial_dragon_physique_manual.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:martial_dragon_divinity_manual.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:martial_dragon_qi_gathering_manual.scroll",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:forbidden_lightning_a.scroll",
+					"weight": 2
+				},
+					{
+					"type": "item",
+					"name": "wuxiacraft:forbidden_lightning_b.scroll",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wuxiacraft:forbidden_lightning_c.scroll",
+					"weight": 2
+				}
+			]
 		}
 	]
 }
