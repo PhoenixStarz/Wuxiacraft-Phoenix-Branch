@@ -1,0 +1,362 @@
+{
+	"type": "minecraft:chest",
+	"pools": [
+		{
+			"bonus_rolls": 0.0,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.fire_manipulation\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":0,\"value\":\"wuxiacraft:cinder\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:cinder\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:magic_burning\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:magic_burning\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":-1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.legends_of_water\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":-1,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:drop\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:drop\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:stream\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.nature_observation\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:seed\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:seed\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:branching\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.lightning_replication\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:spark\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:arc\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.metallic_reinforcement\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":-1,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:ore\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:sharpness\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.earth_motion\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:dust\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:tremor\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.sword_basic_set\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:basic_sword_set\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:pure_qi_flow\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 4
+				}
+			],
+			"rolls": {
+				"type": "minecraft:constant",
+				"value": 1.0
+			}
+		},
+		{
+			"bonus_rolls": 0.0,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 3.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:diamond",
+					"weight": 5
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 5.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:iron_ingot",
+					"weight": 15
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 7.0,
+								"min": 2.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:gold_ingot",
+					"weight": 15
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 3.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:emerald",
+					"weight": 15
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 6.0,
+								"min": 4.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:bone",
+					"weight": 25
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 3.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:spider_eye",
+					"weight": 25
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 7.0,
+								"min": 3.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:rotten_flesh",
+					"weight": 25
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:saddle",
+					"weight": 20
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:iron_horse_armor",
+					"weight": 15
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:golden_horse_armor",
+					"weight": 10
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:diamond_horse_armor",
+					"weight": 5
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:enchant_randomly"
+						}
+					],
+					"name": "minecraft:book",
+					"weight": 20
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:golden_apple",
+					"weight": 20
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:enchanted_golden_apple",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:empty",
+					"weight": 6
+				}
+			],
+			"rolls": {
+				"type": "minecraft:uniform",
+				"max": 4.0,
+				"min": 2.0
+			}
+		},
+		{
+			"bonus_rolls": 0.0,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 8.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:bone",
+					"weight": 10
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 8.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:gunpowder",
+					"weight": 10
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 8.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:rotten_flesh",
+					"weight": 10
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 8.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:string",
+					"weight": 10
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"add": false,
+							"count": {
+								"type": "minecraft:uniform",
+								"max": 8.0,
+								"min": 1.0
+							},
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "minecraft:spider_eye",
+					"weight": 10
+				}
+			],
+			"rolls": 4.0
+		},
+		{
+			"bonus_rolls": 0.0,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:leather_chestplate"
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:iron_sword"
+				}
+			],
+			"rolls": {
+				"type": "minecraft:uniform",
+				"max": 1.0,
+				"min": 0.0
+			}
+		}
+	],
+	"random_sequence": "minecraft:chests/desert_pyramid"
+}

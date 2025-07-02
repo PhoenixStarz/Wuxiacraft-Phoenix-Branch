@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-	"all": "wuxiacraft:blocks/ascended_immortality_stone_vein"
-  }
-}

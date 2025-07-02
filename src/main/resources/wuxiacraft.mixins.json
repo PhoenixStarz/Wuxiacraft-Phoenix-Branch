@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "com.lazydragonstudios.wuxiacraft.mixins",
+	"compatibilityLevel": "JAVA_17",
+	"refmap": "wuxiacraft.refmap.json",
+	"mixins": [
+		"MixinMinecraft",
+		"MixinServerSpeed"
+	],
+	"client": [
+	],
+	"minVersion": "0.8"
+}

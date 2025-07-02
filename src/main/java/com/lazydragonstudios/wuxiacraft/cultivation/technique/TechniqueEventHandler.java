@@ -1,0 +1,151 @@
+package com.lazydragonstudios.wuxiacraft.cultivation.technique;
+
+import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
+import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
+import com.lazydragonstudios.wuxiacraft.cultivation.System;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ConditionalElementalGenerator;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.WeaponElementalGenerator;
+import com.lazydragonstudios.wuxiacraft.event.CultivatingEvent;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaTechniqueAspects;
+import com.lazydragonstudios.wuxiacraft.networking.WeaponSwingMessage;
+import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
+import com.lazydragonstudios.wuxiacraft.util.TechniqueUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+
+@Mod.EventBusSubscriber
+public class TechniqueEventHandler {
+
+	@SubscribeEvent
+	public static void onCultivateCustomAspect(CultivatingEvent event) {
+		var techniqueData = Cultivation.get(event.getPlayer()).getSystemData(event.getSystem()).techniqueData;
+		var grid = techniqueData.grid;
+		for (var aspectLocation : grid.getGrid().values()) {
+			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
+			if (aspect == null) continue;
+			if (event.isCanceled()) break;
+			if (aspect instanceof ConditionalElementalGenerator generator) {
+				generator.onCultivate(event);
+			}
+		}
+	}
+
+	private static void sendSuccessLearning(Player player, ResourceLocation aspect) {
+		if (player instanceof ServerPlayer serverPlayer) {
+			serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.learn_successful")
+							.append(Component.translatable("wuxiacraft.aspect." + aspect + ".name")),
+					true);
+		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public static void onStruckByLightning(LivingDamageEvent event) {
+		if (!event.getSource().is(DamageTypes.LIGHTNING_BOLT)) return;
+		if (!(event.getEntity() instanceof Player player)) return;
+		ICultivation cultivation = Cultivation.get(player);
+		var aspects = cultivation.getAspects();
+		if (aspects.learnAspect(WuxiaTechniqueAspects.SPARK.getId(), cultivation)) {
+			sendSuccessLearning(player, WuxiaTechniqueAspects.SPARK.getId());
+		}
+	}
+
+	@SubscribeEvent
+	public static void onBlockBreak(BlockEvent.BreakEvent event) {
+		var player = event.getPlayer();
+		ICultivation cultivation = Cultivation.get(player);
+		var aspects = cultivation.getAspects();
+		if (!aspects.knowsAspect(WuxiaTechniqueAspects.ESSENCE_GATHERING.getId())
+				&& !aspects.knowsAspect(WuxiaTechniqueAspects.BODY_GATHERING.getId())
+				&& !aspects.knowsAspect(WuxiaTechniqueAspects.DIVINE_GATHERING.getId())
+		) return;
+		HashMap<ResourceLocation, Double> aspectsPerBlock = TechniqueUtil.getAspectChancePerBlock(event.getState().getBlock());
+		for (var aspect : aspectsPerBlock.keySet()) {
+			double randomVal = Math.random() * aspectsPerBlock.get(aspect);
+			if (randomVal < 1.5d) {
+				aspects.learnAspect(aspect, cultivation);
+				sendSuccessLearning(player, aspect);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onKillEntity(LivingDeathEvent event) {
+		var entityType = event.getEntity().getType();
+		var chancedAspects = TechniqueUtil.getAspectChancePerEntity(entityType);
+		if (chancedAspects == null || chancedAspects.isEmpty()) return;
+		var killer = event.getSource().getEntity();
+		if (!(killer instanceof Player player)) return;
+		ICultivation cultivation = Cultivation.get(player);
+		var aspects = cultivation.getAspects();
+		if (!aspects.knowsAspect(WuxiaTechniqueAspects.ESSENCE_GATHERING.getId())
+				&& !aspects.knowsAspect(WuxiaTechniqueAspects.BODY_GATHERING.getId())
+				&& !aspects.knowsAspect(WuxiaTechniqueAspects.DIVINE_GATHERING.getId())
+		) return;
+		for (var aspect : chancedAspects.keySet()) {
+			double randomVal = Math.random() * chancedAspects.get(aspect);
+			if (randomVal < 1.5d) {
+				aspects.learnAspect(aspect, cultivation);
+				sendSuccessLearning(player, aspect);
+			}
+		}
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@SubscribeEvent
+	public static void onSwingWeapon(PlayerInteractEvent.LeftClickEmpty event) {
+		if (!event.getEntity().level().isClientSide()) return;
+		var player = event.getEntity();
+		if (Minecraft.getInstance().player != player) return;
+		ICultivation cultivation = Cultivation.get(player);
+		var aspects = cultivation.getAspects();
+		if (cultivation.isCombat()) return;
+		if (!aspects.knowsAspect(WuxiaTechniqueAspects.ESSENCE_GATHERING.getId())
+				&& !aspects.knowsAspect(WuxiaTechniqueAspects.BODY_GATHERING.getId())
+				&& !aspects.knowsAspect(WuxiaTechniqueAspects.DIVINE_GATHERING.getId())
+		) return;
+		var heldItem = player.getMainHandItem();
+		boolean isValidWeapon = false;
+		WeaponElementalGenerator.WeaponType validWeaponType = null;
+		for (var weaponType : WeaponElementalGenerator.WeaponType.values()) {
+			if (weaponType.weaponItemType == null) continue;
+			if (weaponType.weaponItemType.isInstance(heldItem.getItem())) {
+				isValidWeapon = true;
+				validWeaponType = weaponType;
+				break;
+			}
+		}
+		if (!isValidWeapon && heldItem.isEmpty()) {
+			isValidWeapon = true;
+			validWeaponType = WeaponElementalGenerator.WeaponType.FIST;
+		}
+		if (!isValidWeapon) return;
+		for (var system : System.values()) {
+			var systemData = cultivation.getSystemData(system);
+			var weaponStats = systemData.techniqueData.modifier.getWeaponStats();
+			if (weaponStats.containsKey(validWeaponType)) {
+				var weaponGenerationValue = weaponStats.get(validWeaponType).multiply(new BigDecimal("0.25"));
+				var attackStrength = BigDecimal.valueOf(player.getAttackStrengthScale(0.0f));
+				cultivation.addCultivationBase(player, system, weaponGenerationValue.multiply(attackStrength));
+				WuxiaPacketHandler.INSTANCE.sendToServer(new WeaponSwingMessage(system, weaponGenerationValue.multiply(attackStrength)));
+			}
+		}
+	}
+}

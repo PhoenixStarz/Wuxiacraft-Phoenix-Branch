@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LPL",
+		"P P",
+		"LPL"
+	],
+	"key": {
+		"P": {
+			"item": "minecraft:acacia_planks"
+		},
+		"L": {
+			"item": "minecraft:acacia_log"
+		}
+	},
+	"result": {
+		"item": "wuxiacraft:acacia_formation_core_base",
+		"count": 1
+	}
+}

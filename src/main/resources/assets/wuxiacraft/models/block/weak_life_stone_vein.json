@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-	"all": "wuxiacraft:blocks/weak_life_stone_vein"
-  }
-}

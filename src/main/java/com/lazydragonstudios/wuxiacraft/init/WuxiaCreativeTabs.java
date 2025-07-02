@@ -1,0 +1,103 @@
+package com.lazydragonstudios.wuxiacraft.init;
+
+import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
+import com.lazydragonstudios.wuxiacraft.formation.FormationMaterialTier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class WuxiaCreativeTabs {
+
+	public static DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, WuxiaCraft.MOD_ID);
+
+	public static RegistryObject<CreativeModeTab> RUNES = CREATIVE_TABS.register("runes", () ->
+			CreativeModeTab.builder()
+					.icon(WuxiaItems.GENERATION_RUNES.get(FormationMaterialTier.DIAMOND).get()::getDefaultInstance)
+					.title(Component.translatable("wuxiacraft.runes_tab"))
+					.displayItems((p1, output) -> {
+						WuxiaItems.GENERATION_RUNES.forEach((tier, runeRegistry) -> output.accept(runeRegistry.get()));
+						WuxiaItems.BARRIER_RUNES.forEach((tier, runeRegistry) -> output.accept(runeRegistry.get()));
+						WuxiaItems.CULTIVATION_RUNES.forEach((system, systemRunes) -> systemRunes.forEach((material, runeRegistry) -> output.accept(runeRegistry.get())));
+						WuxiaItems.ENERGY_RUNES.forEach((system, systemRunes) -> systemRunes.forEach((material, runeRegistry) -> output.accept(runeRegistry.get())));
+					})
+					.build()
+	);
+
+	public RegistryObject<CreativeModeTab> MANUALS = CREATIVE_TABS.register("manuals", () ->
+			CreativeModeTab.builder()
+					.icon(WuxiaItems.ESSENCE_MANUAL.get()::getDefaultInstance)
+					.title(Component.translatable("wuxiacraft.manuals_tab"))
+					.displayItems((whatever, output) -> {
+						WuxiaDefaultTechniqueManuals.DEFAULT_MANUALS.forEach((name, manualItemSupplier) -> output.accept(manualItemSupplier.get()));
+					})
+					.build()
+	);
+
+	public static RegistryObject<CreativeModeTab> WUXIA_RANDOM_ITEMS = CREATIVE_TABS.register("wuxia_random_items", () ->
+			CreativeModeTab.builder()
+					.icon(WuxiaItems.SPIRIT_STONE_1.get()::getDefaultInstance)
+					.title(Component.translatable("wuxiacraft.random_items"))
+					.displayItems((whatever, output) -> {
+						output.accept(WuxiaItems.SPIRIT_STONE_1.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_2.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_3.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_4.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_5.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_6.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_7.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_8.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_9.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_1.get());
+						output.accept(WuxiaItems.DEEPSLATE_SPIRIT_STONE_VEIN_2.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_2.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_3.get());
+						output.accept(WuxiaItems.TECHNIQUE_INSCRIBER.get());
+						output.accept(WuxiaItems.RUNEMAKING_TABLE.get());
+					})
+					.build()
+	);
+
+	public static RegistryObject<CreativeModeTab> FORMATION_ITEMS = CREATIVE_TABS.register("formation_items", () ->
+			CreativeModeTab.builder()
+					.icon(WuxiaItems.DIAMOND_FORMATION_CORE.get()::getDefaultInstance)
+					.title(Component.translatable("wuxiacraft.formation_items"))
+					.displayItems((whatever, output) -> {
+						output.accept(WuxiaItems.FORMATION_CORE_BASE.get());
+						output.accept(WuxiaItems.ACACIA_FORMATION_CORE.get());
+						output.accept(WuxiaItems.BIRCH_FORMATION_CORE.get());
+						output.accept(WuxiaItems.COPPER_FORMATION_CORE.get());
+						output.accept(WuxiaItems.DARK_OAK_FORMATION_CORE.get());
+						output.accept(WuxiaItems.DIAMOND_FORMATION_CORE.get());
+						output.accept(WuxiaItems.EMERALD_FORMATION_CORE.get());
+						output.accept(WuxiaItems.GOLD_FORMATION_CORE.get());
+						output.accept(WuxiaItems.IRON_FORMATION_CORE.get());
+						output.accept(WuxiaItems.JUNGLE_FORMATION_CORE.get());
+						output.accept(WuxiaItems.LAPIS_FORMATION_CORE.get());
+						output.accept(WuxiaItems.OAK_FORMATION_CORE.get());
+						output.accept(WuxiaItems.SPRUCE_FORMATION_CORE.get());
+						output.accept(WuxiaItems.STONE_FORMATION_CORE.get());
+						output.accept(WuxiaItems.FORMATION_CORE_BASE.get());
+						WuxiaItems.WOODEN_FORMATION_CORES.forEach((woodType, coreItem) -> output.accept(coreItem.get()));
+						WuxiaItems.WOODEN_FORMATION_CORES_BASES.forEach((woodType, coreItem) -> output.accept(coreItem.get()));
+						output.accept(WuxiaItems.LAPIS_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.COPPER_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.IRON_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.GOLD_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.DIAMOND_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.EMERALD_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.NETHERITE_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.WOOD_RUNE_STENCIL.get());
+						output.accept(WuxiaItems.STONE_RUNE_STENCIL.get());
+						output.accept(WuxiaItems.COPPER_RUNE_STENCIL.get());
+						output.accept(WuxiaItems.IRON_RUNE_STENCIL.get());
+						output.accept(WuxiaItems.GOLD_RUNE_STENCIL.get());
+						output.accept(WuxiaItems.DIAMOND_RUNE_STENCIL.get());
+						output.accept(WuxiaItems.NETHERITE_RUNE_STENCIL.get());
+					})
+					.build()
+	);
+}

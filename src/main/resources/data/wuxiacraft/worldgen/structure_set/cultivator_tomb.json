@@ -1,0 +1,14 @@
+{
+	"structures": [
+		{
+			"structure": "wuxiacraft:cultivator_tomb",
+			"weight": 1
+		}
+	],
+	"placement": {
+		"type": "minecraft:random_spread",
+		"salt": 9562158461,
+		"spacing": 64,
+		"separation": 24
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"structures": [
+		{
+			"structure": "wuxiacraft:ice_spike_tomb",
+			"weight": 1
+		}
+	],
+	"placement": {
+		"type": "minecraft:random_spread",
+		"salt": 35214512485,
+		"spacing": 64,
+		"separation": 24
+	}
+}
