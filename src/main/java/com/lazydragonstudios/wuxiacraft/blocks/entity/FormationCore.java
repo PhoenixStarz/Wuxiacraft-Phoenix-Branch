@@ -14,11 +14,13 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -43,8 +45,6 @@ import java.util.UUID;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class FormationCore extends BlockEntity {
-
-	public static final TagKey<Block> WOODEN_RUNE_BLOCKS = BlockTags.create(new ResourceLocation(WuxiaCraft.MOD_ID, "wooden_rune_blocks"));
 
 	private final HashMap<FormationStat, BigDecimal> formationStats;
 
@@ -98,14 +98,13 @@ public class FormationCore extends BlockEntity {
 		var centerPos = this.getBlockPos();
 		this.formationPlayerStats.clear();
 		for (int i = -this.runeRange; i <= this.runeRange; i++) {
-			for (int j = 0; j <= this.runeRange * 2; j++) {
+			for (int j = 0; j <= 0; j++) {
 				for (int k = -this.runeRange; k <= this.runeRange; k++) {
 					if (i == 0 && j == 0 && k == 0) continue;
 					var currentPos = new BlockPos(centerPos.getX() - i, centerPos.getY() - j, centerPos.getZ() - k);
 					var state = this.level.getBlockState(currentPos);
 					var block = state.getBlock();
 					if (!(block instanceof StatRuneBlock rune)) continue;
-					if (this.onlyWood && !state.is(WOODEN_RUNE_BLOCKS)) return;
 					this.runePositions.add(currentPos);
 					for (var stat : rune.formationStats.keySet()) {
 						if (stat.isModifiable) continue;
@@ -151,6 +150,11 @@ public class FormationCore extends BlockEntity {
 			this.active = true;
 		} else {
 			deactivate();
+		}
+		if (level.getPlayerByUUID(playerId) instanceof ServerPlayer serverPlayer) {
+			serverPlayer.sendSystemMessage(Component.translatable("Energy")
+					.append(Component.literal(" "+(energyGeneration.subtract(energyCost)))),
+				true);
 		}
 		this.setChanged();
 		if (!this.level.isClientSide) {
@@ -198,7 +202,7 @@ public class FormationCore extends BlockEntity {
 		var finalAttackDamage = BigDecimal.valueOf(attacker.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
 		if (attacker instanceof Player player) {
 			var attackerStrengthStat = Cultivation.get(player).getStat(PlayerStat.STRENGTH, false);
-			finalAttackDamage = attackerStrengthStat.multiply(BigDecimal.valueOf(attackStrength));
+			finalAttackDamage = attackerStrengthStat.add(BigDecimal.valueOf(attackStrength));
 		}
 		var barrierHP = this.getStat(FormationStat.BARRIER_AMOUNT);
 		var barrierDefense = this.getStat(FormationStat.BARRIER_STRENGTH);

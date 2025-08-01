@@ -179,7 +179,7 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "fiery_kin"), cultivation, new BigDecimal("350000"))))
+							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "fiery_skin"), cultivation, new BigDecimal("350000"))))
 	);
 
 	public static RegistryObject<TechniqueAspect> FIERY_SKIN = ASPECTS.register("fiery_skin",
@@ -748,19 +748,20 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6"),
+							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "treant"), cultivation, new BigDecimal("350000"))))
 	);
 
 	public static RegistryObject<TechniqueAspect> TREANT = ASPECTS.register("treant",
-			() -> new ElementSystemConverter(3d, WuxiaElements.WOOD.getId(), System.BODY)
+			() -> new ElementSystemConverter(12d, WuxiaElements.WOOD.getId(), System.BODY)
 					.setCanLearn(cultivation -> cultivation.getAspects()
-							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "seed"))
-							|| cultivation.getAspects()
-							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "moss")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "sprout"))
+							&& cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "bark")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("100000"), new BigDecimal("0.1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.4")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("0.6")))
 	);
 
 	public static RegistryObject<TechniqueAspect> BRANCHING = ASPECTS.register("branching",
@@ -1278,8 +1279,48 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("243000")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("607500"), new BigDecimal("0.1")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1215000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("2430000"), new BigDecimal("0.4")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("2430000"), new BigDecimal("0.4"),
+							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "space_domination"), cultivation, new BigDecimal("2430000"))))
 	);
+
+		public static RegistryObject<TechniqueAspect> SPACE_DOMINATION = ASPECTS.register("space_domination",
+			() -> new ElementalGenerator(729d, WuxiaElements.SPACE.getId())
+					.setCanLearn(cultivation -> cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_expansion"))
+							|| cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_creation")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("729000")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("1822500"), new BigDecimal("0.1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("3645000"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("7290000"), new BigDecimal("0.4"),
+							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "space_embodiment"), cultivation, new BigDecimal("7290000"))))
+	);
+
+	public static RegistryObject<TechniqueAspect> SPACE_EMBODIMENT = ASPECTS.register("space_embodiment",
+			() -> new ElementalGenerator(2187d, WuxiaElements.SPACE.getId())
+					.setCanLearn(cultivation -> cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_creation"))
+							|| cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_domination")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("2187000")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("5647500"), new BigDecimal("0.1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("10935000"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("21870000"), new BigDecimal("0.4"),
+							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "space_apotheosis"), cultivation, new BigDecimal("21870000"))))
+	);
+
+	public static RegistryObject<TechniqueAspect> SPACE_APOTHEOSIS = ASPECTS.register("space_apotheosis",
+			() -> new ElementalGenerator(6561d, WuxiaElements.SPACE.getId())
+					.setCanLearn(cultivation -> cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_domination"))
+							|| cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_embodiment")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("6561000")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("16402500"), new BigDecimal("0.1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("32805000"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("65610000"), new BigDecimal("0.4")))
+	);
+
 
 	//////////////////////////////////////////
 	//       Space Conversion ones          //
@@ -1348,6 +1389,18 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("35000000"), new BigDecimal("0.6")))
 	);
 
+	public static RegistryObject<TechniqueAspect> SPATIAL_AMPLIFICATION = ASPECTS.register("spatial_amplification",
+			() -> new ElementSystemConverter(5d, WuxiaElements.SPACE.getId(), System.DIVINE)
+					.setCanLearn(cultivation -> cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_detection"))
+							|| cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_absorption")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
+	);
+
 	//////////////////////////////////////////
 	//       Space Special ones             //
 	//////////////////////////////////////////
@@ -1358,13 +1411,12 @@ public class WuxiaTechniqueAspects {
 
 	//////////////////////////////////////////
 	//       Light Generation ones          //
-	//////////////////////////////////////////
-	public static RegistryObject<TechniqueAspect> STARRY_BATH = ASPECTS.register("starry_bath",
-			() -> new ConditionalElementalGenerator(3d, WuxiaElements.LIGHT.getId()) {
-
+	//////////////////////////////////////////	
+/*	public static RegistryObject<TechniqueAspect> STARRY_BATH = ASPECTS.register("starry_bath",
+^			() -> new ConditionalElementalGenerator(3d, WuxiaElements.LIGHT.getId()) {
 				@Override
 				public void onCultivate(CultivatingEvent event) {
-					var timeOfDay = event.getPlayer().level().getDayTime();
+					var timeOfDay = event.getPlayer().getLevel().getDayTime();
 					var techniqueData = Cultivation.get(event.getPlayer()).getSystemData(event.getSystem()).techniqueData;
 					var grid = techniqueData.grid;
 					int starryBathCount = 0;
@@ -1387,6 +1439,52 @@ public class WuxiaTechniqueAspects {
 			}
 	);
 
+	public static RegistryObject<TechniqueAspect> SHINE = ASPECTS.register("shine",
+	() -> new ElementSystemConverter(3d, WuxiaElements.LIGHT.getId(), System.ESSENCE)
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
+	);
+
+	//////////////////////////////////////////
+	//  	   Dark Generation ones         //
+	//////////////////////////////////////////
+	public static RegistryObject<TechniqueAspect> SHADOW_BATH = ASPECTS.register("shadow_bath",
+			() -> new ConditionalElementalGenerator(3d, WuxiaElements.DARK.getId()) {
+				@Override
+				public void onCultivate(CultivatingEvent event) {
+					var timeOfDay = event.getPlayer().getLevel().getDayTime();
+					var techniqueData = Cultivation.get(event.getPlayer()).getSystemData(event.getSystem()).techniqueData;
+					var grid = techniqueData.grid;
+					int shadowBathCount = 0;
+					for (var aspect : grid.getGrid().values()) {
+						if (aspect == SHADOW_BATH.getId()) {
+							shadowBathCount++;
+						}
+					}
+					var amount = event.getAmount();
+					var modifier = new BigDecimal("1");
+					if (timeOfDay > 15000 && timeOfDay < 18000) {
+						// modifier = modifier +  shadowBathCount * 0.5
+						modifier = modifier.add(new BigDecimal(shadowBathCount).multiply(new BigDecimal("0.2")));
+					} else if (timeOfDay > 12000) {
+						// modifier = modifier + shadowBathCount * 0.2
+						modifier = modifier.add(new BigDecimal(shadowBathCount).multiply(new BigDecimal("0.5")));
+					}
+					event.setAmount(amount.multiply(modifier));
+				}
+			}
+^	);
+*/
+	public static RegistryObject<TechniqueAspect> GLOOM = ASPECTS.register("gloom",
+	() -> new ElementSystemConverter(3d, WuxiaElements.DARK.getId(), System.ESSENCE)
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
+	);
+
 	//////////////////////////////////////////
 	//       Light Special ones             //
 	//////////////////////////////////////////
@@ -1400,113 +1498,131 @@ public class WuxiaTechniqueAspects {
 	//////////////////////////////////////////
 
 	public static RegistryObject<TechniqueAspect> QI_STRAND = ASPECTS.register("qi_strand",
-			() -> new ElementalGenerator(1.5d, WuxiaElements.PHYSICAL.getId())
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("1000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("2500"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("5000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("10000"), new BigDecimal("0.4"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "physical_essence"), cultivation, new BigDecimal("10000"))))
+			() -> new ElementalGenerator(1d, WuxiaElements.PHYSICAL.getId())
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("1000")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("2500"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("5000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("10000"), new BigDecimal("0.4"),
+			cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_manifestation"), cultivation)))
 	);
-
-	public static RegistryObject<TechniqueAspect> PHYSICAL_ESSENCE = ASPECTS.register("physical_essence",
-			() -> new ElementalGenerator(4.5d, WuxiaElements.PHYSICAL.getId())
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("3000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"), new BigDecimal("0.4"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_manifestation"), cultivation, new BigDecimal("30000"))))
-	);
-
+	
 	public static RegistryObject<TechniqueAspect> QI_MANIFESTATION = ASPECTS.register("qi_manifestation",
-			() -> new ElementalGenerator(13.5d, WuxiaElements.PHYSICAL.getId())
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("9000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("22500"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("45000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("90000"), new BigDecimal("0.4")))
+			() -> new ElementalGenerator(3d, WuxiaElements.PHYSICAL.getId())
+			.setCanLearn(cultivation -> cultivation.getAspects()
+					.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_strand")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("3000")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"),
+			cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_whirlpool"), cultivation)))
+	);
+	
+	public static RegistryObject<TechniqueAspect> QI_WHIRLPOOL = ASPECTS.register("qi_whirlpool",
+			() -> new ElementalGenerator(9d, WuxiaElements.PHYSICAL.getId())
+			.setCanLearn(cultivation -> cultivation.getAspects()
+				.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_manifestation")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("9000")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("22500"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("45000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("90000"), new BigDecimal("0.4"),
+			cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_pond"), cultivation)))
+	);
+
+	public static RegistryObject<TechniqueAspect> QI_POND = ASPECTS.register("qi_pond",
+	() -> new ElementalGenerator(27d, WuxiaElements.PHYSICAL.getId())
+			.setCanLearn(cultivation -> cultivation.getAspects()
+					.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_whirlpool")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("27000")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("67500"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("135000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("270000"), new BigDecimal("0.4")))
+	);
+	
+	public static RegistryObject<TechniqueAspect> QI_TEMPERING = ASPECTS.register("qi_tempering",
+			() -> new ElementSystemConverter(3d, WuxiaElements.PHYSICAL.getId(), System.BODY)
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
+	);
+	
+	public static RegistryObject<TechniqueAspect> QI_ENLIGHTENMENT = ASPECTS.register("qi_enlightenment",
+	() -> new ElementSystemConverter(3d, WuxiaElements.PHYSICAL.getId(), System.DIVINE)
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
+	);
+	
+	public static RegistryObject<TechniqueAspect> QI_FLOW = ASPECTS.register("qi_flow",
+	() -> new ElementSystemConverter(3d, WuxiaElements.PHYSICAL.getId(), System.ESSENCE)
+			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
+			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
 	);
 
 	public static RegistryObject<TechniqueAspect> BLOOD_BURNING = ASPECTS.register("blood_burning",
 			() -> new ConditionalElementalGenerator(2d, WuxiaElements.PHYSICAL.getId()) {
-
 				@Override
 				public void onCultivate(CultivatingEvent event) {
 					var cultivation = Cultivation.get(event.getPlayer());
-					var health = cultivation.getStat(PlayerStat.HEALTH);
-					health = health.subtract(event.getAmount().multiply(new BigDecimal("0.7")));
-					event.setAmount(event.getAmount().multiply(new BigDecimal("1.4")));
-					cultivation.setStat(PlayerStat.HEALTH, health);
 				}
 			}
 	);
 
 	public static RegistryObject<TechniqueAspect> DEVOURING = ASPECTS.register("devouring",
 			() -> new ConditionalElementalGenerator(1d, WuxiaElements.PHYSICAL.getId()) {
-
 				@Override
 				public void onCultivate(CultivatingEvent event) {
 					var player = event.getPlayer();
 					var cultivation = Cultivation.get(player);
-					var systemData = cultivation.getSystemData(event.getSystem());
+					var systemData = event.getSystem();
 					var itemStack = player.getMainHandItem();
 					var devourData = TechniqueUtil.getDevouringDataPerItem(itemStack.getItem());
 					if (devourData.size() <= 0) return;
-					itemStack.shrink(1);
 					var baseAmount = event.getAmount();
 					for (var element : devourData.keySet()) {
 						baseAmount = baseAmount.add(devourData.get(element));
-						cultivation.addStat(event.getSystem(), element, PlayerSystemElementalStat.FOUNDATION, baseAmount.multiply(new BigDecimal("0.1")));
+						cultivation.addStat(systemData, element, PlayerSystemElementalStat.FOUNDATION, baseAmount.multiply(new BigDecimal("0.1")));
 						cultivation.addStat(element, PlayerElementalStat.COMPREHENSION, baseAmount.multiply(new BigDecimal("0.3")));
+						itemStack.shrink(1);
 					}
 					event.setAmount(baseAmount);
 				}
 			}
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("3000")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"),
+			cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "consumption"), cultivation)))
 	);
 
-	//////////////////////////////////////////
-	//       Neutral Conversion ones        //
-	//////////////////////////////////////////
-	public static RegistryObject<TechniqueAspect> QI_TEMPERING = ASPECTS.register("qi_tempering",
-			() -> new ElementSystemConverter(3d, WuxiaElements.PHYSICAL.getId(), System.BODY)
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "body_tempering"), cultivation, new BigDecimal("350000"))))
-	);
-
-	public static RegistryObject<TechniqueAspect> BODY_TEMPERING = ASPECTS.register("body_tempering",
-			() -> new ElementSystemConverter(12d, WuxiaElements.PHYSICAL.getId(), System.BODY)
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("100000"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.4")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("0.6")))
-	);
-
-	public static RegistryObject<TechniqueAspect> PURE_QI_FLOW = ASPECTS.register("pure_qi_flow",
-			() -> new ElementSystemConverter(3d, WuxiaElements.PHYSICAL.getId(), System.ESSENCE)
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_veins_charger"), cultivation, new BigDecimal("350000"))))
-	);
-
-	public static RegistryObject<TechniqueAspect> QI_VEINS_CHARGER = ASPECTS.register("qi_veins_charger",
-			() -> new ElementSystemConverter(12d, WuxiaElements.PHYSICAL.getId(), System.ESSENCE)
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("100000"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.4")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("0.6"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_whirlpool"), cultivation, new BigDecimal("3500000"))))
-	);
-
-	public static RegistryObject<TechniqueAspect> QI_WHIRLPOOL = ASPECTS.register("qi_whirlpool",
-			() -> new ElementSystemConverter(27d, WuxiaElements.PHYSICAL.getId(), System.ESSENCE)
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("100000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("250000"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("500000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("1000000"), new BigDecimal("0.4")))
-	);
+	public static RegistryObject<TechniqueAspect> CONSUMPTION = ASPECTS.register("consumption",
+	() -> new ConditionalElementalGenerator(3d, WuxiaElements.PHYSICAL.getId()) {
+		@Override
+		public void onCultivate(CultivatingEvent event) {
+			var player = event.getPlayer();
+			var cultivation = Cultivation.get(player);
+			var systemData = event.getSystem();
+			var itemStack = player.getMainHandItem();
+			var devourData = TechniqueUtil.getDevouringDataPerItem(itemStack.getItem());
+			if (devourData.size() <= 0) return;
+			var baseAmount = event.getAmount();
+			for (var element : devourData.keySet()) {
+				baseAmount = baseAmount.add(devourData.get(element));
+				cultivation.addStat(systemData, element, PlayerSystemElementalStat.FOUNDATION, baseAmount.multiply(new BigDecimal("0.3")));
+				cultivation.addStat(element, PlayerElementalStat.COMPREHENSION, baseAmount.multiply(new BigDecimal("0.9")));
+				itemStack.shrink(1);
+			}
+			event.setAmount(baseAmount);
+		}
+	}
+	.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("27000")))
+	.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("67500")))
+	.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("135000")))
+	.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("270000")))
+);
 
 	//////////////////////////////////////////
 	//       Weapons Generation ones        //
@@ -1531,11 +1647,11 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> MAGICAL_SWORD_GLINT = ASPECTS.register("magical_sword_glint",
-			() -> new WeaponElementalGenerator(2.5d, WuxiaElements.PHYSICAL.getId(), WeaponElementalGenerator.WeaponType.SWORD)
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("3000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500"), new BigDecimal("0.1")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"), new BigDecimal("0.4")))
+			() -> new WeaponElementalGenerator(6.25d, WuxiaElements.PHYSICAL.getId(), WeaponElementalGenerator.WeaponType.SWORD)
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("9000")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("22500"), new BigDecimal("0.1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("45000"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("90000"), new BigDecimal("0.4")))
 	);
 
 	//////////////////////////////////////////
@@ -1601,14 +1717,10 @@ public class WuxiaTechniqueAspects {
 	}
 
 	private static void tryToLearnSpaceKitsune(ICultivation cultivation) {
-		boolean knowsFire = cultivation.getAspects().knowsAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "everlasting_flame"));
-		boolean knowsEarth = cultivation.getAspects().knowsAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "earth_crystal"));
-		boolean knowsMetal = cultivation.getAspects().knowsAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "heavenly_metal"));
-		boolean knowsWater = cultivation.getAspects().knowsAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "ocean_tide"));
-		boolean knowsWood = cultivation.getAspects().knowsAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "sapling"));
+		boolean knowsSpace = cultivation.getAspects().knowsAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "spatial_tempering"));
 		boolean knowsKitsune = cultivation.getAspects().knowsAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "kitsune_transformation"));
-		if (knowsFire && knowsEarth && knowsMetal && knowsWater && knowsWood && knowsKitsune) {
-			cultivation.getAspects().learnAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "space_detection"), cultivation);
+		if (knowsSpace && knowsKitsune) {
+			cultivation.getAspects().learnAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "spatial_kitsune_transformation"), cultivation);
 		}
 	}
 

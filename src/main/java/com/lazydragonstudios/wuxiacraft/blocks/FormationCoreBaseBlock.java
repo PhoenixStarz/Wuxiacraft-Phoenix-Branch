@@ -32,8 +32,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class FormationCoreBaseBlock extends Block {
 
-	private final boolean onlyWood;
-
 	public static TagKey<Item> FORMATION_CORE_BLOCKS = ItemTags.create(new ResourceLocation(WuxiaCraft.MOD_ID, "formation_core_blocks"));
 
 	public static final VoxelShape VOXEL_SHAPE = Shapes.or(
@@ -47,14 +45,8 @@ public class FormationCoreBaseBlock extends Block {
 			Block.box(13d, 1d, 4d, 15d, 3d, 12d)
 	);
 
-	public FormationCoreBaseBlock(Properties properties) {
-		super(properties);
-		this.onlyWood = false;
-	}
-
-	public FormationCoreBaseBlock(Properties pProperties, boolean onlyWood) {
+	public FormationCoreBaseBlock(Properties pProperties) {
 		super(pProperties);
-		this.onlyWood = onlyWood;
 	}
 
 	@Override
@@ -65,19 +57,7 @@ public class FormationCoreBaseBlock extends Block {
 		var block = blockItem.getBlock();
 		Block formationCoreResult = null;
 		if (blockState.getBlock().equals(WuxiaBlocks.FORMATION_CORE_BASE.get())) {
-			if (block.equals(Blocks.OAK_LOG)) {
-				formationCoreResult = WuxiaBlocks.OAK_FORMATION_CORE.get();
-			} else if (block.equals(Blocks.BIRCH_LOG)) {
-				formationCoreResult = WuxiaBlocks.BIRCH_FORMATION_CORE.get();
-			} else if (block.equals(Blocks.SPRUCE_LOG)) {
-				formationCoreResult = WuxiaBlocks.SPRUCE_FORMATION_CORE.get();
-			} else if (block.equals(Blocks.JUNGLE_LOG)) {
-				formationCoreResult = WuxiaBlocks.JUNGLE_FORMATION_CORE.get();
-			} else if (block.equals(Blocks.ACACIA_LOG)) {
-				formationCoreResult = WuxiaBlocks.ACACIA_FORMATION_CORE.get();
-			} else if (block.equals(Blocks.DARK_OAK_LOG)) {
-				formationCoreResult = WuxiaBlocks.DARK_OAK_FORMATION_CORE.get();
-			} else if (block.equals(Blocks.STONE)) {
+			if (block.equals(Blocks.STONE)) {
 				formationCoreResult = WuxiaBlocks.STONE_FORMATION_CORE.get();
 			} else if (block.equals(Blocks.COPPER_BLOCK)) {
 				formationCoreResult = WuxiaBlocks.COPPER_FORMATION_CORE.get();
@@ -91,13 +71,10 @@ public class FormationCoreBaseBlock extends Block {
 				formationCoreResult = WuxiaBlocks.DIAMOND_FORMATION_CORE.get();
 			} else if (block.equals(Blocks.EMERALD_BLOCK)) {
 				formationCoreResult = WuxiaBlocks.EMERALD_FORMATION_CORE.get();
-			}
-		}
-		for (var entry : WuxiaBlocks.WOOD_TYPES.entrySet()) {
-			var woodName = entry.getKey();
-			var defaultCoreBlock = entry.getValue();
-			if (block.equals(defaultCoreBlock) && blockState.getBlock().equals(WuxiaBlocks.WOODEN_FORMATION_CORES_BASES.get(woodName).get())) {
-				formationCoreResult = WuxiaBlocks.WOODEN_FORMATION_CORES.get(woodName).get();
+			} else if (block.equals(Blocks.NETHERITE_BLOCK)) {
+				formationCoreResult = WuxiaBlocks.NETHERITE_FORMATION_CORE.get();
+			} else if (block.equals(WuxiaBlocks.CELESTIAL_IRON_BLOCK.get())) {
+				formationCoreResult = WuxiaBlocks.CELESTIAL_IRON_FORMATION_CORE.get();
 			}
 		}
 		if (formationCoreResult == null) return InteractionResult.FAIL;

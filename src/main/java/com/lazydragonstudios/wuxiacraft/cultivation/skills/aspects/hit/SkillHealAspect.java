@@ -32,17 +32,7 @@ public class SkillHealAspect extends SkillHitAspect {
 			var casterCultivation = Cultivation.get(caster);
 			var skillStrength = skill.getAppliedStats(casterCultivation, SkillStat.STRENGTH);
 			BigDecimal healedAmount = skillStrength.multiply(new BigDecimal("0.55"));
-			if (target instanceof Player targetPlayer) {
-				var targetCultivation = Cultivation.get(targetPlayer);
-				targetCultivation.addStat(PlayerStat.HEALTH, healedAmount);
-				targetCultivation.setStat(PlayerStat.HEALTH, targetCultivation.getStat(PlayerStat.HEALTH).min(targetCultivation.getStat(PlayerStat.MAX_HEALTH)));
-				if (targetCultivation.isSemiDead() && healedAmount.compareTo(BigDecimal.TEN) > 0) {
-					targetCultivation.setSemiDeadState(false);
-				}
-				if (caster.level() instanceof ServerLevel) {
-					CultivationEventHandler.syncClientCultivation((ServerPlayer) target);
-				}
-			} else if (target instanceof LivingEntity targetLiving) {
+			if (target instanceof LivingEntity targetLiving) {
 				targetLiving.heal(healedAmount.floatValue());
 			}
 			return true;

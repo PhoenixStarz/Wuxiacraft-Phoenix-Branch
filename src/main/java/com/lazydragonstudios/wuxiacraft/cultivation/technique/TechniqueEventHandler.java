@@ -22,6 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -57,13 +58,42 @@ public class TechniqueEventHandler {
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public static void onStruckByLightning(LivingDamageEvent event) {
-		if (!event.getSource().is(DamageTypes.LIGHTNING_BOLT)) return;
-		if (!(event.getEntity() instanceof Player player)) return;
-		ICultivation cultivation = Cultivation.get(player);
-		var aspects = cultivation.getAspects();
-		if (aspects.learnAspect(WuxiaTechniqueAspects.SPARK.getId(), cultivation)) {
-			sendSuccessLearning(player, WuxiaTechniqueAspects.SPARK.getId());
+	public static void onStruckByLightning(EntityStruckByLightningEvent event) {
+		  var Entity = event.getEntity();
+		  if (Entity instanceof Player) {
+			 Player player = (Player)Entity;
+			 ICultivation cultivation = Cultivation.get(player);
+			 var aspects = cultivation.getAspects();
+			if (Math.random() * 250d < 1d) { 
+				if (!aspects.knowsAspect(WuxiaTechniqueAspects.SPARK.getId())) {
+					aspects.learnAspect(WuxiaTechniqueAspects.SPARK.getId(), cultivation);
+					sendSuccessLearning(player, WuxiaTechniqueAspects.SPARK.getId());
+				}}
+			if (Math.random() * 750d < 1d) { 
+				if (!aspects.knowsAspect(WuxiaTechniqueAspects.CIRCUIT.getId())) {
+					aspects.learnAspect(WuxiaTechniqueAspects.CIRCUIT.getId(), cultivation);
+					sendSuccessLearning(player, WuxiaTechniqueAspects.CIRCUIT.getId());
+				}}
+			if (Math.random() * 2250d < 1d) { 
+				if (!aspects.knowsAspect(WuxiaTechniqueAspects.THUNDERING.getId())) {
+					aspects.learnAspect(WuxiaTechniqueAspects.THUNDERING.getId(), cultivation);
+					sendSuccessLearning(player, WuxiaTechniqueAspects.THUNDERING.getId());
+				}}
+			if (Math.random() * 750d < 1d) { 
+				if (!aspects.knowsAspect(WuxiaTechniqueAspects.CONDUIT.getId())) {
+					aspects.learnAspect(WuxiaTechniqueAspects.CONDUIT.getId(), cultivation);
+					sendSuccessLearning(player, WuxiaTechniqueAspects.CONDUIT.getId());
+				}}
+			if (Math.random() * 750d < 1d) { 
+				if (!aspects.knowsAspect(WuxiaTechniqueAspects.ARC.getId())) {
+					aspects.learnAspect(WuxiaTechniqueAspects.ARC.getId(), cultivation);
+					sendSuccessLearning(player, WuxiaTechniqueAspects.ARC.getId());
+				}}
+			if (Math.random() * 750d < 1d) { 
+				if (!aspects.knowsAspect(WuxiaTechniqueAspects.FLASH.getId())) {
+					aspects.learnAspect(WuxiaTechniqueAspects.FLASH.getId(), cultivation);
+					sendSuccessLearning(player, WuxiaTechniqueAspects.FLASH.getId());
+				}}
 		}
 	}
 
@@ -72,16 +102,18 @@ public class TechniqueEventHandler {
 		var player = event.getPlayer();
 		ICultivation cultivation = Cultivation.get(player);
 		var aspects = cultivation.getAspects();
-		if (!aspects.knowsAspect(WuxiaTechniqueAspects.ESSENCE_GATHERING.getId())
-				&& !aspects.knowsAspect(WuxiaTechniqueAspects.BODY_GATHERING.getId())
-				&& !aspects.knowsAspect(WuxiaTechniqueAspects.DIVINE_GATHERING.getId())
-		) return;
-		HashMap<ResourceLocation, Double> aspectsPerBlock = TechniqueUtil.getAspectChancePerBlock(event.getState().getBlock());
-		for (var aspect : aspectsPerBlock.keySet()) {
+		if (aspects.knowsAspect(WuxiaTechniqueAspects.START.getId())) {
+			HashMap<ResourceLocation, Double> aspectsPerBlock = TechniqueUtil.getAspectChancePerBlock(event.getState().getBlock());
+			for (var aspect : aspectsPerBlock.keySet()) {
 			double randomVal = Math.random() * aspectsPerBlock.get(aspect);
-			if (randomVal < 1.5d) {
+			if (randomVal < 1d) {
+				if (!aspects.knowsAspect(aspect)) {
 				aspects.learnAspect(aspect, cultivation);
-				sendSuccessLearning(player, aspect);
+					if (aspects.knowsAspect(aspect)) {
+						sendSuccessLearning(player, aspect);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -89,21 +121,23 @@ public class TechniqueEventHandler {
 	@SubscribeEvent
 	public static void onKillEntity(LivingDeathEvent event) {
 		var entityType = event.getEntity().getType();
-		var chancedAspects = TechniqueUtil.getAspectChancePerEntity(entityType);
-		if (chancedAspects == null || chancedAspects.isEmpty()) return;
+		var entityChancedAspects = TechniqueUtil.getAspectChancePerEntity(entityType);
+		if (entityChancedAspects == null || entityChancedAspects.isEmpty()) return;
 		var killer = event.getSource().getEntity();
 		if (!(killer instanceof Player player)) return;
 		ICultivation cultivation = Cultivation.get(player);
 		var aspects = cultivation.getAspects();
-		if (!aspects.knowsAspect(WuxiaTechniqueAspects.ESSENCE_GATHERING.getId())
-				&& !aspects.knowsAspect(WuxiaTechniqueAspects.BODY_GATHERING.getId())
-				&& !aspects.knowsAspect(WuxiaTechniqueAspects.DIVINE_GATHERING.getId())
-		) return;
-		for (var aspect : chancedAspects.keySet()) {
-			double randomVal = Math.random() * chancedAspects.get(aspect);
-			if (randomVal < 1.5d) {
+		if (aspects.knowsAspect(WuxiaTechniqueAspects.START.getId())) {
+			for(var aspect : entityChancedAspects.keySet()) {
+			double randomVal = Math.random() * entityChancedAspects.get(aspect);
+			if (randomVal < 1d) {
+				if (!aspects.knowsAspect(aspect)) {
 				aspects.learnAspect(aspect, cultivation);
-				sendSuccessLearning(player, aspect);
+					if (aspects.knowsAspect(aspect)) {
+						sendSuccessLearning(player, aspect);
+						}
+					}
+				}	
 			}
 		}
 	}

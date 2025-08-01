@@ -115,10 +115,6 @@ public class AnimatedPlayerRenderer extends PlayerRenderer {
 		float headBob = this.getBob(player, partialTicks);
 		this.setupRotations(player, poseStack, headBob, rotationYaw, partialTicks);
 		var animData = ClientAnimationState.get(player);
-		if (animData.isSemiDead()) {
-			poseStack.translate(0, 0.16f, 0);
-			poseStack.mulPose(new Quaternionf(new AxisAngle4f((float) Math.toRadians(90), 1, 0, 0)));
-		}
 
 		poseStack.scale(-1, -1, 1);
 		this.scale(player, poseStack, partialTicks);
@@ -268,20 +264,6 @@ public class AnimatedPlayerRenderer extends PlayerRenderer {
 			model.rightArm.y = 2f;
 			model.rightArm.z = 0;
 			model.body.yRot = 0;
-			model.head.xRot = 0;
-		} else if (animationState.isSemiDead()) {
-			model.leftLeg.xRot = 0;
-			model.leftLeg.yRot = 0;
-			model.leftLeg.zRot = 0;
-			model.rightLeg.xRot = 0;
-			model.rightLeg.yRot = 0;
-			model.rightLeg.zRot = 0;
-			model.leftArm.xRot = 0;
-			model.leftArm.yRot = 0;
-			model.leftArm.zRot = 0;
-			model.rightArm.xRot = 0;
-			model.rightArm.yRot = 0;
-			model.rightArm.zRot = 0;
 			model.head.xRot = 0;
 		} else if (animationState.isSwordFlight()) {
 			model.leftLeg.x = 0.3299f;

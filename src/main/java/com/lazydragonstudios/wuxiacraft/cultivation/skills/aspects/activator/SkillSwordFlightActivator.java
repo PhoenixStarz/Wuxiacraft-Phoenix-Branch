@@ -44,10 +44,10 @@ public class SkillSwordFlightActivator extends SkillActivatorAspect {
 			var maxAgility = BigDecimal.valueOf(maxAgilityRule.getCommandResult()).divide(new BigDecimal("80"), RoundingMode.HALF_DOWN); // around 125% of max agi
 			var speedCostMultiplier = BigDecimal.ONE;
 			MathContext mc = new MathContext(8, RoundingMode.HALF_UP);
-			if (speed.compareTo(maxAgility) > 0) {
+		/* 	if (speed.compareTo(maxAgility) > 0 && maxAgility > 0) {
 				speedCostMultiplier = speed.divide(maxAgility, mc);
 			}
-			speed = speed.min(maxAgility);
+			speed = speed.min(maxAgility); */
 			var cost = skill.getAppliedStats(casterCultivation, SkillStat.COST).multiply(speedCostMultiplier, mc).multiply(new BigDecimal("0.4"), mc);
 			if (!systemData.consumeEnergy(cost)) {
 				skill.setStat(SkillStat.CURRENT_COOLDOWN, new BigDecimal("600")); // 30 s

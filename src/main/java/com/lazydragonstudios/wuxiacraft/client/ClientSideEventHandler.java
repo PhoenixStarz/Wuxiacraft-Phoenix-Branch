@@ -23,24 +23,11 @@ import java.math.RoundingMode;
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class ClientSideEventHandler {
 
-	@SubscribeEvent
-	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-//		if (event.phase != TickEvent.Phase.END) return;
-//		if (event.side != LogicalSide.CLIENT) return;
-//		var cultivation = Cultivation.get(event.player);
-//		if (cultivation.isSemiDead()) {
-//			var mc = Minecraft.getInstance();
-//			if (!(mc.screen instanceof WuxiaSemiDeadScreen)) {
-//				mc.screen = new WuxiaSemiDeadScreen();
-//			}
-//		}
-	}
-
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onPlayerWalk(MovementInputUpdateEvent event) {
 		Player player = event.getEntity();
 		var cultivation = Cultivation.get(player);
-		if (cultivation.isExercising() || cultivation.isSemiDead()) {
+		if (cultivation.isExercising()) {
 			event.getInput().up = false;
 			event.getInput().down = false;
 			event.getInput().left = false;
@@ -57,13 +44,13 @@ public class ClientSideEventHandler {
 			agility = agility.min(maxAgility);
 			if (player.onGround()) {
 				player.moveRelative(agility.floatValue() * 0.47f, new Vec3(moveInputVec.x, 0, moveInputVec.y));
-			} else if (player.getAbilities().flying) {
+		/* 	} else if (player.getAbilities().flying) {
 				var lookDir = player.getLookAngle();
 				var sideLookDir = new Vec3(1, 0, 0).yRot((float) Mth.atan2(lookDir.x, lookDir.z));
 				var moveDir = lookDir.scale(moveInputVec.y).add(sideLookDir.scale(moveInputVec.x)).normalize();
 				moveDir = moveDir.scale(agility.doubleValue()*1.12f);
 				if(moveDir.length() > 0)
-				player.setDeltaMovement(moveDir.x, moveDir.y, moveDir.z);
+				player.setDeltaMovement(moveDir.x, moveDir.y, moveDir.z);									*/
 			}
 		}
 	}

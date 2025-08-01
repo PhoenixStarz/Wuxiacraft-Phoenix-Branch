@@ -23,6 +23,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -278,8 +280,8 @@ public class FormationEventHandler {
 			var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
 			var distSqr = event.getEntity().position().distanceToSqr(core.getBlockPos().getCenter()) - 25;
 			if (!(distSqr <= barrierRange * barrierRange)) continue;
-			WuxiaPacketHandler.INSTANCE.sendToServer(new PlayerAttackBarrierMessage(core.getBlockPos(), event.getEntity().getAttackStrengthScale(0.0f)));
-			core.attackBarrierMelee(event.getEntity(), event.getEntity().getAttackStrengthScale(0.0f));
+			WuxiaPacketHandler.INSTANCE.sendToServer(new PlayerAttackBarrierMessage(core.getBlockPos(), (float) event.getEntity().getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
+			core.attackBarrierMelee(event.getEntity(), (float) event.getEntity().getAttribute(Attributes.ATTACK_DAMAGE).getValue());
 		}
 	}
 

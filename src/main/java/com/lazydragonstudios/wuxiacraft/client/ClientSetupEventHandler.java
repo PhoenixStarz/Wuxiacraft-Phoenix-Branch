@@ -52,9 +52,9 @@ public class ClientSetupEventHandler {
 		event.register(InputHandler.KEY_EXERCISE);
 		event.register(InputHandler.KEY_MEDITATE);
 	}
-
+//	WuxiaConfigs.HEALTH_BAR_ENABLED.get()
 	@SubscribeEvent
-	public static void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
+	public static void onRegisterOverlays(RegisterGuiOverlaysEvent event) { 
 		event.registerAbove(VanillaGuiOverlay.PLAYER_HEALTH.id(), "wuxiacraft_health_bar", new HealthOverlay());
 		event.registerAbove(new ResourceLocation(WuxiaCraft.MOD_ID, "wuxiacraft_health_bar"), "wuxiacraft_barrier_bar", new BarrierOverlay());
 		event.registerBelow(VanillaGuiOverlay.CHAT_PANEL.id(), "wuxiacraft_energies", new EnergiesOverlay());

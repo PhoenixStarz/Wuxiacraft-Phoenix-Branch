@@ -34,42 +34,120 @@ public class WuxiaProfessions {
 					)
 			);
 
-	@SubscribeEvent
+@SubscribeEvent
 	public static void registerTrades(VillagerTradesEvent event) {
-
 		if (event.getType() == WuxiaProfessions.CULTIVATOR.get()) {
+			var trades = event.getTrades();
 			for (var manualLocation : WuxiaDefaultTechniqueManuals.getAllKeys()) {
-				if(manualLocation.getPath().equalsIgnoreCase("spacing_out")) continue;
+				if (manualLocation.getPath().equalsIgnoreCase("qi_tempering") ||
+					manualLocation.getPath().equalsIgnoreCase("qi_flow") ||
+					manualLocation.getPath().equalsIgnoreCase("qi_enlightenment")) 
+					{ 
 				var manualSupplier = WuxiaDefaultTechniqueManuals.getDefaultManual(manualLocation);
+				if(manualLocation.getPath().equalsIgnoreCase("spacing_out")) continue;
 				if (manualSupplier == null) continue;
-				event.getTrades().get(1).add(
-						new ItemTrade(
-								new ItemStack(Items.EMERALD, 10),
-								manualSupplier.get(),
-								2,
-								15
-						)
+			for (var manualLocation2 : WuxiaDefaultTechniqueManuals.getAllKeys()) {
+				if (!manualLocation2.getPath().equalsIgnoreCase("qi_tempering") &&
+					!manualLocation2.getPath().equalsIgnoreCase("qi_flow") &&
+					!manualLocation2.getPath().equalsIgnoreCase("qi_enlightenment")) 
+					{ 
+				var manualSupplier2 = WuxiaDefaultTechniqueManuals.getDefaultManual(manualLocation2);
+				if(manualLocation2.getPath().equalsIgnoreCase("spacing_out")) continue;
+				if (manualSupplier2 == null) continue;
+				trades.get(1).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 10),
+							manualSupplier.get(),
+							5,
+							25,
+							0.05F
+					)
 				);
-			}
-			event.getTrades().get(1).add(
-					new ItemTrade(
-							new ItemStack(Items.EMERALD, 1),
-							new ItemStack(Items.BOOK, 1),
-							15,
-							5
+				trades.get(2).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 10),
+							manualSupplier.get(),
+							5,
+							50,
+							0.05F
 					)
-			);
-			event.getTrades().get(1).add(
-					new ItemTrade(
-							new ItemStack(Items.EMERALD, 1),
-							new ItemStack(Items.INK_SAC, 1),
-							15,
-							5
+				);
+				trades.get(3).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 10),
+							manualSupplier.get(),
+							5,
+							75,
+							0.05F
 					)
-			);
-		}
-
-	}
+				);
+				trades.get(3).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 10),
+							manualSupplier.get(),
+							5,
+							75,
+							0.05F
+					)
+				);
+				trades.get(3).add((entity, random) ->
+				new MerchantOffer(
+						new ItemStack(Items.EMERALD, 16),
+						manualSupplier2.get(),
+						3,
+						75,
+						0.2F
+				)
+				);
+				trades.get(4).add((entity, random) ->
+				new MerchantOffer(
+						new ItemStack(Items.EMERALD, 16),
+						manualSupplier2.get(),
+						3,
+						100,
+						0.2F
+				)
+				);
+				trades.get(4).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 10),
+							manualSupplier.get(),
+							5,
+							100,
+							0.05F
+					)
+				);
+				trades.get(4).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 16),
+							manualSupplier2.get(),
+							3,
+							100,
+							0.2F
+					)
+				);
+				trades.get(5).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 16),
+							manualSupplier2.get(),
+							3,
+							125,
+							0.2F
+					)
+				);
+				trades.get(5).add((entity, random) ->
+					new MerchantOffer(
+							new ItemStack(Items.EMERALD, 16),
+							manualSupplier2.get(),
+							3,
+							125,
+							0.2F
+					)
+				);
+			}}
+	  	}}
+	}}
+	
 
 	static class ItemTrade implements ItemListing {
 

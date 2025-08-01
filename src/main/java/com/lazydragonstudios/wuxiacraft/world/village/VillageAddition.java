@@ -52,21 +52,11 @@ public class VillageAddition {
 		Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow();
 		Registry<StructureProcessorList> processorListRegistry = event.getServer().registryAccess().registry(Registries.PROCESSOR_LIST).orElseThrow();
 
-		addBuildingToPool(templatePoolRegistry, processorListRegistry,
-				new ResourceLocation("minecraft:village/plains/houses"),
-				"wuxiacraft:village/plains/houses/plains_technique_store", 16);
-		addBuildingToPool(templatePoolRegistry, processorListRegistry,
-				new ResourceLocation("minecraft:village/savanna/houses"),
-				"wuxiacraft:village/savanna/houses/savanna_technique_store", 16);
-		addBuildingToPool(templatePoolRegistry, processorListRegistry,
-				new ResourceLocation("minecraft:village/desert/houses"),
-				"wuxiacraft:village/plains/desert/desert_technique_store", 16);
-		addBuildingToPool(templatePoolRegistry, processorListRegistry,
-				new ResourceLocation("minecraft:village/snowy/houses"),
-				"wuxiacraft:village/plains/houses/plains_technique_store", 16);
-		addBuildingToPool(templatePoolRegistry, processorListRegistry,
-				new ResourceLocation("minecraft:village/taiga/houses"),
-				"wuxiacraft:village/plains/houses/plains_technique_store", 16);
+        addBuildingToPool(templatePoolRegistry, processorListRegistry, new ResourceLocation("minecraft:village/plains/houses"), "wuxiacraft:village/houses/plains_technique_store", 16);
+        addBuildingToPool(templatePoolRegistry, processorListRegistry, new ResourceLocation("minecraft:village/savanna/houses"), "wuxiacraft:village/houses/savanna_technique_store", 16);
+        addBuildingToPool(templatePoolRegistry, processorListRegistry, new ResourceLocation("minecraft:village/desert/houses"), "wuxiacraft:village/houses/desert_technique_store", 16);
+        addBuildingToPool(templatePoolRegistry, processorListRegistry, new ResourceLocation("minecraft:village/snowy/houses"), "wuxiacraft:village/houses/snowy_technique_store", 16);
+        addBuildingToPool(templatePoolRegistry, processorListRegistry, new ResourceLocation("minecraft:village/taiga/houses"), "wuxiacraft:village/houses/taiga_technique_store", 16);
 	}
 
 }

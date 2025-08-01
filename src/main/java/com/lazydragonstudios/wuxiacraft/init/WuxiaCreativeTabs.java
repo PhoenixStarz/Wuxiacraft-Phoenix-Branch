@@ -27,7 +27,7 @@ public class WuxiaCreativeTabs {
 					.build()
 	);
 
-	public RegistryObject<CreativeModeTab> MANUALS = CREATIVE_TABS.register("manuals", () ->
+	public static RegistryObject<CreativeModeTab> MANUALS = CREATIVE_TABS.register("manuals", () ->
 			CreativeModeTab.builder()
 					.icon(WuxiaItems.ESSENCE_MANUAL.get()::getDefaultInstance)
 					.title(Component.translatable("wuxiacraft.manuals_tab"))
@@ -55,8 +55,25 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.DEEPSLATE_SPIRIT_STONE_VEIN_2.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_2.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_3.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_4.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_5.get());
+						output.accept(WuxiaItems.CELESTIAL_IRON_ORE.get());
+						output.accept(WuxiaItems.DEEPSLATE_CELESTIAL_IRON_ORE.get());
+						output.accept(WuxiaItems.CELESTIAL_IRON_BLOCK.get());
+						output.accept(WuxiaItems.RAW_CELESTIAL_IRON_BLOCK.get());
+						output.accept(WuxiaItems.CELESTIAL_IRON_INGOT.get());
+						output.accept(WuxiaItems.RAW_CELESTIAL_IRON.get());
 						output.accept(WuxiaItems.TECHNIQUE_INSCRIBER.get());
 						output.accept(WuxiaItems.RUNEMAKING_TABLE.get());
+						output.accept(WuxiaItems.CELESTIAL_HELMET.get());
+						output.accept(WuxiaItems.CELESTIAL_CHESTPLATE.get());
+						output.accept(WuxiaItems.CELESTIAL_LEGGINGS.get());
+						output.accept(WuxiaItems.CELESTIAL_BOOTS.get());
+						output.accept(WuxiaItems.CELESTIAL_SWORD.get());
+						output.accept(WuxiaItems.CELESTIAL_AXE.get());
+						output.accept(WuxiaItems.CELESTIAL_PICKAXE.get());
+						output.accept(WuxiaItems.CELESTIAL_SHOVEL.get());
+						output.accept(WuxiaItems.CELESTIAL_HOE.get());
 					})
 					.build()
 	);
@@ -67,22 +84,16 @@ public class WuxiaCreativeTabs {
 					.title(Component.translatable("wuxiacraft.formation_items"))
 					.displayItems((whatever, output) -> {
 						output.accept(WuxiaItems.FORMATION_CORE_BASE.get());
-						output.accept(WuxiaItems.ACACIA_FORMATION_CORE.get());
-						output.accept(WuxiaItems.BIRCH_FORMATION_CORE.get());
 						output.accept(WuxiaItems.COPPER_FORMATION_CORE.get());
-						output.accept(WuxiaItems.DARK_OAK_FORMATION_CORE.get());
 						output.accept(WuxiaItems.DIAMOND_FORMATION_CORE.get());
 						output.accept(WuxiaItems.EMERALD_FORMATION_CORE.get());
 						output.accept(WuxiaItems.GOLD_FORMATION_CORE.get());
 						output.accept(WuxiaItems.IRON_FORMATION_CORE.get());
-						output.accept(WuxiaItems.JUNGLE_FORMATION_CORE.get());
 						output.accept(WuxiaItems.LAPIS_FORMATION_CORE.get());
-						output.accept(WuxiaItems.OAK_FORMATION_CORE.get());
-						output.accept(WuxiaItems.SPRUCE_FORMATION_CORE.get());
+						output.accept(WuxiaItems.NETHERITE_FORMATION_CORE.get());
+						output.accept(WuxiaItems.CELESTIAL_IRON_FORMATION_CORE.get());
 						output.accept(WuxiaItems.STONE_FORMATION_CORE.get());
 						output.accept(WuxiaItems.FORMATION_CORE_BASE.get());
-						WuxiaItems.WOODEN_FORMATION_CORES.forEach((woodType, coreItem) -> output.accept(coreItem.get()));
-						WuxiaItems.WOODEN_FORMATION_CORES_BASES.forEach((woodType, coreItem) -> output.accept(coreItem.get()));
 						output.accept(WuxiaItems.LAPIS_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.COPPER_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.IRON_FORMATION_BADGE.get());
@@ -90,7 +101,6 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.DIAMOND_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.EMERALD_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.NETHERITE_FORMATION_BADGE.get());
-						output.accept(WuxiaItems.WOOD_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.STONE_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.COPPER_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.IRON_RUNE_STENCIL.get());

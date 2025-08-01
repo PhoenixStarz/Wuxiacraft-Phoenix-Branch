@@ -16,8 +16,6 @@ public interface IClientAnimationState {
 	 */
 	boolean isExercising();
 
-	boolean isSemiDead();
-
 	boolean isSwordFlight();
 
 	void setSwordFlight(boolean swordFlight);
@@ -37,8 +35,6 @@ public interface IClientAnimationState {
 	void setMeditating(boolean meditating);
 
 	void setExercising(boolean exercising);
-
-	void setSemiDead(boolean semiDead);
 
 	void advanceAnimationFrame();
 

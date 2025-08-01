@@ -156,7 +156,7 @@ public class TechniqueTab extends IntrospectionTab {
 				if (!techAspect.canShowForSystem(this.system)) continue;
 				var aspectWidget = new WuxiaAspectWidget(0, 0, aspect);
 				aspectWidget.setOnClicked(onAspectClick(aspect));
-				aspectWidget.setOnRelease(onAspectRelease());
+		//		aspectWidget.setOnRelease(onAspectRelease());
 				this.aspectsPanel.addChild(aspectWidget);
 				this.aspectWidgets.put(aspect, aspectWidget);
 			}
@@ -174,7 +174,6 @@ public class TechniqueTab extends IntrospectionTab {
 						cultivation.getAspects().getAspectProficiency(this.draggingAspect));
 			}
 		}
-		this.draggingAspect = null;
 		this.dragPosition = new double[]{0d, 0d, 0d, 0d};
 		return false;
 	};
@@ -182,6 +181,7 @@ public class TechniqueTab extends IntrospectionTab {
 	private final MouseInputPredicate onGridComposerClick = (mouseX, mouseY, button) -> {
 		var hexC = this.gridComposer.getHexCoordinateFromMousePosition((int) mouseX, (int) mouseY);
 		if (hexC != null && button == 1) {
+			this.draggingAspect = null;
 			this.gridComposer.removeAspectToGrid(hexC);
 		}
 		return false;
@@ -189,17 +189,18 @@ public class TechniqueTab extends IntrospectionTab {
 
 	private BiConsumer<Double, Double> onAspectClick(ResourceLocation aspectLocation) {
 		return (mx, my) -> {
+			this.draggingAspect = null;
 			this.draggingAspect = aspectLocation;
 			this.dragPosition = new double[]{mx, my, 0d, 0d};
 		};
 	}
 
-	private BiConsumer<Double, Double> onAspectRelease() {
+/* 	private BiConsumer<Double, Double> onAspectRelease() {
 		return (mx, my) -> {
-			this.draggingAspect = null;
+
 			this.dragPosition = new double[]{0d, 0d, 0d, 0d};
 		};
-	}
+	}																							*/
 
 	@Override
 	public void renderBg(GuiGraphics guiGraphics, int mouseX, int mouseY) {

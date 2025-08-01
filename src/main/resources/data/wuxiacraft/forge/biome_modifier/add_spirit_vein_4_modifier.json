@@ -1,0 +1,6 @@
+{
+  	"type": "forge:add_features",
+  	"biomes": "warped_forest",
+	"features": "wuxiacraft:ore_spirit_vein_4",
+ 	"step": "underground_ores"
+}

@@ -63,18 +63,6 @@ public class StatRuneBlock extends Block {
 	}
 
 	@Override
-	public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos thisPos) {
-		BlockPos below = thisPos.below();
-		BlockState belowState = levelReader.getBlockState(below);
-		return belowState.isFaceSturdy(levelReader, below, Direction.UP);
-	}
-
-	@Override
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
-		return !pState.canSurvive(pLevel, pPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
-	}
-
-	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> tooltipList, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, blockGetter, tooltipList, tooltipFlag);
 		for (var stat : this.formationStats.keySet()) {

@@ -3,14 +3,14 @@
 	"pattern": [
 		"  S",
 		"NI ",
-		"NN "
+		" N "
 	],
 	"key": {
 		"I": {
 			"item": "minecraft:gold_ingot"
 		},
 		"N": {
-			"item": "minecraft:gold_nugget"
+			"item": "minecraft:gold_ingot"
 		},
 		"S": {
 			"item": "minecraft:stick"

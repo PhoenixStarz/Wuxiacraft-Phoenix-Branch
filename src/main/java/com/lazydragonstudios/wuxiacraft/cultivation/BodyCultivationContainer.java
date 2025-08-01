@@ -2,13 +2,17 @@ package com.lazydragonstudios.wuxiacraft.cultivation;
 
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.BodyTransformationAspect;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ElementToStatsConsumer;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaConfigs;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
 import com.lazydragonstudios.wuxiacraft.util.TechniqueUtil;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,6 +22,7 @@ import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class BodyCultivationContainer extends SystemContainer {
 
@@ -118,7 +123,10 @@ public class BodyCultivationContainer extends SystemContainer {
 	@Nonnull
 	@Override
 	public BigDecimal getStat(PlayerStat stat) {
-		return this.playerStats.getOrDefault(stat, BigDecimal.ZERO);
+			BigDecimal statValue = this.getStage().getStat(stat);
+			BigDecimal statValue2 = this.playerStats.getOrDefault(stat, BigDecimal.ZERO);
+			var statValue3 = statValue.add(statValue2);
+		return statValue3;
 	}
 
 	@Nonnull
@@ -286,11 +294,27 @@ public class BodyCultivationContainer extends SystemContainer {
 			var elementLocation = this.selectedElementByBodyPart.get(bodyPart);
 			containerTag.putString("selected-element-" + bodyPart.toString(), elementLocation.toString());
 		}
+		for (var stat : this.playerStats.keySet()) {
+			if (!stat.isModifiable) continue;
+			BigDecimal statValue = this.playerStats.get(stat);
+			int scale = statValue.scale();
+			statValue = statValue.setScale(Math.min(10, scale), RoundingMode.DOWN);
+			containerTag.putString("stat-" + stat.name().toLowerCase(), statValue.toPlainString());
+			this.playerStats.put(stat, statValue);
+		}
 		return containerTag;
 	}
 
 	@Override
 	public void deserialize(CompoundTag tag) {
+		for (var stat : this.playerStats.keySet()) {
+			if (!stat.isModifiable) continue;
+			if (tag.contains("stat-" + stat.name().toLowerCase())) {
+				this.playerStats.put(stat, new BigDecimal(tag.getString("stat-" + stat.name().toLowerCase())));
+			} else {
+				this.playerStats.put(stat, new BigDecimal("0"));
+			}
+		}
 		super.deserialize(tag);
 		this.bodyPartsForging.clear();
 		this.bodyPartsElements.clear();
@@ -365,6 +389,11 @@ public class BodyCultivationContainer extends SystemContainer {
 
 		var cultSpeed = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_SPEED);
 		amount = amount.multiply(BigDecimal.ONE.add(cultSpeed).multiply(BigDecimal.valueOf(WuxiaConfigs.CULTIVATION_SPEED_MULTIPLIER.get())));
+		Map<ResourceKey<Level>, Double> multiplierMap = WuxiaConfigs.getDimensionMultipliers();
+		ResourceKey<Level> currentDim = player.level().dimension();
+		if (multiplierMap.containsKey(currentDim)) {
+    		amount = amount.multiply(BigDecimal.valueOf(multiplierMap.get(currentDim)));
+		}
 		if (sumOfAllElements.compareTo(BigDecimal.ZERO) <= 0) return;
 		for (var elementLocation : partsToCultivateByElement.keySet()) {
 			var elementAmount = BigDecimal.valueOf(elements.get(elementLocation));

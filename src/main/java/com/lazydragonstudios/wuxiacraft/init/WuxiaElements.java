@@ -109,20 +109,20 @@ public class WuxiaElements {
 	);
 
 	public static RegistryObject<Element> LIGHT = ELEMENTS.register("light", () -> new Element()
-			.suppresses(new ResourceLocation(WuxiaCraft.MOD_ID, "darkness"))
+			.suppresses(new ResourceLocation(WuxiaCraft.MOD_ID, "dark"))
 			.addSkill(WuxiaSkillAspects.HEAL.getId(), new BigDecimal("12000"))
 			.setStat(PlayerStat.AGILITY, new BigDecimal("0.0004"))
 			.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("0.0028"))
 			.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.000004"))
 			.setStat(PlayerElementalStat.RESISTANCE, new ResourceLocation(WuxiaCraft.MOD_ID, "light"), new BigDecimal("0.005"))
-			.setStat(PlayerElementalStat.RESISTANCE, new ResourceLocation(WuxiaCraft.MOD_ID, "darkness"), new BigDecimal("0.008"))
+			.setStat(PlayerElementalStat.RESISTANCE, new ResourceLocation(WuxiaCraft.MOD_ID, "dark"), new BigDecimal("0.008"))
 	);
 
-	public static RegistryObject<Element> DARKNESS = ELEMENTS.register("darkness", () -> new Element()
+	public static RegistryObject<Element> DARK = ELEMENTS.register("dark", () -> new Element()
 			.suppresses(new ResourceLocation(WuxiaCraft.MOD_ID, "light"))
 			.setStat(PlayerStat.STRENGTH, new BigDecimal("0.06"))
 			.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("0.06"))
-			.setStat(PlayerElementalStat.RESISTANCE, new ResourceLocation(WuxiaCraft.MOD_ID, "darkness"), new BigDecimal("0.005"))
+			.setStat(PlayerElementalStat.RESISTANCE, new ResourceLocation(WuxiaCraft.MOD_ID, "dark"), new BigDecimal("0.005"))
 			.setStat(PlayerElementalStat.RESISTANCE, new ResourceLocation(WuxiaCraft.MOD_ID, "light"), new BigDecimal("0.008"))
 	);
 

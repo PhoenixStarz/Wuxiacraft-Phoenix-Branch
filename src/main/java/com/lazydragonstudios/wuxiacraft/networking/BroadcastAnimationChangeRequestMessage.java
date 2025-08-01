@@ -54,7 +54,6 @@ public class BroadcastAnimationChangeRequestMessage {
 				cultivation.setCombat(msg.combat);
 				var bodyTransformation = cultivation.getBodyTransformation();
 				if (bodyTransformation == null) bodyTransformation = new ResourceLocation("wuxiacraft:none");
-				animationStateInstance.setSemiDead(cultivation.isSemiDead());
 				animationState = animationStateInstance.serialize();
 				for (var target : level.players()) {
 					WuxiaPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) target),

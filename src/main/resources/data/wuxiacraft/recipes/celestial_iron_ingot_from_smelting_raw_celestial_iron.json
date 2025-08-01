@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "wuxiacraft:raw_celestial_iron"
+  },
+  "result": "wuxiacraft:celestial_iron_ingot",
+  "experience": 7,
+  "cookingtime": 300
+}

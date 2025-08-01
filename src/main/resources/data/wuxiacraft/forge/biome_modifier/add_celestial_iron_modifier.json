@@ -1,0 +1,8 @@
+{
+	"type": "forge:add_features",
+	"biomes": {
+		"type": "forge:any"
+	},
+	"features": "wuxiacraft:celestial_iron",
+	"step": "underground_ores"
+}

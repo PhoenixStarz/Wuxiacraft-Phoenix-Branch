@@ -1,6 +1,5 @@
 package com.lazydragonstudios.wuxiacraft.networking;
 
-import com.lazydragonstudios.wuxiacraft.client.gui.WuxiaSemiDeadScreen;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -55,9 +54,6 @@ public class CultivationSyncMessage {
 		ctx.enqueueWork(() -> {
 			ICultivation cultivation = Cultivation.get(Minecraft.getInstance().player);
 			cultivation.deserialize(msg.instance);
-			if(Minecraft.getInstance().screen instanceof WuxiaSemiDeadScreen) {
-				if(!cultivation.isSemiDead()) Minecraft.getInstance().screen = null;
-			}
 		});
 	}
 }

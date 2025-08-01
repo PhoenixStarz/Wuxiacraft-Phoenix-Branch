@@ -1,7 +1,7 @@
 package com.lazydragonstudios.wuxiacraft.init;
 
 import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
-import com.lazydragonstudios.wuxiacraft.world.feature.SpiritStoneFeature;
+import com.lazydragonstudios.wuxiacraft.world.feature.*;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -14,5 +14,8 @@ public class WuxiacraftFeatures {
 	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_1 = FEATURES.register("ore_spirit_vein_1", SpiritStoneFeature::new);
 	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_2 = FEATURES.register("ore_spirit_vein_2", SpiritStoneFeature::new);
 	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_3 = FEATURES.register("ore_spirit_vein_3", SpiritStoneFeature::new);
+	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_4 = FEATURES.register("ore_spirit_vein_4", SpiritStoneFeatureN::new);
+	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_5 = FEATURES.register("ore_spirit_vein_5", SpiritStoneFeatureE::new);
+	public static final RegistryObject<Feature<?>> CELESTIAL_IRON = FEATURES.register("celestial_iron", SpiritStoneFeature::new);
 
 }

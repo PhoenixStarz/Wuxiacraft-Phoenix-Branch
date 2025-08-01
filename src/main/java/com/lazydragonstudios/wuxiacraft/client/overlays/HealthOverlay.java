@@ -5,6 +5,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.util.StatsUtil;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaConfigs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
@@ -24,15 +25,15 @@ public class HealthOverlay implements IGuiOverlay {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.player == null) return;
 		if (mc.player.isCreative()) return;
+		if (WuxiaConfigs.HEALTH_BAR_ENABLED.get() != true) return;
 		if (!gui.shouldDrawSurvivalElements()) return;
 		int i = width / 2 - 91;
 		int j = height - gui.leftHeight;
-		ICultivation cultivation = Cultivation.get(mc.player);
 		//health
 		guiGraphics.blit(HEALTH_BAR, i, j, 81, 9, 0, 0, 81, 9, 81, 18);
 		MathContext mathContext =  new MathContext(6, RoundingMode.HALF_UP);
-		var max_hp = cultivation.getStat(PlayerStat.MAX_HEALTH);
-		var hp = cultivation.getStat(PlayerStat.HEALTH);
+		var hp = new BigDecimal(Math.ceil(mc.player.getHealth() * 10) / 10);
+        var max_hp = new BigDecimal(mc.player.getMaxHealth());
 		int fill = hp.multiply(new BigDecimal("81"), mathContext).divide(max_hp, mathContext).min(new BigDecimal(81)).intValue();
 		guiGraphics.blit(HEALTH_BAR, i, j, fill, 9, 0, 9, fill, 9, 81, 18);
 		//text

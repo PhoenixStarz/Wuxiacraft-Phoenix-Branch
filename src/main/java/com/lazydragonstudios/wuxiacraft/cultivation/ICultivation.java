@@ -128,14 +128,14 @@ public interface ICultivation {
 	 * @return the time ticker. It's just for not exposing the ticker.
 	 */
 	int getTimer();
+	
+	//
+	void advanceCultTimer();
 
-	void setSemiDeadState(boolean state);
+	void resetCultTimer();
 
-	void advanceSemiDead(int cooldown);
-
-	boolean isSemiDead();
-
-	int getSemiDeadTimer();
+	int getCultTimer();
+	//
 
 	boolean isDivineSense();
 

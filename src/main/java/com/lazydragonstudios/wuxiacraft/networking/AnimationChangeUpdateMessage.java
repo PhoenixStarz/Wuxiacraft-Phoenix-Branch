@@ -53,7 +53,6 @@ public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationS
 			ICultivation cultivation = Cultivation.get(target);
 			cultivation.setExercising(animationState.isExercising());
 			cultivation.setCombat(msg.combat);
-			cultivation.setSemiDeadState(animationState.isSemiDead());
 			if(ForgeRegistries.ENTITY_TYPES.containsKey(msg.bodyTransformation)) {
 				cultivation.setBodyTransformation(msg.bodyTransformation);
 			} else {

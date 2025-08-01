@@ -31,12 +31,6 @@ public class WuxiaBlockEntities {
 	public static RegistryObject<BlockEntityType<FormationCore>> FORMATION_CORE = BLOCK_ENTITIES.register("formation_core",
 			() -> BlockEntityType.Builder
 					.of(FormationCore::new,
-							WuxiaBlocks.OAK_FORMATION_CORE.get(),
-							WuxiaBlocks.BIRCH_FORMATION_CORE.get(),
-							WuxiaBlocks.ACACIA_FORMATION_CORE.get(),
-							WuxiaBlocks.JUNGLE_FORMATION_CORE.get(),
-							WuxiaBlocks.SPRUCE_FORMATION_CORE.get(),
-							WuxiaBlocks.DARK_OAK_FORMATION_CORE.get(),
 							WuxiaBlocks.STONE_FORMATION_CORE.get(),
 							WuxiaBlocks.COPPER_FORMATION_CORE.get(),
 							WuxiaBlocks.IRON_FORMATION_CORE.get(),
@@ -44,14 +38,8 @@ public class WuxiaBlockEntities {
 							WuxiaBlocks.LAPIS_FORMATION_CORE.get(),
 							WuxiaBlocks.DIAMOND_FORMATION_CORE.get(),
 							WuxiaBlocks.EMERALD_FORMATION_CORE.get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("acacia").get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("birch").get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("cherry").get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("dark_oak").get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("jungle").get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("mangrove").get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("oak").get(),
-							WuxiaBlocks.WOODEN_FORMATION_CORES.get("spruce").get())
+							WuxiaBlocks.NETHERITE_FORMATION_CORE.get(),
+							WuxiaBlocks.CELESTIAL_IRON_FORMATION_CORE.get())
 					.build(Util.fetchChoiceType(References.BLOCK_ENTITY, "formation_core"))
 	);
 

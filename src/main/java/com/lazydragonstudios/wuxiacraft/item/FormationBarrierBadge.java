@@ -43,7 +43,7 @@ public class FormationBarrierBadge extends Item {
 		if (blockPos.compareTo(cultFormationCore) != 0) return InteractionResult.PASS;
 		var blockEntity = pContext.getLevel().getBlockEntity(blockPos);
 		if (!(blockEntity instanceof FormationCore core)) return InteractionResult.PASS;
-		if (core.getStat(FormationStat.BARRIER_MAX_AMOUNT).compareTo(BigDecimal.ZERO) <= 0) return InteractionResult.PASS;
+//		if (core.getStat(FormationStat.BARRIER_MAX_AMOUNT).compareTo(BigDecimal.ZERO) <= 0) return InteractionResult.PASS;
 		var formationTag = new CompoundTag();
 		formationTag.putInt("x", blockPos.getX());
 		formationTag.putInt("y", blockPos.getY());

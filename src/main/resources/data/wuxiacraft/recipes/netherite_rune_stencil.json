@@ -1,23 +1,15 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"  S",
-		"NI ",
-		"NN "
-	],
-	"key": {
-		"I": {
-			"item": "minecraft:netherite_ingot"
-		},
-		"N": {
-			"item": "minecraft:netherite_scrap"
-		},
-		"S": {
-			"item": "minecraft:stick"
-		}
-	},
-	"result": {
-		"item": "wuxiacraft:netherite_rune_stencil",
-		"count": 1
-	}
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "wuxiacraft:diamond_rune_stencil"
+  },
+  "result": {
+    "item": "wuxiacraft:netherite_rune_stencil"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
 }

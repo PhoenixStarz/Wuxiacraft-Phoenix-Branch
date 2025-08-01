@@ -3,11 +3,13 @@ package com.lazydragonstudios.wuxiacraft.init;
 import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
 import com.lazydragonstudios.wuxiacraft.blocks.FormationCoreBaseBlock;
 import com.lazydragonstudios.wuxiacraft.blocks.FormationCoreBlock;
+import com.lazydragonstudios.wuxiacraft.item.ToolMaterialTiers;
+import com.lazydragonstudios.wuxiacraft.item.CelestialArmorMaterial;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.formation.FormationMaterialTier;
 import com.lazydragonstudios.wuxiacraft.item.*;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +21,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
+import java.lang.reflect.Type;
 
 @SuppressWarnings("unused")
 public class WuxiaItems {
@@ -63,9 +66,6 @@ public class WuxiaItems {
 
 	public static RegistryObject<Item> ESSENCE_MANUAL = ITEMS.register("essence_manual",
 			() -> new TechniqueManual(new Item.Properties().stacksTo(1), System.ESSENCE));
-
-	public static RegistryObject<Item> WOOD_RUNE_STENCIL = ITEMS.register("wood_rune_stencil",
-			() -> new RuneStencil(1f, 0.8f, Tiers.WOOD, new Item.Properties()));
 
 	public static RegistryObject<Item> STONE_RUNE_STENCIL = ITEMS.register("stone_rune_stencil",
 			() -> new RuneStencil(2f, 0.8f, Tiers.STONE, new Item.Properties()));
@@ -118,29 +118,35 @@ public class WuxiaItems {
 	public static RegistryObject<Item> SPIRIT_STONE_VEIN_3 = ITEMS.register("spirit_stone_vein_3",
 			() -> new BlockItem(WuxiaBlocks.SPIRIT_STONE_VEIN_3.get(), new Item.Properties()));
 
+	public static RegistryObject<Item> SPIRIT_STONE_VEIN_4 = ITEMS.register("spirit_stone_vein_4",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_STONE_VEIN_4.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_STONE_VEIN_5 = ITEMS.register("spirit_stone_vein_5",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_STONE_VEIN_5.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> CELESTIAL_IRON_ORE = ITEMS.register("celestial_iron_ore",
+			() -> new BlockItem(WuxiaBlocks.CELESTIAL_IRON_ORE.get(), new Item.Properties()));
+			
+	public static RegistryObject<Item> DEEPSLATE_CELESTIAL_IRON_ORE = ITEMS.register("deepslate_celestial_iron_ore",
+			() -> new BlockItem(WuxiaBlocks.DEEPSLATE_CELESTIAL_IRON_ORE.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> CELESTIAL_IRON_BLOCK = ITEMS.register("celestial_iron_block",
+			() -> new BlockItem(WuxiaBlocks.CELESTIAL_IRON_BLOCK.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> RAW_CELESTIAL_IRON_BLOCK = ITEMS.register("raw_celestial_iron_block",
+			() -> new BlockItem(WuxiaBlocks.RAW_CELESTIAL_IRON_BLOCK.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> CELESTIAL_IRON_INGOT = ITEMS.register("celestial_iron_ingot",
+			() -> new Item(new Item.Properties()));
+
+	public static RegistryObject<Item> RAW_CELESTIAL_IRON = ITEMS.register("raw_celestial_iron",
+			() -> new Item(new Item.Properties()));
+
 	public static RegistryObject<Item> RUNEMAKING_TABLE = ITEMS.register("runemaking_table",
 			() -> new BlockItem(WuxiaBlocks.RUNEMAKING_TABLE.get(), new Item.Properties()));
 
 	public static RegistryObject<Item> FORMATION_CORE_BASE = ITEMS.register("formation_core_base",
 			() -> new BlockItem(WuxiaBlocks.FORMATION_CORE_BASE.get(), new Item.Properties()));
-
-	public static RegistryObject<Item> OAK_FORMATION_CORE = ITEMS.register("oak_formation_core",
-			() -> new BlockItem(WuxiaBlocks.OAK_FORMATION_CORE.get(), new Item.Properties()));
-
-	public static RegistryObject<Item> BIRCH_FORMATION_CORE = ITEMS.register("birch_formation_core",
-			() -> new BlockItem(WuxiaBlocks.BIRCH_FORMATION_CORE.get(), new Item.Properties()));
-
-	public static RegistryObject<Item> SPRUCE_FORMATION_CORE = ITEMS.register("spruce_formation_core",
-			() -> new BlockItem(WuxiaBlocks.SPRUCE_FORMATION_CORE.get(), new Item.Properties()));
-
-	public static RegistryObject<Item> JUNGLE_FORMATION_CORE = ITEMS.register("jungle_formation_core",
-			() -> new BlockItem(WuxiaBlocks.JUNGLE_FORMATION_CORE.get(), new Item.Properties()));
-
-	public static RegistryObject<Item> ACACIA_FORMATION_CORE = ITEMS.register("acacia_formation_core",
-			() -> new BlockItem(WuxiaBlocks.ACACIA_FORMATION_CORE.get(), new Item.Properties()));
-
-	public static RegistryObject<Item> DARK_OAK_FORMATION_CORE = ITEMS.register("dark_oak_formation_core",
-			() -> new BlockItem(WuxiaBlocks.DARK_OAK_FORMATION_CORE.get(), new Item.Properties()));
 
 	public static RegistryObject<Item> STONE_FORMATION_CORE = ITEMS.register("stone_formation_core",
 			() -> new BlockItem(WuxiaBlocks.STONE_FORMATION_CORE.get(), new Item.Properties()));
@@ -163,26 +169,39 @@ public class WuxiaItems {
 	public static RegistryObject<Item> EMERALD_FORMATION_CORE = ITEMS.register("emerald_formation_core",
 			() -> new BlockItem(WuxiaBlocks.EMERALD_FORMATION_CORE.get(), new Item.Properties()));
 
-	public static HashMap<String, RegistryObject<Item>> WOODEN_FORMATION_CORES_BASES = new HashMap<>();
+	public static RegistryObject<Item> NETHERITE_FORMATION_CORE = ITEMS.register("netherite_formation_core",
+			() -> new BlockItem(WuxiaBlocks.NETHERITE_FORMATION_CORE.get(), new Item.Properties()));
 
-	public static HashMap<String, RegistryObject<Item>> WOODEN_FORMATION_CORES = new HashMap<>();
+	public static RegistryObject<Item> CELESTIAL_IRON_FORMATION_CORE = ITEMS.register("celestial_iron_formation_core",
+			() -> new BlockItem(WuxiaBlocks.CELESTIAL_IRON_FORMATION_CORE.get(), new Item.Properties()));
 
-	static {
-		WuxiaBlocks.WOOD_TYPES.put("acacia", Blocks.ACACIA_LOG);
-		WuxiaBlocks.WOOD_TYPES.put("birch", Blocks.BIRCH_LOG);
-		WuxiaBlocks.WOOD_TYPES.put("cherry", Blocks.CHERRY_LOG);
-		WuxiaBlocks.WOOD_TYPES.put("dark_oak", Blocks.DARK_OAK_LOG);
-		WuxiaBlocks.WOOD_TYPES.put("jungle", Blocks.JUNGLE_LOG);
-		WuxiaBlocks.WOOD_TYPES.put("mangrove", Blocks.MANGROVE_LOG);
-		WuxiaBlocks.WOOD_TYPES.put("oak", Blocks.OAK_LOG);
-		WuxiaBlocks.WOOD_TYPES.put("spruce", Blocks.SPRUCE_LOG);
-		for (var wood_type : WuxiaBlocks.WOOD_TYPES.keySet()) {
-			WOODEN_FORMATION_CORES_BASES.put(wood_type, ITEMS.register(wood_type + "_formation_core_base",
-					() -> new BlockItem(WuxiaBlocks.WOODEN_FORMATION_CORES_BASES.get(wood_type).get(), new Item.Properties())));
-			WOODEN_FORMATION_CORES.put(wood_type, ITEMS.register(wood_type + "_wooden_formation_core",
-					() -> new BlockItem(WuxiaBlocks.WOODEN_FORMATION_CORES.get(wood_type).get(), new Item.Properties())));
-		}
-	}
+	public static final RegistryObject<Item> CELESTIAL_SWORD = ITEMS.register("celestial_sword", 
+			() -> new SwordItem(ToolMaterialTiers.CELESTIAL_IRON, 2, -2.4f, new Item.Properties()));
+
+	public static final RegistryObject<Item> CELESTIAL_PICKAXE = ITEMS.register("celestial_pickaxe",  
+			() -> new PickaxeItem(ToolMaterialTiers.CELESTIAL_IRON, 0, -2.8f, new Item.Properties()));
+
+	public static final RegistryObject<Item> CELESTIAL_AXE = ITEMS.register("celestial_axe",  
+			() -> new AxeItem(ToolMaterialTiers.CELESTIAL_IRON, 4, -3.0f, new Item.Properties()));
+
+	public static final RegistryObject<Item> CELESTIAL_SHOVEL = ITEMS.register("celestial_shovel",  
+			() -> new ShovelItem(ToolMaterialTiers.CELESTIAL_IRON, 0, -2.8f, new Item.Properties()));
+
+	public static final RegistryObject<Item> CELESTIAL_HOE = ITEMS.register("celestial_hoe",  
+			() -> new HoeItem(ToolMaterialTiers.CELESTIAL_IRON, 0, -2.0f, new Item.Properties()));
+			
+	public static final RegistryObject<Item> CELESTIAL_HELMET = ITEMS.register("celestial_helmet",  
+            () -> new ArmorItem(CelestialArmorMaterial.CELESTIAL_IRON, ArmorItem.Type.HELMET, new Item.Properties()));
+
+	public static final RegistryObject<Item> CELESTIAL_CHESTPLATE = ITEMS.register("celestial_chestplate",  
+            () -> new ArmorItem(CelestialArmorMaterial.CELESTIAL_IRON, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+	public static final RegistryObject<Item> CELESTIAL_LEGGINGS = ITEMS.register("celestial_leggings",  
+            () -> new ArmorItem(CelestialArmorMaterial.CELESTIAL_IRON, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+	public static final RegistryObject<Item> CELESTIAL_BOOTS = ITEMS.register("celestial_boots",  
+            () -> new ArmorItem(CelestialArmorMaterial.CELESTIAL_IRON, ArmorItem.Type.BOOTS, new Item.Properties()));
+
 
 	public static HashMap<FormationMaterialTier, RegistryObject<Item>> GENERATION_RUNES = new HashMap<>();
 

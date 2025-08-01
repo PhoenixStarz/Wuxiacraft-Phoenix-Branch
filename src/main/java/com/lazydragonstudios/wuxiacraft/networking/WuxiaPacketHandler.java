@@ -25,7 +25,6 @@ public class WuxiaPacketHandler {
 		INSTANCE.registerMessage(serverMessagesID++, OpenScreenMessage.class, OpenScreenMessage::encode, OpenScreenMessage::decode, OpenScreenMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, BroadcastAnimationChangeRequestMessage.class, BroadcastAnimationChangeRequestMessage::encode, BroadcastAnimationChangeRequestMessage::decode, BroadcastAnimationChangeRequestMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, RequestTechniqueDataChange.class, RequestTechniqueDataChange::encode, RequestTechniqueDataChange::decode, RequestTechniqueDataChange::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
-		INSTANCE.registerMessage(serverMessagesID++, AskToDieMessage.class, AskToDieMessage::encode, AskToDieMessage::decode, AskToDieMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, RequestSkillSaveMessage.class, RequestSkillSaveMessage::encode, RequestSkillSaveMessage::decode, RequestSkillSaveMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, CultivationStateChangeMessage.class, CultivationStateChangeMessage::encode, CultivationStateChangeMessage::decode, CultivationStateChangeMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, RequestRTPOnDeathMessage.class, RequestRTPOnDeathMessage::encode, RequestRTPOnDeathMessage::decode, RequestRTPOnDeathMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
@@ -43,7 +42,6 @@ public class WuxiaPacketHandler {
 		int clientMessagesID = 200;
 		INSTANCE.registerMessage(clientMessagesID++, CultivationSyncMessage.class, CultivationSyncMessage::encode, CultivationSyncMessage::decode, CultivationSyncMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		INSTANCE.registerMessage(clientMessagesID++, AnimationChangeUpdateMessage.class, AnimationChangeUpdateMessage::encode, AnimationChangeUpdateMessage::decode, AnimationChangeUpdateMessage::handleMessageCommon, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		INSTANCE.registerMessage(clientMessagesID++, TurnSemiDeadStateMessage.class, TurnSemiDeadStateMessage::encode, TurnSemiDeadStateMessage::decode, TurnSemiDeadStateMessage::handleMessageCommon, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		INSTANCE.registerMessage(clientMessagesID++, SendSectInvitesToClientMessage.class, SendSectInvitesToClientMessage::encode, SendSectInvitesToClientMessage::decode, SendSectInvitesToClientMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		INSTANCE.registerMessage(clientMessagesID++, SynchronizeMaxAgility.class, SynchronizeMaxAgility::encode, SynchronizeMaxAgility::decode, SynchronizeMaxAgility::handleMessage, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 	}

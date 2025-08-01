@@ -8,6 +8,7 @@ public enum BodyPartGroup {
 	LEFT_LEG,
 	RIGHT_ARM,
 	RIGHT_LEG,
+	MERIDIAN,
 	;
 
 }

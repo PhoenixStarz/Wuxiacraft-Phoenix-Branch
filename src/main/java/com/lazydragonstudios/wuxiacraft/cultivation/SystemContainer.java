@@ -4,13 +4,16 @@ import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerElementalStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemElementalStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.TechniqueContainer;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaConfigs;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaMobEffects;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import com.lazydragonstudios.wuxiacraft.cultivation.technique.TechniqueContainer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
@@ -18,6 +21,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Map;
 
 public class SystemContainer {
 
@@ -83,7 +87,7 @@ public class SystemContainer {
 		}
 		//Applies Enlightenment
 		if (player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
-			var instance = player.getEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get());
+			var instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
 			if (instance != null) {
 				var amplifier = instance.getAmplifier();
 				//amount = amount * (1 + (3 * amplifier))
@@ -115,6 +119,11 @@ public class SystemContainer {
 		}
 		//adds cultivation speed
 		amount = amount.multiply(BigDecimal.ONE.add(cultSpeed).multiply(BigDecimal.valueOf(WuxiaConfigs.CULTIVATION_SPEED_MULTIPLIER.get())));
+		Map<ResourceKey<Level>, Double> multiplierMap = WuxiaConfigs.getDimensionMultipliers();
+		ResourceKey<Level> currentDim = player.level().dimension();
+		if (multiplierMap.containsKey(currentDim)) {
+    		amount = amount.multiply(BigDecimal.valueOf(multiplierMap.get(currentDim)));
+		}
 		//adds the base
 		cultivation.addStat(system, PlayerSystemStat.CULTIVATION_BASE, amount);
 	}

@@ -37,9 +37,9 @@ public class WuxiaRealms {
 							System.BODY
 					));
 
-	public static RegistryObject<CultivationRealm> BODY_TORSO_TEMPERING = REALM_REGISTER
-			.register("body_torso_tempering",
-					() -> new CultivationRealm("body_torso_tempering",
+	public static RegistryObject<CultivationRealm> BODY_TEMPERING_REALM = REALM_REGISTER
+			.register("body_tempering_realm",
+					() -> new CultivationRealm("body_tempering_realm",
 							System.BODY
 					));
 
@@ -52,6 +52,12 @@ public class WuxiaRealms {
 					() -> new CultivationRealm("divine_mortal_realm",
 							System.DIVINE
 					));
+
+	public static RegistryObject<CultivationRealm> DIVINE_AWARENESS_REALM = REALM_REGISTER
+			.register("divine_awareness_realm",
+					() -> new CultivationRealm("divine_awareness_realm",
+							System.DIVINE
+					));				
 
 	//************************************
 	// essence realms
@@ -356,9 +362,9 @@ public class WuxiaRealms {
 			.register("body_viscera_tempering",
 					() -> new BodyCultivationStage(
 							System.BODY,
-							new ResourceLocation(WuxiaCraft.MOD_ID, "body_torso_tempering"),
-							new ResourceLocation(WuxiaCraft.MOD_ID, "body_skin_forging"),
-							new ResourceLocation(WuxiaCraft.MOD_ID, "body_viscera_tempering") //TODO remove this loop
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_tempering_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_torso_forging"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_head_tempering") 
 					)
 							.unlockPart(WuxiaBodyParts.HEART.getId())
 							.unlockPart(WuxiaBodyParts.LIVER.getId())
@@ -386,19 +392,184 @@ public class WuxiaRealms {
 							.setStat(System.BODY, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
 			);
 
+		public static RegistryObject<CultivationStage> BODY_HEAD_TEMPERING = STAGE_REGISTER
+			.register("body_head_tempering",
+					() -> new BodyCultivationStage(
+							System.BODY,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_tempering_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_viscera_tempering"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_standard_meridian_tempering")
+					)
+							.unlockPart(WuxiaBodyParts.SKULL_BONE.getId())
+							.unlockPart(WuxiaBodyParts.LEFT_EYE.getId())
+							.unlockPart(WuxiaBodyParts.RIGHT_EYE.getId())
+							.unlockPart(WuxiaBodyParts.LEFT_EAR.getId())
+							.unlockPart(WuxiaBodyParts.RIGHT_EAR.getId())
+							.unlockPart(WuxiaBodyParts.NOSE.getId())
+							.unlockPart(WuxiaBodyParts.MOUTH.getId())
+							.unlockPart(WuxiaBodyParts.TONGUE.getId())
+							.unlockPart(WuxiaBodyParts.BRAIN.getId())
+							.setStat(System.BODY, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("320000"))
+							.setStat(System.BODY, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.05"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("20"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("8"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.04"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.035"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.04"))
+							.setStat(System.BODY, PlayerSystemStat.MAX_ENERGY, new BigDecimal("20"))
+							.setStat(System.BODY, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.06"))
+							.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("4"))
+							.setStat(PlayerElementalStat.PIERCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("3"))
+							.setStat(PlayerStat.EXERCISE_COST, new BigDecimal("0.07"))
+							.setStat(PlayerStat.EXERCISE_CONVERSION, new BigDecimal("0.06"))
+			);
+
+		public static RegistryObject<CultivationStage> BODY_STANDARD_MERIDIAN_TEMPERING = STAGE_REGISTER
+			.register("body_standard_meridian_tempering",
+					() -> new BodyCultivationStage(
+							System.BODY,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_tempering_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_head_tempering"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_extraordinary_meridian_tempering")
+					)
+							.unlockPart(WuxiaBodyParts.ARM_TAI_YIN.getId())
+							.unlockPart(WuxiaBodyParts.ARM_YANG_MING.getId())
+							.unlockPart(WuxiaBodyParts.LEG_YANG_MING.getId())
+							.unlockPart(WuxiaBodyParts.LEG_TAI_YIN.getId())
+							.unlockPart(WuxiaBodyParts.ARM_SHAO_YIN.getId())
+							.unlockPart(WuxiaBodyParts.ARM_TAI_YANG.getId())
+							.unlockPart(WuxiaBodyParts.LEG_TAI_YANG.getId())
+							.unlockPart(WuxiaBodyParts.LEG_SHAO_YIN.getId())
+							.unlockPart(WuxiaBodyParts.ARM_JUE_YIN.getId())
+							.unlockPart(WuxiaBodyParts.ARM_SHAO_YANG.getId())
+							.unlockPart(WuxiaBodyParts.LEG_SHAO_YANG.getId())
+							.unlockPart(WuxiaBodyParts.LEG_JUE_YIN.getId())
+							.setStat(System.BODY, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("640000"))
+							.setStat(System.BODY, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.06"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("32"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("15"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.04"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.035"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.04"))
+							.setStat(System.BODY, PlayerSystemStat.MAX_ENERGY, new BigDecimal("20"))
+							.setStat(System.BODY, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.06"))
+							.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("4"))
+							.setStat(PlayerElementalStat.PIERCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("3"))
+							.setStat(System.BODY, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
+			);
+
+		public static RegistryObject<CultivationStage> BODY_EXTRAORDINARY_MERIDIAN_TEMPERING = STAGE_REGISTER
+			.register("body_extraordinary_meridian_tempering",
+					() -> new BodyCultivationStage(
+							System.BODY,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_tempering_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_standard_meridian_tempering"),
+							null
+					)
+							.unlockPart(WuxiaBodyParts.REN_MAI.getId())
+							.unlockPart(WuxiaBodyParts.DU_MAI.getId())
+							.unlockPart(WuxiaBodyParts.CHONG_MAI.getId())
+							.unlockPart(WuxiaBodyParts.DAI_MAI.getId())
+							.unlockPart(WuxiaBodyParts.YIN_WEI_MAI.getId())
+							.unlockPart(WuxiaBodyParts.YANG_WEI_MAI.getId())
+							.unlockPart(WuxiaBodyParts.YIN_QIAO_MAI.getId())
+							.unlockPart(WuxiaBodyParts.YANG_QIAO_MAI.getId())
+							.setStat(System.BODY, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("1280000"))
+							.setStat(System.BODY, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.07"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("50"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("24"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.06"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.040"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.04"))
+							.setStat(System.BODY, PlayerSystemStat.MAX_ENERGY, new BigDecimal("25"))
+							.setStat(System.BODY, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.08"))
+							.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("4"))
+							.setStat(PlayerElementalStat.PIERCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("3"))
+			);
+
 	//*********************************
 	// divine stages
 	//*********************************
 
-	public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGISTER
+public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGISTER
 			.register("divine_mortal_stage",
 					() -> new CultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_mortal_realm"),
-							null, null
+							null, 
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_feeling_stage")
 					)
-							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("100"))
-							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.0001"))
+					.setOnCultivate(cultivateFlatAmountsDivine(BigDecimal.ONE, BigDecimal.ONE))
+					.setOnCultivationFailure(cultivateFailureEnergyDivine(BigDecimal.ONE))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("1000"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_FEELING_STAGE = STAGE_REGISTER
+			.register("divine_feeling_stage",
+					() -> new CultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_mortal_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_sense_stage")
+					)
+					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("2.5"), BigDecimal.ONE))
+					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("2.5")))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("2"))
+					.setStat(PlayerStat.STRENGTH, new BigDecimal("0.5"))
+					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("4"))
+					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("3"))
+					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("2.5"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("4000"))
+					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("3"))
+					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.01"))
+					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.001"))
+					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.002"))
+			);
+	public static RegistryObject<CultivationStage> DIVINE_SENSE_STAGE = STAGE_REGISTER
+			.register("divine_sense_stage",
+					() -> new CultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_gathering_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_perception_stage")
+					)
+					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("4"), BigDecimal.ONE))
+					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("4")))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("2"))
+					.setStat(PlayerStat.STRENGTH, new BigDecimal("0.5"))
+					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
+					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("6"))
+					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("5"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("6000")) //20k
+					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.005"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("4"))
+					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.02"))
+					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.002"))
+					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.003"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_PERCEPTION_STAGE = STAGE_REGISTER
+			.register("divine_perception_stage",
+					() -> new CultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_pathways_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_perception_stage")
+					)
+					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("4"), new BigDecimal("2.5")))
+					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("4")))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("2"))
+					.setStat(PlayerStat.STRENGTH, new BigDecimal("0.5"))
+					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("16"))
+					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("12"))
+					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("10"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("9000"))
+					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("5"))
+					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.03"))
+					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.004"))
 			);
 
 	//*********************************
@@ -1207,12 +1378,29 @@ public class WuxiaRealms {
 			}
 		};
 	}
+		public static Consumer<Player> cultivateFlatAmountsDivine(BigDecimal energy, BigDecimal cultivationBase) {
+		return player -> {
+			var cultivation = Cultivation.get(player);
+			var divineData = cultivation.getSystemData(System.DIVINE);
+			if (divineData.consumeEnergy(energy)) {
+				cultivation.addCultivationBase(player, System.DIVINE, cultivationBase);
+			}
+		};
+	}
 
 	public static Consumer<Player> cultivateFailureEnergy(BigDecimal energy) {
 		return player -> {
 			var cultivation = Cultivation.get(player);
 			var essenceData = cultivation.getSystemData(System.ESSENCE);
 			essenceData.consumeEnergy(energy);
+		};
+	}
+
+		public static Consumer<Player> cultivateFailureEnergyDivine(BigDecimal energy) {
+		return player -> {
+			var cultivation = Cultivation.get(player);
+			var divineData = cultivation.getSystemData(System.DIVINE);
+			divineData.consumeEnergy(energy);
 		};
 	}
 

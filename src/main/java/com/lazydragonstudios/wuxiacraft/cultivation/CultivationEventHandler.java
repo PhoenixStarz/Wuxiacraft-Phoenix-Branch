@@ -63,26 +63,23 @@ public class CultivationEventHandler {
 		var itemStack = player.getInventory().getItem(0);
 
 		handleClientSync(player, cultivation);
-		if (cultivation.isSemiDead()) {
-			handleSemiDead(player, cultivation);
-		} else {
-			handleSkillCasting(player, cultivation);
-			handleBodyEnergyRegen(player, cultivation, bodyData);
-			handleEnergyRegen(player, cultivation);
-			handleEnergyOverflow(cultivation);
-			handleNaturalHealing(cultivation, bodyData);
-			handleBarrierRegen(cultivation, essenceData);
-			handleHungerRegen(player, cultivation, essenceData);
-			handleExerciseEnergies(cultivation, bodyData, divineData, essenceData);
-			handleExerciseAddingCultBase(player, cultivation, bodyData);
-			handleLowEnergyPunishments(player, cultivation, bodyData, divineData);
-			handleCustomPotionEffects(player, cultivation, divineData, essenceData);
-			handleCombatMovementCosts(player, cultivation);
-			handleParticlesWhenFlying(player, cultivation);
-			handleShouldAddStepAssist(player, cultivation);
-			handlePlayerExtraHealth(player, cultivation);
-			handleCanFly(player, cultivation);
-		}
+		handleSkillCasting(player, cultivation);
+		handleBodyEnergyRegen(player, cultivation, bodyData);
+		handleEnergyRegen(player, cultivation);
+		handleEnergyOverflow(cultivation);
+		handleNaturalHealing(cultivation, bodyData);
+		handleBarrierRegen(cultivation, essenceData);
+		handleHungerRegen(player, cultivation, essenceData);
+		handleExerciseEnergies(cultivation, bodyData, divineData, essenceData);
+		handleExerciseAddingCultBase(player, cultivation, bodyData);
+		handleLowEnergyPunishments(player, cultivation, bodyData, divineData);
+		handleCustomPotionEffects(player, cultivation, divineData, essenceData);
+		handleCombatMovementCosts(player, cultivation);
+		handleParticlesWhenFlying(player, cultivation);
+		handleShouldAddStepAssist(player, cultivation);
+		handlePlayerHealth(player, cultivation);
+		handleHealthRegeneration(player, cultivation, bodyData);
+		handleCanFly(player, cultivation);
 		player.level().getProfiler().pop();
 	}
 
@@ -94,7 +91,7 @@ public class CultivationEventHandler {
 		if (!(essenceData.getStage() instanceof EssenceCultivationStage essenceStage)) return;
 		if (cultivation.getStat(PlayerStat.BARRIER).compareTo(cultivation.getStat(PlayerStat.MAX_BARRIER)) < 0
 				&& cultivation.getStat(PlayerStat.BARRIER_REGEN_COOLDOWN).compareTo(BigDecimal.ZERO) <= 0 &&
-				cultivation.isCombat() && !cultivation.isSemiDead() && essenceStage.isCanHaveBarrier()) {
+				cultivation.isCombat() && essenceStage.isCanHaveBarrier()) {
 			BigDecimal cost = cultivation.getStat(PlayerStat.BARRIER_REGEN_COST);
 			BigDecimal maxEnergy = cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY);
 			if (essenceData.hasEnergy(cost.add(maxEnergy.multiply(new BigDecimal("0.5")))) && essenceData.consumeEnergy(cost)) {
@@ -109,24 +106,20 @@ public class CultivationEventHandler {
 
 	private static void handleHungerRegen(Player player, ICultivation cultivation, SystemContainer essenceData) {
 		if (!(essenceData.getStage() instanceof EssenceCultivationStage essenceStage)) return;
-		if (!cultivation.isSemiDead() && essenceStage.isCanConvertToFood()) {
+		if (essenceStage.isCanConvertToFood()) {
 			BigDecimal cost = cultivation.getStat(PlayerStat.HUNGER_REGEN_COST);
 			var regenAmount = cultivation.getStat(PlayerStat.HUNGER_REGEN).floatValue();
+			BigDecimal maxEnergy = cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY);
 			FoodData foodData = player.getFoodData();
 			if ((foodData.getFoodLevel() < 20 ||
-					foodData.getSaturationLevel() < foodData.getFoodLevel()) && essenceData.consumeEnergy(cost)) {
-				var exhaustionLevel = foodData.getExhaustionLevel();
+					foodData.getSaturationLevel() < foodData.getFoodLevel()) && essenceData.hasEnergy(maxEnergy.multiply(new BigDecimal("0.50"))) 
+						&& essenceData.consumeEnergy(cost)) {
 				var saturationLevel = foodData.getSaturationLevel();
 				var foodLevel = foodData.getFoodLevel();
-				exhaustionLevel = exhaustionLevel - regenAmount;
-				if (exhaustionLevel <= 0) {
-					exhaustionLevel = 4f;
-					saturationLevel = Math.min(saturationLevel + 0.5f, foodLevel);
-					if (saturationLevel >= foodLevel) {
-						foodLevel = Math.min(foodLevel + 1, 20);
-					}
+				saturationLevel = Math.min(saturationLevel + 0.5f, foodLevel);
+				if (saturationLevel >= foodLevel) {
+					foodLevel = Math.min(foodLevel + 1, 20);
 				}
-				foodData.setExhaustion(exhaustionLevel);
 				foodData.setSaturation(saturationLevel);
 				foodData.setFoodLevel(foodLevel);
 			}
@@ -151,17 +144,28 @@ public class CultivationEventHandler {
 	 * @param player      target player
 	 * @param cultivation target player's cultivation
 	 */
-	private static void handlePlayerExtraHealth(Player player, ICultivation cultivation) {
+	private static void handlePlayerHealth(Player player, ICultivation cultivation) {
 		var attributes = player.getAttributes();
 		var maxHealthInstance = attributes.getInstance(Attributes.MAX_HEALTH);
-		if (maxHealthInstance == null) return;
-		var extraHealth = maxHealthInstance.getValue() - maxHealthInstance.getBaseValue();
-		var modifier = new AttributeModifier(UUID.fromString("7a9c1749-7c95-4e61-893b-72f3efff5629"), "wuxiacraft.health_modifier", -extraHealth, AttributeModifier.Operation.ADDITION);
-		maxHealthInstance.removeModifier(modifier);
-		if (extraHealth > 0) {
-			maxHealthInstance.addTransientModifier(modifier);
+		   double extraHealth = (cultivation.getStat(PlayerStat.MAX_HEALTH).subtract(new BigDecimal("20"))).doubleValue();
+		   var modifier = new AttributeModifier(UUID.fromString("fac24357-405f-4870-a21f-d386cc22039d"), "wuxiacraft.health_modifier", +extraHealth, AttributeModifier.Operation.ADDITION);
+		   maxHealthInstance.removeModifier(modifier);
+			  maxHealthInstance.addPermanentModifier(modifier);
+	}
+	
+
+	/**
+	 * Body energy into health regeneration
+	 *
+	 * @param event A description of what is happening
+	 */
+	public static void handleHealthRegeneration(Player player, ICultivation cultivation, SystemContainer bodyData) {
+		BigDecimal regen = cultivation.getStat(PlayerStat.HEALTH_REGEN);
+		BigDecimal cost = cultivation.getStat(PlayerStat.HEALTH_REGEN_COST);
+		BigDecimal maxEnergy = cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY);
+		if (player.getHealth() < player.getMaxHealth() && bodyData.hasEnergy(maxEnergy.multiply(new BigDecimal("0.25"))) && bodyData.consumeEnergy(cost)) {
+			player.heal(regen.floatValue());
 		}
-		cultivation.setExtraHealthFromAttributes(extraHealth);
 	}
 
 	private static void handleClientSync(Player player, ICultivation cultivation) {
@@ -176,18 +180,6 @@ public class CultivationEventHandler {
 					systemData.techniqueData.grid.fixProficiencies(cultivation.getAspects());
 				}
 			}
-		}
-	}
-
-	private static void handleSemiDead(Player player, ICultivation cultivation) {
-		cultivation.advanceSemiDead(20 * WuxiaConfigs.SEMI_DEAD_TIMER.get());
-		if (cultivation.getStat(PlayerStat.HEALTH).compareTo(BigDecimal.TEN) > 0) {
-			cultivation.setSemiDeadState(false);
-		}
-		if (player.level().isClientSide()) return;
-		if (!cultivation.isSemiDead()) {
-			WuxiaPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player),
-					new TurnSemiDeadStateMessage(false, Component.empty(), false));
 		}
 	}
 
@@ -237,10 +229,10 @@ public class CultivationEventHandler {
 
 	private static void handleBodyEnergyRegen(Player player, ICultivation cultivation, SystemContainer bodyData) {
 		//Body energy regen depends on food
-		if (player.getFoodData().getFoodLevel() > 15) {
+//		if (player.getFoodData().getFoodLevel() > 15) {
 			BigDecimal hunger_modifier = new BigDecimal("1");
-			if (player.getFoodData().getFoodLevel() >= 18) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
-			if (player.getFoodData().getFoodLevel() >= 20) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
+//			if (player.getFoodData().getFoodLevel() >= 18) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
+//			if (player.getFoodData().getFoodLevel() >= 20) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
 			BigDecimal finalEnergyRegen = cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY_REGEN).multiply(hunger_modifier);
 			//bodyEnergy < bodyMaxEnergy * 0.7 (70%)
 			BigDecimal maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.1" : "0.7");
@@ -248,9 +240,10 @@ public class CultivationEventHandler {
 			if (canRegenBodyEnergy) {
 				bodyData.addEnergy(finalEnergyRegen);
 				cultivation.setStat(System.BODY, PlayerSystemStat.ENERGY, cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).min(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(maxEnergyMultiplicand)));
-				player.causeFoodExhaustion(finalEnergyRegen.floatValue() * 0.2f);
+			//	if (finalEnergyRegen.floatValue() >= 25f ) finalEnergyRegen = new BigDecimal("25");
+			//	player.causeFoodExhaustion(finalEnergyRegen.floatValue() * 0.2f);
 			}
-		}
+//		}
 	}
 
 	private static void handleEnergyRegen(Player player, ICultivation cultivation) {
@@ -319,16 +312,15 @@ public class CultivationEventHandler {
 	}
 
 	private static void handleExerciseAddingCultBase(Player player, ICultivation cultivation, SystemContainer bodyData) {
-
-		if (cultivation.isExercising() &&
-				bodyData.techniqueData.modifier.isValidTechnique()) {
-			cultivation.addCultivationBase(player, System.BODY,
-					//conversion  * 0.01
-					cultivation.getStat(PlayerStat.EXERCISE_CONVERSION)
-							.multiply(new BigDecimal("0.01"))
-			);
+			//if player is exercising, add a little of cult to him
+			if (cultivation.isExercising() && bodyData.techniqueData.modifier.isValidTechnique()) {
+				cultivation.advanceCultTimer();
+				if (cultivation.getCultTimer() > 200) {// 10.05s //
+					cultivation.resetCultTimer();
+					cultivation.addCultivationBase(player, System.BODY, BigDecimal.ONE);
+				}
+			}	
 		}
-	}
 
 	private static final HashMap<System, BigDecimal> energyAccumulatedFromRunning = new HashMap<>();
 
@@ -413,13 +405,6 @@ public class CultivationEventHandler {
 			// 0.009 * 1.8 ^ amplifier
 			divineData.addEnergy(new BigDecimal("0.009").multiply(new BigDecimal("1.8").pow(effectInstance.getAmplifier()), mc));
 		}
-		if (player.hasEffect(MobEffects.REGENERATION)) {
-			var effectInstance = player.getEffect(MobEffects.REGENERATION);
-			if (effectInstance == null) return;
-			//vanilla regen per tick, better than vanilla because of better precision
-			var healedAmount = BigDecimal.valueOf(2).pow(effectInstance.getAmplifier(), mc).divide(BigDecimal.valueOf(50), mc);
-			cultivation.setStat(PlayerStat.HEALTH, cultivation.getStat(PlayerStat.HEALTH).add(healedAmount).min(cultivation.getStat(PlayerStat.MAX_HEALTH)));
-		}
 	}
 
 	/**
@@ -454,7 +439,6 @@ public class CultivationEventHandler {
 		event.getOriginal().reviveCaps();
 		ICultivation oldCultivation = Cultivation.get(event.getOriginal());
 		ICultivation newCultivation = Cultivation.get(event.getEntity());
-		oldCultivation.setSemiDeadState(false);
 		if (event.isWasDeath()) {
 			//oldCultivation.setSkillCooldown(0);
 			if (event.getOriginal().getTags().contains("PLEASE_RTP_ME")) {
@@ -535,10 +519,6 @@ public class CultivationEventHandler {
 		var player = event.getEntity();
 		syncClientCultivation((ServerPlayer) player);
 		fixEnergies(player);
-		WuxiaPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player),
-				new TurnSemiDeadStateMessage(Cultivation.get(player).isSemiDead(),
-						//since these two are useless when ppl is alive, might as well just leave it there as if dead
-						Component.translatable("wuxiacraft.death.login"), player.getServer().isHardcore()));
 	}
 
 	public static void fixEnergies(Player player) {

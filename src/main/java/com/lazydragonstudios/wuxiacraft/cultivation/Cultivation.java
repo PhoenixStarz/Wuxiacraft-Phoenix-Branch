@@ -56,8 +56,6 @@ public class Cultivation implements ICultivation {
 		this.skills = new SkillContainer();
 		this.exercising = false;
 		this.combat = false;
-		this.semiDead = false;
-		this.semiDeadTime = 0;
 		this.isDivineSense = false;
 		this.formationCore = null;
 		this.extraHealthFromAttributes = 0.0;
@@ -122,15 +120,6 @@ public class Cultivation implements ICultivation {
 	 */
 	private boolean isDivineSense;
 
-	/**
-	 * A flag to store if character is almost dead, unconscious, you have it
-	 */
-	private boolean semiDead;
-
-	/**
-	 * A counter to check the time a person is KOed to revive later
-	 */
-	private int semiDeadTime;
 
 	/**
 	 * A fraction of the speed being used
@@ -143,6 +132,8 @@ public class Cultivation implements ICultivation {
 	 * but that is not among us anymore
 	 */
 	private int tickTimer;
+
+	private int cultTimer;
 
 	/**
 	 * An internal variable updated every tick to check if within formation range to add stats
@@ -366,8 +357,6 @@ public class Cultivation implements ICultivation {
 		tag.put("essence-data", getSystemData(System.ESSENCE).serialize());
 		tag.put("aspect-data", this.aspects.serialize());
 		tag.put("skills-data", this.skills.serialize());
-		tag.putBoolean("semi-dead", this.semiDead);
-		tag.putInt("semi-dead-time", this.semiDeadTime);
 		if (this.formationCore != null) {
 			var formationTag = new CompoundTag();
 			formationTag.putInt("x", this.formationCore.getX());
@@ -428,12 +417,6 @@ public class Cultivation implements ICultivation {
 		}
 		if (tag.contains("skills-data")) {
 			this.skills.deserialize(tag.getCompound("skills-data"), this);
-		}
-		if (tag.contains("semi-dead")) {
-			this.semiDead = tag.getBoolean("semi-dead");
-		}
-		if (tag.contains("semi-dead-time")) {
-			this.semiDeadTime = tag.getInt("semi-dead-time");
 		}
 		if (tag.contains("formation")) {
 			var formationTag = tag.getCompound("formation");
@@ -520,30 +503,23 @@ public class Cultivation implements ICultivation {
 	public int getTimer() {
 		return this.tickTimer;
 	}
-
+	
+	//	//	//	//	//	//	//	//	//	//	//	//
 	@Override
-	public void setSemiDeadState(boolean state) {
-		this.semiDead = state;
-		this.semiDeadTime = 0;
+	public void advanceCultTimer() {
+		this.cultTimer++;
 	}
 
 	@Override
-	public void advanceSemiDead(int cooldown) {
-		this.semiDeadTime++;
-		if (this.semiDeadTime >= cooldown) {
-			this.setSemiDeadState(false);
-		}
+	public void resetCultTimer() {
+		this.cultTimer = 0;
 	}
 
 	@Override
-	public boolean isSemiDead() {
-		return this.semiDead;
+	public int getCultTimer() {
+		return this.cultTimer;
 	}
-
-	@Override
-	public int getSemiDeadTimer() {
-		return this.semiDeadTime;
-	}
+	//	//	//	//	//	//	//	//	//	//	//
 
 	@Override
 	public boolean isDivineSense() {

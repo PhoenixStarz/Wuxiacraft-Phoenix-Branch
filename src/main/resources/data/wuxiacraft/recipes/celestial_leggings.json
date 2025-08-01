@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"C C",
+		"C C"
+	],
+	"key": {
+		"C": {
+			"item": "wuxiacraft:celestial_iron_ingot"
+		}
+	},
+	"result": {
+		"item": "wuxiacraft:celestial_leggings"
+	}
+}

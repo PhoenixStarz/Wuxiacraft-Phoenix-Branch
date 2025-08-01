@@ -427,14 +427,14 @@ public class WuxiaBodyParts {
 	);
 
 	public static RegistryObject<BodyPart> UPPER_SPINE_BONE = BODY_PARTS.register("upper_spine_bone",
-			() -> new BodyPart(BodyPartGroup.RIGHT_LEG, BONE.get())
+			() -> new BodyPart(BodyPartGroup.TORSO, BONE.get())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
 					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
 	public static RegistryObject<BodyPart> LOWER_SPINE_BONE = BODY_PARTS.register("lower_spine_bone",
-			() -> new BodyPart(BodyPartGroup.RIGHT_LEG, BONE.get())
+			() -> new BodyPart(BodyPartGroup.TORSO, BONE.get())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
 					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
@@ -735,10 +735,131 @@ public class WuxiaBodyParts {
 
 	public static RegistryObject<BodyPart> BRAIN = BODY_PARTS.register("brain",
 			() -> new BodyPart(BodyPartGroup.HEAD, ORGAN.get())
+					.setElementalAffinity(WuxiaElements.LIGHTNING.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("600"))
 					.setStat(System.BODY, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.75"))
 					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.75"))
 					.setStat(System.ESSENCE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.75"))
 	);
 
+	public static RegistryObject<BodyPart> ARM_TAI_YIN = BODY_PARTS.register("arm_tai_yin",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.METAL.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);
+		
+	public static RegistryObject<BodyPart> ARM_YANG_MING = BODY_PARTS.register("arm_yang_ming",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.METAL.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);	
+	
+	public static RegistryObject<BodyPart> LEG_YANG_MING = BODY_PARTS.register("leg_yang_ming",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.EARTH.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);	
+	
+	public static RegistryObject<BodyPart> LEG_TAI_YIN = BODY_PARTS.register("leg_tai_yin",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.EARTH.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);	
+	
+	public static RegistryObject<BodyPart> ARM_SHAO_YIN = BODY_PARTS.register("arm_shao_yin",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.FIRE.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);	
+	
+	public static RegistryObject<BodyPart> ARM_TAI_YANG = BODY_PARTS.register("arm_tai_yang",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.FIRE.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);	
+	
+	public static RegistryObject<BodyPart> LEG_TAI_YANG = BODY_PARTS.register("leg_tai_yang",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.WATER.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);	
+	
+	public static RegistryObject<BodyPart> LEG_SHAO_YIN = BODY_PARTS.register("leg_shao_yin",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.WATER.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);	
+	
+	public static RegistryObject<BodyPart> ARM_JUE_YIN = BODY_PARTS.register("arm_jue_yin",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.FIRE.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);
+
+	public static RegistryObject<BodyPart> ARM_SHAO_YANG = BODY_PARTS.register("arm_shao_yang",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.FIRE.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);
+
+	public static RegistryObject<BodyPart> LEG_SHAO_YANG = BODY_PARTS.register("leg_shao_yang",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.WOOD.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);
+
+	public static RegistryObject<BodyPart> LEG_JUE_YIN = BODY_PARTS.register("leg_jue_yin",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.setElementalAffinity(WuxiaElements.WOOD.getId())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("800"))
+	);
+
+	public static RegistryObject<BodyPart> REN_MAI = BODY_PARTS.register("ren_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
+	public static RegistryObject<BodyPart> DU_MAI = BODY_PARTS.register("du_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
+	public static RegistryObject<BodyPart> CHONG_MAI = BODY_PARTS.register("chong_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
+	public static RegistryObject<BodyPart> DAI_MAI = BODY_PARTS.register("dai_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
+	public static RegistryObject<BodyPart> YIN_WEI_MAI = BODY_PARTS.register("yin_wei_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
+	public static RegistryObject<BodyPart> YANG_WEI_MAI = BODY_PARTS.register("yang_wei_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
+	public static RegistryObject<BodyPart> YIN_QIAO_MAI = BODY_PARTS.register("yin_qiao_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
+	public static RegistryObject<BodyPart> YANG_QIAO_MAI = BODY_PARTS.register("yang_qiao_mai",
+			() -> new BodyPart(BodyPartGroup.MERIDIAN, MERIDIANS.get())
+					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("1200"))
+					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.003"))
+					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.002"))
+	);
 }
