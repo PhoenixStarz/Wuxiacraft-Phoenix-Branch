@@ -22,7 +22,8 @@ public enum PlayerStat {
 	DETECTION_RANGE(new BigDecimal("10.00"), false, 2),
 	DETECTION_STRENGTH(new BigDecimal("0.00"), false, 2),
 	DETECTION_RESISTANCE(new BigDecimal("0.00"), false, 2),
-	LIVES(new BigDecimal(3), true, 0),
+	LIVES(new BigDecimal(WuxiaConfigs.INITIAL_LIVES.get()), true, 0),
+	CULTPOINT(new BigDecimal("10000.0"), true, 0),
 
 	HUNGER_REGEN(BigDecimal.ZERO, false, 2),
 	HUNGER_REGEN_COST(BigDecimal.ZERO, false, 2)

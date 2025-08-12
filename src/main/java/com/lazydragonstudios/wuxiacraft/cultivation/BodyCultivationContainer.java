@@ -394,6 +394,32 @@ public class BodyCultivationContainer extends SystemContainer {
 		if (multiplierMap.containsKey(currentDim)) {
     		amount = amount.multiply(BigDecimal.valueOf(multiplierMap.get(currentDim)));
 		}
+		String AFKS = WuxiaConfigs.AFK_SYSTEM.get();
+		var AFKtimer = cultivation.getStat(PlayerStat.CULTPOINT).intValue();
+		BigDecimal AFKmulti = BigDecimal.ZERO;
+		int cheeseburger = 0; //<-- just a little thing to stop config mistypes from stoping cultivation
+		if (AFKS.equals("enabled") || AFKS.equals("enabled+") || AFKS.equals("detrimental")) {
+			if (AFKtimer >= 2000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 4000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 6000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 8000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 10000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			cheeseburger++;
+		}
+		if (AFKS.equals("enabled") || AFKS.equals("enabled+") || AFKS.equals("beneficial") || AFKS.equals("beneficial+")) {
+			if (AFKtimer >= 11000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 12000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 13000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 14000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			if (AFKtimer >= 15000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
+			cheeseburger++;
+		}
+		if (AFKS.equals("enabled+") || AFKS.equals("beneficial+")) {
+			if (AFKtimer > 15000) AFKmulti = AFKmulti.add(BigDecimal.valueOf((AFKtimer-15000)/10000));
+		}
+		if (cheeseburger == 0) AFKmulti = AFKmulti.add(BigDecimal.ONE);
+		amount = amount.multiply(AFKmulti);
+		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).subtract(BigDecimal.TEN));
 		if (sumOfAllElements.compareTo(BigDecimal.ZERO) <= 0) return;
 		for (var elementLocation : partsToCultivateByElement.keySet()) {
 			var elementAmount = BigDecimal.valueOf(elements.get(elementLocation));

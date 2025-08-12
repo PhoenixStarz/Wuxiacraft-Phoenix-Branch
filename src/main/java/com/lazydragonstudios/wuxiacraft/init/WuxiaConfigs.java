@@ -21,10 +21,12 @@ public class WuxiaConfigs {
     // Common Config Values
     public static ForgeConfigSpec.LongValue INITIAL_LIVES;
     public static ForgeConfigSpec.LongValue MAX_LIVES;
+    public static ForgeConfigSpec.ConfigValue<String> AFK_SYSTEM;
+    public static ForgeConfigSpec.LongValue MAX_CULTPOINTS;
     public static ForgeConfigSpec.DoubleValue CULTIVATION_SPEED_MULTIPLIER;
-    public static ForgeConfigSpec.BooleanValue HEALTH_BAR_ENABLED;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_MULTIPLIER_LIST;
     // Client Config Values
+    public static ForgeConfigSpec.BooleanValue HEALTH_BAR_ENABLED;
 
     public static void registerConfigs() {
         registerServerConfig();
@@ -42,20 +44,27 @@ public class WuxiaConfigs {
         COMMON_BUILDER.comment("Common Config for WuxiaCraft").push("cultivation");
 
         INITIAL_LIVES = COMMON_BUILDER
-                .comment("How many lives do players initially have.")
+                .comment("How many lives do players initially have. Default(3)")
                 .defineInRange("initialLives", 3, 1, Long.MAX_VALUE);
+
         MAX_LIVES = COMMON_BUILDER
-                .comment("The max lives a player will manage to obtain or have.")
+                .comment("The max lives a player will manage to obtain or have. Default(3)")
                 .defineInRange("maxLives", 3, 1, Long.MAX_VALUE);
+
         CULTIVATION_SPEED_MULTIPLIER = COMMON_BUILDER
-                .comment("The multiplier for the cultivation speed.")
+                .comment("The multiplier for the cultivation speed. Default(1)")
                 .defineInRange("cultivationSpeedMultiplier", 1.0d, 0, Double.MAX_VALUE);
-        HEALTH_BAR_ENABLED = COMMON_BUILDER
-                .comment("Whether the health bar is enabled or not")
-                .define("healthBarEnabled", true);
+
+        AFK_SYSTEM = COMMON_BUILDER
+                .comment("Afk System type. (disabled/enabled/detrimental/beneficial/beneficial+/enabled+). Default(disabled)")
+                .define("afkSystem", "disabled");
+
+        MAX_CULTPOINTS = COMMON_BUILDER
+                .comment("The max cultpoints for the afk system. Default(20000)")
+                .defineInRange("maxPoints", 20000, 1, Long.MAX_VALUE);
 
         DIMENSION_MULTIPLIER_LIST = COMMON_BUILDER
-                .comment("per dimension cultivation multiplier speed. Format: namespace:dimension,multiplier (e.g., minecraft:overworld,1.25)")
+                .comment("per dimension cultivation multiplier speed. Format: namespace:dimension,multiplier (e.g., \"minecraft:the_end,1.25\", \"minecraft:the_nether,0.75\")")
                 .defineListAllowEmpty("dimensionMultipliers", List.of(""), 
                     obj -> obj instanceof String && ((String) obj).matches("^[a-z0-9_:-]+,[0-9]*\\.?[0-9]+$"));
 
@@ -65,6 +74,12 @@ public class WuxiaConfigs {
 
     private static void registerClientConfig() {
         ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
+        CLIENT_BUILDER.comment("Client Config for WuxiaCraft").push("cultivation");
+        
+        HEALTH_BAR_ENABLED = CLIENT_BUILDER
+                .comment("Whether the health bar is enabled or not. Default(true)")
+                .define("healthBarEnabled", true);
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_BUILDER.build());
     }
 

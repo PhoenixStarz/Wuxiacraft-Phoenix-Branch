@@ -25,6 +25,7 @@ public class SkillExplosionAspect extends SkillHitAspect {
 			if (result == null) return false;
 			if (caster == null) return false;
 			var pos = result.getLocation();
+			if (caster.level().isClientSide()); else {
 			var interaction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(caster.level(), caster) ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE;
 			boolean fire = false;
 			var casterCultivation = Cultivation.get(caster);
@@ -32,6 +33,7 @@ public class SkillExplosionAspect extends SkillHitAspect {
 			BigDecimal damage = skillStrength.multiply(skillStrength.multiply(new BigDecimal("1.2")));
 			var damageSource = new WuxiaDamageSource(caster.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.SKILL_EXPLOSION), WuxiaElements.PHYSICAL.get(), caster, damage);
 			caster.level().explode(caster, damageSource, null, pos.x, pos.y, pos.z, (float) Math.max(Math.sqrt(damage.floatValue()) * 0.04, 1.0), fire, interaction);
+			}
 			return false;
 		};
 	}

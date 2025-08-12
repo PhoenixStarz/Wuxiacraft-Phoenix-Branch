@@ -135,6 +135,10 @@ public class Cultivation implements ICultivation {
 
 	private int cultTimer;
 
+// time of day/ game time
+	private long ToD;
+
+
 	/**
 	 * An internal variable updated every tick to check if within formation range to add stats
 	 */
@@ -518,6 +522,17 @@ public class Cultivation implements ICultivation {
 	@Override
 	public int getCultTimer() {
 		return this.cultTimer;
+	}
+	
+	//	//	//	//	//	//	//	//	//	//	//
+	@Override
+	public void setToD(long amount) {
+		this.ToD = amount;
+	}
+
+	@Override
+	public long getToD() {
+		return this.ToD;
 	}
 	//	//	//	//	//	//	//	//	//	//	//
 

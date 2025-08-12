@@ -135,6 +135,10 @@ public interface ICultivation {
 	void resetCultTimer();
 
 	int getCultTimer();
+	
+	//
+	void setToD(long amount);		
+	long getToD();
 	//
 
 	boolean isDivineSense();

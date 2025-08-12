@@ -1475,16 +1475,16 @@ public class WuxiaTechniqueAspects {
 					event.setAmount(amount.multiply(modifier));
 				}
 			}
-^	);
-*/
+	);
+
 	public static RegistryObject<TechniqueAspect> GLOOM = ASPECTS.register("gloom",
 	() -> new ElementSystemConverter(3d, WuxiaElements.DARK.getId(), System.ESSENCE)
 			.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("10000"), new BigDecimal("0.1")))
 			.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("50000"), new BigDecimal("0.2")))
 			.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("150000"), new BigDecimal("0.4")))
 			.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("350000"), new BigDecimal("0.6")))
-	);
-
+\/	);
+ */
 	//////////////////////////////////////////
 	//       Light Special ones             //
 	//////////////////////////////////////////

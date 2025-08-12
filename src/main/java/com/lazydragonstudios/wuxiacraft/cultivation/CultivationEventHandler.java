@@ -174,6 +174,9 @@ public class CultivationEventHandler {
 		if (cultivation.getTimer() >= 100) {
 			cultivation.resetTimer();
 			if (!player.level().isClientSide()) {
+				var TimeofDay = player.level().getGameTime();
+				cultivation.setToD(TimeofDay);
+				cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).add(BigDecimal.ONE).min(BigDecimal.valueOf(WuxiaConfigs.MAX_CULTPOINTS.get())));
 				syncClientCultivation((ServerPlayer) player);
 				for (var system : System.values()) {
 					var systemData = cultivation.getSystemData(system);
@@ -229,10 +232,11 @@ public class CultivationEventHandler {
 
 	private static void handleBodyEnergyRegen(Player player, ICultivation cultivation, SystemContainer bodyData) {
 		//Body energy regen depends on food
-//		if (player.getFoodData().getFoodLevel() > 15) {
-			BigDecimal hunger_modifier = new BigDecimal("1");
-//			if (player.getFoodData().getFoodLevel() >= 18) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
-//			if (player.getFoodData().getFoodLevel() >= 20) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
+		if (player.getFoodData().getFoodLevel() > 5) {
+			BigDecimal hunger_modifier = new BigDecimal("0.2");
+			if (player.getFoodData().getFoodLevel() >= 10) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
+			if (player.getFoodData().getFoodLevel() >= 15) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
+			if (player.getFoodData().getFoodLevel() >= 20) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
 			BigDecimal finalEnergyRegen = cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY_REGEN).multiply(hunger_modifier);
 			//bodyEnergy < bodyMaxEnergy * 0.7 (70%)
 			BigDecimal maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.1" : "0.7");
@@ -240,10 +244,10 @@ public class CultivationEventHandler {
 			if (canRegenBodyEnergy) {
 				bodyData.addEnergy(finalEnergyRegen);
 				cultivation.setStat(System.BODY, PlayerSystemStat.ENERGY, cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).min(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(maxEnergyMultiplicand)));
-			//	if (finalEnergyRegen.floatValue() >= 25f ) finalEnergyRegen = new BigDecimal("25");
-			//	player.causeFoodExhaustion(finalEnergyRegen.floatValue() * 0.2f);
+				if (finalEnergyRegen.floatValue() >= 25f ) finalEnergyRegen = new BigDecimal("25");
+				player.causeFoodExhaustion(finalEnergyRegen.floatValue() * 0.2f);
 			}
-//		}
+		}
 	}
 
 	private static void handleEnergyRegen(Player player, ICultivation cultivation) {
@@ -422,9 +426,11 @@ public class CultivationEventHandler {
 
 	private static void killPlayerWithExplosion(Player player, SystemContainer systemData, Holder<DamageType> damageType, BigDecimal amount) {
 		systemData.setStat(PlayerSystemStat.ENERGY, BigDecimal.ZERO);
+		if (player.level().isClientSide()); else {
 		var interaction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(player.level(), player) ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE;
 		player.level().explode(null, player.getX(), player.getY(), player.getZ(), 5f, false, interaction);
 		player.hurt(new WuxiaDamageSource(damageType, WuxiaElements.PHYSICAL.get(), player, amount).setInstantDeath(), amount.floatValue());
+		}
 	}
 
 	/**
@@ -441,13 +447,6 @@ public class CultivationEventHandler {
 		ICultivation newCultivation = Cultivation.get(event.getEntity());
 		if (event.isWasDeath()) {
 			//oldCultivation.setSkillCooldown(0);
-			if (event.getOriginal().getTags().contains("PLEASE_RTP_ME")) {
-				event.getEntity().addTag("PLEASE_RTP_ME");
-				var rtpPos = findSafeRTP(event.getOriginal());
-				event.getEntity().getPersistentData().putDouble("rtp_to_x", rtpPos.x);
-				event.getEntity().getPersistentData().putDouble("rtp_to_y", rtpPos.y);
-				event.getEntity().getPersistentData().putDouble("rtp_to_z", rtpPos.z);
-			}
 			oldCultivation.setStat(PlayerStat.LIVES, oldCultivation.getStat(PlayerStat.LIVES).subtract(BigDecimal.ONE));
 			if (oldCultivation.getStat(PlayerStat.LIVES).compareTo(BigDecimal.ZERO) == 0) {
 				oldCultivation = new Cultivation();
@@ -465,58 +464,13 @@ public class CultivationEventHandler {
 		newCultivation.deserialize(oldCultivation.serialize());
 	}
 
-	private static Vec3 findSafeRTP(Player player) {
-		Vec3 result = new Vec3(0, 0, 0);
-		var level = player.level();
-		var playerPositions = new HashSet<Point>();
-		Point playerDeathPosition = new Point(player.getBlockX(), player.getBlockZ());
-		for (var p : level.players()) {
-			playerPositions.add(new Point(p.getBlockX(), p.getBlockZ()));
-		}
-		WuxiaCraft.LOGGER.info("Player: " + player.getDisplayName() + " is random teleporting!");
-		int attempts = 30;
-		int spawnX = player.level().getLevelData().getXSpawn();
-		int spawnZ = player.level().getLevelData().getZSpawn();
-		Point newPosition = null;
-		for (int i = 0; i < attempts; i++) {
-			boolean isNearSomeone = false;
-			int newX = spawnX + player.getRandom().nextInt(20000) - 10000;
-			int newZ = spawnZ + player.getRandom().nextInt(20000) - 10000;
-			var point = new Point(newX, newZ);
-			//I'm using the y variable from point as the z coordinate
-			if (point.distance(playerDeathPosition.x, playerDeathPosition.y) >= 1000) {
-				for (var p : playerPositions) {
-					if (p.distance(point.x, point.y) < 400) {
-						isNearSomeone = true;
-						break;
-					}
-				}
-			} else {
-				isNearSomeone = true;
-			}
-			if (!isNearSomeone) {
-				newPosition = point;
-				break;
-			}
-		}
-		if (newPosition != null) {
-			var chunk = player.level().getChunkAt(new BlockPos(newPosition.x, 64, newPosition.y));
-			int newY = chunk.getMaxBuildHeight();
-			for (int i = chunk.getMaxBuildHeight(); i >= 0; i--) {
-				var state = chunk.getBlockState(new BlockPos(newPosition.x, i, newPosition.y));
-				newY = i;
-				if (!state.getBlock().equals(Blocks.AIR)) {
-					break;
-				}
-			}
-			result = new Vec3(newPosition.x, newY, newPosition.y);
-		}
-		return result;
-	}
-
 	@SubscribeEvent
 	public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
 		var player = event.getEntity();
+		var cultivation = Cultivation.get(player);
+		long T1= player.level().getGameTime();
+		long T2= cultivation.getToD();
+		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).add(BigDecimal.valueOf((T1-T2)/100L)).min(BigDecimal.valueOf(WuxiaConfigs.MAX_CULTPOINTS.get())));
 		syncClientCultivation((ServerPlayer) player);
 		fixEnergies(player);
 	}
@@ -542,16 +496,6 @@ public class CultivationEventHandler {
 	public static void onPlayerResurrect(PlayerEvent.PlayerRespawnEvent event) {
 		var player = event.getEntity();
 		syncClientCultivation((ServerPlayer) player);
-		if (player.getTags().contains("PLEASE_RTP_ME")) {
-			player.removeTag("PLEASE_RTP_ME");
-			var rtpX = player.getPersistentData().getDouble("rtp_to_x");
-			var rtpY = player.getPersistentData().getDouble("rtp_to_y");
-			var rtpZ = player.getPersistentData().getDouble("rtp_to_z");
-			player.teleportTo(rtpX, rtpY, rtpZ);
-			player.getPersistentData().remove("rtp_to_x");
-			player.getPersistentData().remove("rtp_to_y");
-			player.getPersistentData().remove("rtp_to_z");
-		}
 	}
 
 	/**

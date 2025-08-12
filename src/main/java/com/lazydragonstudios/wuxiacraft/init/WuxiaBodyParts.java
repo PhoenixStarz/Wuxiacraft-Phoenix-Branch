@@ -56,7 +56,7 @@ public class WuxiaBodyParts {
 	public static RegistryObject<BodyPartType> MERIDIANS = BODY_PART_TYPES.register("meridians",
 			() -> new BodyPartType()
 					.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.008"))
-					.setStat(System.ESSENCE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.00002"))
+					.setStat(System.ESSENCE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.000001"))
 					.setStat(System.BODY, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.0000002"))
 	);
 

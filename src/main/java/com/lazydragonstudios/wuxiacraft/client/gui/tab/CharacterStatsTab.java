@@ -9,6 +9,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerElementalStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemElementalStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaConfigs;
 import com.lazydragonstudios.wuxiacraft.networking.UpdateRegulatorsMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import net.minecraft.client.Minecraft;
@@ -59,6 +60,7 @@ public class CharacterStatsTab extends IntrospectionTab {
 		systemStats = new HashMap<>();
 		screen.addRenderableWidget(statsPanel);
 		for (var stat : PlayerStat.values()) {
+			if (WuxiaConfigs.AFK_SYSTEM.get().equals("disabled") && stat == PlayerStat.CULTPOINT) continue;
 			BigDecimal statDecimal = cultivation.getStat(stat);
 			var statValue = statDecimal.setScale(Math.min(statDecimal.scale(), 2), RoundingMode.HALF_UP).toEngineeringString();
 			var label = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui." + stat.name().toLowerCase(), statValue), color);
