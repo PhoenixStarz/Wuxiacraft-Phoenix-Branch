@@ -11,6 +11,8 @@ public class WuxiacraftFeatures {
 
 	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, WuxiaCraft.MOD_ID);
 
+	public static final RegistryObject<Feature<?>> SPIRIT_CRYSTAL_GEODE = FEATURES.register("spirit_crystal_geode", SpiritStoneFeature::new);
+	public static final RegistryObject<Feature<?>> BONSAI_1 = FEATURES.register("bonsai_1", SpiritStoneFeature::new);
 	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_1 = FEATURES.register("ore_spirit_vein_1", SpiritStoneFeature::new);
 	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_2 = FEATURES.register("ore_spirit_vein_2", SpiritStoneFeature::new);
 	public static final RegistryObject<Feature<?>> ORE_SPIRIT_VEIN_3 = FEATURES.register("ore_spirit_vein_3", SpiritStoneFeature::new);

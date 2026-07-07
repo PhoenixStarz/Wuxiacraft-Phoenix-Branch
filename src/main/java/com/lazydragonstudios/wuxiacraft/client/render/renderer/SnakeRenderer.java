@@ -19,7 +19,7 @@ public class SnakeRenderer extends MobRenderer<Snake, SnakeModel> {
 	}
 
 	@Override
-	protected void scale(Snake pLivingEntity, PoseStack pPoseStack, float pPartialTickTime) {
+	public void scale(Snake pLivingEntity, PoseStack pPoseStack, float pPartialTickTime) {
 		pPoseStack.scale(3F, 3.0F, 3.0F);
 	}
 

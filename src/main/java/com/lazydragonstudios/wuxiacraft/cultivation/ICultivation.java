@@ -113,6 +113,14 @@ public interface ICultivation {
 
 	void setCombat(boolean combat);
 
+	boolean isTribulating();
+
+	void setTribulating(boolean tribulating);
+
+	Tribulation getTribulation();
+
+	void setTribulation(Tribulation tribulation);
+
 	/**
 	 * Utility to increment to the tick timer
 	 */

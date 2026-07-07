@@ -3,20 +3,30 @@ package com.lazydragonstudios.wuxiacraft.cultivation.technique;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
-import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ConditionalElementalGenerator;
+import com.lazydragonstudios.wuxiacraft.cultivation.SystemContainer;
+import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat
+;import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ConditionalElementalGenerator;
 import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.WeaponElementalGenerator;
+import com.lazydragonstudios.wuxiacraft.blocks.TechniqueInscriber;
 import com.lazydragonstudios.wuxiacraft.event.CultivatingEvent;
+import com.lazydragonstudios.wuxiacraft.item.TechniqueManual;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaTechniqueAspects;
 import com.lazydragonstudios.wuxiacraft.networking.WeaponSwingMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import com.lazydragonstudios.wuxiacraft.util.TechniqueUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityEvent;
@@ -52,7 +62,7 @@ public class TechniqueEventHandler {
 	private static void sendSuccessLearning(Player player, ResourceLocation aspect) {
 		if (player instanceof ServerPlayer serverPlayer) {
 			serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.learn_successful")
-							.append(Component.translatable("wuxiacraft.aspect." + aspect + ".name")),
+							.append(Component.translatable("wuxiacraft.aspect." + aspect.getPath() + ".name")),
 					true);
 		}
 	}
@@ -64,32 +74,32 @@ public class TechniqueEventHandler {
 			 Player player = (Player)Entity;
 			 ICultivation cultivation = Cultivation.get(player);
 			 var aspects = cultivation.getAspects();
-			if (Math.random() * 250d < 1d) { 
+			if (Math.random() * 100d < 1d) { 
 				if (!aspects.knowsAspect(WuxiaTechniqueAspects.SPARK.getId())) {
 					aspects.learnAspect(WuxiaTechniqueAspects.SPARK.getId(), cultivation);
 					sendSuccessLearning(player, WuxiaTechniqueAspects.SPARK.getId());
 				}}
-			if (Math.random() * 750d < 1d) { 
+			if (Math.random() * 300d < 1d) { 
 				if (!aspects.knowsAspect(WuxiaTechniqueAspects.CIRCUIT.getId())) {
 					aspects.learnAspect(WuxiaTechniqueAspects.CIRCUIT.getId(), cultivation);
 					sendSuccessLearning(player, WuxiaTechniqueAspects.CIRCUIT.getId());
 				}}
-			if (Math.random() * 2250d < 1d) { 
+			if (Math.random() * 900d < 1d) { 
 				if (!aspects.knowsAspect(WuxiaTechniqueAspects.THUNDERING.getId())) {
 					aspects.learnAspect(WuxiaTechniqueAspects.THUNDERING.getId(), cultivation);
 					sendSuccessLearning(player, WuxiaTechniqueAspects.THUNDERING.getId());
 				}}
-			if (Math.random() * 750d < 1d) { 
+			if (Math.random() * 300d < 1d) { 
 				if (!aspects.knowsAspect(WuxiaTechniqueAspects.CONDUIT.getId())) {
 					aspects.learnAspect(WuxiaTechniqueAspects.CONDUIT.getId(), cultivation);
 					sendSuccessLearning(player, WuxiaTechniqueAspects.CONDUIT.getId());
 				}}
-			if (Math.random() * 750d < 1d) { 
+			if (Math.random() * 300d < 1d) { 
 				if (!aspects.knowsAspect(WuxiaTechniqueAspects.ARC.getId())) {
 					aspects.learnAspect(WuxiaTechniqueAspects.ARC.getId(), cultivation);
 					sendSuccessLearning(player, WuxiaTechniqueAspects.ARC.getId());
 				}}
-			if (Math.random() * 750d < 1d) { 
+			if (Math.random() * 300d < 1d) { 
 				if (!aspects.knowsAspect(WuxiaTechniqueAspects.FLASH.getId())) {
 					aspects.learnAspect(WuxiaTechniqueAspects.FLASH.getId(), cultivation);
 					sendSuccessLearning(player, WuxiaTechniqueAspects.FLASH.getId());
@@ -141,6 +151,67 @@ public class TechniqueEventHandler {
 			}
 		}
 	}
+
+	/*
+	*  Shift-Right click on technique inscriber to copy Manual technique into player's grid.
+	*
+	*/
+	@SubscribeEvent
+	public static void onCopyFromTechniqueInscriber(PlayerInteractEvent.RightClickBlock event) {
+		Level level = event.getLevel();
+    	BlockPos pos = event.getPos();
+    	BlockState state = level.getBlockState(pos);
+    	Block block = state.getBlock();
+		Player player = event.getEntity();
+		if (!(block instanceof TechniqueInscriber)) return;
+		if (!player.isCrouching()) return;
+		ItemStack itemstack = player.getMainHandItem();
+		if (itemstack.isEmpty()) return;
+		if (!(itemstack.getItem() instanceof TechniqueManual manual)) return;
+		var itemTag = itemstack.getTag();
+		if (itemTag == null) return;
+		if (!(itemstack.getTag().contains("technique-grid"))) return;
+		TechniqueGrid techGrid = new TechniqueGrid();
+		techGrid.deserialize(itemTag.getCompound("technique-grid"));
+		ICultivation cultivation = Cultivation.get(player);
+		System system = manual.getSystem();
+		SystemContainer systemData = cultivation.getSystemData(system);
+		BigDecimal playerRadius = BigDecimal.ONE.add(cultivation.getStat(system, PlayerSystemStat.ADDITIONAL_GRID_RADIUS));
+		AspectContainer aspectData = cultivation.getAspects();
+		for (var hexC : techGrid.getGrid().keySet()) {
+			var aspectLocation = techGrid.getAspectAtGrid(hexC);
+			var techAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
+			if (techAspect == null) continue;
+			if (!aspectData.knowsAspect(aspectLocation)) {
+				if (player instanceof ServerPlayer serverPlayer) {
+					serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.copy_missing_aspects"), true);
+				}
+				return;
+			}
+		}
+		int radius = 0;
+		if (itemTag.contains("radius")) {
+			radius = itemTag.getInt("radius");
+		}
+		String name = null;
+		if (itemTag.contains("name")) {
+			name = itemTag.getString("name");
+		}
+		if (playerRadius.compareTo(BigDecimal.valueOf(radius)) < 0) {
+			if (player instanceof ServerPlayer serverPlayer) {
+			serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.copy_insufficient_radius"), true);
+			}
+			return;
+		}
+		systemData.techniqueData.grid = techGrid;
+		if (player instanceof ServerPlayer serverPlayer) {
+			serverPlayer.sendSystemMessage(Component.translatable(name).append(" ")
+			.append(Component.translatable("wuxiacraft.copy_successful"))
+			, true);
+		}
+	}
+
+		
 
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent

@@ -1,0 +1,14 @@
+{
+	"replace": false,
+	"values": [
+		"wuxiacraft:body_diamond_cultivation_rune",
+		"wuxiacraft:body_diamond_energy_rune",
+		"wuxiacraft:divine_diamond_cultivation_rune",
+		"wuxiacraft:divine_diamond_energy_rune",
+		"wuxiacraft:celestial_iron_formation_badge",
+		"wuxiacraft:diamond_barrier_rune",
+		"wuxiacraft:diamond_generation_rune",
+		"wuxiacraft:essence_diamond_cultivation_rune",
+		"wuxiacraft:essence_diamond_energy_rune"
+	]
+}

@@ -335,7 +335,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.LEFT_ARM, BONE.get())
 					.setIsRelatedToPart(LEFT_FOREARM_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -343,7 +343,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.LEFT_ARM, BONE.get())
 					.setIsRelatedToPart(LEFT_HAND_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -351,7 +351,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.RIGHT_ARM, BONE.get())
 					.setIsRelatedToPart(RIGHT_ARM_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -359,7 +359,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.RIGHT_ARM, BONE.get())
 					.setIsRelatedToPart(RIGHT_FOREARM_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -367,7 +367,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.RIGHT_ARM, BONE.get())
 					.setIsRelatedToPart(RIGHT_HAND_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -375,7 +375,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.LEFT_LEG, BONE.get())
 					.setIsRelatedToPart(LEFT_THIGH_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -383,7 +383,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.LEFT_LEG, BONE.get())
 					.setIsRelatedToPart(LEFT_CALF_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -391,7 +391,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.LEFT_LEG, BONE.get())
 					.setIsRelatedToPart(LEFT_FOOT_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -399,7 +399,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.RIGHT_LEG, BONE.get())
 					.setIsRelatedToPart(RIGHT_THIGH_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -407,7 +407,7 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.RIGHT_LEG, BONE.get())
 					.setIsRelatedToPart(RIGHT_CALF_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
@@ -415,35 +415,35 @@ public class WuxiaBodyParts {
 			() -> new BodyPart(BodyPartGroup.RIGHT_LEG, BONE.get())
 					.setIsRelatedToPart(RIGHT_FOOT_MARROW.getId())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
 	public static RegistryObject<BodyPart> RIB_CAGE_BONE = BODY_PARTS.register("rib_cage_bone",
 			() -> new BodyPart(BodyPartGroup.TORSO, BONE.get())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
 	public static RegistryObject<BodyPart> UPPER_SPINE_BONE = BODY_PARTS.register("upper_spine_bone",
 			() -> new BodyPart(BodyPartGroup.TORSO, BONE.get())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
 	public static RegistryObject<BodyPart> LOWER_SPINE_BONE = BODY_PARTS.register("lower_spine_bone",
 			() -> new BodyPart(BodyPartGroup.TORSO, BONE.get())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 
 	public static RegistryObject<BodyPart> SKULL_BONE = BODY_PARTS.register("skull_bone",
 			() -> new BodyPart(BodyPartGroup.HEAD, BONE.get())
 					.<BodyPart>setStat(BodyStat.FORGING_LIMIT, new BigDecimal("150"))
-					.setStat(PlayerStat.HEALTH, new BigDecimal("0.003"))
+					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.003"))
 					.setStat(PlayerElementalStat.RESISTANCE, WuxiaElements.PHYSICAL.getId(), new BigDecimal("0.0003"))
 	);
 

@@ -32,9 +32,6 @@ public class HoldingClickMinigame implements Minigame {
 		var cultivation = Cultivation.get(player);
 		var essenceData = cultivation.getSystemData(System.ESSENCE);
 		if (!essenceData.techniqueData.modifier.isValidTechnique()) return;
-		//gonna create a ball for each energy unit
-		var energy = cultivation.getStat(System.ESSENCE, PlayerSystemStat.ENERGY).intValue();
-		this.keepCorrectStrandCount(energy);
 	}
 
 	@Override
@@ -93,8 +90,8 @@ public class HoldingClickMinigame implements Minigame {
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
 		var essenceData = cultivation.getSystemData(System.ESSENCE);
-		var energy = cultivation.getStat(System.ESSENCE, PlayerSystemStat.ENERGY).intValue();
-		this.keepCorrectStrandCount(energy);
+		var strandCount = essenceData.hasEnergy(cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY).divide(new BigDecimal(4))) ? 5 : 0;
+		this.keepCorrectStrandCount(strandCount);
 		var markedToRemove = new LinkedList<Strand>();
 		for (var strand : this.strands) {
 			strand.tick();

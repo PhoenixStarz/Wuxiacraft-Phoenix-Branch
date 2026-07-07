@@ -91,6 +91,17 @@
 		"wuxiacraft:divine_celestial_iron_cultivation_rune",
 		"wuxiacraft:divine_celestial_iron_energy_rune",
 		"wuxiacraft:essence_celestial_iron_cultivation_rune",
-		"wuxiacraft:essence_celestial_iron_energy_rune"
+		"wuxiacraft:spirit_crystal_block",
+		"wuxiacraft:budding_spirit_crystal_block",
+		"wuxiacraft:spirit_crystal_cluster_1",
+		"wuxiacraft:spirit_crystal_cluster_2",
+		"wuxiacraft:spirit_crystal_cluster_3",
+		"wuxiacraft:spirit_crystal_cluster_4",
+		"wuxiacraft:spirit_crystal_cluster_5",
+		"wuxiacraft:spirit_crystal_cluster_6",
+		"wuxiacraft:spirit_crystal_cluster_7",
+		"wuxiacraft:spirit_crystal_cluster_8",
+		"wuxiacraft:spirit_crystal_cluster_9"
+
 	]
 }

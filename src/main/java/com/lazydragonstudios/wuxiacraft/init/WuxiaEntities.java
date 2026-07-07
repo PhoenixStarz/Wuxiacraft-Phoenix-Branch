@@ -1,8 +1,7 @@
 package com.lazydragonstudios.wuxiacraft.init;
 
 import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
-import com.lazydragonstudios.wuxiacraft.entity.Snake;
-import com.lazydragonstudios.wuxiacraft.entity.ThrowSkill;
+import com.lazydragonstudios.wuxiacraft.entity.*;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -63,6 +62,42 @@ public class WuxiaEntities {
 			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("kitsune_nine_tail_body_transformation_entity")
 	);
 
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_one_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_one_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_TWO_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_two_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_two_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_THREE_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_three_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_three_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_FOUR_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_four_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_four_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_FIVE_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_five_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_five_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_SIX_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_six_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_six_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_SEVEN_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_seven_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_seven_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_EIGHT_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_eight_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_eight_tail_body_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> LIGHT_KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("light_kitsune_nine_tail_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("light_kitsune_nine_tail_body_transformation_entity")
+	);
+
 	public static final RegistryObject<EntityType<AbstractClientPlayer>> SPATIAL_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("spatial_kitsune_one_tail_body_transformation_entity",
 			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("spatial_kitsune_one_tail_body_transformation_entity")
 	);
@@ -111,6 +146,17 @@ public class WuxiaEntities {
 			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("half_dragon_body_horned_transformation_entity")
 	);
 
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> AZURE_HALF_DRAGON_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("azure_half_dragon_body_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("azure_half_dragon_body_transformation_entity")
+	);
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> AZURE_HALF_DRAGON_BODY_ARMED_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("azure_half_dragon_body_armed_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("azure_half_dragon_body_armed_transformation_entity")
+	);
+
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> AZURE_HALF_DRAGON_BODY_HORNED_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("azure_half_dragon_body_horned_transformation_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("azure_half_dragon_body_horned_transformation_entity")
+	);
+
 	//actual entities
 
 	public static final RegistryObject<EntityType<ThrowSkill>> THROW_SKILL_TYPE = ENTITY_TYPE_REGISTER.register("throw_skill",
@@ -121,8 +167,16 @@ public class WuxiaEntities {
 			() -> EntityType.Builder.of(Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("snake")
 	);
 
-	public static final RegistryObject<EntityType<Snake>> DESERT_SNAKE_ENTITY_TYPE = ENTITY_TYPE_REGISTER.register("desert_snake",
-			() -> EntityType.Builder.of(Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("desert_snake")
+	public static final RegistryObject<EntityType<Desert_Snake>> DESERT_SNAKE_ENTITY_TYPE = ENTITY_TYPE_REGISTER.register("desert_snake",
+			() -> EntityType.Builder.of(Desert_Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("desert_snake")
+	);	
+	
+	public static final RegistryObject<EntityType<Red_Snake>> RED_SNAKE_ENTITY_TYPE = ENTITY_TYPE_REGISTER.register("red_snake",
+			() -> EntityType.Builder.of(Red_Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("red_snake")
+	);	
+	
+	public static final RegistryObject<EntityType<White_Snake>> WHITE_SNAKE_ENTITY_TYPE = ENTITY_TYPE_REGISTER.register("white_snake",
+			() -> EntityType.Builder.of(White_Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("white_snake")
 	);
 
 }

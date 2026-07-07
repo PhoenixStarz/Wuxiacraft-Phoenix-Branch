@@ -1,14 +1,6 @@
 {
 	"type": "forge:add_spawns",
-	"biomes": [
-		"minecraft:desert",
-		"minecraft:savanna",
-		"minecraft:savanna_plateau",
-		"minecraft:windswept_savanna",
-		"minecraft:badlands",
-		"minecraft:wooded_badlands",
-		"minecraft:eroded_badlands"
-	],
+	"biomes": "#forge:is_sandy",
 	"spawners": {
 		"type": "wuxiacraft:desert_snake",
 		"weight": 50,

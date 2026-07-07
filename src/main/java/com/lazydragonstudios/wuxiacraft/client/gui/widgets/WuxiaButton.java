@@ -20,10 +20,21 @@ public class WuxiaButton extends AbstractButton {
 	public static final ResourceLocation WHITE = new ResourceLocation(WuxiaCraft.MOD_ID, "textures/gui/white.png");
 
 	public Runnable onClicked;
+	
+	public int textColor;
+
 
 	public WuxiaButton(int x, int y, int width, int height, Component title, Runnable onClicked) {
 		super(x, y, width, height, title);
 		this.onClicked = onClicked;
+		this.textColor = 0xFFFFFF;
+		this.setColor(1f, 1f, 1f);
+	}
+
+	public WuxiaButton(int x, int y, int width, int height, Component title, Runnable onClicked, int textColor) {
+		super(x, y, width, height, title);
+		this.onClicked = onClicked;
+		this.textColor = textColor;
 		this.setColor(1f, 1f, 1f);
 	}
 
@@ -187,7 +198,7 @@ public class WuxiaButton extends AbstractButton {
 		guiGraphics.setColor(1f, 1f, 1f, 1f);
 
 		var font = Minecraft.getInstance().font;
-		guiGraphics.drawCenteredString(font, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - font.lineHeight) / 2, 0xFFFFFF);
+		guiGraphics.drawCenteredString(font, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - font.lineHeight) / 2, this.textColor);
 	}
 
 	@Override

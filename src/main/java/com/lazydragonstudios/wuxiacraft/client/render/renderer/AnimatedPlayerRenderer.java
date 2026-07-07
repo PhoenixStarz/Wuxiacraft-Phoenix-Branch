@@ -235,6 +235,7 @@ public class AnimatedPlayerRenderer extends PlayerRenderer {
 			model.rightArm.yRot = 0f;
 			model.rightArm.zRot = (float) Math.toRadians(-45);
 			model.body.yRot = 0;
+			model.jacket.yRot = 0;
 			model.head.xRot = (float) Math.toRadians(0f);
 		} else if (animationState.isExercising()) {
 			float animationFrame = animationState.getAnimationFrame() + partialTicks;
@@ -264,6 +265,7 @@ public class AnimatedPlayerRenderer extends PlayerRenderer {
 			model.rightArm.y = 2f;
 			model.rightArm.z = 0;
 			model.body.yRot = 0;
+			model.jacket.yRot = 0;
 			model.head.xRot = 0;
 		} else if (animationState.isSwordFlight()) {
 			model.leftLeg.x = 0.3299f;
@@ -291,6 +293,7 @@ public class AnimatedPlayerRenderer extends PlayerRenderer {
 			model.rightArm.yRot = (float) Math.toRadians(80.0f);
 			model.rightArm.zRot = 0;
 			model.body.yRot = (float) Math.toRadians(80.0f);
+			model.jacket.yRot = (float) Math.toRadians(80.0f);
 			model.head.xRot = 0;
 		}
 		//this must solve the sleeves and pants properly

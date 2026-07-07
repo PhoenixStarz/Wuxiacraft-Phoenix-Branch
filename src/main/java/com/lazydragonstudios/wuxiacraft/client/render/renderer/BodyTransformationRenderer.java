@@ -134,9 +134,18 @@ public class BodyTransformationRenderer extends LivingEntityRenderer<AbstractCli
 				transformation.equals(WuxiaEntities.KITSUNE_SIX_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.KITSUNE_SEVEN_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.KITSUNE_EIGHT_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
-				transformation.equals(WuxiaEntities.KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.getId())
-		)
+				transformation.equals(WuxiaEntities.KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()))
 			return new ResourceLocation(WuxiaCraft.MOD_ID, "textures/entity/transformation/kitsune_tail_texture.png");
+		if (transformation.equals(WuxiaEntities.LIGHT_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_TWO_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_THREE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_FOUR_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_FIVE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_SIX_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_SEVEN_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_EIGHT_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.LIGHT_KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()))
+			return new ResourceLocation(WuxiaCraft.MOD_ID, "textures/entity/transformation/light_kitsune_tail_texture.png");
 		if (transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_TWO_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_THREE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
@@ -145,19 +154,22 @@ public class BodyTransformationRenderer extends LivingEntityRenderer<AbstractCli
 				transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_SIX_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_SEVEN_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_EIGHT_TAIL_BODY_TRANSFORMATION_ENTITY.getId()) ||
-				transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.getId())
-		)
+				transformation.equals(WuxiaEntities.SPATIAL_KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.getId()))
 			return new ResourceLocation(WuxiaCraft.MOD_ID, "textures/entity/transformation/spatial_kitsune_tail_texture.png");
 		if (transformation.equals(WuxiaEntities.HALF_DRAGON_BODY_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.HALF_DRAGON_BODY_ARMED_TRANSFORMATION_ENTITY.getId()) ||
 				transformation.equals(WuxiaEntities.HALF_DRAGON_BODY_HORNED_TRANSFORMATION_ENTITY.getId()))
 			return new ResourceLocation(WuxiaCraft.MOD_ID, "textures/entity/transformation/dragon_transformation.png");
+		if (transformation.equals(WuxiaEntities.AZURE_HALF_DRAGON_BODY_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.AZURE_HALF_DRAGON_BODY_ARMED_TRANSFORMATION_ENTITY.getId()) ||
+				transformation.equals(WuxiaEntities.AZURE_HALF_DRAGON_BODY_HORNED_TRANSFORMATION_ENTITY.getId()))
+			return new ResourceLocation(WuxiaCraft.MOD_ID, "textures/entity/transformation/azure_dragon_transformation.png");
 		return new ResourceLocation(WuxiaCraft.MOD_ID, "none");
 	}
 
 
 	@Override
-	protected void setupRotations(AbstractClientPlayer pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
+	public void setupRotations(AbstractClientPlayer pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
 		float f = pEntityLiving.getSwimAmount(pPartialTicks);
 		if (pEntityLiving.isFallFlying()) {
 			super.setupRotations(pEntityLiving, pPoseStack, pAgeInTicks, pRotationYaw, pPartialTicks);

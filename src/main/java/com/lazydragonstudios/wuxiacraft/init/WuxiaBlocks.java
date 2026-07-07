@@ -6,10 +6,13 @@ import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.formation.FormationMaterialTier;
 import com.lazydragonstudios.wuxiacraft.formation.FormationStat;
 import com.lazydragonstudios.wuxiacraft.formation.FormationSystemStat;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -87,6 +90,77 @@ public class WuxiaBlocks {
 	public static RegistryObject<Block> CELESTIAL_IRON_FORMATION_CORE = BLOCKS.register("celestial_iron_formation_core",
 			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 10, CELESTIAL_IRON_BLOCK.get(), FORMATION_CORE_BASE.get()));
 			
+    public static RegistryObject<Block> BONSAI_1 = BLOCKS.register("bonsai_1",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_1, true));
+
+    public static RegistryObject<Block> BONSAI_2 = BLOCKS.register("bonsai_2",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_2, true));
+			
+    public static RegistryObject<Block> BONSAI_3 = BLOCKS.register("bonsai_3",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_3, true));
+			
+    public static RegistryObject<Block> BONSAI_4 = BLOCKS.register("bonsai_4",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_4, true));
+			
+    public static RegistryObject<Block> BONSAI_5 = BLOCKS.register("bonsai_5",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_5, true));
+			
+    public static RegistryObject<Block> BONSAI_6 = BLOCKS.register("bonsai_6",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_6, true));
+			
+    public static RegistryObject<Block> BONSAI_7 = BLOCKS.register("bonsai_7",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_7, true));
+			
+    public static RegistryObject<Block> BONSAI_8 = BLOCKS.register("bonsai_8",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_8, true));
+			
+    public static RegistryObject<Block> BONSAI_9 = BLOCKS.register("bonsai_9",
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_9, true));
+
+						
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_BLOCK = BLOCKS.register("spirit_crystal_block",
+			() -> new VeinBlock(BlockBehaviour.Properties.of()
+			.strength(1.5F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops()));
+
+    public static RegistryObject<Block> BUDDING_SPIRIT_CRYSTAL_BLOCK = BLOCKS.register("budding_spirit_crystal_block",
+			() -> new BuddingSpiritCrystalBlock(BlockBehaviour.Properties.of()
+			.pushReaction(PushReaction.DESTROY).randomTicks().strength(1.5F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops()));
+									
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_1 = BLOCKS.register("spirit_crystal_cluster_1",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 1)));
+
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_2 = BLOCKS.register("spirit_crystal_cluster_2",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 2)));
+			
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_3 = BLOCKS.register("spirit_crystal_cluster_3",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 3)));
+			
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_4 = BLOCKS.register("spirit_crystal_cluster_4",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 4)));
+			
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_5 = BLOCKS.register("spirit_crystal_cluster_5",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 5)));
+			
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_6 = BLOCKS.register("spirit_crystal_cluster_6",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 6)));
+			
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_7 = BLOCKS.register("spirit_crystal_cluster_7",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 7)));
+			
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_8 = BLOCKS.register("spirit_crystal_cluster_8",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 8)));
+			
+    public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_9 = BLOCKS.register("spirit_crystal_cluster_9",
+			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 9)));
 
 	public static HashMap<FormationMaterialTier, RegistryObject<Block>> GENERATION_RUNES = new HashMap<>();
 

@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"  S",
+		"NI ",
+		" N "
+	],
+	"key": {
+		"I": {
+			"item": "wuxiacraft:celestial_iron_ingot"
+		},
+		"N": {
+			"item": "wuxiacraft:celestial_iron_ingot"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "wuxiacraft:celestial_iron_rune_stencil",
+		"count": 1
+	}
+}

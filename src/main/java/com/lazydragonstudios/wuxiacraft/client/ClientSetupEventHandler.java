@@ -91,6 +91,24 @@ public class ClientSetupEventHandler {
 				ctx -> new BodyTransformationRenderer(ctx, new KitsuneEightTailedModel(ctx.bakeLayer(KitsuneEightTailedModel.LOCATION))));
 		event.registerEntityRenderer(WuxiaEntities.KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
 				ctx -> new BodyTransformationRenderer(ctx, new KitsuneNineTailedModel(ctx.bakeLayer(KitsuneNineTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneOneTailedModel(ctx.bakeLayer(KitsuneOneTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_TWO_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneTwoTailedModel(ctx.bakeLayer(KitsuneTwoTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_THREE_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneThreeTailedModel(ctx.bakeLayer(KitsuneThreeTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_FOUR_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneFourTailedModel(ctx.bakeLayer(KitsuneFourTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_FIVE_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneFiveTailedModel(ctx.bakeLayer(KitsuneFiveTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_SIX_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneSixTailedModel(ctx.bakeLayer(KitsuneSixTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_SEVEN_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneSevenTailedModel(ctx.bakeLayer(KitsuneSevenTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_EIGHT_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneEightTailedModel(ctx.bakeLayer(KitsuneEightTailedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.LIGHT_KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new KitsuneNineTailedModel(ctx.bakeLayer(KitsuneNineTailedModel.LOCATION))));
 		event.registerEntityRenderer(WuxiaEntities.SPATIAL_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
 				ctx -> new BodyTransformationRenderer(ctx, new KitsuneOneTailedModel(ctx.bakeLayer(KitsuneOneTailedModel.LOCATION))));
 		event.registerEntityRenderer(WuxiaEntities.SPATIAL_KITSUNE_TWO_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
@@ -115,11 +133,19 @@ public class ClientSetupEventHandler {
 				ctx -> new BodyTransformationRenderer(ctx, new HalfDragonArmsModel(ctx.bakeLayer(HalfDragonArmsModel.LOCATION))));
 		event.registerEntityRenderer(WuxiaEntities.HALF_DRAGON_BODY_HORNED_TRANSFORMATION_ENTITY.get(),
 				ctx -> new BodyTransformationRenderer(ctx, new HalfDragonArmsHornedModel(ctx.bakeLayer(HalfDragonArmsHornedModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.AZURE_HALF_DRAGON_BODY_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new HalfDragonModel(ctx.bakeLayer(HalfDragonModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.AZURE_HALF_DRAGON_BODY_ARMED_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new HalfDragonArmsModel(ctx.bakeLayer(HalfDragonArmsModel.LOCATION))));
+		event.registerEntityRenderer(WuxiaEntities.AZURE_HALF_DRAGON_BODY_HORNED_TRANSFORMATION_ENTITY.get(),
+				ctx -> new BodyTransformationRenderer(ctx, new HalfDragonArmsHornedModel(ctx.bakeLayer(HalfDragonArmsHornedModel.LOCATION))));
 
 		//actual entities
 		event.registerEntityRenderer(WuxiaEntities.THROW_SKILL_TYPE.get(), ThrowSkillRenderer::new);
 		event.registerEntityRenderer(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), SnakeRenderer::new);
 		event.registerEntityRenderer(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), DesertSnakeRenderer::new);
+		event.registerEntityRenderer(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), RedSnakeRenderer::new);
+		event.registerEntityRenderer(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), WhiteSnakeRenderer::new);
 	}
 
 	@SubscribeEvent

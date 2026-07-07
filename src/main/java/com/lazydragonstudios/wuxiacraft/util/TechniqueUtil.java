@@ -2,6 +2,8 @@ package com.lazydragonstudios.wuxiacraft.util;
 
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaTechniqueAspects;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaBlocks;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaEntities;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -27,7 +29,7 @@ public class TechniqueUtil {
 	private static final HashSet<ResourceLocation> TRANSFORMATION_ASPECTS = new HashSet<>();
 
 	public static void initDevouringData() {
-		//TODO rework all this shit 
+		//TODO rework all this 
 		addDevouringData(Items.DIRT, WuxiaElements.EARTH.getId(), new BigDecimal("0.9"));
 		addDevouringData(Items.STONE, WuxiaElements.EARTH.getId(), new BigDecimal("1.4"));
 		addDevouringData(Items.COBBLESTONE, WuxiaElements.EARTH.getId(), new BigDecimal("1.3"));
@@ -71,7 +73,7 @@ public class TechniqueUtil {
 	}
 
 	public static void initChancedAspectsBlocks() {
-				addBlockToAspectChanced(Blocks.MAGMA_BLOCK, WuxiaTechniqueAspects.CINDER.getId(), 1000d);
+		addBlockToAspectChanced(Blocks.MAGMA_BLOCK, WuxiaTechniqueAspects.CINDER.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.NETHERRACK, WuxiaTechniqueAspects.CINDER.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.BASALT, WuxiaTechniqueAspects.CINDER.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.FIRE, WuxiaTechniqueAspects.CINDER.getId(), 1000d);
@@ -112,17 +114,23 @@ public class TechniqueUtil {
 		addBlockToAspectChanced(Blocks.DEEPSLATE, WuxiaTechniqueAspects.STILLNESS.getId(), 3000d);
 	
 		addBlockToAspectChanced(Blocks.SEAGRASS, WuxiaTechniqueAspects.DROP.getId(), 1000d);
+		addBlockToAspectChanced(Blocks.SEA_PICKLE, WuxiaTechniqueAspects.DROP.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.CLAY, WuxiaTechniqueAspects.DROP.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.KELP, WuxiaTechniqueAspects.DROP.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.SEAGRASS, WuxiaTechniqueAspects.FLOW.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.SEA_PICKLE, WuxiaTechniqueAspects.FLOW.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.KELP, WuxiaTechniqueAspects.FLOW.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.SEAGRASS, WuxiaTechniqueAspects.WATERFALL.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SEA_PICKLE, WuxiaTechniqueAspects.WATERFALL.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.KELP, WuxiaTechniqueAspects.WATERFALL.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.SEAGRASS, WuxiaTechniqueAspects.SPLASH.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.SEA_PICKLE, WuxiaTechniqueAspects.SPLASH.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.KELP, WuxiaTechniqueAspects.SPLASH.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.SEAGRASS, WuxiaTechniqueAspects.STREAM.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.SEA_PICKLE, WuxiaTechniqueAspects.STREAM.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.KELP, WuxiaTechniqueAspects.STREAM.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.SEAGRASS, WuxiaTechniqueAspects.WAVING.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.SEA_PICKLE, WuxiaTechniqueAspects.WAVING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.KELP, WuxiaTechniqueAspects.WAVING.getId(), 3000d);
 	
 		addBlockToAspectChanced(Blocks.GRASS_BLOCK, WuxiaTechniqueAspects.SEED.getId(), 1000d);
@@ -131,202 +139,178 @@ public class TechniqueUtil {
 		addBlockToAspectChanced(Blocks.OAK_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.SPRUCE_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.BIRCH_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.JUNGLE_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.DARK_OAK_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.OAK_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.SPRUCE_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.BIRCH_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.JUNGLE_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.DARK_OAK_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LEAVES, WuxiaTechniqueAspects.SEED.getId(), 1000d);
 		addBlockToAspectChanced(Blocks.GRASS_BLOCK, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.GRASS, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.MOSS_BLOCK, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.OAK_LEAVES, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.SPRUCE_LEAVES, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.BIRCH_LEAVES, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LEAVES, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.JUNGLE_LEAVES, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.DARK_OAK_LEAVES, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LEAVES, WuxiaTechniqueAspects.MOSS.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.OAK_LEAVES, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.SPRUCE_LEAVES, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.BIRCH_LEAVES, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LEAVES, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.JUNGLE_LEAVES, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.DARK_OAK_LEAVES, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LEAVES, WuxiaTechniqueAspects.SPROUT.getId(), 9000d);
 		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.BARK.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.OAK_LEAVES, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.SPRUCE_LEAVES, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.BIRCH_LEAVES, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LEAVES, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.JUNGLE_LEAVES, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
 		addBlockToAspectChanced(Blocks.DARK_OAK_LEAVES, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
-	
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.ORE.getId(), 1000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.ORE.getId(), 1000d);
-		addBlockToAspectChanced(Blocks.GOLD_ORE, WuxiaTechniqueAspects.ORE.getId(), 1000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_IRON_ORE, WuxiaTechniqueAspects.ORE.getId(), 1000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_COPPER_ORE, WuxiaTechniqueAspects.ORE.getId(), 1000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_GOLD_ORE, WuxiaTechniqueAspects.ORE.getId(), 1000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.METAL_NUGGET.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.METAL_NUGGET.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.GOLD_ORE, WuxiaTechniqueAspects.METAL_NUGGET.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_IRON_ORE, WuxiaTechniqueAspects.METAL_NUGGET.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_COPPER_ORE, WuxiaTechniqueAspects.METAL_NUGGET.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_GOLD_ORE, WuxiaTechniqueAspects.METAL_NUGGET.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.METAL_INGOT.getId(), 9000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.METAL_INGOT.getId(), 9000d);
-		addBlockToAspectChanced(Blocks.GOLD_ORE, WuxiaTechniqueAspects.METAL_INGOT.getId(), 9000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_IRON_ORE, WuxiaTechniqueAspects.METAL_INGOT.getId(), 9000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_COPPER_ORE, WuxiaTechniqueAspects.METAL_INGOT.getId(), 9000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_GOLD_ORE, WuxiaTechniqueAspects.METAL_INGOT.getId(), 9000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.GOLD_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_IRON_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_COPPER_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_GOLD_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.SHARPNESS.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.IRON_BLOCK, WuxiaTechniqueAspects.SHARPNESS.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_IRON_ORE, WuxiaTechniqueAspects.SHARPNESS.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.MAGNETIZATION.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_IRON_ORE, WuxiaTechniqueAspects.MAGNETIZATION.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.MAGNETIZATION.getId(), 3000d);
-		addBlockToAspectChanced(Blocks.DEEPSLATE_COPPER_ORE, WuxiaTechniqueAspects.MAGNETIZATION.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LEAVES, WuxiaTechniqueAspects.SWAYING.getId(), 3000d);
 
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.ORE.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.MAGNETIZATION.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.SHARPNESS.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.IRON_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.ORE.getId(), 50000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.MAGNETIZATION.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.SHARPNESS.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.COPPER_ORE, WuxiaTechniqueAspects.METAL_SKIN.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MOSS_BLOCK, WuxiaTechniqueAspects.MOSS.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.MOSS_BLOCK, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MOSS_BLOCK, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MOSS_BLOCK, WuxiaTechniqueAspects.SWAYING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MOSSY_COBBLESTONE, WuxiaTechniqueAspects.MOSS.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.MOSSY_COBBLESTONE, WuxiaTechniqueAspects.BRANCHING.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.MOSSY_COBBLESTONE, WuxiaTechniqueAspects.BARK.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.MOSSY_COBBLESTONE, WuxiaTechniqueAspects.SWAYING.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.MOSSY_COBBLESTONE, WuxiaTechniqueAspects.MOSS.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.INFESTED_MOSSY_STONE_BRICKS, WuxiaTechniqueAspects.MOSS.getId(), 20000d);
-		addBlockToAspectChanced(Blocks.OXEYE_DAISY, WuxiaTechniqueAspects.FLOWER.getId(), 30000d);
-		addBlockToAspectChanced(Blocks.OXEYE_DAISY, WuxiaTechniqueAspects.STEM.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.DANDELION, WuxiaTechniqueAspects.FLOWER.getId(), 30000d);
-		addBlockToAspectChanced(Blocks.DANDELION, WuxiaTechniqueAspects.STEM.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.POPPY, WuxiaTechniqueAspects.FLOWER.getId(), 30000d);
-		addBlockToAspectChanced(Blocks.POPPY, WuxiaTechniqueAspects.STEM.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.ORANGE_TULIP, WuxiaTechniqueAspects.FLOWER.getId(), 30000d);
-		addBlockToAspectChanced(Blocks.ORANGE_TULIP, WuxiaTechniqueAspects.STEM.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.PINK_TULIP, WuxiaTechniqueAspects.FLOWER.getId(), 30000d);
-		addBlockToAspectChanced(Blocks.PINK_TULIP, WuxiaTechniqueAspects.STEM.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.SUNFLOWER, WuxiaTechniqueAspects.FLOWER.getId(), 30000d);
-		addBlockToAspectChanced(Blocks.SUNFLOWER, WuxiaTechniqueAspects.STEM.getId(), 5000000d);
-		addBlockToAspectChanced(Blocks.NETHERRACK, WuxiaTechniqueAspects.CINDER.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.NETHERRACK, WuxiaTechniqueAspects.SCORCH.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.NETHERRACK, WuxiaTechniqueAspects.MAGIC_BURNING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.NETHERRACK, WuxiaTechniqueAspects.MIND_FLARE.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.SOUL_SAND, WuxiaTechniqueAspects.CINDER.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.SOUL_SAND, WuxiaTechniqueAspects.EMBER.getId(), 50000d);
-		addBlockToAspectChanced(Blocks.SOUL_SAND, WuxiaTechniqueAspects.SCORCH.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.SOUL_SAND, WuxiaTechniqueAspects.MAGIC_BURNING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.SOUL_SAND, WuxiaTechniqueAspects.MIND_FLARE.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MAGMA_BLOCK, WuxiaTechniqueAspects.CINDER.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.MAGMA_BLOCK, WuxiaTechniqueAspects.EMBER.getId(), 50000d);
-		addBlockToAspectChanced(Blocks.MAGMA_BLOCK, WuxiaTechniqueAspects.SCORCH.getId(), 1200000d);
-		addBlockToAspectChanced(Blocks.MAGMA_BLOCK, WuxiaTechniqueAspects.MAGIC_BURNING.getId(), 1200000d);
-		addBlockToAspectChanced(Blocks.MAGMA_BLOCK, WuxiaTechniqueAspects.MIND_FLARE.getId(), 400000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_ORE, WuxiaTechniqueAspects.SPARK.getId(), 25000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_ORE, WuxiaTechniqueAspects.CONDUIT.getId(), 1000000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_ORE, WuxiaTechniqueAspects.FLASH.getId(), 1000000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_ORE, WuxiaTechniqueAspects.ARC.getId(), 1000000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_BLOCK, WuxiaTechniqueAspects.SPARK.getId(), 250000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_BLOCK, WuxiaTechniqueAspects.CONDUIT.getId(), 10000000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_BLOCK, WuxiaTechniqueAspects.FLASH.getId(), 10000000d);
-		addBlockToAspectChanced(Blocks.REDSTONE_BLOCK, WuxiaTechniqueAspects.ARC.getId(), 10000000d);
-		addBlockToAspectChanced(Blocks.DIRT, WuxiaTechniqueAspects.DUST.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.DIRT, WuxiaTechniqueAspects.DIRT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.DIRT, WuxiaTechniqueAspects.HARDENING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.DIRT, WuxiaTechniqueAspects.TREMOR.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.COBBLESTONE, WuxiaTechniqueAspects.DUST.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.COBBLESTONE, WuxiaTechniqueAspects.DIRT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.COBBLESTONE, WuxiaTechniqueAspects.PEBBLES.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.COBBLESTONE, WuxiaTechniqueAspects.HARDENING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.COBBLESTONE, WuxiaTechniqueAspects.TREMOR.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.STONE, WuxiaTechniqueAspects.PEBBLES.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.STONE, WuxiaTechniqueAspects.STONE.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.STONE, WuxiaTechniqueAspects.HARDENING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.STONE, WuxiaTechniqueAspects.TREMOR.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.COAL_BLOCK, WuxiaTechniqueAspects.CHARCOAL.getId(), 1000000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_ROOTS, WuxiaTechniqueAspects.ROOT.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SPRUCE_LEAVES, WuxiaTechniqueAspects.LEAF.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.BIRCH_LEAVES, WuxiaTechniqueAspects.LEAF.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LEAVES, WuxiaTechniqueAspects.LEAF.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.JUNGLE_LEAVES, WuxiaTechniqueAspects.LEAF.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.LEAF.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.DARK_OAK_LEAVES, WuxiaTechniqueAspects.LEAF.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LEAVES, WuxiaTechniqueAspects.LEAF.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.LICHEN.getId(), 9000d);
+
+		addBlockToAspectChanced(Blocks.ALLIUM, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.AZURE_BLUET, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.BLUE_ORCHID, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.CORNFLOWER, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.DANDELION, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.LILY_OF_THE_VALLEY, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.ORANGE_TULIP, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.OXEYE_DAISY, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.PINK_TULIP, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.POPPY, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.RED_TULIP, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.TORCHFLOWER, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.WHITE_TULIP, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.WITHER_ROSE, WuxiaTechniqueAspects.FLOWER.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.ALLIUM, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.AZURE_BLUET, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.BLUE_ORCHID, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.CORNFLOWER, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.DANDELION, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.LILY_OF_THE_VALLEY, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.ORANGE_TULIP, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.OXEYE_DAISY, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.PINK_TULIP, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.POPPY, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.RED_TULIP, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.TORCHFLOWER, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.WHITE_TULIP, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+		addBlockToAspectChanced(Blocks.WITHER_ROSE, WuxiaTechniqueAspects.STEM.getId(), 27000d);
+
+		addBlockToAspectChanced(Blocks.SNOW, WuxiaTechniqueAspects.SNOW.getId(), 90000d);
+		addBlockToAspectChanced(Blocks.SNOW_BLOCK, WuxiaTechniqueAspects.SNOW.getId(), 90000d);
+		addBlockToAspectChanced(Blocks.BLUE_ICE, WuxiaTechniqueAspects.SNOW.getId(), 90000d);
+		addBlockToAspectChanced(Blocks.PACKED_ICE, WuxiaTechniqueAspects.SNOW.getId(), 90000d);
+		addBlockToAspectChanced(Blocks.ICE, WuxiaTechniqueAspects.SNOW.getId(), 90000d);
+
+		addBlockToAspectChanced(Blocks.COAL_ORE, WuxiaTechniqueAspects.CHARCOAL.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.COAL_BLOCK, WuxiaTechniqueAspects.CHARCOAL.getId(), 9000d);
+
 		addBlockToAspectChanced(Blocks.DIAMOND_ORE, WuxiaTechniqueAspects.DIAMOND_CONSTRUCT.getId(), 10000000d);
-		addBlockToAspectChanced(Blocks.DIAMOND_ORE, WuxiaTechniqueAspects.CRYSTAL.getId(), 1000000d);
 		addBlockToAspectChanced(Blocks.DIAMOND_BLOCK, WuxiaTechniqueAspects.DIAMOND_CONSTRUCT.getId(), 100000000d);
-		addBlockToAspectChanced(Blocks.DIAMOND_BLOCK, WuxiaTechniqueAspects.CRYSTAL.getId(), 10000000d);
-		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.ACACIA_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.SEED.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.SPROUT.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.SAPLING.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.BARK.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.BIRCH_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.CHERRY_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.DARK_OAK_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.JUNGLE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.MANGROVE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.OAK_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.SPRUCE_LOG, WuxiaTechniqueAspects.BRANCHING.getId(), 100000d);
-		addBlockToAspectChanced(Blocks.SNOW, WuxiaTechniqueAspects.SNOW.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.SNOW_BLOCK, WuxiaTechniqueAspects.SNOW.getId(), 10000d);
-		addBlockToAspectChanced(Blocks.ICE, WuxiaTechniqueAspects.SNOW.getId(), 10000d);
-		//TODO glowstone for light
-		//TODO any crystal to earth aspects
+
+		addBlockToAspectChanced(Blocks.GLOWSTONE, WuxiaTechniqueAspects.STARRY_BATH.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.GLOWSTONE, WuxiaTechniqueAspects.STARLIGHT_BATH.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.GLOWSTONE, WuxiaTechniqueAspects.LUMEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.GLOWSTONE, WuxiaTechniqueAspects.SHINE.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.GLOWSTONE, WuxiaTechniqueAspects.FLARE.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.GLOW_LICHEN, WuxiaTechniqueAspects.STARRY_BATH.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.GLOW_LICHEN, WuxiaTechniqueAspects.STARLIGHT_BATH.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.GLOW_LICHEN, WuxiaTechniqueAspects.LUMEN.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.GLOW_LICHEN, WuxiaTechniqueAspects.SHINE.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.GLOW_LICHEN, WuxiaTechniqueAspects.FLARE.getId(), 9000d);
+
+		addBlockToAspectChanced(Blocks.SCULK, WuxiaTechniqueAspects.SHADOW_BATH.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.SCULK, WuxiaTechniqueAspects.DUSK_BATH.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SCULK, WuxiaTechniqueAspects.DIM.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SCULK, WuxiaTechniqueAspects.GLOOM.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SCULK, WuxiaTechniqueAspects.ECLIPSE.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SCULK_VEIN, WuxiaTechniqueAspects.SHADOW_BATH.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.SCULK_VEIN, WuxiaTechniqueAspects.DUSK_BATH.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SCULK_VEIN, WuxiaTechniqueAspects.DIM.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SCULK_VEIN, WuxiaTechniqueAspects.GLOOM.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.SCULK_VEIN, WuxiaTechniqueAspects.ECLIPSE.getId(), 9000d);
+				
+		addBlockToAspectChanced(Blocks.EMERALD_ORE, WuxiaTechniqueAspects.BREEZE.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.EMERALD_ORE, WuxiaTechniqueAspects.GUST.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.EMERALD_ORE, WuxiaTechniqueAspects.AIRFLOW.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.EMERALD_ORE, WuxiaTechniqueAspects.GALE.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.EMERALD_ORE, WuxiaTechniqueAspects.DRAFT.getId(), 9000d);		
+
+		addBlockToAspectChanced(Blocks.LILY_OF_THE_VALLEY, WuxiaTechniqueAspects.VENOM.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.LILY_OF_THE_VALLEY, WuxiaTechniqueAspects.MIASMA.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.LILY_OF_THE_VALLEY, WuxiaTechniqueAspects.CORRUPTION.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.LILY_OF_THE_VALLEY, WuxiaTechniqueAspects.MALIGNANCE.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.LILY_OF_THE_VALLEY, WuxiaTechniqueAspects.CORROSION.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.WITHER_ROSE, WuxiaTechniqueAspects.VENOM.getId(), 3000d);
+		addBlockToAspectChanced(Blocks.WITHER_ROSE, WuxiaTechniqueAspects.MIASMA.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.WITHER_ROSE, WuxiaTechniqueAspects.CORRUPTION.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.WITHER_ROSE, WuxiaTechniqueAspects.MALIGNANCE.getId(), 9000d);
+		addBlockToAspectChanced(Blocks.WITHER_ROSE, WuxiaTechniqueAspects.CORROSION.getId(), 9000d);
+
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_1.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 100d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_2.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 80d);
+		addBlockToAspectChanced(WuxiaBlocks.DEEPSLATE_SPIRIT_STONE_VEIN_2.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 80d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_3.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 60d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_4.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 40d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_5.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 20d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_1.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 100d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_2.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 80d);
+		addBlockToAspectChanced(WuxiaBlocks.DEEPSLATE_SPIRIT_STONE_VEIN_2.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 80d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_3.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 60d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_4.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 40d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_5.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 20d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_1.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 100d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_2.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 80d);
+		addBlockToAspectChanced(WuxiaBlocks.DEEPSLATE_SPIRIT_STONE_VEIN_2.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 80d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_3.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 60d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_4.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 40d);
+		addBlockToAspectChanced(WuxiaBlocks.SPIRIT_STONE_VEIN_5.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 20d);
 
 	}
 
@@ -350,6 +334,12 @@ public class TechniqueUtil {
 		addEntityToAspectChanced(EntityType.SILVERFISH, WuxiaTechniqueAspects.HARDENING.getId(), 3000d);
 		addEntityToAspectChanced(EntityType.SILVERFISH, WuxiaTechniqueAspects.TREMOR.getId(), 3000d);
 		addEntityToAspectChanced(EntityType.SILVERFISH, WuxiaTechniqueAspects.STILLNESS.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.BAT, WuxiaTechniqueAspects.DUST.getId(), 1000d);
+		addEntityToAspectChanced(EntityType.BAT, WuxiaTechniqueAspects.DIRT.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.BAT, WuxiaTechniqueAspects.PEBBLES.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.BAT, WuxiaTechniqueAspects.HARDENING.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.BAT, WuxiaTechniqueAspects.TREMOR.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.BAT, WuxiaTechniqueAspects.STILLNESS.getId(), 3000d);
 	
 		addEntityToAspectChanced(EntityType.COD, WuxiaTechniqueAspects.DROP.getId(), 1000d);
 		addEntityToAspectChanced(EntityType.SALMON, WuxiaTechniqueAspects.DROP.getId(), 1000d);
@@ -381,40 +371,86 @@ public class TechniqueUtil {
 	
 		addEntityToAspectChanced(EntityType.ZOMBIE, WuxiaTechniqueAspects.DEVOURING.getId(), 9000d);
 		addEntityToAspectChanced(EntityType.HUSK, WuxiaTechniqueAspects.DEVOURING.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.ZOGLIN, WuxiaTechniqueAspects.DEVOURING.getId(), 9000d);
 		
 		addEntityToAspectChanced(EntityType.FOX, WuxiaTechniqueAspects.KITSUNE_TRANSFORMATION.getId(), 1000d);
-		addEntityToAspectChanced(EntityType.MAGMA_CUBE, WuxiaTechniqueAspects.CINDER.getId(), 1000d);
-		addEntityToAspectChanced(EntityType.MAGMA_CUBE, WuxiaTechniqueAspects.EMBER.getId(), 1000d);
-		addEntityToAspectChanced(EntityType.MAGMA_CUBE, WuxiaTechniqueAspects.SCORCH.getId(), 10000d);
-		addEntityToAspectChanced(EntityType.MAGMA_CUBE, WuxiaTechniqueAspects.MAGIC_BURNING.getId(), 10000d);
-		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.DRAGON_TRANSFORMATION.getId(), 100d);
-		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPACE_DETECTION.getId(), 100d);
-		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPACE_TEAR.getId(), 1000d);
-		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPATIAL_TEMPERING.getId(), 1000d);
-		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPATIAL_AMPLIFICATION.getId(), 1000d);
+		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.DRAGON_TRANSFORMATION.getId(), 10d);
+		
+		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPACE_DETECTION.getId(), 10d);
+		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPACE_TEAR.getId(), 30d);
+		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPATIAL_TEMPERING.getId(), 30d);
+		addEntityToAspectChanced(EntityType.ENDER_DRAGON, WuxiaTechniqueAspects.SPATIAL_AMPLIFICATION.getId(), 30d);
 		addEntityToAspectChanced(EntityType.ENDERMAN, WuxiaTechniqueAspects.SPACE_DETECTION.getId(), 100000d);
-		addEntityToAspectChanced(EntityType.ENDERMAN, WuxiaTechniqueAspects.SPACE_TEAR.getId(), 1000000d);
-		addEntityToAspectChanced(EntityType.ENDERMAN, WuxiaTechniqueAspects.SPATIAL_TEMPERING.getId(), 1000000d);
-		addEntityToAspectChanced(EntityType.ENDERMAN, WuxiaTechniqueAspects.SPATIAL_AMPLIFICATION.getId(), 1000000d);
-		addEntityToAspectChanced(EntityType.ZOMBIE, WuxiaTechniqueAspects.BARK.getId(), 1000d);
+		addEntityToAspectChanced(EntityType.ENDERMAN, WuxiaTechniqueAspects.SPACE_TEAR.getId(), 300000d);
+		addEntityToAspectChanced(EntityType.ENDERMAN, WuxiaTechniqueAspects.SPATIAL_TEMPERING.getId(), 300000d);
+		addEntityToAspectChanced(EntityType.ENDERMAN, WuxiaTechniqueAspects.SPATIAL_AMPLIFICATION.getId(), 300000d);
+
 		addEntityToAspectChanced(EntityType.ZOMBIE_VILLAGER, WuxiaTechniqueAspects.BARK.getId(), 1000d);
 		addEntityToAspectChanced(EntityType.SKELETON, WuxiaTechniqueAspects.HARDENING.getId(), 1000d);
-		addEntityToAspectChanced(EntityType.SNOW_GOLEM, WuxiaTechniqueAspects.SNOW.getId(), 1000d);
 
-		// TODO add (1 + cave) * spiders to give some poison aspects
-		// TODO add undead give darkness or necromancy whatever
-		// TODO make villagers give demonic shit
+		addEntityToAspectChanced(EntityType.SNOW_GOLEM, WuxiaTechniqueAspects.SNOW.getId(), 1000d);
+		
+		addEntityToAspectChanced(EntityType.PHANTOM, WuxiaTechniqueAspects.BREEZE.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.PHANTOM, WuxiaTechniqueAspects.GUST.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.PHANTOM, WuxiaTechniqueAspects.AIRFLOW.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.PHANTOM, WuxiaTechniqueAspects.GALE.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.PHANTOM, WuxiaTechniqueAspects.DRAFT.getId(), 9000d);		
+		addEntityToAspectChanced(EntityType.GHAST, WuxiaTechniqueAspects.BREEZE.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.GHAST, WuxiaTechniqueAspects.GUST.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.GHAST, WuxiaTechniqueAspects.AIRFLOW.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.GHAST, WuxiaTechniqueAspects.GALE.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.GHAST, WuxiaTechniqueAspects.DRAFT.getId(), 9000d);
+		
+		addEntityToAspectChanced(EntityType.CAVE_SPIDER, WuxiaTechniqueAspects.VENOM.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.CAVE_SPIDER, WuxiaTechniqueAspects.MIASMA.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.CAVE_SPIDER, WuxiaTechniqueAspects.CORRUPTION.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.CAVE_SPIDER, WuxiaTechniqueAspects.MALIGNANCE.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.CAVE_SPIDER, WuxiaTechniqueAspects.CORROSION.getId(), 9000d);
+
+		addEntityToAspectChanced(EntityType.ALLAY, WuxiaTechniqueAspects.STARRY_BATH.getId(), 3000d);
+		addEntityToAspectChanced(EntityType.VEX, WuxiaTechniqueAspects.STARLIGHT_BATH.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.ALLAY, WuxiaTechniqueAspects.LUMEN.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.ALLAY, WuxiaTechniqueAspects.SHINE.getId(), 9000d);
+		addEntityToAspectChanced(EntityType.ALLAY, WuxiaTechniqueAspects.FLARE.getId(), 9000d);
+
+		addEntityToAspectChanced(EntityType.WARDEN, WuxiaTechniqueAspects.SHADOW_BATH.getId(), 300d);
+		addEntityToAspectChanced(EntityType.WARDEN, WuxiaTechniqueAspects.DUSK_BATH.getId(), 900d);
+		addEntityToAspectChanced(EntityType.WARDEN, WuxiaTechniqueAspects.DIM.getId(), 900d);
+		addEntityToAspectChanced(EntityType.WARDEN, WuxiaTechniqueAspects.GLOOM.getId(), 900d);
+		addEntityToAspectChanced(EntityType.WARDEN, WuxiaTechniqueAspects.ECLIPSE.getId(), 900d);
+
+		addEntityToAspectChanced(EntityType.SNIFFER, WuxiaTechniqueAspects.TIME_DETECTION.getId(), 10000d);
+		addEntityToAspectChanced(EntityType.SNIFFER, WuxiaTechniqueAspects.TEMPORAL_TEMPERING.getId(), 30000d);
+		addEntityToAspectChanced(EntityType.SNIFFER, WuxiaTechniqueAspects.TIME_TEAR.getId(), 30000d);
+		addEntityToAspectChanced(EntityType.SNIFFER, WuxiaTechniqueAspects.TEMPORAL_AMPLIFICATION.getId(), 30000d);
+
+		addEntityToAspectChanced(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 80d);
+		addEntityToAspectChanced(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 60d);
+		addEntityToAspectChanced(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 40d);
+		addEntityToAspectChanced(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), 20d);
+		addEntityToAspectChanced(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 80d);
+		addEntityToAspectChanced(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 60d);
+		addEntityToAspectChanced(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 40d);
+		addEntityToAspectChanced(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), 20d);
+		addEntityToAspectChanced(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 80d);
+		addEntityToAspectChanced(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 60d);
+		addEntityToAspectChanced(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 40d);
+		addEntityToAspectChanced(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), WuxiaTechniqueAspects.BODY_GATHERING.getId(), 20d);
+
 	}
 
 	public static void initTransformationAspects() {
 		TRANSFORMATION_ASPECTS.add(WuxiaTechniqueAspects.KITSUNE_TRANSFORMATION.getId());
+		TRANSFORMATION_ASPECTS.add(WuxiaTechniqueAspects.LIGHT_KITSUNE_TRANSFORMATION.getId());
 		TRANSFORMATION_ASPECTS.add(WuxiaTechniqueAspects.SPATIAL_KITSUNE_TRANSFORMATION.getId());
 		TRANSFORMATION_ASPECTS.add(WuxiaTechniqueAspects.DRAGON_TRANSFORMATION.getId());
+		TRANSFORMATION_ASPECTS.add(WuxiaTechniqueAspects.AZURE_DRAGON_TRANSFORMATION.getId());
 	}
 
 	public static void initWeaponTechniques() {
 		WEAPON_ASPECTS.add(WuxiaTechniqueAspects.BASIC_SWORD_SET.getId());
 		WEAPON_ASPECTS.add(WuxiaTechniqueAspects.SWORD_QI_GATHERING.getId());
+		WEAPON_ASPECTS.add(WuxiaTechniqueAspects.MAGICAL_SWORD_GLINT.getId());
 	}
 
 	public static HashSet<ResourceLocation> getWeaponAspects() {

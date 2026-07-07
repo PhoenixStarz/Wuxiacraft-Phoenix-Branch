@@ -60,7 +60,17 @@ public class TechniqueInscriber extends BaseEntityBlock {
 		}
 	}
 
+	@Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (pState.getBlock() != pNewState.getBlock()) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof InscriberEntity) {
+                ((InscriberEntity) blockEntity).drops();
+            }
+        }
 
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+    }
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext ctx) {

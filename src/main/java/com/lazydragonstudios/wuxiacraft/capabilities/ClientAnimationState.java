@@ -25,6 +25,9 @@ public class ClientAnimationState implements IClientAnimationState {
 
 	@Override
 	public boolean isExercising() {
+		if (swordFlight) {
+			return false;
+		} else
 		return this.exercising;
 	}
 

@@ -132,13 +132,13 @@ public class GhostRenderer extends LivingEntityRenderer<AbstractClientPlayer, Gh
 	}
 
 	@Override
-	protected void scale(AbstractClientPlayer player, PoseStack poseStack, float partialTicks) {
+	public void scale(AbstractClientPlayer player, PoseStack poseStack, float partialTicks) {
 		float f = 0.9375F;
 		poseStack.scale(f, f, f);
 	}
 
 	@Override
-	protected void setupRotations(AbstractClientPlayer pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
+	public void setupRotations(AbstractClientPlayer pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
 		float f = pEntityLiving.getSwimAmount(pPartialTicks);
 		if (pEntityLiving.isFallFlying()) {
 			super.setupRotations(pEntityLiving, pPoseStack, pAgeInTicks, pRotationYaw, pPartialTicks);

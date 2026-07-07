@@ -11,6 +11,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +20,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.SimpleContainer;
+
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.math.BigDecimal;
@@ -93,6 +97,13 @@ public class InscriberEntity extends BaseContainerBlockEntity {
 			return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
 		}
 	}
+	public void drops() {
+        SimpleContainer inventory = new SimpleContainer(3);
+        for(int i = 0; i < 3; i++) {
+            inventory.setItem(i, this.getItem(i));
+        }
+        Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
 
 	@Override
 	public void load(CompoundTag tag) {
@@ -111,6 +122,7 @@ public class InscriberEntity extends BaseContainerBlockEntity {
 		var bookSlot = this.items.get(0);
 		var inkSlot = this.items.get(1);
 		var outputSlot = this.items.get(2);
+		if (techniqueName == null) return;
 		if (!outputSlot.isEmpty()) return;
 		if (bookSlot.isEmpty() || inkSlot.isEmpty()) return;
 		bookSlot.shrink(1);

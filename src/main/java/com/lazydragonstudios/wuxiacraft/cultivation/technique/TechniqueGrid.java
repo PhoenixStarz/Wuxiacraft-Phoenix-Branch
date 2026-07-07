@@ -211,7 +211,11 @@ public class TechniqueGrid {
 	 */
 	public static void traverseGridFromStart(TechniqueGrid grid, Consumer<Point> visit, BiConsumer<Point, Point> onConnect, BiConsumer<Point, Point> onJunked, Consumer<Point> onDisconnected) {
 		if (grid.startNodePoint == null) return;
-		if (!grid.grid.get(grid.startNodePoint).equals(WuxiaTechniqueAspects.START.getId())) return;
+		try {
+			if (!grid.grid.get(grid.startNodePoint).equals(WuxiaTechniqueAspects.START.getId())) return;
+		} catch (Exception nullException) {
+			return;
+		}
 		final ResourceLocation emptyId = WuxiaTechniqueAspects.EMPTY.getId();
 		//breadth first search
 		LinkedList<Point> toVisit = new LinkedList<>();

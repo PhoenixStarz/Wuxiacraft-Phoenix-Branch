@@ -111,8 +111,7 @@ public class DraggingAllAspectsToDantianMinigame implements Minigame {
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
 		var essenceData = cultivation.getSystemData(System.ESSENCE);
-		int energy = cultivation.getStat(System.ESSENCE, PlayerSystemStat.ENERGY).intValue();
-		var strandCount = energy > 8 ? 5 : 0;
+		var strandCount = essenceData.hasEnergy(cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY).divide(new BigDecimal(4))) ? 5 : 0;
 		this.keepCorrectStrandCount(strandCount);
 		var markedToRemove = new LinkedList<Strand>();
 		for (var strand : this.strands) {

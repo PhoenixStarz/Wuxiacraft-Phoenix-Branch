@@ -49,6 +49,7 @@ public class ManualScreen extends Screen {
 		var scaledResY = Minecraft.getInstance().getWindow().getGuiScaledHeight();
 		this.guiTop = (scaledResY - 200) / 2;
 		this.guiLeft = (scaledResX - 200) / 2;
+		if (!(this.guiTop >= 0 && this.guiLeft >= 0)) return;
 		this.panel = new WuxiaScrollPanel(this.guiLeft, this.guiTop, 210, 210, Component.literal(""));
 		this.gridComposer = new WuxiaTechniqueComposeGrid(0, 0, this.grid);
 		this.gridComposer.setGridRadius(this.radius);

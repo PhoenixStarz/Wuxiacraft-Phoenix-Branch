@@ -7,7 +7,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "wuxiacraft:spirit_stone_1",
+					"name": "wuxiacraft:spirit_stone_2",
 					"functions": [
 						{
 							"function": "minecraft:set_count",

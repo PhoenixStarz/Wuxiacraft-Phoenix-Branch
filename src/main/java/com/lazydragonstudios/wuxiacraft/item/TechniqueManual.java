@@ -40,49 +40,54 @@ public class TechniqueManual extends Item {
 
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-		ItemStack itemstack = player.getItemInHand(hand);
-		if (!(itemstack.getItem() instanceof TechniqueManual)) return InteractionResultHolder.pass(itemstack);
-		var itemTag = itemstack.getTag();
-		if (itemTag == null) return InteractionResultHolder.pass(itemstack);
-		if (!(itemstack.getTag().contains("technique-grid"))) return InteractionResultHolder.pass(itemstack);
-		var techGrid = new TechniqueGrid();
-		techGrid.deserialize(itemTag.getCompound("technique-grid"));
-		ICultivation cultivation = Cultivation.get(player);
-		var aspectData = cultivation.getAspects();
-		var toBecomeUnknown = new LinkedList<Point>();
-		for (var hexC : techGrid.getGrid().keySet()) {
-			var aspectLocation = techGrid.getAspectAtGrid(hexC);
-			var techAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
-			if (techAspect == null) continue;
-			if (!aspectData.knowsAspect(aspectLocation)) {
-				if (aspectData.learnAspect(aspectLocation, cultivation)) {
-					if (!level.isClientSide()) {
-						if (player instanceof ServerPlayer serverPlayer) {
-							serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.learn_successful")
-									.append(Component.translatable("wuxiacraft.aspect." + aspectLocation.getPath() + ".name")), true);
+		try {
+			ItemStack itemstack = player.getItemInHand(hand);
+			if (!(itemstack.getItem() instanceof TechniqueManual)) return InteractionResultHolder.pass(itemstack);
+			if (player.isCrouching()) return InteractionResultHolder.pass(itemstack);
+			var itemTag = itemstack.getTag();
+			if (itemTag == null) return InteractionResultHolder.pass(itemstack);
+			if (!(itemstack.getTag().contains("technique-grid"))) return InteractionResultHolder.pass(itemstack);
+			var techGrid = new TechniqueGrid();
+			techGrid.deserialize(itemTag.getCompound("technique-grid"));
+			ICultivation cultivation = Cultivation.get(player);
+			var aspectData = cultivation.getAspects();
+			var toBecomeUnknown = new LinkedList<Point>();
+			for (var hexC : techGrid.getGrid().keySet()) {
+				var aspectLocation = techGrid.getAspectAtGrid(hexC);
+				var techAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
+				if (techAspect == null) continue;
+				if (!aspectData.knowsAspect(aspectLocation)) {
+					if (aspectData.learnAspect(aspectLocation, cultivation)) {
+						if (!level.isClientSide()) {
+							if (player instanceof ServerPlayer serverPlayer) {
+								serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.learn_successful")
+										.append(Component.translatable("wuxiacraft.aspect." + aspectLocation.getPath() + ".name")), true);
+							}
 						}
+					} else {
+						toBecomeUnknown.add(hexC);
 					}
-				} else {
-					toBecomeUnknown.add(hexC);
 				}
 			}
-		}
-		for (var hexC : toBecomeUnknown) {
-			techGrid.removeGridNode(hexC);
-			techGrid.addGridNode(hexC, WuxiaTechniqueAspects.UNKNOWN.getId(), BigDecimal.TEN);
-		}
-		if (level.isClientSide()) {
-			int radius = 5;
-			if (itemTag.contains("radius")) {
-				radius = itemTag.getInt("radius");
+			for (var hexC : toBecomeUnknown) {
+				techGrid.removeGridNode(hexC);
+				techGrid.addGridNode(hexC, WuxiaTechniqueAspects.UNKNOWN.getId(), BigDecimal.TEN);
 			}
-			String author = null;
-			if (itemTag.contains("author")) {
-				author = itemTag.getString("author");
+			if (level.isClientSide()) {
+				int radius = 5;
+				if (itemTag.contains("radius")) {
+					radius = itemTag.getInt("radius");
+				}
+				String author = null;
+				if (itemTag.contains("author")) {
+					author = itemTag.getString("author");
+				}
+				openManualScreen(techGrid, radius, author);
 			}
-			openManualScreen(techGrid, radius, author);
+			return super.use(level, player, hand);
+		} catch (Exception e) {
+			return null;
 		}
-		return super.use(level, player, hand);
 	}
 
 	@Override
@@ -98,5 +103,10 @@ public class TechniqueManual extends Item {
 	public void openManualScreen(TechniqueGrid grid, int radius, @Nullable String author) {
 		Minecraft.getInstance().setScreen(new ManualScreen(grid, radius, author == null ? Component.empty() : Component.literal(author)));
 	}
+
+	public System getSystem() {
+		return this.system;
+	}
+
 
 }

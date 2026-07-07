@@ -117,24 +117,32 @@ public class FormationEventHandler {
 				return;
 			}
 		}
-		for (var itemStack : event.player.getInventory().items) {
-			if (!itemStack.is(STATS_TAG)) continue;
-			var tag = itemStack.getTag();
-			if (tag == null) continue;
-			if (!tag.contains("formation")) continue;
-			var formationTag = tag.getCompound("formation");
-			var x = formationTag.getInt("x");
-			var y = formationTag.getInt("y");
-			var z = formationTag.getInt("z");
-			var blockPos = new BlockPos(x, y, z);
-			var blockEntity = event.player.level().getBlockEntity(blockPos);
-			if (!(blockEntity instanceof FormationCore core)) continue;
-			if (!core.isActive()) continue;
-			cultivation.getFormationStats().setFormationActive(formationPos);
-			cultivation.getFormationStats().copyFrom(core.getFormationPlayerStats());
-			cultivation.getFormationStats().setRange(12 + core.getRuneRange() * 2);
-			cultivation.setWithinFormationRange(event.player.getX(), event.player.getY(), event.player.getZ());
-			if (cultivation.isWithinFormationRange()) break;
+		if (formationPos == null || !cultivation.isWithinFormationRange()) {
+			Level level = event.player.level();
+			var playerPos = new BlockPos((int)event.player.getX(), (int)event.player.getY(), (int)event.player.getZ());
+			var chunk = level.getChunkAt(playerPos);
+			var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
+			for (var core : activeFormationCores) {
+				if (event.player == core.getOwner()) continue;
+				var barrierAmount = core.getStat(FormationStat.BARRIER_AMOUNT);
+				if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) continue;
+				var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
+				var distSqr = playerPos.distSqr(core.getBlockPos());
+				if (!(distSqr <= barrierRange * barrierRange)) continue;
+				var badge = getItemBadge(event.player, core.getBlockPos(), STATS_TAG);
+				if (badge != ItemStack.EMPTY) continue;
+				formationPos = core.getBlockPos();
+				if (formationPos != null) {
+					cultivation.getFormationStats().setFormationActive(formationPos);
+					cultivation.getFormationStats().copyFrom(core.getFormationPlayerStats());
+					cultivation.getFormationStats().setRange(12 + core.getRuneRange() * 2);
+					cultivation.setWithinFormationRange(event.player.getX(), event.player.getY(), event.player.getZ());
+					if (cultivation.isWithinFormationRange()) {
+						event.player.level().getProfiler().pop();
+						return;
+					}
+				}
+			}
 		}
 		event.player.level().getProfiler().pop();
 	}

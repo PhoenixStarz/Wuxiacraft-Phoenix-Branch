@@ -74,7 +74,12 @@ public class SystemContainer {
 	}
 
 	public void addCultivationBase(Player player, ICultivation cultivation, BigDecimal amount) {
+		if (system == System.ESSENCE)
 		cultivation.getSystemData(System.DIVINE).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
+		if (system == System.DIVINE)
+		cultivation.getSystemData(System.BODY).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
+		if (system == System.BODY)
+		cultivation.getSystemData(System.ESSENCE).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
 		//all initialized data so that orders can change around
 		var grid = this.techniqueData.grid.getGrid();
 		var aspects = cultivation.getAspects();
@@ -85,36 +90,27 @@ public class SystemContainer {
 			cultivation.addStat(system, elementLocation, PlayerSystemElementalStat.FOUNDATION, BigDecimal.valueOf(elements.get(elementLocation) * 0.1).multiply(amount));
 			cultivation.addStat(elementLocation, PlayerElementalStat.COMPREHENSION, BigDecimal.valueOf(elements.get(elementLocation)));
 		}
-		//Applies Enlightenment
-		if (player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
-			var instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
-			if (instance != null) {
-				var amplifier = instance.getAmplifier();
-				//amount = amount * (1 + (3 * amplifier))
-				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("3").multiply(BigDecimal.valueOf(amplifier))));
-			}
-		}
 		//Adds aspect proficiency
 		for (var aspectLocation : grid.values()) {
 			aspects.addAspectProficiency(aspectLocation, amount, cultivation);
 		}
+		this.techniqueData.grid.fixProficiencies(aspects);
 		//applies spiritual resonance
-		if (player.hasEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get())) {
+		if (system == System.ESSENCE && player.hasEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get())) {
 			var instance = player.getEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get());
 			if (instance != null) {
-				var amplifier = instance.getAmplifier() + 1;
-				//amount = amount * (1 + (8 * amplifier))
-				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("4").multiply(BigDecimal.valueOf(amplifier))));
+				var amplifier = instance.getAmplifier();
+				//amount = amount * (1 + (2 ^ amplifier))
+				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("2").pow(amplifier)));
 			}
 		}
-		this.techniqueData.grid.fixProficiencies(aspects);
-		//Adds pill resonance
-		if (player.hasEffect(WuxiaMobEffects.PILL_RESONANCE.get())) {
-			var instance = player.getEffect(WuxiaMobEffects.PILL_RESONANCE.get());
+		//Applies Enlightenment
+		if (system == System.DIVINE && player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
+			var instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
 			if (instance != null) {
 				var amplifier = instance.getAmplifier();
-				//amount = amount * (1 + (6 * amplifier))
-				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("6").multiply(BigDecimal.valueOf(amplifier))));
+				//amount = amount * (1 + (2 ^ amplifier))
+				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("2").pow(amplifier)));
 			}
 		}
 		//adds cultivation speed
@@ -147,7 +143,7 @@ public class SystemContainer {
 		if (AFKS.equals("enabled+") || AFKS.equals("beneficial+")) {
 			if (AFKtimer > 15000) AFKmulti = AFKmulti.add(BigDecimal.valueOf((AFKtimer-15000)/10000));
 		}
-		if (cheeseburger == 0) AFKmulti = AFKmulti.add(BigDecimal.ONE);
+		if (cheeseburger == 0) AFKmulti = BigDecimal.ONE;
 		amount = amount.multiply(AFKmulti);
 		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).subtract(new BigDecimal("8")));
 		//adds the base

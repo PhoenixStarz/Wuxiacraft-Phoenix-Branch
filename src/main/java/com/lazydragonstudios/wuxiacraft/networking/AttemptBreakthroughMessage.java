@@ -2,6 +2,7 @@ package com.lazydragonstudios.wuxiacraft.networking;
 
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.PacketDistributor;
@@ -27,7 +28,11 @@ public record AttemptBreakthroughMessage(System system) {
 			var serverPlayer = ctx.getSender();
 			if (serverPlayer == null) return;
 			var cultivation = Cultivation.get(serverPlayer);
-			cultivation.attemptBreakthrough(msg.system);
+			var systemData = cultivation.getSystemData(msg.system);
+			if (cultivation.attemptBreakthrough(msg.system))
+			serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.breakthough_successful")
+					.append(Component.translatable(systemData.currentStage.getNamespace() + ".stage." + systemData.currentStage.getPath())),
+				true);
 			WuxiaPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new CultivationSyncMessage(cultivation));
 			cultivation.calculateStats();
 		});

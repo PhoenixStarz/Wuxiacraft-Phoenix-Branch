@@ -187,7 +187,7 @@ public class DraggingThroughPathwaysMinigame implements Minigame {
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
 		var essenceData = cultivation.getSystemData(System.ESSENCE);
-		var strandCount = cultivation.getStat(System.ESSENCE, PlayerSystemStat.ENERGY).divide(new BigDecimal("4"), RoundingMode.HALF_UP).intValue();
+		var strandCount = essenceData.hasEnergy(cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY).divide(new BigDecimal(4))) ? 8 : 0;
 		this.keepCorrectStrandCount(strandCount);
 		var markedToRemove = new LinkedList<Strand>();
 		for (var strand : this.strands) {
@@ -197,7 +197,7 @@ public class DraggingThroughPathwaysMinigame implements Minigame {
 				if (chosenPathway == -1) {
 					for (int i = 0; i < 4; i++) {
 						Point currentPoint = pathways[i][0];
-						if (MathUtil.inBounds(strand.x, strand.y, imageX + currentPoint.x - 4, imageY + currentPoint.y - 4, 7, 7)) {
+						if (MathUtil.inBounds(strand.x, strand.y, imageX + currentPoint.x - 5, imageY + currentPoint.y - 5, 11, 11)) {
 							chosenPathway = i;
 							this.currentPoint = 1;
 						}
@@ -205,7 +205,7 @@ public class DraggingThroughPathwaysMinigame implements Minigame {
 				} else if (this.chosenPathway < 4) {
 					if (this.currentPoint >= pathways[this.chosenPathway].length) return;
 					Point currentPoint = pathways[this.chosenPathway][this.currentPoint];
-					if (MathUtil.inBounds(strand.x, strand.y, imageX + currentPoint.x - 4, imageY + currentPoint.y - 4, 7, 7)) {
+					if (MathUtil.inBounds(strand.x, strand.y, imageX + currentPoint.x - 5, imageY + currentPoint.y - 5, 11, 11)) {
 						this.currentPoint++;
 					}
 					if (this.currentPoint >= pathways[this.chosenPathway].length) {

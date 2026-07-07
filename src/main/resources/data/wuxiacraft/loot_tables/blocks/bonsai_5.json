@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+	  "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "wuxiacraft:bonsai_5",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "age": "3"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wuxiacraft:spirit_fruit_5"
+        }
+      ]
+    }
+  ]
+}

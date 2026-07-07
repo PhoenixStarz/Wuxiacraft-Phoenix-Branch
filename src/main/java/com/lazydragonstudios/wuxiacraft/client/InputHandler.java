@@ -21,7 +21,7 @@ public class InputHandler {
 	public static final KeyMapping KEY_MEDITATE = new KeyMapping("wuxiacraft.key.meditate", GLFW.GLFW_KEY_Z, KEY_CATEGORY);
 	public static final KeyMapping KEY_EXERCISE = new KeyMapping("wuxiacraft.key.exercise", GLFW.GLFW_KEY_X, KEY_CATEGORY);
 	public static final KeyMapping KEY_CAST_SKILL = new KeyMapping("wuxiacraft.key.cast_skill", GLFW.GLFW_KEY_C, KEY_CATEGORY);
-	public static final KeyMapping KEY_COMBAT_MODE = new KeyMapping("wuxiacraft.key.combat_mode", GLFW.GLFW_KEY_V, KEY_CATEGORY);
+	public static final KeyMapping KEY_COMBAT_MODE = new KeyMapping("wuxiacraft.key.combat_mode", GLFW.GLFW_KEY_Y, KEY_CATEGORY);
 	public static final KeyMapping KEY_DIVINE_SENSE = new KeyMapping("wuxiacraft.key.divine_sense", GLFW.GLFW_KEY_V, KEY_CATEGORY);
 	public static final KeyMapping KEY_SKILL_WHEEL = new KeyMapping("wuxiacraft.key.skill_wheel", GLFW.GLFW_KEY_TAB, KEY_CATEGORY);
 

@@ -6,7 +6,6 @@ import java.awt.*;
 import java.math.BigDecimal;
 
 public enum PlayerStat {
-	HEALTH(new BigDecimal("20.0"), true, 2),
 	MAX_HEALTH(new BigDecimal("20.0"), false, 2),
 	STRENGTH(new BigDecimal("0.0"), false, 2),
 	AGILITY(new BigDecimal("0.0"), false, 3),
@@ -19,7 +18,7 @@ public enum PlayerStat {
 	BARRIER_REGEN(new BigDecimal("0.0"), false, 4),
 	BARRIER_REGEN_COST(new BigDecimal("0.0"), false, 2),
 	BARRIER_REGEN_COOLDOWN(new BigDecimal("0.0"), true, 0),
-	DETECTION_RANGE(new BigDecimal("10.00"), false, 2),
+	DETECTION_RANGE(new BigDecimal("0.00"), false, 2),
 	DETECTION_STRENGTH(new BigDecimal("0.00"), false, 2),
 	DETECTION_RESISTANCE(new BigDecimal("0.00"), false, 2),
 	LIVES(new BigDecimal(WuxiaConfigs.INITIAL_LIVES.get()), true, 0),

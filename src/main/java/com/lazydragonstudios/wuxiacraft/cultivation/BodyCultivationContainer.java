@@ -4,9 +4,11 @@ import com.lazydragonstudios.wuxiacraft.cultivation.stats.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.BodyTransformationAspect;
 import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ElementToStatsConsumer;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaConfigs;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaMobEffects;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
 import com.lazydragonstudios.wuxiacraft.util.TechniqueUtil;
+import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -96,6 +98,10 @@ public class BodyCultivationContainer extends SystemContainer {
 		} else {
 			this.bodyPartsForging.put(bodyPartLocation, forgedAmount.add(amount).setScale(6, RoundingMode.HALF_DOWN));
 		}
+		forgedAmount = this.bodyPartsForging.getOrDefault(bodyPartLocation, BigDecimal.ZERO);
+		maxCultivationBase = this.getStat(PlayerSystemStat.MAX_CULTIVATION_BASE);
+		this.bodyPartsForging.put(bodyPartLocation, forgedAmount.min(maxCultivationBase).setScale(6, RoundingMode.HALF_DOWN));
+		// ^ this is piss; I'm adding a limiter of the max cultivation base
 	}
 
 	public BigDecimal getForgedAmountByPart(ResourceLocation selectedBodyPart) {
@@ -113,6 +119,10 @@ public class BodyCultivationContainer extends SystemContainer {
 
 	public void selectElementToPart(ResourceLocation bodyPartLocation, ResourceLocation elementLocation) {
 		this.selectedElementByBodyPart.put(bodyPartLocation, elementLocation);
+	}
+	
+	public void removeSelectedElementByBodyPart(ResourceLocation bodyPartLocation) {
+		this.selectedElementByBodyPart.remove(bodyPartLocation);
 	}
 
 	@Nullable
@@ -143,6 +153,8 @@ public class BodyCultivationContainer extends SystemContainer {
 			for (var forgedAmount : this.bodyPartsForging.values()) {
 				base = base.add(forgedAmount);
 			}
+			if (this.bodyPartsForging.size() != 0)
+			base = base.divide(BigDecimal.valueOf(this.bodyPartsForging.size()), new MathContext(8, RoundingMode.HALF_UP));
 			return base;
 		}
 		return super.getStat(stat);
@@ -156,6 +168,64 @@ public class BodyCultivationContainer extends SystemContainer {
 
 	@Override
 	public void calculateStats(ICultivation cultivation) {
+		var aspectData = cultivation.getAspects();
+		var hpBoost = BigDecimal.ONE;
+		var strBoost = BigDecimal.ONE;
+		var AglBoost = BigDecimal.ONE;
+		var regenBoost = BigDecimal.ONE;
+		var ECBoost = BigDecimal.ONE;
+		var barrierBoost = BigDecimal.ONE;
+		var DCStrBoost = BigDecimal.ONE;
+		this.bodyTransformation = null;
+		this.displayBodyTransformation = null;
+		var knownTransformationAspects = aspectData.getKnownAspects().stream()
+				.filter(aspectLocation -> TechniqueUtil.getTransformationAspects().contains(aspectLocation))
+				.sorted(Comparator.comparing(aspectData::getAspectProficiency).reversed()).toList();
+		if (!knownTransformationAspects.isEmpty()) {
+			var transformationAspectLocation = knownTransformationAspects.get(0);
+			var transformationAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(transformationAspectLocation);
+			if (transformationAspect != null) {
+				var checkpoint = transformationAspect.getCurrentCheckpoint(aspectData.getAspectProficiency(transformationAspectLocation));
+				if (checkpoint instanceof BodyTransformationAspect.TransformationCheckpoint transformationCheckpoint) {
+					this.bodyTransformation = transformationCheckpoint.getTransformationLocation();
+					this.displayBodyTransformation = transformationCheckpoint.getTransformationLocation();
+					var modifier = transformationCheckpoint.modifier();
+				}
+			}
+		}
+		for (var transformationAspectLocation : knownTransformationAspects) {
+			var transformationAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(transformationAspectLocation);
+			if (transformationAspect != null) {
+				var modifier = transformationAspect.getCurrentCheckpoint(aspectData.getAspectProficiency(transformationAspectLocation)).modifier();
+				if (transformationAspect.equals(WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_kitsune_transformation")))) {
+					strBoost = strBoost.add(modifier.multiply(new BigDecimal("1")));
+					AglBoost = AglBoost.add(modifier.multiply(new BigDecimal("3")));
+					ECBoost = ECBoost.add(modifier.multiply(new BigDecimal("0.05")));
+					DCStrBoost = DCStrBoost.add(modifier.multiply(new BigDecimal("0.35")));
+				} 
+				if (transformationAspect.equals(WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(new ResourceLocation(WuxiaCraft.MOD_ID, "light_kitsune_transformation")))) {
+					strBoost = strBoost.add(modifier.multiply(new BigDecimal("0.6")));
+					AglBoost = AglBoost.add(modifier.multiply(new BigDecimal("1.8")));
+					DCStrBoost = DCStrBoost.add(modifier.multiply(new BigDecimal("0.2")));
+				} 
+				if (transformationAspect.equals(WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(new ResourceLocation(WuxiaCraft.MOD_ID, "kitsune_transformation")))) {
+					strBoost = strBoost.add(modifier.multiply(new BigDecimal("0.1")));
+					AglBoost = AglBoost.add(modifier.multiply(new BigDecimal("0.4")));
+				}
+				
+				if (transformationAspect.equals(WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(new ResourceLocation(WuxiaCraft.MOD_ID, "azure_dragon_transformation")))) {
+					strBoost = strBoost.add(modifier.multiply(new BigDecimal("1.5")));
+					hpBoost = hpBoost.add(modifier.multiply(new BigDecimal("0.75")));
+					regenBoost = regenBoost.add(modifier.multiply(new BigDecimal("0.2")));
+					barrierBoost = barrierBoost.add(modifier.multiply(new BigDecimal("0.4")));
+				} 
+				if (transformationAspect.equals(WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(new ResourceLocation(WuxiaCraft.MOD_ID, "dragon_transformation")))) {
+					strBoost = strBoost.add(modifier.multiply(new BigDecimal("0.75")));
+					hpBoost = hpBoost.add(modifier.multiply(new BigDecimal("0.35")));
+					regenBoost = regenBoost.add(modifier.multiply(new BigDecimal("0.1")));
+				}
+			}
+		}
 		this.playerStats.clear();
 		for (var stat : PlayerSystemStat.values()) {
 			if (stat.isModifiable) continue;
@@ -203,6 +273,35 @@ public class BodyCultivationContainer extends SystemContainer {
 				var currentStatAmount = this.playerStats.getOrDefault(stat, BigDecimal.ZERO);
 				var bodyPartBaseStatAmount = bodyPart.getStat(stat);
 				var elementBaseStatAmount = element.getStat(stat);
+				int size = WuxiaRegistries.BODY_PART.get().getKeys().size();
+				if (stat.equals(PlayerStat.MAX_HEALTH)) {
+					bodyPartBaseStatAmount = bodyPartBaseStatAmount.multiply(hpBoost);
+					elementBaseStatAmount = elementBaseStatAmount.multiply(hpBoost);
+				}
+				else if (stat.equals(PlayerStat.STRENGTH)) {
+					bodyPartBaseStatAmount = bodyPartBaseStatAmount.multiply(strBoost);
+					elementBaseStatAmount = elementBaseStatAmount.multiply(strBoost);
+				}
+				else if (stat.equals(PlayerStat.AGILITY)) {
+					bodyPartBaseStatAmount = bodyPartBaseStatAmount.multiply(AglBoost);
+					elementBaseStatAmount = elementBaseStatAmount.multiply(AglBoost);
+				}
+				else if (stat.equals(PlayerStat.HEALTH_REGEN)) {
+					bodyPartBaseStatAmount = bodyPartBaseStatAmount.multiply(regenBoost);
+					elementBaseStatAmount = elementBaseStatAmount.multiply(regenBoost);
+				}
+				else if (stat.equals(PlayerStat.EXERCISE_CONVERSION)) {
+					bodyPartBaseStatAmount = bodyPartBaseStatAmount.multiply(ECBoost);
+					elementBaseStatAmount = elementBaseStatAmount.multiply(ECBoost);
+				}
+				else if (stat.equals(PlayerStat.MAX_BARRIER)) {
+					bodyPartBaseStatAmount = bodyPartBaseStatAmount.multiply(barrierBoost);
+					elementBaseStatAmount = elementBaseStatAmount.multiply(barrierBoost);
+				}
+				else if (stat.equals(PlayerStat.DETECTION_STRENGTH)) {
+					bodyPartBaseStatAmount = bodyPartBaseStatAmount.multiply(DCStrBoost);
+					elementBaseStatAmount = elementBaseStatAmount.multiply(DCStrBoost);
+				}
 				currentStatAmount = currentStatAmount.add(bodyPartBaseStatAmount.add(elementBaseStatAmount).multiply(outputStatMultiplier));
 				this.playerStats.put(stat, currentStatAmount.setScale(6, RoundingMode.HALF_DOWN));
 			}
@@ -263,20 +362,6 @@ public class BodyCultivationContainer extends SystemContainer {
 				this.systemElementalStats.get(stat).put(elementLocation, currentStatAmount);
 			}
 		}
-		var aspectData = cultivation.getAspects();
-		this.bodyTransformation = null;
-		this.displayBodyTransformation = null;
-		var knownTransformationAspects = aspectData.getKnownAspects().stream()
-				.filter(aspectLocation -> TechniqueUtil.getTransformationAspects().contains(aspectLocation))
-				.sorted(Comparator.comparing(aspectData::getAspectProficiency).reversed()).toList();
-		if (knownTransformationAspects.isEmpty()) return;
-		var transformationAspectLocation = knownTransformationAspects.get(0);
-		var transformationAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(transformationAspectLocation);
-		if (transformationAspect == null) return;
-		var checkpoint = transformationAspect.getCurrentCheckpoint(aspectData.getAspectProficiency(transformationAspectLocation));
-		if (!(checkpoint instanceof BodyTransformationAspect.TransformationCheckpoint transformationCheckpoint)) return;
-		this.bodyTransformation = transformationCheckpoint.getTransformationLocation();
-		this.displayBodyTransformation = transformationCheckpoint.getTransformationLocation();
 	}
 
 	@Override
@@ -386,7 +471,15 @@ public class BodyCultivationContainer extends SystemContainer {
 			aspects.addAspectProficiency(aspectLocation, amount, cultivation);
 		}
 		this.techniqueData.grid.fixProficiencies(aspects);
-
+		//Adds Pill Resonance
+		if (player.hasEffect(WuxiaMobEffects.PILL_RESONANCE.get())) {
+			var instance = player.getEffect(WuxiaMobEffects.PILL_RESONANCE.get());
+			if (instance != null) {
+				var amplifier = instance.getAmplifier();
+				//amount = amount * (1 + (2 ^ amplifier))
+				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("2").pow(amplifier)));
+			}
+		}
 		var cultSpeed = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_SPEED);
 		amount = amount.multiply(BigDecimal.ONE.add(cultSpeed).multiply(BigDecimal.valueOf(WuxiaConfigs.CULTIVATION_SPEED_MULTIPLIER.get())));
 		Map<ResourceKey<Level>, Double> multiplierMap = WuxiaConfigs.getDimensionMultipliers();
@@ -417,7 +510,7 @@ public class BodyCultivationContainer extends SystemContainer {
 		if (AFKS.equals("enabled+") || AFKS.equals("beneficial+")) {
 			if (AFKtimer > 15000) AFKmulti = AFKmulti.add(BigDecimal.valueOf((AFKtimer-15000)/10000));
 		}
-		if (cheeseburger == 0) AFKmulti = AFKmulti.add(BigDecimal.ONE);
+		if (cheeseburger == 0) AFKmulti = BigDecimal.ONE;
 		amount = amount.multiply(AFKmulti);
 		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).subtract(BigDecimal.TEN));
 		if (sumOfAllElements.compareTo(BigDecimal.ZERO) <= 0) return;

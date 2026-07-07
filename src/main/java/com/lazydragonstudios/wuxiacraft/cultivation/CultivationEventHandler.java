@@ -67,19 +67,20 @@ public class CultivationEventHandler {
 		handleBodyEnergyRegen(player, cultivation, bodyData);
 		handleEnergyRegen(player, cultivation);
 		handleEnergyOverflow(cultivation);
-		handleNaturalHealing(cultivation, bodyData);
 		handleBarrierRegen(cultivation, essenceData);
 		handleHungerRegen(player, cultivation, essenceData);
 		handleExerciseEnergies(cultivation, bodyData, divineData, essenceData);
 		handleExerciseAddingCultBase(player, cultivation, bodyData);
 		handleLowEnergyPunishments(player, cultivation, bodyData, divineData);
-		handleCustomPotionEffects(player, cultivation, divineData, essenceData);
+		handleCustomPotionEffects(player, cultivation, divineData, essenceData, bodyData);
 		handleCombatMovementCosts(player, cultivation);
 		handleParticlesWhenFlying(player, cultivation);
 		handleShouldAddStepAssist(player, cultivation);
 		handlePlayerHealth(player, cultivation);
 		handleHealthRegeneration(player, cultivation, bodyData);
 		handleCanFly(player, cultivation);
+		if (!event.side.isClient()) 
+		handleTribulationTick((ServerPlayer)player);
 		player.level().getProfiler().pop();
 	}
 
@@ -108,12 +109,10 @@ public class CultivationEventHandler {
 		if (!(essenceData.getStage() instanceof EssenceCultivationStage essenceStage)) return;
 		if (essenceStage.isCanConvertToFood()) {
 			BigDecimal cost = cultivation.getStat(PlayerStat.HUNGER_REGEN_COST);
-			var regenAmount = cultivation.getStat(PlayerStat.HUNGER_REGEN).floatValue();
-			BigDecimal maxEnergy = cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY);
+			float regenAmount = cultivation.getStat(PlayerStat.HUNGER_REGEN).floatValue();
 			FoodData foodData = player.getFoodData();
-			if ((foodData.getFoodLevel() < 20 ||
-					foodData.getSaturationLevel() < foodData.getFoodLevel()) && essenceData.hasEnergy(maxEnergy.multiply(new BigDecimal("0.50"))) 
-						&& essenceData.consumeEnergy(cost)) {
+			if ((foodData.getFoodLevel() < 20 || foodData.getSaturationLevel() < foodData.getFoodLevel()) 
+					&& essenceData.consumeEnergy(cost)) {
 				var saturationLevel = foodData.getSaturationLevel();
 				var foodLevel = foodData.getFoodLevel();
 				saturationLevel = Math.min(saturationLevel + 0.5f, foodLevel);
@@ -239,13 +238,14 @@ public class CultivationEventHandler {
 			if (player.getFoodData().getFoodLevel() >= 20) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
 			BigDecimal finalEnergyRegen = cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY_REGEN).multiply(hunger_modifier);
 			//bodyEnergy < bodyMaxEnergy * 0.7 (70%)
-			BigDecimal maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.1" : "0.7");
+			BigDecimal maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.09" : "0.69");
 			boolean canRegenBodyEnergy = cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).compareTo(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(maxEnergyMultiplicand)) < 0;
 			if (canRegenBodyEnergy) {
 				bodyData.addEnergy(finalEnergyRegen);
-				cultivation.setStat(System.BODY, PlayerSystemStat.ENERGY, cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).min(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(maxEnergyMultiplicand)));
-				if (finalEnergyRegen.floatValue() >= 25f ) finalEnergyRegen = new BigDecimal("25");
-				player.causeFoodExhaustion(finalEnergyRegen.floatValue() * 0.2f);
+				maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.1" : "0.7");
+				cultivation.setStat(System.BODY, PlayerSystemStat.ENERGY, cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).min(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply((maxEnergyMultiplicand))));
+				if (finalEnergyRegen.floatValue() > 5 ) finalEnergyRegen = new BigDecimal("5");
+				player.causeFoodExhaustion(finalEnergyRegen.floatValue());
 			}
 		}
 	}
@@ -254,10 +254,10 @@ public class CultivationEventHandler {
 		//others don't
 		for (var system : System.values()) {
 			var systemData = cultivation.getSystemData(system);
-			if (system != System.BODY) { //body already regenerated at that point
+			if (system != System.BODY) { //body already regenerated at that points
 				if (systemData.getStage().canRegenEnergy())
-					systemData.addEnergy(cultivation.getStat(system, PlayerSystemStat.ENERGY_REGEN));
-			}
+				systemData.addEnergy((cultivation.getStat(system, PlayerSystemStat.MAX_ENERGY).subtract(cultivation.getStat(system, PlayerSystemStat.ENERGY))).min(cultivation.getStat(system, PlayerSystemStat.ENERGY_REGEN)).max(BigDecimal.ZERO));
+			}	//^energy regen limiter based of max energy 
 			//kill if above 150%
 			if (cultivation.getStat(system, PlayerSystemStat.ENERGY).compareTo(cultivation.getStat(system, PlayerSystemStat.MAX_ENERGY).multiply(new BigDecimal("1.5"))) > 0) {
 				killPlayerWithExplosion(player, systemData, player.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.ENERGY_EXCESS_ESSENCE),
@@ -284,20 +284,6 @@ public class CultivationEventHandler {
 		}
 	}
 
-	private static void handleNaturalHealing(ICultivation cultivation, SystemContainer bodyData) {
-		//Healing part yaay
-		if (cultivation.getStat(PlayerStat.HEALTH).compareTo(cultivation.getStat(PlayerStat.MAX_HEALTH)) < 0) {
-			BigDecimal energy_used = cultivation.getStat(PlayerStat.HEALTH_REGEN_COST);
-			//Won't heal when energy is below 10%
-			if (cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).subtract(energy_used).compareTo(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(new BigDecimal("0.1"))) >= 0) {
-				BigDecimal amount_healed = cultivation.getStat(PlayerStat.HEALTH_REGEN);
-				if (bodyData.consumeEnergy(energy_used)) { // this is the correct way to use consume energy ever
-					cultivation.setStat(PlayerStat.HEALTH, cultivation.getStat(PlayerStat.MAX_HEALTH).min(cultivation.getStat(PlayerStat.HEALTH).add(amount_healed)));
-				}
-			}
-		}
-	}
-
 	private static void handleExerciseEnergies(ICultivation cultivation, SystemContainer bodyData, SystemContainer divineData, SystemContainer essenceData) {
 		//if player is exercising, add a little of essence to him
 		if (cultivation.isExercising() && (
@@ -310,7 +296,7 @@ public class CultivationEventHandler {
 				divineData.consumeEnergy(cultivation.getStat(PlayerStat.EXERCISE_COST).multiply(new BigDecimal("0.34")));
 				if (bodyData.techniqueData.modifier.isValidTechnique() && essenceData.hasEnergy(cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY).multiply(new BigDecimal("1.1"))))
 					return;
-				essenceData.addEnergy(cultivation.getStat(PlayerStat.EXERCISE_CONVERSION));
+				essenceData.addEnergy(cultivation.getStat(PlayerStat.EXERCISE_CONVERSION).min((cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY).subtract(cultivation.getStat(System.ESSENCE, PlayerSystemStat.ENERGY)))).max(BigDecimal.ZERO));
 			}
 		}
 	}
@@ -321,7 +307,7 @@ public class CultivationEventHandler {
 				cultivation.advanceCultTimer();
 				if (cultivation.getCultTimer() > 200) {// 10.05s //
 					cultivation.resetCultTimer();
-					cultivation.addCultivationBase(player, System.BODY, BigDecimal.ONE);
+					cultivation.addCultivationBase(player, System.BODY, cultivation.getStat(PlayerStat.EXERCISE_CONVERSION));
 				}
 			}	
 		}
@@ -339,7 +325,7 @@ public class CultivationEventHandler {
 			}
 			return;
 		}
-		if (!player.onGround() && !player.getAbilities().flying) return;
+		if ((!player.onGround() && !player.getAbilities().flying) || ClientAnimationState.get(player).isSwordFlight()) return;
 		var playerSpeed = BigDecimal.valueOf(player.getSpeed() + 0.21f);
 		if (player.getAbilities().flying) playerSpeed = playerSpeed.multiply(new BigDecimal("1.6"));
 		var totalValue = cultivation.getStat(PlayerStat.AGILITY, true);
@@ -365,6 +351,7 @@ public class CultivationEventHandler {
 		if (!(player.level() instanceof ServerLevel level)) return;
 		if (!cultivation.canFly()) return;
 		if (!player.getAbilities().flying) return;
+		if (cultivation.getTimer() % 5 != 0) return;
 		ParticleOptions particle = (ParticleOptions) WuxiaParticleTypes.FLIGHT_PARTICLE.get();
 		level.sendParticles(particle, player.getX(), player.getY()-0.8, player.getZ(), 2, 0.6, 0, 0.6, 0.01);
 	}
@@ -399,17 +386,52 @@ public class CultivationEventHandler {
 		}
 	}
 
-	private static void handleCustomPotionEffects(Player player, ICultivation cultivation, SystemContainer divineData, SystemContainer essenceData) {
+	private static void handleCustomPotionEffects(Player player, ICultivation cultivation, SystemContainer divineData, SystemContainer essenceData, SystemContainer bodyData) {
 		MathContext mc = new MathContext(16, RoundingMode.HALF_DOWN);
 		if (player.hasEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get())) {
 			var effectInstance = player.getEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get());
-			if (effectInstance == null) return;
-			// 0.022 * 2.4 ^ amplifier
-			essenceData.addEnergy(new BigDecimal("0.022").multiply(new BigDecimal("2.4").pow(effectInstance.getAmplifier()), mc));
-			// 0.009 * 1.8 ^ amplifier
-			divineData.addEnergy(new BigDecimal("0.009").multiply(new BigDecimal("1.8").pow(effectInstance.getAmplifier()), mc));
+			if (effectInstance != null) {
+				// 0.022 * 2.4 ^ amplifier
+				essenceData.addEnergy(new BigDecimal("0.022").multiply(new BigDecimal("2.4").pow(effectInstance.getAmplifier()), mc));
+				// 0.009 * 1.8 ^ amplifier
+				divineData.addEnergy(new BigDecimal("0.009").multiply(new BigDecimal("1.8").pow(effectInstance.getAmplifier()), mc));
+			}
+		} 
+		if (player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
+			var effectInstance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
+			if (effectInstance != null) {
+				// 0.022 * 2.4 ^ amplifier
+				divineData.addEnergy(new BigDecimal("0.022").multiply(new BigDecimal("2.4").pow(effectInstance.getAmplifier()), mc));
+				// 0.009 * 1.8 ^ amplifier
+				bodyData.addEnergy(new BigDecimal("0.009").multiply(new BigDecimal("1.8").pow(effectInstance.getAmplifier()), mc));
+			}
+		}
+		if (player.hasEffect(WuxiaMobEffects.PILL_RESONANCE.get())) {
+			var effectInstance = player.getEffect(WuxiaMobEffects.PILL_RESONANCE.get());
+			if (effectInstance != null) {
+				// 0.022 * 2.4 ^ amplifier
+				bodyData.addEnergy(new BigDecimal("0.022").multiply(new BigDecimal("2.4").pow(effectInstance.getAmplifier()), mc));
+				// 0.009 * 1.8 ^ amplifier
+				essenceData.addEnergy(new BigDecimal("0.009").multiply(new BigDecimal("1.8").pow(effectInstance.getAmplifier()), mc));
+			}
 		}
 	}
+
+	private static void handleTribulationTick(ServerPlayer player) {
+		ICultivation cultivation = Cultivation.get(player);
+        if (!cultivation.isTribulating()) return;
+        Tribulation tribulation = cultivation.getTribulation();
+		if (player.isAlive()) { 
+        	if (tribulation.tick(player)) {
+                cultivation.setTribulating(false);
+                WuxiaPacketHandler.INSTANCE.sendToServer(new AttemptBreakthroughMessage(tribulation.tribSystem));
+            } 
+		}
+		else {
+			tribulation.reset();
+			cultivation.setTribulating(false);
+        }
+    }
 
 	/**
 	 * A helper procedure to simplify the line actually because this might get repeated a lot in this file
@@ -451,7 +473,6 @@ public class CultivationEventHandler {
 			if (oldCultivation.getStat(PlayerStat.LIVES).compareTo(BigDecimal.ZERO) == 0) {
 				oldCultivation = new Cultivation();
 			} else {
-				oldCultivation.setStat(PlayerStat.HEALTH, PlayerStat.HEALTH.defaultValue);
 				var bodyData = oldCultivation.getSystemData(System.BODY);
 				var divineData = oldCultivation.getSystemData(System.DIVINE);
 				var essenceData = oldCultivation.getSystemData(System.ESSENCE);

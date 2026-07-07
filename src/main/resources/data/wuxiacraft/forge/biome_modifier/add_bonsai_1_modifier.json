@@ -1,0 +1,8 @@
+{
+	"type": "forge:add_features",
+	"biomes": {
+		"type": "forge:any"
+	},
+	"features": "wuxiacraft:bonsai_1",
+  	"step": "vegetal_decoration"
+}

@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "wuxiacraft:block/spirit_crystal_cluster_5",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "wuxiacraft:block/spirit_crystal_cluster_5",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "wuxiacraft:block/spirit_crystal_cluster_5",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "wuxiacraft:block/spirit_crystal_cluster_5",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "wuxiacraft:block/spirit_crystal_cluster_5"
+    },
+    "facing=west": {
+      "model": "wuxiacraft:block/spirit_crystal_cluster_5",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

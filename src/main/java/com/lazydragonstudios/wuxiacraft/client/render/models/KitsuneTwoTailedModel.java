@@ -99,6 +99,11 @@ public class KitsuneTwoTailedModel extends AbstractBodyTransformationModel {
 		} else {
 			this.head.xRot = pHeadPitch * ((float) Math.PI / 180F);
 		}
+		if (pEntity.isCrouching()) {
+			this.head.y = 4.2F;
+		} else {
+			this.head.y = 0.0F;
+		}
 		tail_root.xRot = 0.48f - Mth.abs(Mth.cos(limbSwing * 0.33F)) * 0.3F * limbSwingAmount;
 		tail_start_1.xRot = 0.48f - Mth.abs(Mth.cos(limbSwing * 0.44F)) * 0.7F * limbSwingAmount;
 		tail_start_1.yRot = 0.5236F + Mth.cos(pAgeInTicks * 0.03F) * 0.3F + Mth.cos(limbSwing * 0.44F) * 0.3f * limbSwingAmount;

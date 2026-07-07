@@ -32,8 +32,9 @@ public class DivineMinigame implements Minigame {
 
 	private final LinkedList<Strand> strands = new LinkedList<>();
 
-	private Strand selectedStrand = null;
+	private final LinkedList<Strand> selectedStrands = new LinkedList<>();
 
+	private boolean isGrabbed = false;
 
 	private float outerCircleRadius = defaultOuterCircleRadius;
 
@@ -56,24 +57,19 @@ public class DivineMinigame implements Minigame {
 
 	@Override
 	public boolean onMouseClick(double x, double y, int button) {
-		for (var strand : this.strands) {
-			if (strand.inBounds(x, y)) {
-				selectedStrand =
-						strand;
-				break;
-			}
-		}
-		if (this.selectedStrand == null && isInCircleBorder(x, y, dantian.x + 4, dantian.y + 4, outerCircleRadius, 3f)) {
+		if (this.selectedStrands.isEmpty() && isInCircleBorder(x, y, dantian.x + 4, dantian.y + 4, outerCircleRadius, 3f)) {
 			this.grabbedCircle = true;
 			return true;
-		}
+		} else 
+		this.isGrabbed = true;
 		return false;
 	}
 
 	@Override
 	public boolean onMouseRelease(double x, double y, int button) {
-		if (this.selectedStrand != null) {
-			this.selectedStrand = null;
+		this.isGrabbed = false;
+		if (this.selectedStrands.size() > 0) {
+			this.selectedStrands.clear();
 		}
 		if (this.grabbedCircle) {
 			this.grabbedCircle = false;
@@ -84,9 +80,16 @@ public class DivineMinigame implements Minigame {
 
 	@Override
 	public void onMouseMove(double x, double y) {
-		if (this.selectedStrand != null) {
-			this.selectedStrand.x = x;
-			this.selectedStrand.y = y;
+		for (var strand : this.selectedStrands) {
+			strand.x = x;
+			strand.y = y;
+		}
+		if (isGrabbed) {
+			for (var strand : this.strands) {
+				if (strand.inBounds(x, y) && !this.selectedStrands.contains(strand)) {
+					this.selectedStrands.add(strand);
+				}
+			}
 		}
 		else if (this.grabbedCircle) {
 			var dx = x - dantian.x;
@@ -134,12 +137,11 @@ public class DivineMinigame implements Minigame {
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
 		var divineData = cultivation.getSystemData(System.DIVINE);
-		int energy = cultivation.getStat(System.DIVINE, PlayerSystemStat.ENERGY).intValue();
-		var strandCount = energy > 4 ? 5 : 0;
+		var strandCount = divineData.hasEnergy(cultivation.getStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY).divide(new BigDecimal(4))) ? 5 : 0;
 		this.keepCorrectStrandCount(strandCount);
 		var markedToRemove = new LinkedList<Strand>();
 		for (var strand : this.strands) {
-			strand.setGrabbed(strand == selectedStrand);
+			strand.setGrabbed(this.selectedStrands.contains(strand));
 			strand.tick(this.outerCircleRadius);
 			if (this.grabbedCircle) {
 				if (isOutsideCircle(strand.x, strand.y, dantian.x + 4, dantian.y + 4, hoveringCircleRadius)) {
@@ -232,8 +234,8 @@ public class DivineMinigame implements Minigame {
 			v2 = v2.scale(MAX_RADIUS);
 			this.x = CENTER_X + v2.x;
 			this.y = CENTER_Y + v2.y;
-//			this.movX = (-0.5 + Math.random())*0.1;
-	//		this.movY = (-0.5 + Math.random())*0.1;
+			this.movX = (-0.5 + Math.random())*0.1;
+			this.movY = (-0.5 + Math.random())*0.1;
 		}
 
 		void tick(double outerCircleRadius) {

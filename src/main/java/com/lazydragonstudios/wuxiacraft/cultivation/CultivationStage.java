@@ -15,6 +15,13 @@ import java.util.function.Consumer;
 public class CultivationStage implements StatsContainer {
 
 	/**
+	 * Tribulation stats
+	 */
+	public final int numberOfLightningStrikes;
+	public final int lightningStrength;
+	public final float lightningStrengthGrowth;
+
+	/**
 	 * The next stage to this stage
 	 * Null if not next stage
 	 */
@@ -67,11 +74,15 @@ public class CultivationStage implements StatsContainer {
 	 * @param realm         the realm this stage is in
 	 * @param previousStage a reference to the previous stage, null if this is the first
 	 * @param nextStage     a reference to the next stage, null if this is the last
+	 * @param int-int-float tribulations stats
 	 */
-	public CultivationStage(System system, ResourceLocation realm, @Nullable ResourceLocation previousStage, @Nullable ResourceLocation nextStage) {
+	public CultivationStage(System system, ResourceLocation realm, @Nullable ResourceLocation previousStage, @Nullable ResourceLocation nextStage, int numberOfLightningStrikes, int lightningStrength, float lightningStrengthGrowth) {
 		this.system = system;
 		this.realm = realm;
 		this.nextStage = nextStage;
+		this.numberOfLightningStrikes = numberOfLightningStrikes;
+		this.lightningStrength = lightningStrength;
+		this.lightningStrengthGrowth = lightningStrengthGrowth;
 		this.previousStage = previousStage;
 		this.skillsAspects = new HashSet<>();
 		this.regenEnergy = true;

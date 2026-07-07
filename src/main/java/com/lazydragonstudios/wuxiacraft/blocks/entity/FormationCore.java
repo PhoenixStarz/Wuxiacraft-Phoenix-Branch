@@ -62,8 +62,6 @@ public class FormationCore extends BlockEntity {
 
 	private int runeRange;
 
-	private boolean onlyWood;
-
 	public FormationCore(BlockPos pos, BlockState blockState) {
 		super(WuxiaBlockEntities.FORMATION_CORE.get(), pos, blockState);
 		this.runeRange = 1;
@@ -72,18 +70,6 @@ public class FormationCore extends BlockEntity {
 		this.runePositions = new HashSet<>();
 		this.owner = null;
 		this.scheduleActivation = false;
-		this.onlyWood = false;
-	}
-
-	public FormationCore(BlockPos pos, BlockState blockState, boolean onlyWood) {
-		super(WuxiaBlockEntities.FORMATION_CORE.get(), pos, blockState);
-		this.runeRange = 1;
-		this.formationStats = new HashMap<>();
-		this.formationSystemStats = new HashMap<>();
-		this.runePositions = new HashSet<>();
-		this.owner = null;
-		this.scheduleActivation = false;
-		this.onlyWood = onlyWood;
 	}
 
 	public FormationStatsContainer getFormationPlayerStats() {

@@ -1,0 +1,14 @@
+{
+	"replace": false,
+	"values": [
+		"wuxiacraft:body_copper_cultivation_rune",
+		"wuxiacraft:body_copper_energy_rune",
+		"wuxiacraft:divine_copper_cultivation_rune",
+		"wuxiacraft:divine_copper_energy_rune",
+		"wuxiacraft:celestial_iron_formation_badge",
+		"wuxiacraft:copper_barrier_rune",
+		"wuxiacraft:copper_generation_rune",
+		"wuxiacraft:essence_copper_cultivation_rune",
+		"wuxiacraft:essence_copper_energy_rune"
+	]
+}

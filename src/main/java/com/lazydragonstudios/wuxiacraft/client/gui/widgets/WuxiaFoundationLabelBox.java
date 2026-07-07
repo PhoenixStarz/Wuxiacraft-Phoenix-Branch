@@ -26,6 +26,8 @@ public class WuxiaFoundationLabelBox extends AbstractWidget {
 
 	private ICultivation cultivation;
 
+	private System system;
+
 	private boolean opened = false;
 
 	private Runnable onClicked;
@@ -34,10 +36,11 @@ public class WuxiaFoundationLabelBox extends AbstractWidget {
 
 	private LinkedList<Component> componentLines = new LinkedList<>();
 
-	public WuxiaFoundationLabelBox(int x, int y, ResourceLocation elementLocation, ICultivation cultivation, Runnable onClicked) {
+	public WuxiaFoundationLabelBox(int x, int y, ResourceLocation elementLocation, ICultivation cultivation, System system, Runnable onClicked) {
 		super(x, y, 0, 0, Component.empty());
 		this.elementLocation = elementLocation;
 		this.cultivation = cultivation;
+		this.system = system;
 		this.onClicked = onClicked;
 		this.element = WuxiaRegistries.ELEMENTS.get().getValue(this.elementLocation);
 		this.prepareMessage();
@@ -54,8 +57,9 @@ public class WuxiaFoundationLabelBox extends AbstractWidget {
 	private void prepareMessage() {
 		if (this.element == null) return;
 		if (this.cultivation == null) return;
+		if (this.system == null) return;
 		this.componentLines.clear();
-		var foundationAmount = this.cultivation.getStat(System.ESSENCE, this.elementLocation, PlayerSystemElementalStat.FOUNDATION);
+		var foundationAmount = this.cultivation.getStat(system, this.elementLocation, PlayerSystemElementalStat.FOUNDATION);
 		foundationAmount = foundationAmount.setScale(Math.min(2, foundationAmount.scale()), RoundingMode.HALF_DOWN);
 		var message = Component.literal(this.opened ? "+ " : "- ")
 				.withStyle(this.opened ? ChatFormatting.RED : ChatFormatting.GREEN).

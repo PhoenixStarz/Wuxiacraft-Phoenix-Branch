@@ -8,8 +8,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,6 +18,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -130,6 +133,14 @@ public class RunemakingTable extends BaseContainerBlockEntity {
 			return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
 		}
 	}
+
+	public void drops() {
+        SimpleContainer inventory = new SimpleContainer(2);
+        for(int i = 0; i < 2; i++) {
+            inventory.setItem(i, this.getItem(i));
+        }
+        Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
 
 	public ItemStack getResultItemStack() {
 		if (this.level == null) return ItemStack.EMPTY;

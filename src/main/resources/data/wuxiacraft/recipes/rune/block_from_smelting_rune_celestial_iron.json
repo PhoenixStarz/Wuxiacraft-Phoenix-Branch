@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "wuxiacraft:rune/celestial_iron_rune"
+  },
+  "result": "wuxiacraft:celestial_iron_block",
+  "experience": 0,
+  "cookingtime": 200
+}

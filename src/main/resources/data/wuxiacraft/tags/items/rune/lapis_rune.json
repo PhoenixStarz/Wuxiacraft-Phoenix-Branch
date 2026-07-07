@@ -1,0 +1,14 @@
+{
+	"replace": false,
+	"values": [
+		"wuxiacraft:body_lapis_cultivation_rune",
+		"wuxiacraft:body_lapis_energy_rune",
+		"wuxiacraft:divine_lapis_cultivation_rune",
+		"wuxiacraft:divine_lapis_energy_rune",
+		"wuxiacraft:celestial_iron_formation_badge",
+		"wuxiacraft:lapis_barrier_rune",
+		"wuxiacraft:lapis_generation_rune",
+		"wuxiacraft:essence_lapis_cultivation_rune",
+		"wuxiacraft:essence_lapis_energy_rune"
+	]
+}

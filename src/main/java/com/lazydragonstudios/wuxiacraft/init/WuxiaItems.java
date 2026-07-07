@@ -58,6 +58,60 @@ public class WuxiaItems {
 	public static RegistryObject<Item> SPIRIT_STONE_9 = ITEMS.register("spirit_stone_9",
 			() -> new SpiritStone(new Item.Properties(), 8));
 
+	public static RegistryObject<Item> PILL_1 = ITEMS.register("pill_1",
+			() -> new Pill(new Item.Properties(), 0));
+
+	public static RegistryObject<Item> PILL_2 = ITEMS.register("pill_2",
+			() -> new Pill(new Item.Properties(), 1));
+
+	public static RegistryObject<Item> PILL_3 = ITEMS.register("pill_3",
+			() -> new Pill(new Item.Properties(), 2));
+
+	public static RegistryObject<Item> PILL_4 = ITEMS.register("pill_4",
+			() -> new Pill(new Item.Properties(), 3));
+
+	public static RegistryObject<Item> PILL_5 = ITEMS.register("pill_5",
+			() -> new Pill(new Item.Properties(), 4));
+
+	public static RegistryObject<Item> PILL_6 = ITEMS.register("pill_6",
+			() -> new Pill(new Item.Properties(), 5));
+
+	public static RegistryObject<Item> PILL_7 = ITEMS.register("pill_7",
+			() -> new Pill(new Item.Properties(), 6));
+
+	public static RegistryObject<Item> PILL_8 = ITEMS.register("pill_8",
+			() -> new Pill(new Item.Properties(), 7));
+
+	public static RegistryObject<Item> PILL_9 = ITEMS.register("pill_9",
+			() -> new Pill(new Item.Properties(), 8));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_1 = ITEMS.register("spirit_fruit_1",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_1.get(), new Item.Properties(), 0));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_2 = ITEMS.register("spirit_fruit_2",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_2.get(), new Item.Properties(), 1));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_3 = ITEMS.register("spirit_fruit_3",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_3.get(), new Item.Properties(), 2));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_4 = ITEMS.register("spirit_fruit_4",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_4.get(), new Item.Properties(), 3));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_5 = ITEMS.register("spirit_fruit_5",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_5.get(), new Item.Properties(), 4));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_6 = ITEMS.register("spirit_fruit_6",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_6.get(), new Item.Properties(), 5));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_7 = ITEMS.register("spirit_fruit_7",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_7.get(), new Item.Properties(), 6));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_8 = ITEMS.register("spirit_fruit_8",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_8.get(), new Item.Properties(), 7));
+
+	public static RegistryObject<Item> SPIRIT_FRUIT_9 = ITEMS.register("spirit_fruit_9",
+			() -> new SpiritFruit(WuxiaBlocks.BONSAI_9.get(), new Item.Properties(), 8));
+			
 	public static RegistryObject<Item> BODY_MANUAL = ITEMS.register("body_manual",
 			() -> new TechniqueManual(new Item.Properties().stacksTo(1), System.BODY));
 
@@ -68,22 +122,28 @@ public class WuxiaItems {
 			() -> new TechniqueManual(new Item.Properties().stacksTo(1), System.ESSENCE));
 
 	public static RegistryObject<Item> STONE_RUNE_STENCIL = ITEMS.register("stone_rune_stencil",
-			() -> new RuneStencil(2f, 0.8f, Tiers.STONE, new Item.Properties()));
+			() -> new RuneStencil(1.5f, 0.8f, Tiers.STONE, new Item.Properties()));
 
 	public static RegistryObject<Item> COPPER_RUNE_STENCIL = ITEMS.register("copper_rune_stencil",
-			() -> new RuneStencil(2.5f, 0.8f, Tiers.IRON, new Item.Properties()));
+			() -> new RuneStencil(1.5f, 0.8f, Tiers.IRON, new Item.Properties()));
 
 	public static RegistryObject<Item> IRON_RUNE_STENCIL = ITEMS.register("iron_rune_stencil",
-			() -> new RuneStencil(3f, 0.8f, Tiers.IRON, new Item.Properties()));
+			() -> new RuneStencil(1.5f, 0.8f, Tiers.IRON, new Item.Properties()));
 
 	public static RegistryObject<Item> GOLD_RUNE_STENCIL = ITEMS.register("gold_rune_stencil",
-			() -> new RuneStencil(2f, 0.8f, Tiers.GOLD, new Item.Properties()));
+			() -> new RuneStencil(1.5f, 0.8f, Tiers.GOLD, new Item.Properties()));
 
 	public static RegistryObject<Item> DIAMOND_RUNE_STENCIL = ITEMS.register("diamond_rune_stencil",
-			() -> new RuneStencil(3.5f, 0.8f, Tiers.DIAMOND, new Item.Properties()));
+			() -> new RuneStencil(-0.5f, 0.8f, Tiers.DIAMOND, new Item.Properties()));
 
 	public static RegistryObject<Item> NETHERITE_RUNE_STENCIL = ITEMS.register("netherite_rune_stencil",
-			() -> new RuneStencil(4.5f, 0.8f, Tiers.NETHERITE, new Item.Properties()));
+			() -> new RuneStencil(1.5f, 0.8f, Tiers.NETHERITE, new Item.Properties()));
+	
+	public static RegistryObject<Item> CELESTIAL_IRON_RUNE_STENCIL = ITEMS.register("celestial_iron_rune_stencil",
+			() -> new RuneStencil(0f, 0.8f, ToolMaterialTiers.CELESTIAL_IRON, new Item.Properties()));
+
+	public static RegistryObject<Item> STONE_FORMATION_BADGE = ITEMS.register("stone_formation_badge",
+			() -> new FormationBarrierBadge(new Item.Properties()));
 
 	public static RegistryObject<Item> COPPER_FORMATION_BADGE = ITEMS.register("copper_formation_badge",
 			() -> new FormationBarrierBadge(new Item.Properties()));
@@ -104,6 +164,9 @@ public class WuxiaItems {
 			() -> new FormationBarrierBadge(new Item.Properties()));
 
 	public static RegistryObject<Item> NETHERITE_FORMATION_BADGE = ITEMS.register("netherite_formation_badge",
+			() -> new FormationBarrierBadge(new Item.Properties()));
+			
+	public static RegistryObject<Item> CELESTIAL_IRON_FORMATION_BADGE = ITEMS.register("celestial_iron_formation_badge",
 			() -> new FormationBarrierBadge(new Item.Properties()));
 
 	public static RegistryObject<Item> SPIRIT_STONE_VEIN_1 = ITEMS.register("spirit_stone_vein_1",
@@ -202,6 +265,40 @@ public class WuxiaItems {
 	public static final RegistryObject<Item> CELESTIAL_BOOTS = ITEMS.register("celestial_boots",  
             () -> new ArmorItem(CelestialArmorMaterial.CELESTIAL_IRON, ArmorItem.Type.BOOTS, new Item.Properties()));
 
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_BLOCK = ITEMS.register("spirit_crystal_block",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_BLOCK.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> BUDDING_SPIRIT_CRYSTAL_BLOCK = ITEMS.register("budding_spirit_crystal_block",
+			() -> new BlockItem(WuxiaBlocks.BUDDING_SPIRIT_CRYSTAL_BLOCK.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_1 = ITEMS.register("spirit_crystal_cluster_1",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_1.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_2 = ITEMS.register("spirit_crystal_cluster_2",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_2.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_3 = ITEMS.register("spirit_crystal_cluster_3",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_3.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_4 = ITEMS.register("spirit_crystal_cluster_4",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_4.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_5 = ITEMS.register("spirit_crystal_cluster_5",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_5.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_6 = ITEMS.register("spirit_crystal_cluster_6",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_6.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_7 = ITEMS.register("spirit_crystal_cluster_7",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_7.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_8 = ITEMS.register("spirit_crystal_cluster_8",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_8.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_9 = ITEMS.register("spirit_crystal_cluster_9",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_9.get(), new Item.Properties()));
+
+
 
 	public static HashMap<FormationMaterialTier, RegistryObject<Item>> GENERATION_RUNES = new HashMap<>();
 
@@ -242,6 +339,14 @@ public class WuxiaItems {
 
 	public static RegistryObject<Item> DESERT_SNAKE_SPAWN_EGG = ITEMS.register("desert_snake_spawn_egg",
 			() -> new ForgeSpawnEggItem(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE::get, 11718965, 16514950, new Item.Properties())
+	);
+	
+	public static RegistryObject<Item> RED_SNAKE_SPAWN_EGG = ITEMS.register("red_snake_spawn_egg",
+			() -> new ForgeSpawnEggItem(WuxiaEntities.RED_SNAKE_ENTITY_TYPE::get, 16722496, 16514950, new Item.Properties())
+	);
+	
+	public static RegistryObject<Item> WHITE_SNAKE_SPAWN_EGG = ITEMS.register("white_snake_spawn_egg",
+			() -> new ForgeSpawnEggItem(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE::get, 14803425, 16514950, new Item.Properties())
 	);
 
 }

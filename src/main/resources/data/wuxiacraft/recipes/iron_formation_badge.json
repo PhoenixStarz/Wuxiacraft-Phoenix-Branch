@@ -7,14 +7,14 @@
 	],
 	"key": {
 		"I": {
-			"item": "minecraft:iron_ingot"
+			"item": "wuxiacraft:celestial_iron_ingot"
 		},
 		"B": {
-			"item": "wuxiacraft:iron_barrier_rune"
+			"item": "wuxiacraft:celestial_iron_barrier_rune"
 		}
 	},
 	"result": {
-		"item": "wuxiacraft:iron_formation_badge",
+		"item": "wuxiacraft:celestial_iron_formation_badge",
 		"count": 1
 	}
 }

@@ -42,6 +42,17 @@ public class WuxiaCreativeTabs {
 					.icon(WuxiaItems.SPIRIT_STONE_1.get()::getDefaultInstance)
 					.title(Component.translatable("wuxiacraft.random_items"))
 					.displayItems((whatever, output) -> {
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_BLOCK.get());
+						output.accept(WuxiaItems.BUDDING_SPIRIT_CRYSTAL_BLOCK.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_1.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_2.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_3.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_4.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_5.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_6.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_7.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_8.get());
+						output.accept(WuxiaItems.SPIRIT_CRYSTAL_CLUSTER_9.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_1.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_2.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_3.get());
@@ -51,6 +62,24 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.SPIRIT_STONE_7.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_8.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_9.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_1.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_2.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_3.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_4.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_5.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_6.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_7.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_8.get());
+						output.accept(WuxiaItems.SPIRIT_FRUIT_9.get());
+						output.accept(WuxiaItems.PILL_1.get());
+						output.accept(WuxiaItems.PILL_2.get());
+						output.accept(WuxiaItems.PILL_3.get());
+						output.accept(WuxiaItems.PILL_4.get());
+						output.accept(WuxiaItems.PILL_5.get());
+						output.accept(WuxiaItems.PILL_6.get());
+						output.accept(WuxiaItems.PILL_7.get());
+						output.accept(WuxiaItems.PILL_8.get());
+						output.accept(WuxiaItems.PILL_9.get());		
 						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_1.get());
 						output.accept(WuxiaItems.DEEPSLATE_SPIRIT_STONE_VEIN_2.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_2.get());
@@ -74,6 +103,10 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.CELESTIAL_PICKAXE.get());
 						output.accept(WuxiaItems.CELESTIAL_SHOVEL.get());
 						output.accept(WuxiaItems.CELESTIAL_HOE.get());
+						output.accept(WuxiaItems.SNAKE_SPAWN_EGG.get());
+						output.accept(WuxiaItems.DESERT_SNAKE_SPAWN_EGG.get());
+						output.accept(WuxiaItems.RED_SNAKE_SPAWN_EGG.get());
+						output.accept(WuxiaItems.WHITE_SNAKE_SPAWN_EGG.get());
 					})
 					.build()
 	);
@@ -94,6 +127,7 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.CELESTIAL_IRON_FORMATION_CORE.get());
 						output.accept(WuxiaItems.STONE_FORMATION_CORE.get());
 						output.accept(WuxiaItems.FORMATION_CORE_BASE.get());
+						output.accept(WuxiaItems.STONE_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.LAPIS_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.COPPER_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.IRON_FORMATION_BADGE.get());
@@ -101,12 +135,14 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.DIAMOND_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.EMERALD_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.NETHERITE_FORMATION_BADGE.get());
+						output.accept(WuxiaItems.CELESTIAL_IRON_FORMATION_BADGE.get());
 						output.accept(WuxiaItems.STONE_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.COPPER_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.IRON_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.GOLD_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.DIAMOND_RUNE_STENCIL.get());
 						output.accept(WuxiaItems.NETHERITE_RUNE_STENCIL.get());
+						output.accept(WuxiaItems.CELESTIAL_IRON_RUNE_STENCIL.get());
 					})
 					.build()
 	);

@@ -100,7 +100,7 @@ public class FormationCoreBlock extends BaseEntityBlock {
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new FormationCore(pos, state, this.onlyWood).setRuneRange(this.formationRadius);
+		return new FormationCore(pos, state).setRuneRange(this.formationRadius);
 	}
 
 	@Override

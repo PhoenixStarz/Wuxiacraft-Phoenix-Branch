@@ -25,7 +25,10 @@ public enum PlayerHealthTooltip implements IEntityComponentProvider, IServerData
 		if (!(entity instanceof Player player)) return;
 		var cultivation = Cultivation.get(player);
 		var hp = StatsUtil.getShortHealthAmount(BigDecimal.valueOf((player.getHealth())));
+		var maxHp = StatsUtil.getShortHealthAmount(BigDecimal.valueOf((player.getMaxHealth())));
 		compoundTag.putString("wuxiaHP", hp);
+		compoundTag.putString("wuxiaMaxHP", maxHp);
+
 	}
 
 	@Override
@@ -34,9 +37,11 @@ public enum PlayerHealthTooltip implements IEntityComponentProvider, IServerData
 		if(!(entity instanceof Player)) return;
 		var serverTag = entityAccessor.getServerData();
 		if(!(serverTag.contains("wuxiaHP"))) return;
+		if(!(serverTag.contains("wuxiaMaxHP"))) return;
 		var hp = serverTag.getString("wuxiaHP");
+		var maxHp = serverTag.getString("wuxiaMaxHP");
 		iTooltip.remove(new ResourceLocation("minecraft:entity_health"));
-		iTooltip.add(Component.translatable("wuxiacraft.gui.jade.health", hp));
+		iTooltip.add(Component.translatable("wuxiacraft.gui.jade.health", hp, maxHp));
 	}
 
 	@Override

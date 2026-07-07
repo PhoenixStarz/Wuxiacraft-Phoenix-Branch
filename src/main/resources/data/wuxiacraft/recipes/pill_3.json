@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "wuxiacraft:spirit_stone_3"
+    },
+    {
+      "item": "wuxiacraft:spirit_fruit_3"
+    },
+    {
+      "tag": "forge:mushrooms"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "item": "wuxiacraft:pill_3",
+    "count": 2
+  }
+}

@@ -3,7 +3,6 @@ package com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit;
 import com.lazydragonstudios.wuxiacraft.combat.WuxiaDamageSource;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
-import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillEventHandler;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspectType;
@@ -32,8 +31,7 @@ public class SkillBreakAspect extends SkillHitAspect {
 		setSkillStat(SkillStat.STRENGTH, new BigDecimal("1"));
 		setSkillStat(SkillStat.CAST_TIME, new BigDecimal("1.2"));
 		setSkillStat(SkillStat.COOLDOWN, new BigDecimal("1.8"));
-		var essenceData = cultivation.getSystemData(System.ESSENCE);
-		var strength = essenceData.getStat(PlayerStat.STRENGTH);
+		var strength = cultivation.getStat(PlayerStat.STRENGTH);
 		var maxToolLevel = 0;
 		if (strength.compareTo(new BigDecimal("124")) >= 0) maxToolLevel = 3;
 		else if (strength.compareTo(new BigDecimal("43.5")) >= 0) maxToolLevel = 2;

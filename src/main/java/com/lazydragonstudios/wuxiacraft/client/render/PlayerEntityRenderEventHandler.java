@@ -1,5 +1,6 @@
 package com.lazydragonstudios.wuxiacraft.client.render;
 
+import com.lazydragonstudios.wuxiacraft.blocks.*;
 import com.lazydragonstudios.wuxiacraft.capabilities.ClientAnimationState;
 import com.lazydragonstudios.wuxiacraft.client.render.renderer.AnimatedPlayerRenderer;
 import com.lazydragonstudios.wuxiacraft.client.render.renderer.AuraRenderer;
@@ -10,13 +11,32 @@ import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -25,8 +45,14 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class PlayerEntityRenderEventHandler {
@@ -71,6 +97,140 @@ public class PlayerEntityRenderEventHandler {
 		if (detectionStrength.compareTo(detectionResistance) <= 0) return;
 		renderer.render(target, player.yBodyRot, event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight());
 	}
+
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public static void onRenderHighlight(RenderLivingEvent.Post<?, ?> event) {
+		if (event.getEntity() instanceof AbstractClientPlayer) return;
+		var player = Minecraft.getInstance().player;
+		if (player == null) return;
+		var cultivation = Cultivation.get(player);
+		if (!cultivation.isDivineSense()) return;
+		if (!player.isShiftKeyDown()) return;
+		var target = event.getEntity();
+		var range = cultivation.getStat(PlayerStat.DETECTION_RANGE).doubleValue();
+		if (player.distanceTo(target) > range) return;
+		var detectionStrength = cultivation.getStat(PlayerStat.DETECTION_STRENGTH);
+		var detectionResistance = BigDecimal.valueOf(event.getEntity().getMaxHealth()).divide(new BigDecimal(2));
+		if (detectionStrength.compareTo(detectionResistance) <= 0) return;
+
+		PoseStack poseStack = event.getPoseStack();
+		MultiBufferSource buffer = event.getMultiBufferSource();
+
+		float partialTick = event.getPartialTick();
+
+		EntityRenderer<?> entityRenderer = event.getRenderer();
+		if (!(entityRenderer instanceof LivingEntityRenderer<?, ?> renderer0))
+			return;
+
+		@SuppressWarnings("unchecked")
+		LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>> renderer =
+				(LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>>) renderer0;
+
+		EntityModel<LivingEntity> model = renderer.getModel();
+
+		float bodyYaw = Mth.rotLerp(partialTick, target.yBodyRotO, target.yBodyRot);
+		float headYaw = Mth.rotLerp(partialTick, target.yHeadRotO, target.yHeadRot);
+		float netHeadYaw = headYaw - bodyYaw;
+		float pitch = Mth.lerp(partialTick, target.xRotO, target.getXRot());
+
+		poseStack.pushPose();
+
+		renderer.setupRotations(target, poseStack, target.tickCount + partialTick, bodyYaw, partialTick);
+
+		renderer.scale(target, poseStack, partialTick);
+
+		model.prepareMobModel(target, 0.0F, 0.0F, partialTick);
+
+		VertexConsumer consumer = buffer.getBuffer(
+				RenderType.outline(renderer.getTextureLocation(target))
+		);
+		
+		poseStack.translate(0f, 1.5f, 0f);
+		poseStack.scale(-1f, -1f, 1f);
+
+		if(event.getEntity() instanceof Monster)
+		model.renderToBuffer(poseStack, consumer, 0,
+				OverlayTexture.NO_OVERLAY, 0.9F, 0F, 0F, 1F);
+		else if(event.getEntity() instanceof NeutralMob)
+		model.renderToBuffer(poseStack, consumer, 0,
+				OverlayTexture.NO_OVERLAY, 0.8F, 0.8F, 0F, 1F);
+		else if(event.getEntity() instanceof Animal)
+		model.renderToBuffer(poseStack, consumer, 0,
+				OverlayTexture.NO_OVERLAY, 0F, 0.9F, 0F, 1F);
+		else 
+		model.renderToBuffer(poseStack, consumer, 0,
+				OverlayTexture.NO_OVERLAY, 0.9F, 0.9F, 0.9F, 1F);
+
+		poseStack.popPose();
+	}
+
+	private static List<BlockPos> cachedBlocks = new ArrayList<>();
+    private static int scanTick = 0;
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onRenderWorldLast(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS)
+            return;
+
+        Minecraft mc = Minecraft.getInstance();
+        Player player = mc.player;
+        if (player == null) return;
+
+        var cultivation = Cultivation.get(player);
+        if (!cultivation.isDivineSense()) return;
+        if (!player.isCrouching()) return;
+
+        double range = cultivation.getStat(PlayerStat.DETECTION_RANGE).doubleValue();
+        var level = player.level();
+
+		scanTick++;
+
+        BlockPos center = player.blockPosition();
+        int r = (int) Math.ceil(range);
+
+        int x = (scanTick % (r*2))-r;
+		if (scanTick > r*2) scanTick = 0;
+        for (int y = -r; y <= r; y++) {
+            for (int z = -r; z <= r; z++) {
+				BlockPos pos = center.offset(x, y, z);
+				Block block = level.getBlockState(pos).getBlock();
+				if (block instanceof BonsaiBlock || block instanceof VeinBlock ||
+					block instanceof BuddingSpiritCrystalBlock || block instanceof SpiritCrystalCluster) {
+					cachedBlocks.add(pos.immutable());
+				}
+			}
+		}
+        
+
+        PoseStack poseStack = event.getPoseStack();
+        MultiBufferSource buffer = mc.renderBuffers().bufferSource();
+
+        Vec3 cam = mc.gameRenderer.getMainCamera().getPosition();
+
+
+		cachedBlocks.removeIf(pos -> {
+			Block block = level.getBlockState(pos).getBlock();
+			return center.distSqr(pos) > range * range ||
+				(!(block instanceof BonsaiBlock) && !(block instanceof VeinBlock &&
+				 !(block instanceof BuddingSpiritCrystalBlock) && !(block instanceof SpiritCrystalCluster)));
+		});
+
+		for (BlockPos pos : cachedBlocks) {
+
+            AABB box = new AABB(pos).move(
+                    -cam.x,
+                    -cam.y,
+                    -cam.z
+            );
+
+            LevelRenderer.renderLineBox(
+                    poseStack,
+                    buffer.getBuffer(RenderType.lines()),
+                    box,
+                    0.2f, 0.8f, 1.0f, 1.0f
+            );
+        }
+    }
 
 	@SubscribeEvent
 	public static void onRenderAura(RenderLivingEvent.Post<AbstractClientPlayer, ? extends Model> event) {

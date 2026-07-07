@@ -13,8 +13,8 @@ public class EssenceCultivationStage extends CultivationStage {
 	 * @param previousStage a reference to the previous stage, null if this is the first
 	 * @param nextStage     a reference to the next stage, null if this is the last
 	 */
-	public EssenceCultivationStage(System system, ResourceLocation realm, @Nullable ResourceLocation previousStage, @Nullable ResourceLocation nextStage) {
-		super(system, realm, previousStage, nextStage);
+	public EssenceCultivationStage(System system, ResourceLocation realm, @Nullable ResourceLocation previousStage, @Nullable ResourceLocation nextStage, int numberOfLightningStrikes, int lightningStrength, float lightningStrengthGrowth) {
+		super(system, realm, previousStage, nextStage, numberOfLightningStrikes, lightningStrength, lightningStrengthGrowth);
 	}
 
 	public EssenceCultivationStage cannotHaveBarrier() {

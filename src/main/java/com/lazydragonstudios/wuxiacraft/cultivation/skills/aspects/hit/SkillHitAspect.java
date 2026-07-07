@@ -2,7 +2,6 @@ package com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit;
 
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
-import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillDescriptor;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspect;

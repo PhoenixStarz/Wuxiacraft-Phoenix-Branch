@@ -99,7 +99,7 @@ public class CharacterStatsTab extends IntrospectionTab {
 			for (var stat : systemData.getElementalStats()) {
 				for (var element : systemData.getElementsForStat(stat)) {
 					if (stat == PlayerSystemElementalStat.FOUNDATION) {
-						var foundationBox = new WuxiaFoundationLabelBox(0, 0, element, cultivation, systemStats.get(system)::recalculateContentSpace);
+						var foundationBox = new WuxiaFoundationLabelBox(0, 0, element, cultivation, system, systemStats.get(system)::recalculateContentSpace);
 						systemStats.get(system).addChild(foundationBox);
 						continue;
 					}

@@ -107,7 +107,7 @@ public class DraggingToDanTianMinigame implements Minigame {
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
 		var essenceData = cultivation.getSystemData(System.ESSENCE);
-		var strandCount = cultivation.getStat(System.ESSENCE, PlayerSystemStat.ENERGY).divide(new BigDecimal("2.5"), RoundingMode.HALF_UP).intValue();
+		var strandCount = essenceData.hasEnergy(cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY).divide(new BigDecimal(4))) ? 5 : 0;
 		this.keepCorrectStrandCount(strandCount);
 		var markedToRemove = new LinkedList<Strand>();
 		for (var strand : this.strands) {

@@ -9,7 +9,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.body.BodyPartType;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspectType;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.parameter.SkillParameter;
 import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.TechniqueAspect;
-import com.lazydragonstudios.wuxiacraft.entity.Snake;
+import com.lazydragonstudios.wuxiacraft.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
@@ -62,13 +62,17 @@ public class RegistryEvents {
 	@SubscribeEvent
 	public static void onCreateEntityAttributes(final EntityAttributeCreationEvent event) {
 		event.put(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), Snake.createAttributes().build());
-		event.put(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), Snake.createAttributes().build());
+		event.put(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), Desert_Snake.createAttributes().build());
+		event.put(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), Red_Snake.createAttributes().build());
+		event.put(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), White_Snake.createAttributes().build());
 	}
 
 	@SubscribeEvent
 	public static void something(final SpawnPlacementRegisterEvent event) {
 		event.register(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 		event.register(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+		event.register(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+		event.register(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 	}
 
 }

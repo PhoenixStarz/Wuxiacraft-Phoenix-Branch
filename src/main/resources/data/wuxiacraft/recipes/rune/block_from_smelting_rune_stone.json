@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "wuxiacraft:rune/stone_rune"
+  },
+  "result": "minecraft:stone",
+  "experience": 0,
+  "cookingtime": 200
+}

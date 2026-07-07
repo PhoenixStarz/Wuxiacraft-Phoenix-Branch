@@ -1,17 +1,6 @@
 {
 	"type": "forge:add_spawns",
-	"biomes": [
-		"minecraft:swamp",
-		"minecraft:mangrove_swamp",
-		"minecraft:bamboo_jungle",
-		"minecraft:jungle",
-		"minecraft:sparse_jungle",
-		"minecraft:cherry_grove",
-		"minecraft:forest",
-		"minecraft:river",
-		"minecraft:lush_caves",
-		"minecraft:deep_dark"
-	],
+	"biomes": "#minecraft:is_overworld",
 	"spawners": {
 		"type": "wuxiacraft:snake",
 		"weight": 50,

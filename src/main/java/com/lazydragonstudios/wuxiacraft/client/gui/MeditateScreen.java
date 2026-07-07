@@ -7,7 +7,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRealms;
-import com.lazydragonstudios.wuxiacraft.networking.AttemptBreakthroughMessage;
+import com.lazydragonstudios.wuxiacraft.networking.StartTribulationMessage;
 import com.lazydragonstudios.wuxiacraft.networking.BroadcastAnimationChangeRequestMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import com.lazydragonstudios.wuxiacraft.util.MathUtil;
@@ -22,6 +22,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -84,6 +85,10 @@ public class MeditateScreen extends Screen {
 		stageMiniGames.put(WuxiaRealms.DIVINE_FEELING_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_SENSE_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_PERCEPTION_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_CONSCIOUSNESS_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_OBSERVATION_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_UNDERSTANDING_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_COMPREHENSION_STAGE.getId(), DivineMinigame::new);
 	}
 
 	private int guiTop = 0;
@@ -181,6 +186,7 @@ public class MeditateScreen extends Screen {
 				var minigame = stageMiniGames.get(systemData.currentStage);
 				if (minigame == null) break;
 				this.system = system;
+				this.canBreakThrough = false;
 				this.minigame.close(this);
 				var newMinigame = minigame.get();
 				newMinigame.init(this);
@@ -190,7 +196,9 @@ public class MeditateScreen extends Screen {
 		}
 		if (this.canBreakThrough) {
 			if (MathUtil.inBounds(mouseX - this.guiLeft, mouseY - this.guiTop, 69, 170, 63, 14)) {
-				WuxiaPacketHandler.INSTANCE.sendToServer(new AttemptBreakthroughMessage(this.system));
+				var stage = cultivation.getSystemData(this.system).getStage();
+				WuxiaPacketHandler.INSTANCE.sendToServer(new StartTribulationMessage(stage.numberOfLightningStrikes, stage.lightningStrength, stage.lightningStrengthGrowth, this.system));
+				this.onClose();
 				return true;
 			}
 		}
@@ -233,6 +241,7 @@ public class MeditateScreen extends Screen {
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
 		var systemData = cultivation.getSystemData(this.system);
+		var stage = systemData.getStage();
 		var expectedMinigame = stageMiniGames.get(systemData.currentStage);
 		if (expectedMinigame != null) {
 			if (!expectedMinigame.get().getClass().isInstance(this.minigame)) {
@@ -246,6 +255,8 @@ public class MeditateScreen extends Screen {
 		}
 		if (this.minigame == null) return;
 		this.minigame.tick();
+		if(!cultivation.isTribulating())
+		if (this.system != System.BODY || (stage.nextStage != null && !stage.equals(stage.nextStage)))
 		this.canBreakThrough = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_BASE)
 				.compareTo(cultivation.getStat(system, PlayerSystemStat.MAX_CULTIVATION_BASE)) >= 0;
 	}

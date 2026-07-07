@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "wuxiacraft:rune/lapis_rune"
+  },
+  "result": "minecraft:lapis_block",
+  "experience": 0,
+  "cookingtime": 200
+}

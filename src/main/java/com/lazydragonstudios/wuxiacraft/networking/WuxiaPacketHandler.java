@@ -30,6 +30,7 @@ public class WuxiaPacketHandler {
 		INSTANCE.registerMessage(serverMessagesID++, MeditateMessage.class, MeditateMessage::encode, MeditateMessage::decode, MeditateMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, RenameItemInInscriberMessage.class, RenameItemInInscriberMessage::encode, RenameItemInInscriberMessage::decode, RenameItemInInscriberMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, AttemptBreakthroughMessage.class, AttemptBreakthroughMessage::encode, AttemptBreakthroughMessage::decode, AttemptBreakthroughMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+		INSTANCE.registerMessage(serverMessagesID++, StartTribulationMessage.class, StartTribulationMessage::encode, StartTribulationMessage::decode, StartTribulationMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, UpdateRegulatorsMessage.class, UpdateRegulatorsMessage::encode, UpdateRegulatorsMessage::decode, UpdateRegulatorsMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, ClientUsedEnergyMessage.class, ClientUsedEnergyMessage::encode, ClientUsedEnergyMessage::decode, ClientUsedEnergyMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, WeaponSwingMessage.class, WeaponSwingMessage::encode, WeaponSwingMessage::decode, WeaponSwingMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
@@ -37,6 +38,7 @@ public class WuxiaPacketHandler {
 		INSTANCE.registerMessage(serverMessagesID++, RuneSelectionMessage.class, RuneSelectionMessage::encode, RuneSelectionMessage::decode, RuneSelectionMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, RequestSectInvitesMessage.class, RequestSectInvitesMessage::encode, RequestSectInvitesMessage::decode, RequestSectInvitesMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, SelectBodyPartElementMessage.class, SelectBodyPartElementMessage::encode, SelectBodyPartElementMessage::decode, SelectBodyPartElementMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+		INSTANCE.registerMessage(serverMessagesID++, RemoveSelectedElementByBodyPartMessage.class, RemoveSelectedElementByBodyPartMessage::encode, RemoveSelectedElementByBodyPartMessage::decode, RemoveSelectedElementByBodyPartMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 
 		int clientMessagesID = 200;
 		INSTANCE.registerMessage(clientMessagesID++, CultivationSyncMessage.class, CultivationSyncMessage::encode, CultivationSyncMessage::decode, CultivationSyncMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_CLIENT));

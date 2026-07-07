@@ -1,0 +1,14 @@
+{
+	"replace": false,
+	"values": [
+		"wuxiacraft:body_celestial_iron_cultivation_rune",
+		"wuxiacraft:body_celestial_iron_energy_rune",
+		"wuxiacraft:divine_celestial_iron_cultivation_rune",
+		"wuxiacraft:divine_celestial_iron_energy_rune",
+		"wuxiacraft:celestial_iron_formation_badge",
+		"wuxiacraft:celestial_iron_barrier_rune",
+		"wuxiacraft:celestial_iron_generation_rune",
+		"wuxiacraft:essence_celestial_iron_cultivation_rune",
+		"wuxiacraft:essence_celestial_iron_energy_rune"
+	]
+}

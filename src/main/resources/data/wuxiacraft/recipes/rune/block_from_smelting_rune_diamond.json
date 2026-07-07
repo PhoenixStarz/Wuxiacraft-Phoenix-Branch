@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "wuxiacraft:rune/diamond_rune"
+  },
+  "result": "minecraft:diamond_block",
+  "experience": 0,
+  "cookingtime": 200
+}

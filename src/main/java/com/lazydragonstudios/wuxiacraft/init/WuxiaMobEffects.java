@@ -16,8 +16,8 @@ public class WuxiaMobEffects {
 			() -> new WuxiaEffect(MobEffectCategory.BENEFICIAL, 0xFAAC11));
 
 	public static RegistryObject<MobEffect> PILL_RESONANCE = EFFECTS.register("pill_resonance",
-			() -> new WuxiaEffect(MobEffectCategory.BENEFICIAL, 0xFAAC11));
+			() -> new WuxiaEffect(MobEffectCategory.BENEFICIAL, 0xD2C937));
 
 	public static RegistryObject<MobEffect> ENLIGHTENMENT = EFFECTS.register("enlightenment",
-			() -> new WuxiaEffect(MobEffectCategory.BENEFICIAL, 0xFAAC11));
+			() -> new WuxiaEffect(MobEffectCategory.BENEFICIAL, 0xA31FC7));
 }

@@ -1,0 +1,14 @@
+{
+	"replace": false,
+	"values": [
+		"wuxiacraft:body_emerald_cultivation_rune",
+		"wuxiacraft:body_emerald_energy_rune",
+		"wuxiacraft:divine_emerald_cultivation_rune",
+		"wuxiacraft:divine_emerald_energy_rune",
+		"wuxiacraft:celestial_iron_formation_badge",
+		"wuxiacraft:emerald_barrier_rune",
+		"wuxiacraft:emerald_generation_rune",
+		"wuxiacraft:essence_emerald_cultivation_rune",
+		"wuxiacraft:essence_emerald_energy_rune"
+	]
+}

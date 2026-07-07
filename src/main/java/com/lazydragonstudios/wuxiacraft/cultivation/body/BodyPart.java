@@ -36,7 +36,14 @@ public class BodyPart implements StatsContainer, BodyStatsContainer {
 		this.group = group;
 		this.type = type;
 	}
-
+	
+	public BodyPartGroup getGroup() {
+		return this.group;
+	}	
+	
+	public BodyPartType getType() {
+		return this.type;
+	}
 	public ResourceLocation getElementalAffinity() {
 		return elementalAffinity;
 	}

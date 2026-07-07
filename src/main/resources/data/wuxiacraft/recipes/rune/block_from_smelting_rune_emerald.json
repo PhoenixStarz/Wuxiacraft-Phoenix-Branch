@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "wuxiacraft:rune/emerald_rune"
+  },
+  "result": "minecraft:emerald_block",
+  "experience": 0,
+  "cookingtime": 200
+}

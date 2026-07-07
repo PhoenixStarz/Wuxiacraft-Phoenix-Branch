@@ -40,4 +40,5 @@ public class Snake extends Monster {
 	protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
 		return 1.5f;
 	}
+	
 }

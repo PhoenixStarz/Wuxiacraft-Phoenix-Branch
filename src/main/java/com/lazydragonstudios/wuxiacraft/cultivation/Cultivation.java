@@ -57,6 +57,8 @@ public class Cultivation implements ICultivation {
 		this.exercising = false;
 		this.combat = false;
 		this.isDivineSense = false;
+		this.tribulating = false;
+    	this.tribulation = new Tribulation(1, 1, 1, System.ESSENCE);
 		this.formationCore = null;
 		this.extraHealthFromAttributes = 0.0;
 		this.masterDiscipleContainer = new MasterDiscipleContainer();
@@ -90,6 +92,11 @@ public class Cultivation implements ICultivation {
 	public boolean combat;
 
 	/**
+	 * whether the player tribulating
+	 */
+	public boolean tribulating;
+
+	/**
 	 * the skill data for this character
 	 */
 	public SkillContainer skills;
@@ -120,7 +127,6 @@ public class Cultivation implements ICultivation {
 	 */
 	private boolean isDivineSense;
 
-
 	/**
 	 * A fraction of the speed being used
 	 */
@@ -135,8 +141,14 @@ public class Cultivation implements ICultivation {
 
 	private int cultTimer;
 
-// time of day/ game time
+	// time of day/ game time
 	private long ToD;
+
+	/**
+	 * Tribulation stuff
+	 */	
+	private boolean isTribulating = false;
+	public Tribulation tribulation;
 
 
 	/**
@@ -370,6 +382,8 @@ public class Cultivation implements ICultivation {
 		}
 		tag.put("master-disciple", this.masterDiscipleContainer.serialize());
 		tag.putBoolean("combat-mode", this.isCombat());
+		tag.putBoolean("tribulating", this.isTribulating());
+		tag.put("tribulation-data", this.tribulation.serialize());
 		var regulatorsTag = new CompoundTag();
 		regulatorsTag.putDouble("strength", this.strengthRegulator);
 		regulatorsTag.putDouble("agility", this.agilityRegulator);
@@ -446,6 +460,12 @@ public class Cultivation implements ICultivation {
 		if (tag.contains("combat-mode")) {
 			this.setCombat(tag.getBoolean("combat-mode"));
 		}
+		if (tag.contains("tribulating")) {
+			this.setTribulating(tag.getBoolean("tribulating"));
+		}
+		if (tag.contains("tribulation-data")) {
+			this.tribulation.deserialize(tag.getCompound("tribulation-data"));
+		}
 		this.sectId = null;
 		if(tag.contains("sect-id")) {
 			this.sectId = tag.getUUID("sect-id");
@@ -482,6 +502,27 @@ public class Cultivation implements ICultivation {
 	public void setCombat(boolean combat) {
 		this.combat = combat;
 	}
+
+	@Override
+	public boolean isTribulating() {
+		return tribulating;
+	}
+	
+	@Override
+	public void setTribulating(boolean tribulating) {
+		this.tribulating = tribulating;
+	}
+
+	@Override
+	public Tribulation getTribulation() {
+		return tribulation;
+	}
+	
+	@Override
+	public void setTribulation(Tribulation tribulation) {
+		this.tribulation = tribulation;
+	}
+
 
 	/**
 	 * Utility to increment to the tick timer

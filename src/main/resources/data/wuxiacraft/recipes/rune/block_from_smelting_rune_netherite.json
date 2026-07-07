@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "wuxiacraft:rune/netherite_rune"
+  },
+  "result": "minecraft:netherite_block",
+  "experience": 0,
+  "cookingtime": 200
+}
