@@ -260,7 +260,7 @@ public class Cultivation implements ICultivation {
 		CultivatingEvent event = new CultivatingEvent(player, system, amount);
 		if (MinecraftForge.EVENT_BUS.post(event)) return;
 		var systemData = this.getSystemData(system);
-		systemData.addCultivationBase(player, this, event.getAmount());
+		systemData.addCultivationBase(player, this, event.getAmount(), event.getElement());
 	}
 
 	@Override

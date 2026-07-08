@@ -187,6 +187,7 @@ public class PlayerEntityRenderEventHandler {
 
         BlockPos center = player.blockPosition();
         int r = (int) Math.ceil(range);
+        if (r <= 0) return;
 
         int x = (scanTick % (r*2))-r;
 		if (scanTick > r*2) scanTick = 0;

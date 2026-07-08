@@ -40,6 +40,7 @@ public class SpiritStone extends Item {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+		if (livingEntity instanceof Player player && !player.isCreative())
 		stack.shrink(1);
 		livingEntity.addEffect(new MobEffectInstance(WuxiaMobEffects.SPIRITUAL_RESONANCE.get(), 120 * 20, this.strength, true, true, false));
 		return stack;

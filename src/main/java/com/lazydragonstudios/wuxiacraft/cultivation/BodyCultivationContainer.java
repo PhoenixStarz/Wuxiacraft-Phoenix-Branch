@@ -1,8 +1,7 @@
 package com.lazydragonstudios.wuxiacraft.cultivation;
 
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.*;
-import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.BodyTransformationAspect;
-import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ElementToStatsConsumer;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.*;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaConfigs;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaMobEffects;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
@@ -14,7 +13,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -455,20 +453,31 @@ public class BodyCultivationContainer extends SystemContainer {
 	}
 
 	@Override
-	public void addCultivationBase(Player player, ICultivation cultivation, BigDecimal amount) {
+	public void addCultivationBase(Player player, ICultivation cultivation, BigDecimal amount, HashMap<ResourceLocation, BigDecimal> elementHash) {
 		var elements = this.techniqueData.modifier.elements;
 		var sumOfAllElements = BigDecimal.ZERO;
 		var grid = this.techniqueData.grid.getGrid();
 		var aspects = cultivation.getAspects();
 		var partsToCultivateByElement = new HashMap<ResourceLocation, HashSet<ResourceLocation>>();
 		for (var elementLocation : elements.keySet()) {
-			cultivation.addStat(elementLocation, PlayerElementalStat.COMPREHENSION, BigDecimal.valueOf(elements.get(elementLocation)).multiply(new BigDecimal("0.01")));
+			BigDecimal modifier = BigDecimal.ONE;
+			for (var elementKey : elementHash.keySet()) {
+		 		if (elementLocation == elementKey) modifier = elementHash.get(elementKey);
+			}
+			cultivation.addStat(elementLocation, PlayerElementalStat.COMPREHENSION, BigDecimal.valueOf(elements.get(elementLocation)).multiply(new BigDecimal("0.01").multiply(modifier)));
 			partsToCultivateByElement.put(elementLocation, this.getAllBodyPartsWithElement(elementLocation));
 			sumOfAllElements = sumOfAllElements.add(BigDecimal.valueOf(elements.get(elementLocation)));
 		}
-
+		//Adds aspect proficiency
 		for (var aspectLocation : grid.values()) {
-			aspects.addAspectProficiency(aspectLocation, amount, cultivation);
+			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
+			BigDecimal modifier = BigDecimal.ONE;
+			for (var elementKey : elementHash.keySet()) {
+				if (aspect instanceof ElementalGenerator apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
+				else if (aspect instanceof ElementalConverter apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
+				else if (aspect instanceof ElementalConsumer apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);				
+			}
+			aspects.addAspectProficiency(aspectLocation, amount.multiply(modifier), cultivation);
 		}
 		this.techniqueData.grid.fixProficiencies(aspects);
 		//Adds Pill Resonance

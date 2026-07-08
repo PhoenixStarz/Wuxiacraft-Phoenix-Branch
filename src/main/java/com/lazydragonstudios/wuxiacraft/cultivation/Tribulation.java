@@ -49,7 +49,7 @@ public class Tribulation {
                 case ESSENCE: {
                     // Do not do tribulation unless in a dimension with a sky
                     if (!player.level().dimensionType().hasCeiling() && player.level().dimensionType().hasSkyLight()) 
-                    player.level().setThunderLevel(1);
+                    player.level().setThunderLevel(41);
 
                     if (player.level().isClientSide) return false;
                     // Spawn one lightning strike every 2 seconds

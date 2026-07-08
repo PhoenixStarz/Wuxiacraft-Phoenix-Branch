@@ -53,8 +53,10 @@ public class TechniqueEventHandler {
 			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
 			if (aspect == null) continue;
 			if (event.isCanceled()) break;
-			if (aspect instanceof ConditionalElementalGenerator generator) {
+			for(var elementKey : event.getElement().keySet())
+			if (aspect instanceof ConditionalElementalGenerator generator && generator.element != elementKey) {
 				generator.onCultivate(event);
+				return;
 			}
 		}
 	}

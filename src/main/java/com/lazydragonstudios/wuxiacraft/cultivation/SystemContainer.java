@@ -1,5 +1,6 @@
 package com.lazydragonstudios.wuxiacraft.cultivation;
 
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerElementalStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemElementalStat;
@@ -13,7 +14,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
@@ -73,7 +73,7 @@ public class SystemContainer {
 		}
 	}
 
-	public void addCultivationBase(Player player, ICultivation cultivation, BigDecimal amount) {
+	public void addCultivationBase(Player player, ICultivation cultivation, BigDecimal amount, HashMap<ResourceLocation, BigDecimal> elementHash) {
 		if (system == System.ESSENCE)
 		cultivation.getSystemData(System.DIVINE).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
 		if (system == System.DIVINE)
@@ -87,12 +87,23 @@ public class SystemContainer {
 		var cultSpeed = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_SPEED);
 		//Adds foundation and comprehension
 		for (var elementLocation : elements.keySet()) {
-			cultivation.addStat(system, elementLocation, PlayerSystemElementalStat.FOUNDATION, BigDecimal.valueOf(elements.get(elementLocation) * 0.1).multiply(amount));
-			cultivation.addStat(elementLocation, PlayerElementalStat.COMPREHENSION, BigDecimal.valueOf(elements.get(elementLocation)));
+			BigDecimal modifier = BigDecimal.ONE;
+			for (var elementKey : elementHash.keySet()) {
+		 		if (elementLocation == elementKey) modifier = elementHash.get(elementKey);
+			}
+			cultivation.addStat(system, elementLocation, PlayerSystemElementalStat.FOUNDATION, BigDecimal.valueOf(elements.get(elementLocation) * 0.1).multiply(amount).multiply(modifier));
+			cultivation.addStat(elementLocation, PlayerElementalStat.COMPREHENSION, BigDecimal.valueOf(elements.get(elementLocation)).multiply(modifier));
 		}
 		//Adds aspect proficiency
 		for (var aspectLocation : grid.values()) {
-			aspects.addAspectProficiency(aspectLocation, amount, cultivation);
+			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
+			BigDecimal modifier = BigDecimal.ONE;
+			for (var elementKey : elementHash.keySet()) {
+				if (aspect instanceof ElementalGenerator apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
+				else if (aspect instanceof ElementalConverter apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
+				else if (aspect instanceof ElementalConsumer apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);				
+			}
+			aspects.addAspectProficiency(aspectLocation, amount.multiply(modifier), cultivation);
 		}
 		this.techniqueData.grid.fixProficiencies(aspects);
 		//applies spiritual resonance
