@@ -1,7 +1,5 @@
 package com.lazydragonstudios.wuxiacraft.cultivation;
 
-import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
-import com.lazydragonstudios.wuxiacraft.networking.AttemptBreakthroughMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

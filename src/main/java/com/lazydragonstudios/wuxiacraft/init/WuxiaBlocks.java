@@ -58,22 +58,22 @@ public class WuxiaBlocks {
 			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 9, Blocks.NETHERITE_BLOCK, FORMATION_CORE_BASE.get()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_1 = BLOCKS.register("spirit_stone_vein_1",
-			() -> new Block(BlockBehaviour.Properties.of().strength(8f).requiresCorrectToolForDrops()));
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(8f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_2 = BLOCKS.register("spirit_stone_vein_2",
-			() -> new Block(BlockBehaviour.Properties.of().strength(12f).requiresCorrectToolForDrops()));
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(12f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> DEEPSLATE_SPIRIT_STONE_VEIN_2 = BLOCKS.register("deepslate_spirit_stone_vein_2",
-			() -> new Block(BlockBehaviour.Properties.of().strength(16f).requiresCorrectToolForDrops()));
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(16f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_3 = BLOCKS.register("spirit_stone_vein_3",
-			() -> new Block(BlockBehaviour.Properties.of().strength(24f).requiresCorrectToolForDrops()));
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(24f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_4 = BLOCKS.register("spirit_stone_vein_4",
-			() -> new Block(BlockBehaviour.Properties.of().strength(24f).requiresCorrectToolForDrops()));
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(24f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_5 = BLOCKS.register("spirit_stone_vein_5",
-			() -> new Block(BlockBehaviour.Properties.of().strength(32f).requiresCorrectToolForDrops()));
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(32f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> CELESTIAL_IRON_ORE = BLOCKS.register("celestial_iron_ore",
 			() -> new Block(BlockBehaviour.Properties.of().strength(16f).lightLevel(s -> 3).requiresCorrectToolForDrops()));
@@ -128,39 +128,39 @@ public class WuxiaBlocks {
 									
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_1 = BLOCKS.register("spirit_crystal_cluster_1",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 1)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 3)));
 
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_2 = BLOCKS.register("spirit_crystal_cluster_2",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 2)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 4)));
 			
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_3 = BLOCKS.register("spirit_crystal_cluster_3",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 3)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 5)));
 			
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_4 = BLOCKS.register("spirit_crystal_cluster_4",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 4)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 6)));
 			
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_5 = BLOCKS.register("spirit_crystal_cluster_5",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 5)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 7)));
 			
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_6 = BLOCKS.register("spirit_crystal_cluster_6",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 6)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 8)));
 			
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_7 = BLOCKS.register("spirit_crystal_cluster_7",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 7)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 9)));
 			
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_8 = BLOCKS.register("spirit_crystal_cluster_8",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 8)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 10)));
 			
     public static RegistryObject<Block> SPIRIT_CRYSTAL_CLUSTER_9 = BLOCKS.register("spirit_crystal_cluster_9",
 			() -> new SpiritCrystalCluster(BlockBehaviour.Properties.of().forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 9)));
+                    .pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks().sound(SoundType.AMETHYST_CLUSTER).strength(1.5F).lightLevel(state -> 11)));
 
 	public static HashMap<FormationMaterialTier, RegistryObject<Block>> GENERATION_RUNES = new HashMap<>();
 

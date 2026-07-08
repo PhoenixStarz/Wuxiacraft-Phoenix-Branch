@@ -211,8 +211,8 @@ public class PlayerEntityRenderEventHandler {
 		cachedBlocks.removeIf(pos -> {
 			Block block = level.getBlockState(pos).getBlock();
 			return center.distSqr(pos) > range * range ||
-				(!(block instanceof BonsaiBlock) && !(block instanceof VeinBlock &&
-				 !(block instanceof BuddingSpiritCrystalBlock) && !(block instanceof SpiritCrystalCluster)));
+				(!(block instanceof BonsaiBlock) && !(block instanceof VeinBlock) &&
+				 !(block instanceof BuddingSpiritCrystalBlock) && !(block instanceof SpiritCrystalCluster));
 		});
 
 		for (BlockPos pos : cachedBlocks) {

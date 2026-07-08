@@ -734,6 +734,7 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							new ResourceLocation(WuxiaCraft.MOD_ID, "essence_qi_gathering_stage"),
 							0, 0, 0.0f
 					)
+							.cannotConvertToFood()
 							.cannotHaveBarrier()
 							.cannotRegenEnergy()
 							.setOnCultivate(cultivateFlatAmounts(BigDecimal.ONE, BigDecimal.ONE))
@@ -882,6 +883,7 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							new ResourceLocation(WuxiaCraft.MOD_ID, "essence_qi_molding_stage"),
 							2, 30, 0.4f
 					)
+							.cannotConvertToFood()
 							.setOnCultivate(cultivateFlatAmounts(new BigDecimal("10"), new BigDecimal("4")))
 							.setOnCultivationFailure(cultivateFailureEnergy(new BigDecimal("2.5")))
 							.addSkill(WuxiaSkillAspects.SWORD_FLIGHT.getId())
@@ -908,8 +910,6 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							.setStat(PlayerStat.EXERCISE_CONVERSION, new BigDecimal("0.025"))
 							.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.12"))
 							.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.12"))
-							.setStat(PlayerStat.HUNGER_REGEN, new BigDecimal("0.03"))
-							.setStat(PlayerStat.HUNGER_REGEN_COST, new BigDecimal("0.05"))
 							.setStat(System.ESSENCE, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
 			);
 
@@ -922,6 +922,7 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							new ResourceLocation(WuxiaCraft.MOD_ID, "essence_qi_solidification_stage"),
 							2, 42, 0.5f
 					)
+							.cannotConvertToFood()
 							.setOnCultivate(cultivateFlatAmounts(new BigDecimal("12"), new BigDecimal("5")))
 							.setOnCultivationFailure(cultivateFailureEnergy(new BigDecimal("8")))
 							.setStat(System.ESSENCE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("200000"))
@@ -946,8 +947,6 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							.setStat(PlayerStat.EXERCISE_CONVERSION, new BigDecimal("0.03"))
 							.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.05"))
 							.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.04"))
-							.setStat(PlayerStat.HUNGER_REGEN, new BigDecimal("0.005"))
-							.setStat(PlayerStat.HUNGER_REGEN_COST, new BigDecimal("0.008"))
 			);
 
 	public static RegistryObject<CultivationStage> ESSENCE_QI_SOLIDIFICATION_STAGE = STAGE_REGISTER
@@ -959,6 +958,7 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							new ResourceLocation(WuxiaCraft.MOD_ID, "essence_core_shaping_stage"),
 							2, 58, 0.5f
 					)
+							.cannotConvertToFood()
 							.setOnCultivate(cultivateFlatAmounts(new BigDecimal("16"), new BigDecimal("7")))
 							.setOnCultivationFailure(cultivateFailureEnergy(new BigDecimal("12")))
 							.setStat(System.ESSENCE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("430000"))
@@ -983,8 +983,6 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							.setStat(PlayerStat.EXERCISE_CONVERSION, new BigDecimal("0.035"))
 							.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.07"))
 							.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.06"))
-							.setStat(PlayerStat.HUNGER_REGEN, new BigDecimal("0.005"))
-							.setStat(PlayerStat.HUNGER_REGEN_COST, new BigDecimal("0.008"))
 			);
 
 	public static RegistryObject<CultivationStage> ESSENCE_CORE_SHAPING_STAGE = STAGE_REGISTER

@@ -110,9 +110,10 @@ public class CultivationEventHandler {
 		if (essenceStage.isCanConvertToFood()) {
 			BigDecimal cost = cultivation.getStat(PlayerStat.HUNGER_REGEN_COST);
 			float regenAmount = cultivation.getStat(PlayerStat.HUNGER_REGEN).floatValue();
+			BigDecimal maxEnergy = cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY);
 			FoodData foodData = player.getFoodData();
-			if ((foodData.getFoodLevel() < 20 || foodData.getSaturationLevel() < foodData.getFoodLevel()) 
-					&& essenceData.consumeEnergy(cost)) {
+			if ((foodData.getFoodLevel() < 20 || foodData.getSaturationLevel() < foodData.getFoodLevel())
+				 && essenceData.consumeEnergy(cost)) {
 				var saturationLevel = foodData.getSaturationLevel();
 				var foodLevel = foodData.getFoodLevel();
 				saturationLevel = Math.min(saturationLevel + 0.5f, foodLevel);
@@ -244,7 +245,7 @@ public class CultivationEventHandler {
 				bodyData.addEnergy(finalEnergyRegen);
 				maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.1" : "0.7");
 				cultivation.setStat(System.BODY, PlayerSystemStat.ENERGY, cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).min(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply((maxEnergyMultiplicand))));
-				if (finalEnergyRegen.floatValue() > 5 ) finalEnergyRegen = new BigDecimal("5");
+				if (finalEnergyRegen.floatValue() > 5 ) finalEnergyRegen = new BigDecimal(5);
 				player.causeFoodExhaustion(finalEnergyRegen.floatValue());
 			}
 		}
@@ -421,10 +422,14 @@ public class CultivationEventHandler {
 		ICultivation cultivation = Cultivation.get(player);
         if (!cultivation.isTribulating()) return;
         Tribulation tribulation = cultivation.getTribulation();
+        var systemData = cultivation.getSystemData(tribulation.tribSystem);
 		if (player.isAlive()) { 
         	if (tribulation.tick(player)) {
                 cultivation.setTribulating(false);
-                WuxiaPacketHandler.INSTANCE.sendToServer(new AttemptBreakthroughMessage(tribulation.tribSystem));
+				if (cultivation.attemptBreakthrough(tribulation.tribSystem))
+				player.sendSystemMessage(Component.translatable("wuxiacraft.breakthough_successful")
+						.append(Component.translatable(systemData.currentStage.getNamespace() + ".stage." + systemData.currentStage.getPath())),
+					true);
             } 
 		}
 		else {
