@@ -2,10 +2,9 @@ package com.lazydragonstudios.wuxiacraft.event;
 
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
-
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraft.resources.ResourceLocation;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

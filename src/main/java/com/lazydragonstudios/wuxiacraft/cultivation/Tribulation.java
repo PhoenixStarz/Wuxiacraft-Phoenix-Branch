@@ -68,7 +68,7 @@ public class Tribulation {
                 }
                 break;
                 case DIVINE: {
-                    player.hurt(player.damageSources().dragonBreath(), strength);
+                    player.hurt(player.damageSources().cramming(), strength);
                     player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100, 0, true, true, false));
                     player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 0, true, true, false));
                     lightningStrikes++;

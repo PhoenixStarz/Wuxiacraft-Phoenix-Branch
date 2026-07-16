@@ -59,21 +59,10 @@ public class FormationCoreBlock extends BaseEntityBlock {
 
 	private final Block baseBlock;
 
-	private final boolean onlyWood;
-
 	public FormationCoreBlock(Properties properties, int formationRadius, Block coreBlock, Block baseBlock) {
 		super(properties);
 		this.formationRadius = formationRadius;
 		this.coreBlock = coreBlock;
-		this.onlyWood = false;
-		this.baseBlock = baseBlock;
-	}
-
-	public FormationCoreBlock(Properties properties, int formationRadius, Block coreBlock, Block baseBlock, boolean onlyWood) {
-		super(properties);
-		this.formationRadius = formationRadius;
-		this.coreBlock = coreBlock;
-		this.onlyWood = onlyWood;
 		this.baseBlock = baseBlock;
 	}
 

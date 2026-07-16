@@ -1,11 +1,10 @@
 {
 	"replace": false,
 	"values": [
-		"wuxiacraft:copper_formation_badge",
+		"wuxiacraft:lapis_formation_badge",
 		"wuxiacraft:diamond_formation_badge",
 		"wuxiacraft:emerald_formation_badge",
 		"wuxiacraft:netherite_formation_badge",
 		"wuxiacraft:celestial_iron_formation_badge"
-
 	]
 }

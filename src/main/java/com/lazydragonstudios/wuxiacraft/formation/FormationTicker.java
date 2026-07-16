@@ -115,9 +115,12 @@ public class FormationTicker implements BlockEntityTicker<FormationCore> {
 						if (tag == null) continue;
 						if (!tag.contains("formation")) continue;
 						var formationTag = tag.getCompound("formation");
-						var x = formationTag.getInt("x");
-						var y = formationTag.getInt("y");
-						var z = formationTag.getInt("z");
+						String ownerTag = formationTag.getString("ownerName");
+						String formationOwner = core.getOwnerName();
+						if (!ownerTag.equals(formationOwner)) continue;
+						int x = formationTag.getInt("x");
+						int y = formationTag.getInt("y");
+						int z = formationTag.getInt("z");
 						var blockPos = new BlockPos(x, y, z);
 						if (blockPos.compareTo(pos) == 0) {
 							allowedPlayers.add(targetPlayer);
@@ -164,7 +167,6 @@ public class FormationTicker implements BlockEntityTicker<FormationCore> {
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderClientSide(FormationCore core) {
-		if (!core.isActive()) return;
 		var barrierAmount = core.getStat(FormationStat.BARRIER_AMOUNT);
 		var maxBarrierAmount = core.getStat(FormationStat.BARRIER_MAX_AMOUNT);
 		if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) return;

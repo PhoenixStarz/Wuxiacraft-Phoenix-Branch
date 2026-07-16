@@ -26,6 +26,8 @@ public class TechniqueUtil {
 
 	private static final HashSet<ResourceLocation> WEAPON_ASPECTS = new HashSet<>();
 
+	private static final HashSet<ResourceLocation> DEVOURING_ASPECTS = new HashSet<>();
+
 	private static final HashSet<ResourceLocation> TRANSFORMATION_ASPECTS = new HashSet<>();
 
 	public static void initDevouringData() {
@@ -35,10 +37,10 @@ public class TechniqueUtil {
 		addDevouringData(Items.COBBLESTONE, WuxiaElements.EARTH.getId(), new BigDecimal("1.3"));
 		addDevouringData(Items.GRASS_BLOCK, WuxiaElements.EARTH.getId(), new BigDecimal("0.7"));
 		addDevouringData(Items.GRASS_BLOCK, WuxiaElements.WOOD.getId(), new BigDecimal("0.4"));
-		addDevouringData(Items.COAL, WuxiaElements.EARTH.getId(), new BigDecimal("6"));
-		addDevouringData(Items.COAL, WuxiaElements.FIRE.getId(), new BigDecimal("1"));
-		addDevouringData(Items.CHARCOAL, WuxiaElements.WOOD.getId(), new BigDecimal("4"));
-		addDevouringData(Items.CHARCOAL, WuxiaElements.FIRE.getId(), new BigDecimal("1"));
+		addDevouringData(Items.COAL, WuxiaElements.EARTH.getId(), new BigDecimal("0.6"));
+		addDevouringData(Items.COAL, WuxiaElements.FIRE.getId(), new BigDecimal("0.1"));
+		addDevouringData(Items.CHARCOAL, WuxiaElements.WOOD.getId(), new BigDecimal("0.4"));
+		addDevouringData(Items.CHARCOAL, WuxiaElements.FIRE.getId(), new BigDecimal("0.1"));
 		addDevouringData(Items.STONE_BUTTON, WuxiaElements.EARTH.getId(), new BigDecimal("1"));
 		addDevouringData(Items.BRICK, WuxiaElements.EARTH.getId(), new BigDecimal("1"));
 		addDevouringData(Items.BRICK, WuxiaElements.FIRE.getId(), new BigDecimal("1"));
@@ -452,9 +454,19 @@ public class TechniqueUtil {
 		WEAPON_ASPECTS.add(WuxiaTechniqueAspects.SWORD_QI_GATHERING.getId());
 		WEAPON_ASPECTS.add(WuxiaTechniqueAspects.MAGICAL_SWORD_GLINT.getId());
 	}
+	
+	public static void initDevouringAspects() {
+		DEVOURING_ASPECTS.add(WuxiaTechniqueAspects.DEVOURING.getId());
+		DEVOURING_ASPECTS.add(WuxiaTechniqueAspects.CONSUMPTION.getId());
+		DEVOURING_ASPECTS.add(WuxiaTechniqueAspects.GLUTTONY.getId());
+	}
 
 	public static HashSet<ResourceLocation> getWeaponAspects() {
 		return WEAPON_ASPECTS;
+	}
+
+	public static HashSet<ResourceLocation> getDevouringAspects() {
+		return DEVOURING_ASPECTS;
 	}
 
 	public static HashSet<ResourceLocation> getTransformationAspects() {

@@ -159,8 +159,13 @@ public interface ICultivation {
 
 	void setFormation(BlockPos blockPos);
 
+	void setBarrierFormation(BlockPos blockPos);
+
 	@Nullable
 	BlockPos getFormation();
+
+	@Nullable
+	BlockPos getBarrierFormation();
 
 	double getAgilityRegulator();
 

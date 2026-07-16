@@ -69,6 +69,7 @@ public class WuxiaCraft {
 		TechniqueUtil.initChancedAspectsBlocks();
 		TechniqueUtil.initEntityChancedAspects();
 		TechniqueUtil.initWeaponTechniques();
+		TechniqueUtil.initDevouringAspects();
 		TechniqueUtil.initTransformationAspects();
 		registerArgumentTypes();
 	}

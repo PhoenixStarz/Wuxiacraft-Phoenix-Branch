@@ -1,7 +1,9 @@
 package com.lazydragonstudios.wuxiacraft.formation;
 
 import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
+import com.lazydragonstudios.wuxiacraft.blocks.FormationCoreBlock;
 import com.lazydragonstudios.wuxiacraft.blocks.RunemakingTableBlock;
+import com.lazydragonstudios.wuxiacraft.blocks.StatRuneBlock;
 import com.lazydragonstudios.wuxiacraft.blocks.entity.FormationCore;
 import com.lazydragonstudios.wuxiacraft.blocks.entity.RunemakingTable;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
@@ -55,6 +57,8 @@ import java.util.LinkedList;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FormationEventHandler {
 
+	public static final TagKey<Item> CORE_ACCESS_TAG = ItemTags.create(new ResourceLocation(WuxiaCraft.MOD_ID, "core_access_badge"));
+
 	public static final TagKey<Item> INTERACT_TAG = ItemTags.create(new ResourceLocation(WuxiaCraft.MOD_ID, "interact_badge"));
 
 	public static final TagKey<Item> BREAK_TAG = ItemTags.create(new ResourceLocation(WuxiaCraft.MOD_ID, "break_badge"));
@@ -73,78 +77,68 @@ public class FormationEventHandler {
 			cultivation.setFormation(null);
 			return;
 		}
-		if (core.owner != player.getUUID()) {
-			cultivation.setFormation(null);
-		}
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase != TickEvent.Phase.END) return;
-		event.player.level().getProfiler().push("playerFormationTick");
-		var cultivation = Cultivation.get(event.player);
-		cultivation.setWithinFormationRange(event.player.getX(), event.player.getY(), event.player.getZ());
+		Player player = event.player;
+		Level level = player.level();
+		level.getProfiler().push("playerFormationTick");
+		var cultivation = Cultivation.get(player);
+		cultivation.setWithinFormationRange(player.getX(), player.getY(), player.getZ());
 		if (cultivation.isWithinFormationRange()) {
 			var formationPos = cultivation.getFormationStats().getFormationActive();
 			if (formationPos == null) {
-				event.player.level().getProfiler().pop();
+				level.getProfiler().pop();
 				return;
 			}
-			var blockEntity = event.player.level().getBlockEntity(formationPos);
+			var blockEntity = level.getBlockEntity(formationPos);
 			if (blockEntity == null || (blockEntity instanceof FormationCore core && !core.isActive())) {
 				cultivation.getFormationStats().setFormationActive(null);
 			}
-			event.player.level().getProfiler().pop();
+			level.getProfiler().pop();
 			return;
+		} else {
+			var playerPos = new BlockPos((int)player.getX(), (int)player.getY(), (int)player.getZ());
+			var chunk = level.getChunkAt(playerPos);
+			var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
+			for (var core : activeFormationCores) {
+				if (player == core.getOwner()) continue;
+				var coreRange = 12 + core.getRuneRange() * 2;
+				var distSqr = playerPos.distSqr(core.getBlockPos());
+				if (distSqr > coreRange * coreRange) continue;
+				var badge = getItemBadge(player, core, STATS_TAG);
+				if (badge == ItemStack.EMPTY) continue;
+				var formationPos = core.getBlockPos();
+				if (formationPos != null) {
+					cultivation.setBarrierFormation(formationPos);
+				}
+			}
 		}
+		for (int i = 0; i < 2; i++) {
 		var formationPos = cultivation.getFormation();
-		if (formationPos != null) {
-			var blockEntity = event.player.level().getBlockEntity(formationPos);
+			if (i == 1) formationPos = cultivation.getBarrierFormation();
+			if (formationPos == null) continue;
+			var blockEntity = level.getBlockEntity(formationPos);
 			if (!(blockEntity instanceof FormationCore core)) {
-				event.player.level().getProfiler().pop();
+				level.getProfiler().pop();
 				return;
 			}
 			if (!core.isActive()) {
-				event.player.level().getProfiler().pop();
+				level.getProfiler().pop();
 				return;
 			}
 			cultivation.getFormationStats().setFormationActive(formationPos);
 			cultivation.getFormationStats().copyFrom(core.getFormationPlayerStats());
 			cultivation.getFormationStats().setRange(12 + core.getRuneRange() * 2);
-			cultivation.setWithinFormationRange(event.player.getX(), event.player.getY(), event.player.getZ());
+			cultivation.setWithinFormationRange(player.getX(), player.getY(), player.getZ());
 			if (cultivation.isWithinFormationRange()) {
-				event.player.level().getProfiler().pop();
+				level.getProfiler().pop();
 				return;
 			}
 		}
-		if (formationPos == null || !cultivation.isWithinFormationRange()) {
-			Level level = event.player.level();
-			var playerPos = new BlockPos((int)event.player.getX(), (int)event.player.getY(), (int)event.player.getZ());
-			var chunk = level.getChunkAt(playerPos);
-			var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
-			for (var core : activeFormationCores) {
-				if (event.player == core.getOwner()) continue;
-				var barrierAmount = core.getStat(FormationStat.BARRIER_AMOUNT);
-				if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) continue;
-				var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
-				var distSqr = playerPos.distSqr(core.getBlockPos());
-				if (!(distSqr <= barrierRange * barrierRange)) continue;
-				var badge = getItemBadge(event.player, core.getBlockPos(), STATS_TAG);
-				if (badge != ItemStack.EMPTY) continue;
-				formationPos = core.getBlockPos();
-				if (formationPos != null) {
-					cultivation.getFormationStats().setFormationActive(formationPos);
-					cultivation.getFormationStats().copyFrom(core.getFormationPlayerStats());
-					cultivation.getFormationStats().setRange(12 + core.getRuneRange() * 2);
-					cultivation.setWithinFormationRange(event.player.getX(), event.player.getY(), event.player.getZ());
-					if (cultivation.isWithinFormationRange()) {
-						event.player.level().getProfiler().pop();
-						return;
-					}
-				}
-			}
-		}
-		event.player.level().getProfiler().pop();
+		level.getProfiler().pop();
 	}
 
 	private static LinkedList<FormationCore> getActiveFormationCoresNearby(LevelChunk chunk, Level level) {
@@ -169,28 +163,35 @@ public class FormationEventHandler {
 	@SubscribeEvent
 	public static void onPlayerMayBreak(BlockEvent.BreakEvent event) {
 		var breaker = event.getPlayer();
-		if (breaker == null) return;
-		Level level = breaker.level();
-		var chunk = level.getChunkAt(event.getPos());
-		var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
-		for (var core : activeFormationCores) {
-			if (breaker == core.getOwner()) continue;
-			var barrierAmount = core.getStat(FormationStat.BARRIER_AMOUNT);
-			if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) continue;
-			var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
-			var distSqr = event.getPos().distSqr(core.getBlockPos());
-			if (!(distSqr <= barrierRange * barrierRange)) continue;
-			var badge = getItemBadge(breaker, core.getBlockPos(), BREAK_TAG);
-			if (badge != ItemStack.EMPTY) continue;
-			event.setCanceled(true);
-			break;
-		}
+		if (breaker != null) {
+			if (breaker.isCreative()) return;
+			Level level = breaker.level();
+			var chunk = level.getChunkAt(event.getPos());
+			var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
+			for (var core : activeFormationCores) {
+				if (breaker == core.getOwner()) continue;
+				var barrierAmount = core.getStat(FormationStat.BARRIER_AMOUNT);
+				if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) continue;
+				var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
+				var distSqr = event.getPos().distSqr(core.getBlockPos());
+				if (distSqr > barrierRange * barrierRange) continue;
+				if (event.getState().getBlock() instanceof FormationCoreBlock || event.getState().getBlock() instanceof StatRuneBlock) {
+					var badge = getItemBadge(breaker, core, CORE_ACCESS_TAG);
+					if (badge != ItemStack.EMPTY) continue;
+				} else {
+					var badge = getItemBadge(breaker, core, BREAK_TAG);
+					if (badge != ItemStack.EMPTY) continue;
+				}
+				event.setCanceled(true);
+				break;
+			}
+		} else event.setCanceled(true);
 	}
 
 	@SubscribeEvent
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		var interactive = event.getEntity();
-		if (interactive == null) return;
+		if (interactive == null || interactive.isCreative() || interactive.isSpectator()) return;
 		Level level = interactive.level();
 		var chunk = level.getChunkAt(event.getPos());
 		var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
@@ -200,28 +201,37 @@ public class FormationEventHandler {
 			if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) continue;
 			var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
 			var distSqr = event.getPos().distSqr(core.getBlockPos());
-			if (!(distSqr <= barrierRange * barrierRange)) continue;
-			var badge = getItemBadge(interactive, core.getBlockPos(), INTERACT_TAG);
-			if (badge != ItemStack.EMPTY) continue;
+			if (distSqr > barrierRange * barrierRange) continue;
+			Block block = level.getBlockState(event.getPos()).getBlock();
+			if (block instanceof FormationCoreBlock || block instanceof StatRuneBlock) {
+				var badge = getItemBadge(interactive, core, CORE_ACCESS_TAG);
+				if (badge != ItemStack.EMPTY) continue;
+			} else {
+				var badge = getItemBadge(interactive, core, INTERACT_TAG);
+				if (badge != ItemStack.EMPTY) continue;
+			}
 			event.setCanceled(true);
 			break;
 		}
 	}
 
-	private static ItemStack getItemBadge(Player player, BlockPos formationPos, TagKey<Item> badgeTag) {
+	private static ItemStack getItemBadge(Player player, FormationCore core, TagKey<Item> badgeTag) {
 		var inv = player.getInventory();
 		for (var itemStack : inv.items) {
 			if (!(itemStack.getItem() instanceof FormationBarrierBadge)) continue;
-			if (!(itemStack.is(badgeTag))) continue;
+			if (badgeTag != null && !(itemStack.is(badgeTag))) continue;
 			var tag = itemStack.getTag();
 			if (tag == null) continue;
 			if (!tag.contains("formation")) continue;
 			var formationTag = tag.getCompound("formation");
-			var x = formationTag.getInt("x");
-			var y = formationTag.getInt("y");
-			var z = formationTag.getInt("z");
+			String ownerTag = formationTag.getString("ownerName");
+			String formationOwner = core.getOwnerName();
+			if (!ownerTag.equals(formationOwner)) continue;
+			int x = formationTag.getInt("x");
+			int y = formationTag.getInt("y");
+			int z = formationTag.getInt("z");
 			var blockPos = new BlockPos(x, y, z);
-			if (blockPos.compareTo(formationPos) == 0) {
+			if (blockPos.compareTo(core.getBlockPos()) == 0) {
 				return itemStack;
 			}
 		}
@@ -283,11 +293,13 @@ public class FormationEventHandler {
 		var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
 		for (var core : activeFormationCores) {
 			if (event.getEntity() == core.getOwner()) continue;
+			var badge = getItemBadge(event.getEntity(), core, null);
+			if (badge != ItemStack.EMPTY) continue;
 			var barrierAmount = core.getStat(FormationStat.BARRIER_AMOUNT);
 			if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) continue;
 			var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
 			var distSqr = event.getEntity().position().distanceToSqr(core.getBlockPos().getCenter()) - 25;
-			if (!(distSqr <= barrierRange * barrierRange)) continue;
+			if (distSqr > barrierRange * barrierRange) continue;
 			WuxiaPacketHandler.INSTANCE.sendToServer(new PlayerAttackBarrierMessage(core.getBlockPos(), (float) event.getEntity().getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
 			core.attackBarrierMelee(event.getEntity(), (float) event.getEntity().getAttribute(Attributes.ATTACK_DAMAGE).getValue());
 		}

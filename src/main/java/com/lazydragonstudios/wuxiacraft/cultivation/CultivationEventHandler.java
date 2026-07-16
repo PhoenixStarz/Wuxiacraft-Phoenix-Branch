@@ -53,7 +53,7 @@ public class CultivationEventHandler {
 	public static void onCultivatorUpdate(TickEvent.PlayerTickEvent event) {
 		if (event.phase != TickEvent.Phase.END) return;
 		var player = event.player;
-		if (player == null) return;
+		if (player == null || player.isSpectator()) return;
 		player.level().getProfiler().push("playerCultivationUpdate");
 		//defining variables I'm sure I'm gonna use a lot inside here
 		ICultivation cultivation = Cultivation.get(player);
@@ -239,12 +239,10 @@ public class CultivationEventHandler {
 			if (player.getFoodData().getFoodLevel() >= 20) hunger_modifier = hunger_modifier.add(new BigDecimal("0.3"));
 			BigDecimal finalEnergyRegen = cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY_REGEN).multiply(hunger_modifier);
 			//bodyEnergy < bodyMaxEnergy * 0.7 (70%)
-			BigDecimal maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.09" : "0.69");
+			BigDecimal maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1" : "0.7");
 			boolean canRegenBodyEnergy = cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).compareTo(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(maxEnergyMultiplicand)) < 0;
 			if (canRegenBodyEnergy) {
 				bodyData.addEnergy(finalEnergyRegen);
-				maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1.1" : "0.7");
-				cultivation.setStat(System.BODY, PlayerSystemStat.ENERGY, cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).min(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply((maxEnergyMultiplicand))));
 				if (finalEnergyRegen.floatValue() > 5 ) finalEnergyRegen = new BigDecimal(5);
 				player.causeFoodExhaustion(finalEnergyRegen.floatValue());
 			}
@@ -308,7 +306,7 @@ public class CultivationEventHandler {
 				cultivation.advanceCultTimer();
 				if (cultivation.getCultTimer() > 200) {// 10.05s //
 					cultivation.resetCultTimer();
-					cultivation.addCultivationBase(player, System.BODY, cultivation.getStat(PlayerStat.EXERCISE_CONVERSION));
+					cultivation.addCultivationBase(player, System.BODY, cultivation.getStat(PlayerStat.EXERCISE_CONVERSION).add(BigDecimal.ONE));
 				}
 			}	
 		}
@@ -474,6 +472,7 @@ public class CultivationEventHandler {
 		ICultivation newCultivation = Cultivation.get(event.getEntity());
 		if (event.isWasDeath()) {
 			//oldCultivation.setSkillCooldown(0);
+			if (WuxiaConfigs.LIVES_ENABLED.get())
 			oldCultivation.setStat(PlayerStat.LIVES, oldCultivation.getStat(PlayerStat.LIVES).subtract(BigDecimal.ONE));
 			if (oldCultivation.getStat(PlayerStat.LIVES).compareTo(BigDecimal.ZERO) == 0) {
 				oldCultivation = new Cultivation();

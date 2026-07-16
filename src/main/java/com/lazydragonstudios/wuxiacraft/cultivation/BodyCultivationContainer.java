@@ -78,10 +78,6 @@ public class BodyCultivationContainer extends SystemContainer {
 		var forgedAmount = this.bodyPartsForging.getOrDefault(bodyPartLocation, BigDecimal.ZERO);
 
 		MathContext mc = new MathContext(8, RoundingMode.HALF_UP);
-		var maxCultivationBase = this.getStat(PlayerSystemStat.MAX_CULTIVATION_BASE).multiply(new BigDecimal("0.4"), mc);
-		// mCB^2 / ( f^2 + mCB^2 - f*mCB) == A very nice bell curve that tops at 4/3 and stretches out based on cultivation base
-		var forgeSpeed = maxCultivationBase.pow(2).divide(forgedAmount.pow(2, mc).add(maxCultivationBase.pow(2, mc)).subtract(forgedAmount.multiply(maxCultivationBase, mc)), mc);
-		forgedAmount = forgedAmount.multiply(forgeSpeed, mc);
 		if (!partElementLocation.equals(elementLocation)) {
 			if (forgedAmount.compareTo(BigDecimal.TEN) < 0) {
 				this.bodyPartsElements.put(bodyPartLocation, elementLocation);
@@ -94,12 +90,13 @@ public class BodyCultivationContainer extends SystemContainer {
 				this.bodyPartsForging.put(bodyPartLocation, forgedAmount.subtract(amount).setScale(6, RoundingMode.HALF_DOWN));
 			}
 		} else {
+			this.bodyPartsElements.put(bodyPartLocation, elementLocation);
 			this.bodyPartsForging.put(bodyPartLocation, forgedAmount.add(amount).setScale(6, RoundingMode.HALF_DOWN));
 		}
 		forgedAmount = this.bodyPartsForging.getOrDefault(bodyPartLocation, BigDecimal.ZERO);
-		maxCultivationBase = this.getStat(PlayerSystemStat.MAX_CULTIVATION_BASE);
-		this.bodyPartsForging.put(bodyPartLocation, forgedAmount.min(maxCultivationBase).setScale(6, RoundingMode.HALF_DOWN));
-		// ^ this is piss; I'm adding a limiter of the max cultivation base
+		var maxCultivationBase = this.getStat(PlayerSystemStat.MAX_CULTIVATION_BASE);
+		this.bodyPartsForging.put(bodyPartLocation, forgedAmount.min(maxCultivationBase).setScale(6, RoundingMode.HALF_DOWN).max(BigDecimal.ZERO));
+		// added a limiter instead of forge speed 
 	}
 
 	public BigDecimal getForgedAmountByPart(ResourceLocation selectedBodyPart) {

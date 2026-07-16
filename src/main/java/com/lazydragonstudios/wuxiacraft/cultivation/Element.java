@@ -58,7 +58,6 @@ public class Element implements StatsContainer {
 		this.setStat(PlayerStat.MAX_BARRIER, new BigDecimal("0.02"));
 		this.setStat(System.ESSENCE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("0.012"));
 		this.setStat(System.ESSENCE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.000004"));
-		this.setStat(PlayerElementalStat.RESISTANCE, new ResourceLocation(WuxiaCraft.MOD_ID, "physical"), new BigDecimal("0.004"));
 	}
 
 	public Element addSkill(ResourceLocation aspectLocation, BigDecimal value) {

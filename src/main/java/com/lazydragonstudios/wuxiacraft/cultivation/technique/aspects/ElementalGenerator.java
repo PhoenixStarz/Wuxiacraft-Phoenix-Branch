@@ -27,7 +27,9 @@ public class ElementalGenerator extends TechniqueAspect {
 	private final static HashMap<Class, Integer> priority = new HashMap<>();
 
 	static {
-		priority.put(ElementalGenerator.class, -3);
+		priority.put(ElementalGenerator.class, -5);
+		priority.put(ConditionalElementalGenerator.class, -4);
+		priority.put(WeaponElementalGenerator.class, -3);
 		priority.put(ElementalConverter.class, -2);
 		priority.put(ElementalConsumer.class, -1);
 	}

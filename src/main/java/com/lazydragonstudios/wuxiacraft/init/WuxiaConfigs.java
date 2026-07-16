@@ -19,6 +19,7 @@ public class WuxiaConfigs {
     // Server Config Values
 
     // Common Config Values
+    public static ForgeConfigSpec.BooleanValue LIVES_ENABLED;
     public static ForgeConfigSpec.LongValue INITIAL_LIVES;
     public static ForgeConfigSpec.LongValue MAX_LIVES;
     public static ForgeConfigSpec.ConfigValue<String> AFK_SYSTEM;
@@ -42,6 +43,10 @@ public class WuxiaConfigs {
     private static void registerCommonConfig() {
         ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
         COMMON_BUILDER.comment("Common Config for WuxiaCraft").push("cultivation");
+
+        LIVES_ENABLED = COMMON_BUILDER
+                .comment("Whether the lives are enabled or not. Default(true)")
+                .define("livesEnabled", true);
 
         INITIAL_LIVES = COMMON_BUILDER
                 .comment("How many lives do players initially have. Default(3)")

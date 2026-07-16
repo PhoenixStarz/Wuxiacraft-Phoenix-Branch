@@ -151,7 +151,8 @@ public class CombatEventHandler {
 			return new WuxiaDamageSource(source.typeHolder(), WuxiaElements.POISON.get(), new BigDecimal(amount));
 		else if (source.is(DamageTypes.OUTSIDE_BORDER) || 
 				source.is(DamageTypes.FELL_OUT_OF_WORLD)||
-				source.is(DamageTypes.DRAGON_BREATH))
+				source.is(DamageTypes.DRAGON_BREATH) ||
+				source.is(DamageTypes.CRAMMING))
 			return new WuxiaDamageSource(source.typeHolder(), WuxiaElements.SPACE.get(), new BigDecimal(amount));
 		return new WuxiaDamageSource(source.typeHolder(), WuxiaElements.PHYSICAL.get(), source.getEntity(), new BigDecimal(amount));
 	}

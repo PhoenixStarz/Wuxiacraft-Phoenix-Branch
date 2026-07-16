@@ -31,7 +31,7 @@ public class SkillExplosionAspect extends SkillHitAspect {
 			var casterCultivation = Cultivation.get(caster);
 			var skillStrength = skill.getAppliedStats(casterCultivation, SkillStat.STRENGTH);
 			BigDecimal damage = skillStrength.multiply(skillStrength.multiply(new BigDecimal("1.2")));
-			var damageSource = new WuxiaDamageSource(caster.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.SKILL_EXPLOSION), WuxiaElements.PHYSICAL.get(), caster, damage);
+			var damageSource = new WuxiaDamageSource(caster.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.SKILL_EXPLOSION), WuxiaElements.FIRE.get(), caster, damage);
 			caster.level().explode(caster, damageSource, null, pos.x, pos.y, pos.z, (float) Math.max(Math.sqrt(damage.floatValue()) * 0.04, 1.0), fire, interaction);
 			}
 			return false;

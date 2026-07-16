@@ -56,6 +56,8 @@ public class FormationCore extends BlockEntity {
 
 	public UUID owner;
 
+	public String ownerName;
+
 	public boolean scheduleActivation;
 
 	private boolean active;
@@ -128,6 +130,7 @@ public class FormationCore extends BlockEntity {
 			this.owner = playerId;
 			var player = this.getOwner();
 			if (player != null) {
+				this.ownerName = player.getDisplayName().getString();
 				var cultivation = Cultivation.get(player);
 				cultivation.setFormation(this.getBlockPos());
 				cultivation.getFormationStats().setFormationActive(this.getBlockPos());
@@ -158,6 +161,10 @@ public class FormationCore extends BlockEntity {
 		return this.level.getPlayerByUUID(this.owner);
 	}
 
+	public String getOwnerName() {
+		return this.ownerName;
+	}
+
 	public void deactivate() {
 		this.active = false;
 		this.runePositions.clear();
@@ -175,6 +182,7 @@ public class FormationCore extends BlockEntity {
 				}
 			}
 			this.owner = null;
+			this.ownerName = null;
 		}
 		this.setChanged();
 		if (this.level != null && !this.level.isClientSide) {
@@ -242,6 +250,9 @@ public class FormationCore extends BlockEntity {
 		if (tag.contains("owner")) {
 			this.owner = tag.getUUID("owner");
 		}
+		if (tag.contains("owner-name")) {
+			this.ownerName = tag.getString("owner-name");
+		}
 		if (tag.contains("active")) {
 			if (tag.getBoolean("active")) {
 				this.scheduleActivation = true;
@@ -267,6 +278,9 @@ public class FormationCore extends BlockEntity {
 		tag.putBoolean("active", this.active);
 		if (this.owner != null) {
 			tag.putUUID("owner", this.owner);
+		}
+		if (this.ownerName != null) {
+			tag.putString("owner-name", this.ownerName);
 		}
 		var statsList = new ListTag();
 		for (var stat : FormationStat.values()) {
