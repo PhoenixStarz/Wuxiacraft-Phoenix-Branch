@@ -4,18 +4,23 @@ import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
 import com.lazydragonstudios.wuxiacraft.client.gui.MeditateScreen;
 import com.lazydragonstudios.wuxiacraft.client.gui.widgets.WuxiaButton;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
+import com.lazydragonstudios.wuxiacraft.cultivation.DivineCultivationContainer;
+import com.lazydragonstudios.wuxiacraft.cultivation.DivineCultivationStage;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
 import com.lazydragonstudios.wuxiacraft.networking.MeditateMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
+import com.lazydragonstudios.wuxiacraft.networking.TeleportToDivineDimensionMessage;
 import com.lazydragonstudios.wuxiacraft.util.MathUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec2;
 
@@ -26,6 +31,10 @@ import java.util.LinkedList;
 
 public class DivineMinigame implements Minigame {
 
+	private Font font;
+	private MeditateScreen medScreen;
+
+	public static final ResourceLocation MEDITATE_SCREEN = new ResourceLocation(WuxiaCraft.MOD_ID, "textures/gui/cultivation_minigame_screen.png");
 	private static final ResourceLocation MINIGAME_TEXTURE = new ResourceLocation(WuxiaCraft.MOD_ID, "textures/gui/minigames/mortal_essence_minigame.png");
 	private static final float defaultOuterCircleRadius = 60f;
 	private static final float innerCircleRadius = 15;
@@ -42,12 +51,16 @@ public class DivineMinigame implements Minigame {
 
 	private boolean grabbedCircle = false;
 
+	private boolean canTeleport = false;
+	private boolean canTeleportOthers = false;
 
 	//the size is actually the tex coordinates
 	private final Rectangle dantian = new Rectangle(96, 104, 60, 5);
 
 	@Override
 	public void init(MeditateScreen screen) {
+		this.font = screen.getMinecraft().font;
+		medScreen = screen;
 		var player = Minecraft.getInstance().player;
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
@@ -57,6 +70,20 @@ public class DivineMinigame implements Minigame {
 
 	@Override
 	public boolean onMouseClick(double x, double y, int button) {
+		if (this.canTeleport) {
+			if (MathUtil.inBounds(x, y, 4, 25, 63, 14)) {
+				WuxiaPacketHandler.INSTANCE.sendToServer(new TeleportToDivineDimensionMessage(false));
+				this.close(medScreen);
+				return true;
+			}
+		}
+		if (this.canTeleportOthers) {
+			if (MathUtil.inBounds(x, y, 132, 25, 63, 14)) {
+				WuxiaPacketHandler.INSTANCE.sendToServer(new TeleportToDivineDimensionMessage(true));
+				this.close(medScreen);
+				return true;
+			}
+		}
 		if (this.selectedStrands.isEmpty() && isInCircleBorder(x, y, dantian.x + 4, dantian.y + 4, outerCircleRadius, 3f)) {
 			this.grabbedCircle = true;
 			return true;
@@ -124,11 +151,31 @@ public class DivineMinigame implements Minigame {
 		for (var strand : this.strands) {
 			strand.render(guiGraphics);
 		}
+		if (this.canTeleport) {
+			guiGraphics.blit(MEDITATE_SCREEN, 4, 25, 0, 170, 63, 14);
+		}
+		if (this.canTeleportOthers) {
+			guiGraphics.blit(MEDITATE_SCREEN, 132, 25, 0, 170, 63, 14);
+		}
+		renderLabels(guiGraphics, mouseX, mouseY, partialTick);
 	}
 
 	@Override
 	public void renderTooltips(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 
+	}
+
+	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		if (this.canTeleport) {
+			var component = Component.translatable("wuxiacraft.gui.teleport");
+			int width = this.font.width(component);
+			guiGraphics.drawString(this.font, component, (int) (35 - width / 2f), 28, 0x58AB6B);
+		}
+		if (this.canTeleportOthers) {
+			var component = Component.translatable("wuxiacraft.gui.teleport_others");
+			int width = this.font.width(component);
+			guiGraphics.drawString(this.font, component, (int) (163 - width / 2f), 28, 0x58AB6B);
+		}
 	}
 
 	@Override
@@ -137,6 +184,8 @@ public class DivineMinigame implements Minigame {
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
 		var divineData = cultivation.getSystemData(System.DIVINE);
+		var divineStage = (DivineCultivationStage) divineData.getStage();
+		this.canTeleport = false;
 		var strandCount = divineData.hasEnergy(cultivation.getStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY).divide(new BigDecimal(4))) ? 5 : 0;
 		this.keepCorrectStrandCount(strandCount);
 		var markedToRemove = new LinkedList<Strand>();
@@ -164,6 +213,9 @@ public class DivineMinigame implements Minigame {
 		for (var toRemove : markedToRemove) {
 			this.strands.remove(toRemove);
 		}
+		if (divineStage.getDimensionSize() > 0)
+		this.canTeleport = true;
+		this.canTeleportOthers = divineStage.isCanHaveExtraEntities();
 	}
 
 	public void keepCorrectStrandCount(int count) {
@@ -218,6 +270,12 @@ public class DivineMinigame implements Minigame {
 		return dRadius > circleRadius;
 	}
 
+	@Override
+	public void close(MeditateScreen screen) {
+		Minigame.super.close(screen);
+		screen.clearChildren();
+	}
+
 	private static class Strand {
 		private static final int CENTER_X = 100;
 		private static final int CENTER_Y = 108;
@@ -262,6 +320,7 @@ public class DivineMinigame implements Minigame {
 		public void setGrabbed(boolean grabbed) {
 			this.grabbed = grabbed;
 		}
+
 	}
 
 }

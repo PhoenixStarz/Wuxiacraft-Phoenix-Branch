@@ -94,7 +94,7 @@ public class Sect {
 		return tag;
 	}
 
-	public void lodData(CompoundTag tag) {
+	public void loadData(CompoundTag tag) {
 		this.sectId = tag.getUUID("sectId");
 		this.sectName = tag.getString("sectName");
 		this.sectMasterID = tag.getUUID("sectMasterId");

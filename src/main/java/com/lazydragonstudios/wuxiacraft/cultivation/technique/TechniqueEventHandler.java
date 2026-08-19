@@ -4,14 +4,15 @@ import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.SystemContainer;
-import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat
-;import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ConditionalElementalGenerator;
+import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ConditionalElementalGenerator;
 import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.WeaponElementalGenerator;
 import com.lazydragonstudios.wuxiacraft.blocks.TechniqueInscriber;
 import com.lazydragonstudios.wuxiacraft.event.CultivatingEvent;
 import com.lazydragonstudios.wuxiacraft.item.TechniqueManual;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaTechniqueAspects;
+import com.lazydragonstudios.wuxiacraft.networking.RequestTechniqueDataChange;
 import com.lazydragonstudios.wuxiacraft.networking.WeaponSwingMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import com.lazydragonstudios.wuxiacraft.util.TechniqueUtil;
@@ -53,10 +54,8 @@ public class TechniqueEventHandler {
 			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
 			if (aspect == null) continue;
 			if (event.isCanceled()) break;
-			for(var elementKey : event.getElement().keySet())
-			if (aspect instanceof ConditionalElementalGenerator generator && generator.element != elementKey) {
+			if (aspect instanceof ConditionalElementalGenerator generator && !event.getElement().keySet().contains(generator.element)) {
 				generator.onCultivate(event);
-				return;
 			}
 		}
 	}
@@ -115,6 +114,8 @@ public class TechniqueEventHandler {
 		ICultivation cultivation = Cultivation.get(player);
 		var aspects = cultivation.getAspects();
 		if (aspects.knowsAspect(WuxiaTechniqueAspects.START.getId())) {
+			if (cultivation.getRebirths() > 0)
+			aspects.learnRebirthAspects(cultivation);
 			HashMap<ResourceLocation, Double> aspectsPerBlock = TechniqueUtil.getAspectChancePerBlock(event.getState().getBlock());
 			for (var aspect : aspectsPerBlock.keySet()) {
 			double randomVal = Math.random() * aspectsPerBlock.get(aspect);
@@ -205,7 +206,8 @@ public class TechniqueEventHandler {
 			}
 			return;
 		}
-		systemData.techniqueData.grid = techGrid;
+		systemData.techniqueData.grid.deserialize(techGrid.serialize());
+		WuxiaPacketHandler.INSTANCE.sendToServer(new RequestTechniqueDataChange(system, systemData.techniqueData.serialize()));
 		if (player instanceof ServerPlayer serverPlayer) {
 			serverPlayer.sendSystemMessage(Component.translatable(name).append(" ")
 			.append(Component.translatable("wuxiacraft.copy_successful"))
@@ -224,10 +226,7 @@ public class TechniqueEventHandler {
 		ICultivation cultivation = Cultivation.get(player);
 		var aspects = cultivation.getAspects();
 		if (cultivation.isCombat()) return;
-		if (!aspects.knowsAspect(WuxiaTechniqueAspects.ESSENCE_GATHERING.getId())
-				&& !aspects.knowsAspect(WuxiaTechniqueAspects.BODY_GATHERING.getId())
-				&& !aspects.knowsAspect(WuxiaTechniqueAspects.DIVINE_GATHERING.getId())
-		) return;
+		if (!aspects.knowsAspect(WuxiaTechniqueAspects.START.getId())) return;
 		var heldItem = player.getMainHandItem();
 		boolean isValidWeapon = false;
 		WeaponElementalGenerator.WeaponType validWeaponType = null;

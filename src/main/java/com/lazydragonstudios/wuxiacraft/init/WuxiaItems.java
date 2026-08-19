@@ -187,6 +187,12 @@ public class WuxiaItems {
 	public static RegistryObject<Item> SPIRIT_STONE_VEIN_5 = ITEMS.register("spirit_stone_vein_5",
 			() -> new BlockItem(WuxiaBlocks.SPIRIT_STONE_VEIN_5.get(), new Item.Properties()));
 
+	public static RegistryObject<Item> SPIRIT_STONE_VEIN_6 = ITEMS.register("spirit_stone_vein_6",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_STONE_VEIN_6.get(), new Item.Properties()));
+
+	public static RegistryObject<Item> SPIRIT_STONE_VEIN_7 = ITEMS.register("spirit_stone_vein_7",
+			() -> new BlockItem(WuxiaBlocks.SPIRIT_STONE_VEIN_7.get(), new Item.Properties()));
+
 	public static RegistryObject<Item> CELESTIAL_IRON_ORE = ITEMS.register("celestial_iron_ore",
 			() -> new BlockItem(WuxiaBlocks.CELESTIAL_IRON_ORE.get(), new Item.Properties()));
 			
@@ -204,6 +210,9 @@ public class WuxiaItems {
 
 	public static RegistryObject<Item> RAW_CELESTIAL_IRON = ITEMS.register("raw_celestial_iron",
 			() -> new Item(new Item.Properties()));
+
+	public static RegistryObject<Item> SOUL_CORE = ITEMS.register("soul_core",
+			() -> new SoulCore(new Item.Properties()));
 
 	public static RegistryObject<Item> RUNEMAKING_TABLE = ITEMS.register("runemaking_table",
 			() -> new BlockItem(WuxiaBlocks.RUNEMAKING_TABLE.get(), new Item.Properties()));
@@ -298,8 +307,6 @@ public class WuxiaItems {
 	public static RegistryObject<Item> SPIRIT_CRYSTAL_CLUSTER_9 = ITEMS.register("spirit_crystal_cluster_9",
 			() -> new BlockItem(WuxiaBlocks.SPIRIT_CRYSTAL_CLUSTER_9.get(), new Item.Properties()));
 
-
-
 	public static HashMap<FormationMaterialTier, RegistryObject<Item>> GENERATION_RUNES = new HashMap<>();
 
 	public static HashMap<FormationMaterialTier, RegistryObject<Item>> BARRIER_RUNES = new HashMap<>();
@@ -345,8 +352,16 @@ public class WuxiaItems {
 			() -> new ForgeSpawnEggItem(WuxiaEntities.RED_SNAKE_ENTITY_TYPE::get, 16722496, 16514950, new Item.Properties())
 	);
 	
+	public static RegistryObject<Item> BLUE_SNAKE_SPAWN_EGG = ITEMS.register("blue_snake_spawn_egg",
+			() -> new ForgeSpawnEggItem(WuxiaEntities.BLUE_SNAKE_ENTITY_TYPE::get, 1807, 16514950, new Item.Properties())
+	);
+	
 	public static RegistryObject<Item> WHITE_SNAKE_SPAWN_EGG = ITEMS.register("white_snake_spawn_egg",
 			() -> new ForgeSpawnEggItem(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE::get, 14803425, 16514950, new Item.Properties())
+	);
+	
+	public static RegistryObject<Item> BLACK_SNAKE_SPAWN_EGG = ITEMS.register("black_snake_spawn_egg",
+			() -> new ForgeSpawnEggItem(WuxiaEntities.BLACK_SNAKE_ENTITY_TYPE::get, 851983, 16514950, new Item.Properties())
 	);
 
 }

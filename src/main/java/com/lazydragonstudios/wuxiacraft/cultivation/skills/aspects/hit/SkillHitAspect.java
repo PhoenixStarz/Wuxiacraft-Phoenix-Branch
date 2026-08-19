@@ -6,7 +6,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillDescriptor;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspect;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspectType;
-import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillHitModifierAspect;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.modifier.SkillHitModifierAspect;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.parameter.NumberRangeParameter;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaSkillAspects;
@@ -18,7 +18,7 @@ import java.util.LinkedList;
 
 public class SkillHitAspect extends SkillAspect {
 
-	ISkillHitAction activation;
+	public ISkillHitAction activation;
 
 	public SkillHitAspect(ICultivation cultivation) {
 		super(cultivation);

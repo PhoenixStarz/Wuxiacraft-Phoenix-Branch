@@ -82,6 +82,7 @@ public class TechniqueManual extends Item {
 				if (itemTag.contains("author")) {
 					author = itemTag.getString("author");
 				}
+				if (techGrid != null)
 				openManualScreen(techGrid, radius, author);
 			}
 			return super.use(level, player, hand);

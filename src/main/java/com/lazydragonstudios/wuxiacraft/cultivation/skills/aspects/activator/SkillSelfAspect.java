@@ -6,6 +6,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspectType;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.SkillHitAspect;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.modifier.SkillHitModifierAspect;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaSkillAspects;
 import net.minecraft.world.phys.EntityHitResult;
 
@@ -27,9 +28,12 @@ public class SkillSelfAspect extends SkillActivatorAspect {
 			var result = new EntityHitResult(caster, caster.getEyePosition());
 			caster.swinging = true;
 			for (var link : skill.getSkillChain()) {
-				if (!(link instanceof SkillHitAspect hitAspect)) continue;
-				hitAspect.activate(caster, skill, result);
-				break;
+				if (link instanceof SkillHitAspect hitAspect) {
+					hitAspect.activate(caster, skill, result);
+				} else
+				if (link instanceof SkillHitModifierAspect hitModifierAspect) {
+					hitModifierAspect.activate(caster, skill, result);
+				} else continue;
 			}
 			return true;
 		});

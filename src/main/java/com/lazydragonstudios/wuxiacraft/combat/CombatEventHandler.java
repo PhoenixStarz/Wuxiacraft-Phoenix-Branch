@@ -95,19 +95,19 @@ public class CombatEventHandler {
 		var resistance = cultivation.getStat(srcElementRegistryKey, PlayerElementalStat.RESISTANCE);
 		Entity attacker = source.getEntity();
 		if (attacker instanceof Player) {
-			int armorC = 0;
-			if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == WuxiaItems.CELESTIAL_HELMET.get()) armorC += 10;
-			if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() == WuxiaItems.CELESTIAL_CHESTPLATE.get()) armorC += 20;
-			if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() == WuxiaItems.CELESTIAL_LEGGINGS.get()) armorC += 15;
-			if (player.getItemBySlot(EquipmentSlot.FEET).getItem() == WuxiaItems.CELESTIAL_BOOTS.get()) armorC += 10;
-			if (armorC >= 1) resistance = resistance.multiply(new BigDecimal(armorC));
+			double armorC = 1d;
+			if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == WuxiaItems.CELESTIAL_HELMET.get()) armorC += 0.15;
+			if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() == WuxiaItems.CELESTIAL_CHESTPLATE.get()) armorC += 0.4;
+			if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() == WuxiaItems.CELESTIAL_LEGGINGS.get()) armorC += 0.3;
+			if (player.getItemBySlot(EquipmentSlot.FEET).getItem() == WuxiaItems.CELESTIAL_BOOTS.get()) armorC += 0.15;
+			resistance = resistance.multiply(new BigDecimal(armorC));
 			var pierce = Cultivation.get((Player) attacker).getStat(srcElementRegistryKey, PlayerElementalStat.PIERCE);
 			if (((Player) attacker).getItemBySlot(EquipmentSlot.MAINHAND).getItem() == WuxiaItems.CELESTIAL_SWORD.get() ||
 				((Player) attacker).getItemBySlot(EquipmentSlot.MAINHAND).getItem() == WuxiaItems.CELESTIAL_AXE.get() ||
 				((Player) attacker).getItemBySlot(EquipmentSlot.MAINHAND).getItem() == WuxiaItems.CELESTIAL_PICKAXE.get() ||		
 				((Player) attacker).getItemBySlot(EquipmentSlot.MAINHAND).getItem() == WuxiaItems.CELESTIAL_SHOVEL.get() ||		
 				((Player) attacker).getItemBySlot(EquipmentSlot.MAINHAND).getItem() == WuxiaItems.CELESTIAL_HOE.get()) { 
-					pierce = pierce.multiply(new BigDecimal("1.5")); 
+					pierce = pierce.multiply(new BigDecimal("2")); 
 				}
 			resistance = resistance.subtract(pierce).max(BigDecimal.ZERO);
 		}

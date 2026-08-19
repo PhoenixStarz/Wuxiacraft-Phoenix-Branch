@@ -5,15 +5,19 @@ import com.lazydragonstudios.wuxiacraft.capabilities.ClientAnimationState;
 import com.lazydragonstudios.wuxiacraft.combat.WuxiaDamageSource;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.activator.SkillActivatorAspect;
-import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
-import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
+import com.lazydragonstudios.wuxiacraft.cultivation.stats.*;
 import com.lazydragonstudios.wuxiacraft.init.*;
 import com.lazydragonstudios.wuxiacraft.networking.*;
+import com.lazydragonstudios.wuxiacraft.world.data.WuxiaSavedData;
+import com.lazydragonstudios.wuxiacraft.world.dimension.DimensionManager;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,8 +27,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -32,6 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.event.level.SleepFinishedTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -79,8 +87,9 @@ public class CultivationEventHandler {
 		handlePlayerHealth(player, cultivation);
 		handleHealthRegeneration(player, cultivation, bodyData);
 		handleCanFly(player, cultivation);
-		if (!event.side.isClient()) 
+		if (!event.side.isClient()) {
 		handleTribulationTick((ServerPlayer)player);
+		}
 		player.level().getProfiler().pop();
 	}
 
@@ -114,8 +123,8 @@ public class CultivationEventHandler {
 			FoodData foodData = player.getFoodData();
 			if ((foodData.getFoodLevel() < 20 || foodData.getSaturationLevel() < foodData.getFoodLevel())
 				 && essenceData.consumeEnergy(cost)) {
-				var saturationLevel = foodData.getSaturationLevel();
-				var foodLevel = foodData.getFoodLevel();
+				float saturationLevel = foodData.getSaturationLevel();
+				int foodLevel = foodData.getFoodLevel();
 				saturationLevel = Math.min(saturationLevel + 0.5f, foodLevel);
 				if (saturationLevel >= foodLevel) {
 					foodLevel = Math.min(foodLevel + 1, 20);
@@ -163,8 +172,15 @@ public class CultivationEventHandler {
 		BigDecimal regen = cultivation.getStat(PlayerStat.HEALTH_REGEN);
 		BigDecimal cost = cultivation.getStat(PlayerStat.HEALTH_REGEN_COST);
 		BigDecimal maxEnergy = cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY);
-		if (player.getHealth() < player.getMaxHealth() && bodyData.hasEnergy(maxEnergy.multiply(new BigDecimal("0.25"))) && bodyData.consumeEnergy(cost)) {
-			player.heal(regen.floatValue());
+		if (player.level().isClientSide()) return;
+		if (cultivation.getDemonicStage() > 20) {
+			Holder<DamageType> damageType = player.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.DEMONIC_CORRUPTION);
+			player.hurt(new WuxiaDamageSource(damageType, WuxiaElements.DEMONIC.get(), player,
+					regen.multiply(new BigDecimal(cultivation.getDemonicStage()/100)).add(new BigDecimal(0.1))), 0.1f+regen.floatValue()*cultivation.getDemonicStage()/100);
+		}else {
+			if (player.getHealth() < player.getMaxHealth() && bodyData.hasEnergy(maxEnergy.multiply(new BigDecimal("0.25"))) && bodyData.consumeEnergy(cost)) {
+				player.heal(regen.floatValue());
+			}
 		}
 	}
 
@@ -177,6 +193,16 @@ public class CultivationEventHandler {
 				var TimeofDay = player.level().getGameTime();
 				cultivation.setToD(TimeofDay);
 				cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).add(BigDecimal.ONE).min(BigDecimal.valueOf(WuxiaConfigs.MAX_CULTPOINTS.get())));
+				//around 1h for full recovery
+				BigDecimal demonicFoundation = cultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION);
+				BigDecimal maxCultivationBase = cultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_CULTIVATION_BASE);
+				if(demonicFoundation.compareTo(BigDecimal.ZERO) > 0) {
+					cultivation.setStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, 
+							demonicFoundation.subtract(maxCultivationBase.multiply(new BigDecimal(0.00138))).max(BigDecimal.ZERO));
+					cultivation.setDemonicStage(10*demonicFoundation.intValue()/maxCultivationBase.intValue());
+					cultivation.addStat(WuxiaElements.DEMONIC.getId(), PlayerElementalStat.COMPREHENSION, 
+							demonicFoundation.subtract(cultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION).divide(BigDecimal.TEN)));
+				}
 				syncClientCultivation((ServerPlayer) player);
 				for (var system : System.values()) {
 					var systemData = cultivation.getSystemData(system);
@@ -193,7 +219,7 @@ public class CultivationEventHandler {
 		if (cultivation.isCombat()) {
 			if (skillData.casting && selectedSkill.getStatValue(SkillStat.CURRENT_COOLDOWN).compareTo(BigDecimal.ZERO) <= 0) {
 				if (!selectedSkill.getSkillChain().isEmpty() && selectedSkill.getSkillChain().getFirst() instanceof SkillActivatorAspect activator) {
-					selectedSkill.addStat(SkillStat.CURRENT_CASTING, cultivation.getSystemData(System.ESSENCE).getStat(PlayerSystemStat.CAST_SPEED));
+					selectedSkill.addStat(SkillStat.CURRENT_CASTING, cultivation.getSystemData(System.ESSENCE).getStat(PlayerSystemStat.CAST_SPEED).multiply(BigDecimal.TEN));
 					selectedSkill.addStat(SkillStat.NON_STOP_CASTING_TIME, BigDecimal.ONE);
 					//casting >= cast_time
 					if (selectedSkill.getStatValue(SkillStat.CURRENT_CASTING)
@@ -475,7 +501,28 @@ public class CultivationEventHandler {
 			if (WuxiaConfigs.LIVES_ENABLED.get())
 			oldCultivation.setStat(PlayerStat.LIVES, oldCultivation.getStat(PlayerStat.LIVES).subtract(BigDecimal.ONE));
 			if (oldCultivation.getStat(PlayerStat.LIVES).compareTo(BigDecimal.ZERO) == 0) {
+				var player = event.getOriginal();
+				Level level = player.level();
+				ItemStack itemStack = new ItemStack(WuxiaItems.SOUL_CORE.get(), 1);
+				CompoundTag	tag = new CompoundTag();
+				itemStack.setTag(tag);
+				tag.putString("name", player.getDisplayName().getString());
+				for (System systems : System.values()) {
+					CompoundTag	systemTag = new CompoundTag();
+					SystemContainer systemData = oldCultivation.getSystemData(systems);
+					systemTag.putString("stage", systemData.currentStage.getNamespace() + ".stage." + systemData.currentStage.getPath());
+					double progress = (oldCultivation.getStat(systems, PlayerSystemStat.MAX_CULTIVATION_BASE).doubleValue()
+							+(oldCultivation.getStat(systems, PlayerSystemStat.CULTIVATION_BASE)).doubleValue()*9)/10;
+					systemTag.putDouble("amount", progress);
+					tag.put(systems.toString().toLowerCase(), systemTag);
+				}
+				tag.putInt("durability", 100);
+				int rebirthCount = oldCultivation.getRebirths();
 				oldCultivation = new Cultivation();
+				oldCultivation.setRebirths(rebirthCount);
+				ItemEntity entity = new ItemEntity(level, player.getX(), player.getY(), player.getZ(), itemStack);
+				entity.setNoPickUpDelay();
+				level.addFreshEntity(entity);
 			} else {
 				var bodyData = oldCultivation.getSystemData(System.BODY);
 				var divineData = oldCultivation.getSystemData(System.DIVINE);
@@ -483,6 +530,10 @@ public class CultivationEventHandler {
 				bodyData.setStat(PlayerSystemStat.ENERGY, new BigDecimal("7"));
 				divineData.setStat(PlayerSystemStat.ENERGY, new BigDecimal("10"));
 				essenceData.setStat(PlayerSystemStat.ENERGY, new BigDecimal("0"));
+				BigDecimal demonicFoundation = oldCultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION);
+				BigDecimal maxCultivationBase = oldCultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_CULTIVATION_BASE);
+				oldCultivation.setStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, 
+						demonicFoundation.subtract(maxCultivationBase).min(BigDecimal.ZERO));
 			}
 		}
 		event.getOriginal().invalidateCaps();
@@ -540,5 +591,12 @@ public class CultivationEventHandler {
 			}
 		});
 	}
+
+	@SubscribeEvent
+    public static void onLevelLoaded(LevelEvent.Load event) {
+        if (event.getLevel() instanceof ServerLevel serverLevel && serverLevel.dimension() == Level.OVERWORLD) {
+            WuxiaSavedData.init(serverLevel.getDataStorage());
+        }
+    }
 
 }

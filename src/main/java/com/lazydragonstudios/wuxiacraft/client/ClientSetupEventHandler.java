@@ -70,7 +70,8 @@ public class ClientSetupEventHandler {
 		event.registerEntityRenderer(WuxiaEntities.ANIMATED_PLAYER_ENTITY.get(), ctx -> new AnimatedPlayerRenderer(ctx, false));
 		event.registerEntityRenderer(WuxiaEntities.ANIMATED_PLAYER_ENTITY_SLIM.get(), ctx -> new AnimatedPlayerRenderer(ctx, true));
 		event.registerEntityRenderer(WuxiaEntities.GHOST_ENTITY.get(), GhostRenderer::new);
-		event.registerEntityRenderer(WuxiaEntities.AURA_ENTITY.get(), AuraRenderer::new);
+		event.registerEntityRenderer(WuxiaEntities.AURA_ENTITY.get(), ctx -> new AuraRenderer(ctx));
+		event.registerEntityRenderer(WuxiaEntities.DEMONIC_AURA_ENTITY.get(), ctx -> new DemonicAuraRenderer(ctx));
 
 		//body transformations
 		event.registerEntityRenderer(WuxiaEntities.KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.get(),
@@ -145,7 +146,9 @@ public class ClientSetupEventHandler {
 		event.registerEntityRenderer(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), SnakeRenderer::new);
 		event.registerEntityRenderer(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), DesertSnakeRenderer::new);
 		event.registerEntityRenderer(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), RedSnakeRenderer::new);
+		event.registerEntityRenderer(WuxiaEntities.BLUE_SNAKE_ENTITY_TYPE.get(), BlueSnakeRenderer::new);
 		event.registerEntityRenderer(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), WhiteSnakeRenderer::new);
+		event.registerEntityRenderer(WuxiaEntities.BLACK_SNAKE_ENTITY_TYPE.get(), BlackSnakeRenderer::new);
 	}
 
 	@SubscribeEvent

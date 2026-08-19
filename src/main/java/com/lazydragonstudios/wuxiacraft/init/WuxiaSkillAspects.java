@@ -6,6 +6,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.activator.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.*;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.modifier.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -20,7 +21,9 @@ public class WuxiaSkillAspects {
 	/**
 	 * Directly hit ahead the caster, where the caster is looking at
 	 */
-	public static RegistryObject<SkillAspectType> PUNCH = ASPECTS.register("punch", () -> SkillAspectType.build(SkillTouchAspect::new));
+	public static RegistryObject<SkillAspectType> PUNCH = ASPECTS.register("punch", () -> SkillAspectType.build(
+			SkillTouchAspect::new
+	));
 
 	/**
 	 * Throw in the direction caster is looking at
@@ -46,12 +49,16 @@ public class WuxiaSkillAspects {
 	/**
 	 * Cast a wave ahead of the caster, hitting everything ahead of it
 	 */
-	public static RegistryObject<SkillAspectType> WAVE = ASPECTS.register("wave", () -> SkillAspectType.build(SkillActivatorAspect::new));
+	public static RegistryObject<SkillAspectType> WAVE = ASPECTS.register("wave", () -> SkillAspectType.build(
+			SkillWaveAspect::new
+	));
 
 	/**
 	 * Kame-Hame-Ha, but with lots of particles, and it is actually rayTraced instead of using entities.
 	 */
-	public static RegistryObject<SkillAspectType> BEAM = ASPECTS.register("beam", () -> SkillAspectType.build(SkillBeamAspect::new));
+	public static RegistryObject<SkillAspectType> BEAM = ASPECTS.register("beam", () -> SkillAspectType.build(
+			SkillBeamAspect::new
+	));
 
 	/**
 	 * Hits in a spherical shape around the caster
@@ -66,7 +73,9 @@ public class WuxiaSkillAspects {
 	/**
 	 * Hits everything around the caster
 	 */
-	public static RegistryObject<SkillAspectType> AREA = ASPECTS.register("area", () -> SkillAspectType.build(SkillActivatorAspect::new));
+	public static RegistryObject<SkillAspectType> AREA = ASPECTS.register("area", () -> SkillAspectType.build(
+			SkillAreaAspect::new
+	));
 
 	//TODO key of kings'law activator from botania
 
@@ -101,6 +110,7 @@ public class WuxiaSkillAspects {
 	 * Similar to above, but only ahead of the caster
 	 */
 	public static RegistryObject<SkillAspectType> RADIUS_MODIFIER = ASPECTS.register("radius_modifier", () -> SkillAspectType.build(SkillActivationModifierAspect::new));
+
 
 	// *********************************************
 	//  On hit things, this is where the fun begins
@@ -142,19 +152,19 @@ public class WuxiaSkillAspects {
 	));
 
 	/**
-	 * Opens a portal on hit, continuing on the direction of the hit
-	 */
-	public static RegistryObject<SkillAspectType> SPACE_TEAR = ASPECTS.register("space_tear", () -> SkillAspectType.build(SkillHitAspect::new));
-
-	/**
 	 * Generates a coffin of defined block modifier around hit place
 	 */
-	public static RegistryObject<SkillAspectType> COFFIN = ASPECTS.register("coffin", () -> SkillAspectType.build(SkillHitAspect::new));
+	public static RegistryObject<SkillAspectType> COFFIN = ASPECTS.register("coffin", () -> SkillAspectType.build(
+			SkillCoffinAspect::new
+	));
 
 	/**
 	 * Ore mine blocks on hit
+	 * ^ just made it a larger break skill
 	 */
-	public static RegistryObject<SkillAspectType> ORE_MINE = ASPECTS.register("ore_mine", () -> SkillAspectType.build(SkillHitAspect::new));
+	public static RegistryObject<SkillAspectType> ORE_MINE = ASPECTS.register("ore_mine", () -> SkillAspectType.build(
+			SkillOreMineAspect::new
+	));
 
 	/**
 	 * Heals the target on hit
@@ -166,25 +176,61 @@ public class WuxiaSkillAspects {
 	/**
 	 * Drains life from target on hit
 	 */
-	public static RegistryObject<SkillAspectType> LIFE_STEAL = ASPECTS.register("life_steal", () -> SkillAspectType.build(SkillHitAspect::new));
-
+	public static RegistryObject<SkillAspectType> LIFE_STEAL = ASPECTS.register("life_steal", () -> SkillAspectType.build(
+			SkillLifeStealAspect::new
+	));
+	
 	/**
 	 * Summons minions
 	 */
 	public static RegistryObject<SkillAspectType> SUMMON_MINIONS = ASPECTS.register("summon_minions", () -> SkillAspectType.build(SkillHitAspect::new));
 
-	/**
-	 * Applies potion effects
-	 */
-	public static RegistryObject<SkillAspectType> POTION_EFFECT = ASPECTS.register("potion_effect", () -> SkillAspectType.build(SkillHitAspect::new));
 
 	/**
 	 * Summons lightnings on the activation position
 	 */
-	public static RegistryObject<SkillAspectType> SUMMON_LIGHTNING = ASPECTS.register("summon_lightning", () -> SkillAspectType.build(SkillHitAspect::new));
+	public static RegistryObject<SkillAspectType> SUMMON_LIGHTNING = ASPECTS.register("summon_lightning", () -> SkillAspectType.build(
+			SkillLightningAspect::new
+	));
+	
+
+	// *********************************************
+	//  On hit modifiers
+	// ********************************************
 
 	/**
-	 * Shares activation from the caster to the target
+	 * Teleports on hit, continuing on the direction of the hit
 	 */
-	public static RegistryObject<SkillAspectType> SHARE_CULTIVATION = ASPECTS.register("share_cultivation", () -> SkillAspectType.build(SkillHitAspect::new));
+	public static RegistryObject<SkillAspectType> SPATIAL_TEARING = ASPECTS.register("spatial_tearing", () -> SkillAspectType.build(
+			SkillSpatialTearingAspect::new
+	));
+
+	/**
+	 * slowes down out target on hit, or speeds up self.
+	 */
+	public static RegistryObject<SkillAspectType> TEMPORAL_TEARING = ASPECTS.register("temporal_tearing", () -> SkillAspectType.build(
+			SkillTemporalTearingAspect::new
+	));
+
+	/**
+	 * Applies potion effects
+	 */
+	public static RegistryObject<SkillAspectType> POISON_EFFECT = ASPECTS.register("poison_effect", () -> SkillAspectType.build(
+			SkillPoisonEffectAspect::new
+	));
+	
+	/**
+	 * Gives cultivation from the target to the caster
+	 */
+	public static RegistryObject<SkillAspectType> STEAL_CULTIVATION = ASPECTS.register("steal_cultivation", () -> SkillAspectType.build(
+			SkillStealCultivationAspect::new
+	));
+
+	/**
+	 * Gives cultivation from the caster to the target
+	 */
+	public static RegistryObject<SkillAspectType> SHARE_CULTIVATION = ASPECTS.register("share_cultivation", () -> SkillAspectType.build(
+			SkillShareCultivationAspect::new
+	));
+
 }

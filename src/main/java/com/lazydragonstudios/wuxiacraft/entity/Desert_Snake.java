@@ -21,7 +21,7 @@ public class Desert_Snake extends Snake {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, 48.0D)
-				.add(Attributes.MOVEMENT_SPEED, 0.65D)
+				.add(Attributes.MOVEMENT_SPEED, 0.4D)
 				.add(Attributes.ATTACK_DAMAGE, 6D);
 	}
 	

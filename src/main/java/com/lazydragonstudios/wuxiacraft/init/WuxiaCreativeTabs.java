@@ -86,6 +86,8 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_3.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_4.get());
 						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_5.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_6.get());
+						output.accept(WuxiaItems.SPIRIT_STONE_VEIN_7.get());
 						output.accept(WuxiaItems.CELESTIAL_IRON_ORE.get());
 						output.accept(WuxiaItems.DEEPSLATE_CELESTIAL_IRON_ORE.get());
 						output.accept(WuxiaItems.CELESTIAL_IRON_BLOCK.get());
@@ -106,7 +108,9 @@ public class WuxiaCreativeTabs {
 						output.accept(WuxiaItems.SNAKE_SPAWN_EGG.get());
 						output.accept(WuxiaItems.DESERT_SNAKE_SPAWN_EGG.get());
 						output.accept(WuxiaItems.RED_SNAKE_SPAWN_EGG.get());
+						output.accept(WuxiaItems.BLUE_SNAKE_SPAWN_EGG.get());
 						output.accept(WuxiaItems.WHITE_SNAKE_SPAWN_EGG.get());
+						output.accept(WuxiaItems.BLACK_SNAKE_SPAWN_EGG.get());
 					})
 					.build()
 	);

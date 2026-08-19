@@ -32,7 +32,12 @@ public record StartTribulationMessage(int numberOfLightningStrikes, int lightnin
 			var serverPlayer = ctx.getSender();
 			if (serverPlayer == null) return;
 			var cultivation = Cultivation.get(serverPlayer);
-			cultivation.setTribulation(new Tribulation(msg.numberOfLightningStrikes, msg.lightningStrength, msg.lightningStrengthGrowth, msg.system));
+			int DemonicStage = cultivation.getDemonicStage();
+			int rebirths = cultivation.getRebirths();
+			int strikes = (msg.numberOfLightningStrikes+(DemonicStage/10)+(rebirths));
+			int strength = msg.lightningStrength+(DemonicStage*5)+(rebirths*4);
+			float growth = msg.lightningStrengthGrowth+(DemonicStage/20f)+(rebirths/10f);
+			cultivation.setTribulation(new Tribulation(strikes, strength, growth, msg.system));
 			cultivation.getTribulation().reset();
 			cultivation.setTribulating(true);
 			if(msg.numberOfLightningStrikes > 0)

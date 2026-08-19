@@ -76,36 +76,17 @@ public class SystemContainer {
 	public void addCultivationBase(Player player, ICultivation cultivation, BigDecimal amount, HashMap<ResourceLocation, BigDecimal> elementHash) {
 		if (system == System.ESSENCE)
 		cultivation.getSystemData(System.DIVINE).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
-		if (system == System.DIVINE)
-		cultivation.getSystemData(System.BODY).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
-		if (system == System.BODY)
-		cultivation.getSystemData(System.ESSENCE).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
 		//all initialized data so that orders can change around
-		var grid = this.techniqueData.grid.getGrid();
-		var aspects = cultivation.getAspects();
 		var elements = this.techniqueData.modifier.elements;
-		var cultSpeed = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_SPEED);
+		amount = this.handleCultivationBaseModifiers(player, cultivation, amount);
 		//Adds foundation and comprehension
 		for (var elementLocation : elements.keySet()) {
 			BigDecimal modifier = BigDecimal.ONE;
-			for (var elementKey : elementHash.keySet()) {
-		 		if (elementLocation == elementKey) modifier = elementHash.get(elementKey);
-			}
+			if (elementHash.keySet().contains(elementLocation)) modifier = elementHash.get(elementLocation);
 			cultivation.addStat(system, elementLocation, PlayerSystemElementalStat.FOUNDATION, BigDecimal.valueOf(elements.get(elementLocation) * 0.1).multiply(amount).multiply(modifier));
 			cultivation.addStat(elementLocation, PlayerElementalStat.COMPREHENSION, BigDecimal.valueOf(elements.get(elementLocation)).multiply(modifier));
 		}
-		//Adds aspect proficiency
-		for (var aspectLocation : grid.values()) {
-			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
-			BigDecimal modifier = BigDecimal.ONE;
-			for (var elementKey : elementHash.keySet()) {
-				if (aspect instanceof ElementalGenerator apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
-				else if (aspect instanceof ElementalConverter apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
-				else if (aspect instanceof ElementalConsumer apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);				
-			}
-			aspects.addAspectProficiency(aspectLocation, amount.multiply(modifier), cultivation);
-		}
-		this.techniqueData.grid.fixProficiencies(aspects);
+		this.handleAspectProficiencyGain(player, cultivation, amount, elementHash);
 		//applies spiritual resonance
 		if (system == System.ESSENCE && player.hasEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get())) {
 			var instance = player.getEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get());
@@ -115,24 +96,48 @@ public class SystemContainer {
 				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("2").pow(amplifier)));
 			}
 		}
-		//Applies Enlightenment
-		if (system == System.DIVINE && player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
-			var instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
-			if (instance != null) {
-				var amplifier = instance.getAmplifier();
-				//amount = amount * (1 + (2 ^ amplifier))
-				amount = amount.multiply(BigDecimal.ONE.add(new BigDecimal("2").pow(amplifier)));
+		var cultSpeed = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_SPEED);
+		amount = amount.add(cultSpeed);
+		//adds the base
+		cultivation.addStat(system, PlayerSystemStat.CULTIVATION_BASE, amount);
+	}
+
+	//Adds aspect proficiency
+	public void handleAspectProficiencyGain(Player player, ICultivation cultivation, BigDecimal amount, HashMap<ResourceLocation, BigDecimal> elementHash) {
+		var grid = this.techniqueData.grid.getGrid();
+		var aspects = cultivation.getAspects();
+		for (var aspectLocation : grid.values()) {
+			//Applies Enlightenment
+			if (player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
+				var instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
+				if (instance != null) {
+					int amplifier = instance.getAmplifier();
+					//amount = amount * (1.05 ^ amplifier+1))
+					amount = amount.multiply(new BigDecimal(1.05).pow(amplifier+1));
+				}
 			}
+			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
+			BigDecimal modifier = BigDecimal.ONE;
+			for (var elementKey : elementHash.keySet()) {
+				if (aspect instanceof ElementalGenerator apsectE && apsectE.element.equals(elementKey)) modifier = elementHash.get(elementKey);
+				else if (aspect instanceof ElementalConverter apsectE && apsectE.element.equals(elementKey)) modifier = elementHash.get(elementKey);
+				else if (aspect instanceof ElementalConsumer apsectE && apsectE.element.equals(elementKey)) modifier = elementHash.get(elementKey);				
+			}
+			aspects.addAspectProficiency(aspectLocation, amount.multiply(modifier), cultivation);
 		}
-		//adds cultivation speed
-		amount = amount.multiply(BigDecimal.ONE.add(cultSpeed).multiply(BigDecimal.valueOf(WuxiaConfigs.CULTIVATION_SPEED_MULTIPLIER.get())));
+		this.techniqueData.grid.fixProficiencies(aspects);
+	}
+
+	//applies config modifers
+	public BigDecimal handleCultivationBaseModifiers(Player player, ICultivation cultivation, BigDecimal amount) {
+		amount = amount.multiply(BigDecimal.valueOf(WuxiaConfigs.CULTIVATION_SPEED_MULTIPLIER.get()));
 		Map<ResourceKey<Level>, Double> multiplierMap = WuxiaConfigs.getDimensionMultipliers();
 		ResourceKey<Level> currentDim = player.level().dimension();
 		if (multiplierMap.containsKey(currentDim)) {
     		amount = amount.multiply(BigDecimal.valueOf(multiplierMap.get(currentDim)));
 		}
 		String AFKS = WuxiaConfigs.AFK_SYSTEM.get();
-		var AFKtimer = cultivation.getStat(PlayerStat.CULTPOINT).intValue();
+		int AFKtimer = cultivation.getStat(PlayerStat.CULTPOINT).intValue();
 		BigDecimal AFKmulti = BigDecimal.ZERO;
 		int cheeseburger = 0; //<-- just a little thing to stop config mistypes from stoping cultivation
 		if (AFKS.equals("enabled") || AFKS.equals("enabled+") || AFKS.equals("detrimental")) {
@@ -156,9 +161,8 @@ public class SystemContainer {
 		}
 		if (cheeseburger == 0) AFKmulti = BigDecimal.ONE;
 		amount = amount.multiply(AFKmulti);
-		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).subtract(new BigDecimal("8")));
-		//adds the base
-		cultivation.addStat(system, PlayerSystemStat.CULTIVATION_BASE, amount);
+		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).subtract(BigDecimal.TEN).max(BigDecimal.ZERO));
+		return amount;
 	}
 
 	@Nonnull
@@ -288,10 +292,14 @@ public class SystemContainer {
 		var maxCultivationBase = this.getStat(PlayerSystemStat.MAX_CULTIVATION_BASE).multiply(BigDecimal.valueOf(2));
 		var foundationInElement = this.getStat(PlayerSystemElementalStat.FOUNDATION, elementLocation);
 		MathContext mc = new MathContext(8, RoundingMode.HALF_UP);
-		// mCB^2 / ( f^2 + mCB^2 - f*mCB) == A very nice bell curve that tops at 4/3 and stretches out based on cultivation base
-		var foundationGainSpeed = maxCultivationBase.pow(2).divide(foundationInElement.pow(2).add(maxCultivationBase.pow(2)).subtract(foundationInElement.multiply(maxCultivationBase)), mc);
+		Double foundationGainSpeed = 1d;
+		if (value.compareTo(BigDecimal.ZERO) > 0) {
+			if (foundationInElement.compareTo(maxCultivationBase) > 0) {
+				foundationGainSpeed = maxCultivationBase.doubleValue() / (foundationInElement.doubleValue()*2d);
+			}
+		}
 		this.setStat(elementLocation, PlayerSystemElementalStat.FOUNDATION,
-				foundationInElement.add(value.multiply(foundationGainSpeed, mc).max(BigDecimal.ZERO)));
+				foundationInElement.add(value.multiply(new BigDecimal(foundationGainSpeed), mc).max(BigDecimal.ZERO)));
 	}
 
 	public boolean hasEnergy(BigDecimal amount) {

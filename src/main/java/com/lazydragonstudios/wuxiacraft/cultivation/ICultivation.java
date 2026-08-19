@@ -95,6 +95,12 @@ public interface ICultivation {
 	 */
 	boolean attemptBreakthrough(System system);
 
+	/**
+	 * Rebirths player
+	 * @return true if successful in the rebirth
+	 */
+	boolean attemptRebirth();
+
 	void calculateStats();
 
 	CompoundTag serialize();
@@ -144,10 +150,17 @@ public interface ICultivation {
 
 	int getCultTimer();
 	
-	//
-	void setToD(long amount);		
+	void setToD(long amount);	
+
 	long getToD();
-	//
+
+	void setRebirths(int amount);		
+	
+	int getRebirths();
+
+	void setDemonicStage(int amount);		
+	
+	int getDemonicStage();
 
 	boolean isDivineSense();
 

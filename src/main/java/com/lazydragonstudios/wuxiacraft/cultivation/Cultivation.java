@@ -18,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.UUID;
@@ -47,6 +48,9 @@ public class Cultivation implements ICultivation {
 			SystemContainer systemData;
 			if (system == System.BODY) {
 				systemData = new BodyCultivationContainer();
+			} else 
+			if (system == System.DIVINE) {
+				systemData = new DivineCultivationContainer();
 			} else {
 				systemData = new SystemContainer(system);
 			}
@@ -57,6 +61,9 @@ public class Cultivation implements ICultivation {
 		this.exercising = false;
 		this.combat = false;
 		this.isDivineSense = false;
+		this.ToD = 0L;
+		this.rebirths = 0;
+		this.demonicStage = 0;
 		this.tribulating = false;
     	this.tribulation = new Tribulation(1, 1, 1, System.ESSENCE);
 		this.formationCore = null;
@@ -145,16 +152,29 @@ public class Cultivation implements ICultivation {
 	 * but that is not among us anymore
 	 */
 	private int tickTimer;
-
+	
 	private int cultTimer;
 
-	// time of day/ game time
+	/**
+	 * time of day/ game time
+	 */
 	private long ToD;
+
+	/**
+	 * amount of rebirths
+	 */
+	private int rebirths;
+
+	/**
+	 * stage of demonic corruption
+	 */
+	private int demonicStage;
 
 	/**
 	 * Tribulation stuff
 	 */	
 	private boolean isTribulating = false;
+
 	public Tribulation tribulation;
 
 
@@ -293,13 +313,20 @@ public class Cultivation implements ICultivation {
 		var cultBase = this.getStat(system, PlayerSystemStat.CULTIVATION_BASE);
 		var maxCultBase = this.getStat(system, PlayerSystemStat.MAX_CULTIVATION_BASE);
 		if (cultBase.compareTo(maxCultBase) < 0) return false;
-		//TODO logic for chanced breakthrough
 		var stage = systemData.getStage();
 		if (stage.nextStage == null) return false;
 		systemData.currentStage = stage.nextStage;
 		systemData.setStat(PlayerSystemStat.CULTIVATION_BASE, BigDecimal.ZERO);
-		this.setStat(PlayerStat.LIVES, this.getStat(PlayerStat.LIVES).add(BigDecimal.ONE).min(BigDecimal.valueOf(WuxiaConfigs.MAX_LIVES.get())));
+		this.setStat(PlayerStat.LIVES, this.getStat(PlayerStat.LIVES).add(BigDecimal.ONE).min(this.getStat(PlayerStat.MAX_LIVES)));
 		return !systemData.currentStage.equals(initialStage);
+	}
+
+	@Override
+	public boolean attemptRebirth() {
+		ICultivation newCultivation = new Cultivation();
+		newCultivation.setRebirths(this.getRebirths()+1);
+		this.deserialize(newCultivation.serialize());
+		return newCultivation.getRebirths() == this.getRebirths();
 	}
 
 	@Override
@@ -316,6 +343,12 @@ public class Cultivation implements ICultivation {
 			}
 			if(stat == PlayerStat.MAX_HEALTH) {
 				statValue = statValue.add(BigDecimal.valueOf(extraHealthFromAttributes));
+			} else
+			if(stat == PlayerStat.REBIRTHS) {
+				statValue = new BigDecimal(this.getRebirths());
+			} else
+			if(stat == PlayerStat.MAX_LIVES) {
+				statValue = statValue.add(new BigDecimal(this.getRebirths()));
 			}
 			statValue = statValue.max(BigDecimal.ZERO);
 			this.playerStats.put(stat, statValue.setScale(6, RoundingMode.HALF_DOWN));
@@ -407,6 +440,9 @@ public class Cultivation implements ICultivation {
 		}
 		tag.put("master-disciple", this.masterDiscipleContainer.serialize());
 		tag.putBoolean("combat-mode", this.isCombat());
+		tag.putLong("time-of-day", this.getToD());
+		tag.putInt("rebirths", this.getRebirths());
+		tag.putInt("demonic-stage", this.getDemonicStage());
 		tag.putBoolean("tribulating", this.isTribulating());
 		tag.put("tribulation-data", this.tribulation.serialize());
 		var regulatorsTag = new CompoundTag();
@@ -493,6 +529,15 @@ public class Cultivation implements ICultivation {
 		}
 		if (tag.contains("combat-mode")) {
 			this.setCombat(tag.getBoolean("combat-mode"));
+		}
+		if (tag.contains("time-of-day")) {
+			this.setToD(tag.getLong("time-of-day"));
+		}
+		if (tag.contains("rebirths")) {
+			this.setRebirths(tag.getInt("rebirths"));
+		}
+		if (tag.contains("demonic-stage")) {
+			this.setDemonicStage(tag.getInt("demonic-stage"));
 		}
 		if (tag.contains("tribulating")) {
 			this.setTribulating(tag.getBoolean("tribulating"));
@@ -599,7 +644,6 @@ public class Cultivation implements ICultivation {
 		return this.cultTimer;
 	}
 	
-	//	//	//	//	//	//	//	//	//	//	//
 	@Override
 	public void setToD(long amount) {
 		this.ToD = amount;
@@ -609,7 +653,26 @@ public class Cultivation implements ICultivation {
 	public long getToD() {
 		return this.ToD;
 	}
-	//	//	//	//	//	//	//	//	//	//	//
+
+	@Override
+	public void setRebirths(int amount) {
+		this.rebirths = amount;
+	}
+
+	@Override
+	public int getRebirths() {
+		return this.rebirths;
+	}
+
+	@Override
+	public void setDemonicStage(int amount) {
+		this.demonicStage = amount;
+	}
+
+	@Override
+	public int getDemonicStage() {
+		return this.demonicStage;
+	}
 
 	@Override
 	public boolean isDivineSense() {

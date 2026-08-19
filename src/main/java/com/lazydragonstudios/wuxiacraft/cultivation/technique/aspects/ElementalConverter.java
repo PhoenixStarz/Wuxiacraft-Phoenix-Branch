@@ -44,7 +44,7 @@ public abstract class ElementalConverter extends TechniqueAspect {
 
 	/**
 	 * After the element is converted into accept, it'll allow subclasses to do stuff with the converted amount
-	 * @param converted the converted amount (limited my the amount of this aspect)
+	 * @param converted the converted amount (limited by the amount of this aspect)
 	 * @param metaData the current modifiers when accepting this
 	 * @param proficiency the proficiency of this aspect
 	 */

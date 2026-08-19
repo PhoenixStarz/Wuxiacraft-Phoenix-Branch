@@ -155,6 +155,7 @@ public class WuxiaTechniqueComposeGrid extends AbstractWidget {
 			for (var line : this.connectionLines) {
 				Point start = hexagonToCartesianQuickAssess.get(line.start);
 				Point end = hexagonToCartesianQuickAssess.get(line.finish);
+				if (start == null || end == null) continue;
 				int color = line.color;
 				buffer.vertex(guiGraphics.pose().last().pose(), start.x, start.y, 0).color(color).normal(1f, 0f, 0f).endVertex();
 				buffer.vertex(guiGraphics.pose().last().pose(), end.x, end.y, 0).color(color).normal(1f, 0f, 0f).endVertex();

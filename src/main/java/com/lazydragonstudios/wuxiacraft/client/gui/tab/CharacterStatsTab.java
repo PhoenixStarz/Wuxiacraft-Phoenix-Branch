@@ -62,6 +62,7 @@ public class CharacterStatsTab extends IntrospectionTab {
 		for (var stat : PlayerStat.values()) {
 			if (WuxiaConfigs.AFK_SYSTEM.get().equals("disabled") && stat == PlayerStat.CULTPOINT) continue;
 			BigDecimal statDecimal = cultivation.getStat(stat);
+			if (stat == PlayerStat.REBIRTHS && statDecimal.compareTo(BigDecimal.ZERO) < 1) continue;
 			var statValue = statDecimal.setScale(Math.min(statDecimal.scale(), 2), RoundingMode.HALF_UP).toEngineeringString();
 			var label = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui." + stat.name().toLowerCase(), statValue), color);
 			displayLabels.put(stat, label);
@@ -98,12 +99,13 @@ public class CharacterStatsTab extends IntrospectionTab {
 			}
 			for (var stat : systemData.getElementalStats()) {
 				for (var element : systemData.getElementsForStat(stat)) {
+					BigDecimal statDecimal = cultivation.getStat(system, element, stat);
+					if (statDecimal.compareTo(BigDecimal.ZERO) <= 0) continue;
 					if (stat == PlayerSystemElementalStat.FOUNDATION) {
 						var foundationBox = new WuxiaFoundationLabelBox(0, 0, element, cultivation, system, systemStats.get(system)::recalculateContentSpace);
 						systemStats.get(system).addChild(foundationBox);
 						continue;
 					}
-					BigDecimal statDecimal = cultivation.getStat(system, element, stat);
 					var statValue = statDecimal.setScale(Math.min(statDecimal.scale(), 2), RoundingMode.HALF_UP).toEngineeringString();
 					var label = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui." + stat.name().toLowerCase(),
 							Component.translatable(element.getNamespace() + ".element." + element.getPath()),

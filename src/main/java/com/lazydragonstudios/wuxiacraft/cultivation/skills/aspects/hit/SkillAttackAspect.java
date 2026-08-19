@@ -30,7 +30,7 @@ public class SkillAttackAspect extends SkillHitAspect {
 				if (entityResult.getEntity() instanceof LivingEntity target) {
 					var casterCultivation = Cultivation.get(caster);
 					var skillStrength = skill.getAppliedStats(casterCultivation, SkillStat.STRENGTH);
-					var damage = skillStrength;
+					var damage = skillStrength.multiply(new BigDecimal(2));
 					ResourceKey<DamageType> damageType = WuxiaDamageTypes.SKILL_ATTACK;
 					if(skill.getSkillChain().get(0) instanceof SkillBeamAspect) damageType = WuxiaDamageTypes.SKILL_BEAM_ATTACK;
 					var damageSource = new WuxiaDamageSource(caster.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE)

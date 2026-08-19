@@ -32,6 +32,10 @@ public class WuxiaEntities {
 			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("aura_entity")
 	);
 
+	public static final RegistryObject<EntityType<AbstractClientPlayer>> DEMONIC_AURA_ENTITY = ENTITY_TYPE_REGISTER.register("demonic_aura_entity",
+			() -> EntityType.Builder.<AbstractClientPlayer>createNothing(MobCategory.MISC).build("demonic_aura_entity")
+	);
+
 	//body transformation ones
 
 	public static final RegistryObject<EntityType<AbstractClientPlayer>> KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY = ENTITY_TYPE_REGISTER.register("kitsune_one_tail_body_transformation_entity",
@@ -175,8 +179,16 @@ public class WuxiaEntities {
 			() -> EntityType.Builder.of(Red_Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("red_snake")
 	);	
 	
+	public static final RegistryObject<EntityType<Blue_Snake>> BLUE_SNAKE_ENTITY_TYPE = ENTITY_TYPE_REGISTER.register("blue_snake",
+			() -> EntityType.Builder.of(Blue_Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("blue_snake")
+	);
+
 	public static final RegistryObject<EntityType<White_Snake>> WHITE_SNAKE_ENTITY_TYPE = ENTITY_TYPE_REGISTER.register("white_snake",
 			() -> EntityType.Builder.of(White_Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("white_snake")
+	);
+
+	public static final RegistryObject<EntityType<Black_Snake>> BLACK_SNAKE_ENTITY_TYPE = ENTITY_TYPE_REGISTER.register("black_snake",
+			() -> EntityType.Builder.of(Black_Snake::new, MobCategory.MONSTER).sized(0.8f, 1.7f).build("black_snake")
 	);
 
 }

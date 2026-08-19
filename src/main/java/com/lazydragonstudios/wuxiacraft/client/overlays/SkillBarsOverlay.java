@@ -32,9 +32,9 @@ public class SkillBarsOverlay implements IGuiOverlay {
 		var castBarFill = BigDecimal.ZERO;
 		var coolBarFill = BigDecimal.ZERO;
 		if (castTime.compareTo(BigDecimal.ZERO) > 0)
-			castBarFill = currentCastTime.multiply(new BigDecimal("182")).divide(castTime, mc);
+			castBarFill = currentCastTime.multiply(new BigDecimal("182")).divide(castTime, mc).min(new BigDecimal("182"));
 		if (cooldown.compareTo(BigDecimal.ZERO) > 0)
-			coolBarFill = currentCooldown.multiply(new BigDecimal("182")).divide(cooldown, mc);
+			coolBarFill = currentCooldown.multiply(new BigDecimal("182")).divide(cooldown, mc).min(new BigDecimal("182"));
 		int y = screenHeight - 32 + 3;
 		var x = screenWidth / 2 - 91;
 		guiGraphics.pose().pushPose();

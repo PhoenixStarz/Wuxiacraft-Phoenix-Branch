@@ -26,8 +26,8 @@ public class AuraRenderer extends EntityRenderer<AbstractClientPlayer> {
 
 	private Aura aura;
 
-	public AuraRenderer(EntityRendererProvider.Context p_174008_) {
-		super(p_174008_);
+	public AuraRenderer(EntityRendererProvider.Context pContext) {
+		super(pContext);
 		aura = new BaseAura();
 	}
 

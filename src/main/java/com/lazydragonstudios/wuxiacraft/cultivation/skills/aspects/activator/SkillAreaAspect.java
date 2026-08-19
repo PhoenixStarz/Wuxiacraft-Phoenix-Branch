@@ -1,0 +1,54 @@
+package com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.activator;
+
+import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
+import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
+import com.lazydragonstudios.wuxiacraft.cultivation.System;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspectType;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.SkillHitAspect;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.modifier.SkillHitModifierAspect;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaSkillAspects;
+import net.minecraft.world.phys.EntityHitResult;
+
+import java.math.BigDecimal;
+
+public class SkillAreaAspect extends SkillActivatorAspect {
+
+	public SkillAreaAspect(ICultivation cultivation) {
+		super(cultivation);
+		setSkillStat(SkillStat.COST, new BigDecimal("2.4"));
+		setSkillStat(SkillStat.STRENGTH, new BigDecimal("0.5"));
+		setSkillStat(SkillStat.CAST_TIME, new BigDecimal("2.2"));
+		setSkillStat(SkillStat.COOLDOWN, new BigDecimal("1.6"));
+		this.setActivate((caster, skill) -> {
+			var casterCultivation = Cultivation.get(caster);
+			var essenceData = casterCultivation.getSystemData(System.ESSENCE);
+			BigDecimal cost = skill.getAppliedStats(casterCultivation, SkillStat.COST);
+			if (!essenceData.consumeEnergy(cost)) return false;
+			caster.swinging = true;
+			double radius = 5.0; 
+			var aoeEntities = caster.level().getEntities(
+				caster,
+				caster.getBoundingBox().inflate(radius)
+			);			
+			for (var entity : aoeEntities) {
+				if (entity == caster) continue;
+				var result = new EntityHitResult(entity, entity.getEyePosition());
+				for (var link : skill.getSkillChain()) {
+					if (link instanceof SkillHitAspect hitAspect) {
+						hitAspect.activate(caster, skill, result);
+					} else
+					if (link instanceof SkillHitModifierAspect hitModifierAspect) {
+						hitModifierAspect.activate(caster, skill, result);
+					} else continue;
+				}
+			}
+			return true;
+		});
+	}
+
+	@Override
+	public SkillAspectType getType() {
+		return WuxiaSkillAspects.AREA.get();
+	}
+}

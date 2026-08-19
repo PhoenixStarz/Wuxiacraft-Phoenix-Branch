@@ -110,6 +110,7 @@ public class CultivationCommand {
 			message.append("CultivationBase: ").append(String.format("%.1f", cultivation.getStat(system, PlayerSystemStat.CULTIVATION_BASE))).append("\n");
 			message.append("Energy: ").append(String.format("%.1f", cultivation.getStat(system, PlayerSystemStat.ENERGY))).append("\n\n");
 		}
+		message.append("Rebirths: ").append(String.valueOf(cultivation.getRebirths()));
 		ctx.getSource().sendSuccess(() -> message, true);
 		return 1;
 	}

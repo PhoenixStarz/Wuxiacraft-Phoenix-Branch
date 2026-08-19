@@ -65,11 +65,10 @@ public class WuxiaCraft {
 
 		WuxiaDefaultTechniqueManuals.init();
 		WuxiaGameRules.registerRules();
-		TechniqueUtil.initDevouringData();
-		TechniqueUtil.initChancedAspectsBlocks();
-		TechniqueUtil.initEntityChancedAspects();
+		TechniqueUtil.loadDevouringData();
+		TechniqueUtil.loadChancedAspectsBlocks();
+		TechniqueUtil.loadChancedAspectsEntities();
 		TechniqueUtil.initWeaponTechniques();
-		TechniqueUtil.initDevouringAspects();
 		TechniqueUtil.initTransformationAspects();
 		registerArgumentTypes();
 	}

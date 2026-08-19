@@ -25,61 +25,62 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
-public class BonsaiBlock extends SweetBerryBushBlock {
+    public class BonsaiBlock extends SweetBerryBushBlock {
 
-    protected final Supplier<Supplier<Item>> item;
-    private final boolean hurtEntityInside;
+    protected final Supplier<Item> item;
 
-    public BonsaiBlock(Properties properties, Supplier<Supplier<Item>> item, boolean hurtEntityInside) {
+    public BonsaiBlock(Properties properties, Supplier<Item> item) {
         super(properties);
         this.item = item;
-        this.hurtEntityInside = hurtEntityInside;
     }
 
-    public BonsaiBlock(Supplier<Supplier<Item>> item, boolean hurtEntityInside) {
-        this(BlockBehaviour.Properties.copy(Blocks.SWEET_BERRY_BUSH), item, hurtEntityInside);
-    }
-
-    @Override
-    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
-        return item.get().get().getDefaultInstance();
+    public BonsaiBlock(Supplier<Item> item) {
+        this(BlockBehaviour.Properties.copy(Blocks.SWEET_BERRY_BUSH), item);
     }
 
     @Override
-    public @NotNull InteractionResult use(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+        return item.get().getDefaultInstance();
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         int age = state.getValue(AGE);
-        boolean isMaxAge = age == MAX_AGE;
-        if (!isMaxAge) {
+        if (age == MAX_AGE) {
             return InteractionResult.FAIL;
         } else if (age > 1) {
-            popResource(level, pos, new ItemStack(item.get().get(), 1));
+            popResource(level, pos, new ItemStack(item.get(), 1));
             level.playSound(player, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
             BlockState blockState = state.setValue(AGE, 1);
             level.setBlock(pos, blockState, 2);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
             return super.use(state, level, pos, player, hand, hit);
         }
     }
 
     @Override
-    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
     }
 
     @Override
-	public boolean isBonemealSuccess (Level level, RandomSource randomSource, BlockPos pos, BlockState state) {
-		return false;
-	}
+    public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos pos, BlockState state) {
+        return false;
+    }
 
     @Override
     public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {

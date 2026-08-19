@@ -2,13 +2,19 @@ package com.lazydragonstudios.wuxiacraft.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.level.BlockEvent;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -79,5 +85,21 @@ public class SkillUtil {
 		}
 		return linkedList;
 	}
+
+	public static boolean canPlayerBreak(Level level, BlockPos pos, BlockState state, Player player) {
+		if (state.getDestroySpeed(level, pos) < 0) return false;
+		BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(level, pos, state, player);
+		MinecraftForge.EVENT_BUS.post(event);
+		return !event.isCanceled();
+	}
+
+	public static boolean canPlayerPlace(Level level, BlockPos pos, BlockState state, Player player) {
+		if (level.isOutsideBuildHeight(pos)) return false;
+		BlockSnapshot snapshot = BlockSnapshot.create(level.dimension(), level, pos);
+		BlockEvent.EntityPlaceEvent event = new BlockEvent.EntityPlaceEvent(snapshot, state, player);
+		MinecraftForge.EVENT_BUS.post(event);
+		return !event.isCanceled();
+	}
+
 
 }

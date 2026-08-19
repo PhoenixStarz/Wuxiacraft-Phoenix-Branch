@@ -6,45 +6,55 @@ import java.math.RoundingMode;
 
 public class StatsUtil {
 
-	public static String getShortHealthAmount(BigDecimal amount) {
+	public static String getShortHealthAmount(BigDecimal amountBig) {
+		float amount = amountBig.floatValue();
 		String value = "";
-		if (amount.compareTo(BigDecimal.ZERO) < 0) {
-			value += "-";
-		}
-		MathContext mc = new MathContext(3, RoundingMode.HALF_DOWN);
-		amount = amount.abs(mc);
-		if (amount.compareTo(new BigDecimal("1000")) < 0) {
-			value += amount.setScale(0, RoundingMode.HALF_DOWN).toPlainString();
-		} else if (amount.compareTo(new BigDecimal("10000")) < 0) {
-			var mills = amount.divide(new BigDecimal("1000"), mc);
-			value += String.format("%sk", mills.toPlainString());
-		} else if (amount.compareTo(new BigDecimal("100000")) < 0) {
-			var mills = amount.divide(new BigDecimal("10000"), mc);
-			value += String.format("%sk", mills);
-		} else if (amount.compareTo(new BigDecimal("1000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("100000"), mc);
-			value += String.format("%sM", mills);
-		} else if (amount.compareTo(new BigDecimal("10000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("1000000"), mc);
-			value += String.format("%sM", mills);
-		} else if (amount.compareTo(new BigDecimal("100000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("10000000"), mc);
-			value += String.format("%sM", mills);
-		} else if (amount.compareTo(new BigDecimal("1000000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("100000000"), mc);
-			value += String.format("%sG", mills);
-		} else if (amount.compareTo(new BigDecimal("10000000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("1000000000"), mc);
-			value += String.format("%sG", mills);
-		} else if (amount.compareTo(new BigDecimal("100000000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("10000000000"), mc);
-			value += String.format("%sG", mills);
-		} else if (amount.compareTo(new BigDecimal("1000000000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("100000000000"), mc);
-			value += String.format("%sT", mills);
-		} else if (amount.compareTo(new BigDecimal("10000000000000")) < 0) {
-			var mills = amount.divide(new BigDecimal("1000000000000"), mc);
-			value += String.format("%sT", mills);
+		if(amount < 0) value += "-";
+		amount = Math.abs(amount);
+		if (amount < 1000f) {
+			value += (int)amount;
+		} else if (amount < 10000f) {
+			float mills = amount / 1000f;
+			value += String.format("%.1fk", mills);
+		} else if (amount < 1000000f) {
+			float mills = amount / 1000f;
+			value += String.format("%.0fk", mills);
+		} else if (amount < 10000000f) {
+			float mills = amount / 1000000f;
+			value += String.format("%.1fM", mills);
+		} else if (amount < 1000000000f) {
+			float mills = amount / 1000000f;
+			value += String.format("%.0fM", mills);
+		} else if (amount < 10000000000f) {
+			float mills = amount / 1000000000f;
+			value += String.format("%.1fB", mills);
+		} else if (amount < 1000000000000f) {
+			float mills = amount / 1000000000f;
+			value += String.format("%.0fB", mills);
+		} else if (amount < 10000000000000f) {
+			float mills = amount / 1000000000000f;
+			value += String.format("%.1fT", mills);
+		} else if (amount < 1000000000000000f) {
+			float mills = amount / 1000000000000f;
+			value += String.format("%.0fT", mills);
+		} else if (amount < 10000000000000000f) {
+			float mills = amount / 1000000000000000f;
+			value += String.format("%.1fP", mills);
+		} else if (amount < 1000000000000000000f) {
+			float mills = amount / 1000000000000000f;
+			value += String.format("%.0fP", mills);
+		} else if (amount < 10000000000000000000f) {
+			float mills = amount / 1000000000000000000f;
+			value += String.format("%.1fE", mills);
+		} else if (amount < 1000000000000000000000f) {
+			float mills = amount / 1000000000000000000f;
+			value += String.format("%.0fE", mills);
+		} else if (amount < 10000000000000000000000f) {
+			float mills = amount / 1000000000000000000000f;
+			value += String.format("%.1fZ", mills);
+		} else if (amount < 1000000000000000000000000f) {
+			float mills = amount / 1000000000000000000000f;
+			value += String.format("%.0fZ", mills);
 		}
 		return value;
 	}

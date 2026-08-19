@@ -67,13 +67,19 @@ public class WuxiaBlocks {
 			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(16f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_3 = BLOCKS.register("spirit_stone_vein_3",
-			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(24f).requiresCorrectToolForDrops()));
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(20f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_4 = BLOCKS.register("spirit_stone_vein_4",
 			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(24f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> SPIRIT_STONE_VEIN_5 = BLOCKS.register("spirit_stone_vein_5",
 			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(32f).requiresCorrectToolForDrops()));
+
+	public static RegistryObject<Block> SPIRIT_STONE_VEIN_6 = BLOCKS.register("spirit_stone_vein_6",
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(40f).requiresCorrectToolForDrops()));	
+
+	public static RegistryObject<Block> SPIRIT_STONE_VEIN_7 = BLOCKS.register("spirit_stone_vein_7",
+			() -> new VeinBlock(BlockBehaviour.Properties.of().strength(44f).requiresCorrectToolForDrops()));
 
 	public static RegistryObject<Block> CELESTIAL_IRON_ORE = BLOCKS.register("celestial_iron_ore",
 			() -> new Block(BlockBehaviour.Properties.of().strength(16f).lightLevel(s -> 3).requiresCorrectToolForDrops()));
@@ -91,31 +97,31 @@ public class WuxiaBlocks {
 			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 10, CELESTIAL_IRON_BLOCK.get(), FORMATION_CORE_BASE.get()));
 			
     public static RegistryObject<Block> BONSAI_1 = BLOCKS.register("bonsai_1",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_1, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_1.get()));
 
     public static RegistryObject<Block> BONSAI_2 = BLOCKS.register("bonsai_2",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_2, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_2.get()));
 			
     public static RegistryObject<Block> BONSAI_3 = BLOCKS.register("bonsai_3",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_3, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_3.get()));
 			
     public static RegistryObject<Block> BONSAI_4 = BLOCKS.register("bonsai_4",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_4, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_4.get()));
 			
     public static RegistryObject<Block> BONSAI_5 = BLOCKS.register("bonsai_5",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_5, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_5.get()));
 			
     public static RegistryObject<Block> BONSAI_6 = BLOCKS.register("bonsai_6",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_6, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_6.get()));
 			
     public static RegistryObject<Block> BONSAI_7 = BLOCKS.register("bonsai_7",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_7, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_7.get()));
 			
     public static RegistryObject<Block> BONSAI_8 = BLOCKS.register("bonsai_8",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_8, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_8.get()));
 			
     public static RegistryObject<Block> BONSAI_9 = BLOCKS.register("bonsai_9",
-			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_9, true));
+			() -> new BonsaiBlock(() -> WuxiaItems.SPIRIT_FRUIT_9.get()));
 
 						
     public static RegistryObject<Block> SPIRIT_CRYSTAL_BLOCK = BLOCKS.register("spirit_crystal_block",
@@ -179,10 +185,10 @@ public class WuxiaBlocks {
 			BARRIER_RUNES.put(material, BLOCKS.register(material.name().toLowerCase() + "_barrier_rune",
 					() -> new StatRuneBlock(BlockBehaviour.Properties.of().strength(material.blockStrength))
 							.addStat(FormationStat.ENERGY_COST, material.materialModifier.multiply(new BigDecimal("8")))
-							.addStat(FormationStat.BARRIER_RANGE, new BigDecimal("8").add(material.materialModifier))
-							.addStat(FormationStat.BARRIER_MAX_AMOUNT, new BigDecimal("20").add(material.materialModifier.multiply(new BigDecimal("2"))))
-							.addStat(FormationStat.BARRIER_STRENGTH, material.materialModifier)
-							.addStat(FormationStat.BARRIER_REGEN, material.materialModifier.multiply(new BigDecimal("0.02")))
+							.addStat(FormationStat.BARRIER_RANGE, new BigDecimal("4").add(material.materialModifier))
+							.addStat(FormationStat.BARRIER_MAX_AMOUNT, material.materialModifier.multiply(new BigDecimal("80")))
+							.addStat(FormationStat.BARRIER_STRENGTH, material.materialModifier.multiply(BigDecimal.TEN))
+							.addStat(FormationStat.BARRIER_REGEN, material.materialModifier.multiply(new BigDecimal("0.2")))
 			));
 			for (var system : System.values()) {
 				ENERGY_RUNES.putIfAbsent(system, new HashMap<>());

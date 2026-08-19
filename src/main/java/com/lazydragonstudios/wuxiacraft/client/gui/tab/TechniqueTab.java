@@ -74,7 +74,7 @@ public class TechniqueTab extends IntrospectionTab {
 		searchField = new WuxiaTextField(36 + 3, 36, 110, 20);
 		searchField.editBox.setResponder(this::reloadAspects);
 
-		aspectsPanel = new WuxiaFlowPanel(36, 36 + 20 + 3, 116, scaledHeight - 16, Component.empty());
+		aspectsPanel = new WuxiaFlowPanel(36, 36 + 20 + 3, 116, scaledHeight + 16, Component.empty());
 		aspectsPanel.margin = 5;
 		techniqueStatsPanel = new WuxiaScrollPanel(scaledWidth - 200, 36, 200, scaledHeight - 55 - 36, Component.empty()) {
 

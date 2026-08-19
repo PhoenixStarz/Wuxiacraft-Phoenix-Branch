@@ -21,7 +21,7 @@ public class SkillHealAspect extends SkillHitAspect {
 	public SkillHealAspect(ICultivation cultivation) {
 		super(cultivation);
 		setSkillStat(SkillStat.COST, new BigDecimal("2"));
-		setSkillStat(SkillStat.STRENGTH, new BigDecimal("0.4"));
+		setSkillStat(SkillStat.STRENGTH, new BigDecimal("0.8"));
 		setSkillStat(SkillStat.CAST_TIME, new BigDecimal("1.2"));
 		setSkillStat(SkillStat.COOLDOWN, new BigDecimal("0.8"));
 		this.activation = (caster, skill, hitResult) -> {

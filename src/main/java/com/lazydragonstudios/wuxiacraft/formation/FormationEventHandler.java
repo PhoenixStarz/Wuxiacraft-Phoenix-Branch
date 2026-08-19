@@ -185,7 +185,7 @@ public class FormationEventHandler {
 				event.setCanceled(true);
 				break;
 			}
-		} else event.setCanceled(true);
+		}
 	}
 
 	@SubscribeEvent

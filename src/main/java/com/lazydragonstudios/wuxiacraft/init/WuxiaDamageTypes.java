@@ -25,4 +25,8 @@ public class WuxiaDamageTypes {
 
 	public static ResourceKey<DamageType> SKILL_EXPLOSION = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(WuxiaCraft.MOD_ID, "skill_explosion"));
 
+	public static ResourceKey<DamageType> DEMONIC_CORRUPTION = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(WuxiaCraft.MOD_ID, "demonic_corruption"));
+
+	public static ResourceKey<DamageType> BLOOD_BURNING_SKILL = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(WuxiaCraft.MOD_ID, "blood_burning_skill"));
+
 }

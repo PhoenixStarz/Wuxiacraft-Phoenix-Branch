@@ -94,6 +94,13 @@ public class AspectContainer {
 		countKnownAspects();
 	}
 
+	public void learnRebirthAspects(ICultivation cultivation) {
+		this.learnAspect(WuxiaTechniqueAspects.ASHES_OF_REBIRTH.getId(), cultivation);
+		this.learnAspect(WuxiaTechniqueAspects.EMBER_OF_REKINDLING.getId(), cultivation);
+		this.learnAspect(WuxiaTechniqueAspects.CINDER_OF_RENEWAL.getId(), cultivation);
+		this.learnAspect(WuxiaTechniqueAspects.SPIRITUAL_RECONSTRUCTION.getId(), cultivation);
+	}
+
 	public boolean learnAspect(ResourceLocation location, ICultivation cultivation) {
 		return this.learnAspectWithProficiency(location, cultivation, BigDecimal.TEN);
 	}

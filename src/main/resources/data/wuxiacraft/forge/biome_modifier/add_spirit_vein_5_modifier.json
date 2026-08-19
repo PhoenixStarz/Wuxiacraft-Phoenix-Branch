@@ -1,6 +1,6 @@
 {
- 	"type": "forge:add_features",
- 	"biomes": "#minecraft:is_end",
+  	"type": "forge:add_features",
+  	"biomes": "warped_forest",
 	"features": "wuxiacraft:ore_spirit_vein_5",
  	"step": "underground_ores"
 }

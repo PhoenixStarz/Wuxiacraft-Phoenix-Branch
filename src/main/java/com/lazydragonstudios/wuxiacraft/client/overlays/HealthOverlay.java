@@ -33,11 +33,11 @@ public class HealthOverlay implements IGuiOverlay {
 		guiGraphics.blit(HEALTH_BAR, i, j, 81, 9, 0, 0, 81, 9, 81, 18);
 		MathContext mathContext =  new MathContext(6, RoundingMode.HALF_UP);
 		var hp = new BigDecimal(Math.ceil(mc.player.getHealth() * 10) / 10);
-        var max_hp = new BigDecimal(mc.player.getMaxHealth());
+        var max_hp = new BigDecimal(Math.ceil(mc.player.getMaxHealth() * 10) / 10);
 		int fill = hp.multiply(new BigDecimal("81"), mathContext).divide(max_hp, mathContext).min(new BigDecimal(81)).intValue();
 		guiGraphics.blit(HEALTH_BAR, i, j, fill, 9, 0, 9, fill, 9, 81, 18);
 		//text
-		String life = StatsUtil.getShortHealthAmount(hp);// + "/" + getShortHealthAmount((int) max_hp);
+		String life = StatsUtil.getShortHealthAmount(hp) + "/" + StatsUtil.getShortHealthAmount(max_hp);
 		int healthStringWidth = gui.getFont().width(life);
 		guiGraphics.pose().pushPose();
 		guiGraphics.pose().translate((int) (i + (81f - healthStringWidth) / 2), j + 2, 1f);

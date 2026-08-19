@@ -64,7 +64,9 @@ public class RegistryEvents {
 		event.put(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), Snake.createAttributes().build());
 		event.put(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), Desert_Snake.createAttributes().build());
 		event.put(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), Red_Snake.createAttributes().build());
+		event.put(WuxiaEntities.BLUE_SNAKE_ENTITY_TYPE.get(), Blue_Snake.createAttributes().build());
 		event.put(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), White_Snake.createAttributes().build());
+		event.put(WuxiaEntities.BLACK_SNAKE_ENTITY_TYPE.get(), Black_Snake.createAttributes().build());
 	}
 
 	@SubscribeEvent
@@ -72,7 +74,9 @@ public class RegistryEvents {
 		event.register(WuxiaEntities.SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 		event.register(WuxiaEntities.DESERT_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 		event.register(WuxiaEntities.RED_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+		event.register(WuxiaEntities.BLUE_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 		event.register(WuxiaEntities.WHITE_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+		event.register(WuxiaEntities.BLACK_SNAKE_ENTITY_TYPE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 	}
 
 }

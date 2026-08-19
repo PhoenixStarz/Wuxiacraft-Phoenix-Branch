@@ -64,6 +64,18 @@ public class WuxiaRealms {
 					() -> new CultivationRealm("divine_comprehension_realm",
 							System.DIVINE
 					));	
+	
+	public static RegistryObject<CultivationRealm> DIVINE_COVENANT_REALM = REALM_REGISTER
+			.register("divine_covenant_realm",
+					() -> new CultivationRealm("divine_covenant_realm",
+							System.DIVINE
+					));
+
+	public static RegistryObject<CultivationRealm> DIVINE_KINGDOM_REALM = REALM_REGISTER
+			.register("divine_kingdom_realm",
+					() -> new CultivationRealm("divine_kingdom_realm",
+							System.DIVINE
+					));
 
 	//************************************
 	// essence realms
@@ -82,7 +94,7 @@ public class WuxiaRealms {
 					));
 
 	public static RegistryObject<CultivationRealm> FOUNDATION_ESTABLISHMENT_REALM = REALM_REGISTER
-			.register("foundation_establishment",
+			.register("foundation_establishment_realm",
 					() -> new CultivationRealm("foundation_establishment_realm",
 							System.ESSENCE
 					));
@@ -481,7 +493,7 @@ public class WuxiaRealms {
 							System.BODY,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "body_tempering_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "body_standard_meridian_tempering"),
-							null,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "body_extraordinary_meridian_tempering"),
 							10, 1280, 0.9f
 					)
 							.unlockPart(WuxiaBodyParts.REN_MAI.getId())
@@ -509,217 +521,435 @@ public class WuxiaRealms {
 	// divine stages
 	//*********************************
 
-public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGISTER
+	public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGISTER
 			.register("divine_mortal_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_mortal_realm"),
-							null, 
+							null,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_feeling_stage"),
-							1, 5, 0.0f
+							0, 0, 0.0f,
+							0, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(BigDecimal.ONE, BigDecimal.ONE))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(BigDecimal.ONE))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("1000"))
+							.setOnCultivate(cultivateFlatAmountsDivine(BigDecimal.ONE, BigDecimal.ONE))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(BigDecimal.ONE))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("1000")) 
 			);
 
 	public static RegistryObject<CultivationStage> DIVINE_FEELING_STAGE = STAGE_REGISTER
 			.register("divine_feeling_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_mortal_stage"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_sense_stage"),
-							1, 10, 0.0f
+							1, 8, 0.0f,
+							0, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("2.5"), BigDecimal.ONE))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("2.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("2"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("0.5"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("5"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("3"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("2.5"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("3000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("3"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.01"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.001"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.002"))
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("2.5"), BigDecimal.ONE))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("2.5")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("9000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("10"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("8"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.04"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.001"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.001"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("5"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.001"))
+							.setStat(System.DIVINE, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
 			);
 
 	public static RegistryObject<CultivationStage> DIVINE_SENSE_STAGE = STAGE_REGISTER
 			.register("divine_sense_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_feeling_stage"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_perception_stage"),
-							1, 20, 0.0f
+							1, 12, 0.0f,
+							0, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("4.5"), new BigDecimal("2")))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("4.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("2"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("0.5"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("5"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("3"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("2.5"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("9000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("3"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.01"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.001"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.002"))
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("4"), BigDecimal.ONE))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("4")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("16000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.005"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("3"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("2"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.02"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.001"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.002"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("6"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("1"))
 			);
 
 	public static RegistryObject<CultivationStage> DIVINE_PERCEPTION_STAGE = STAGE_REGISTER
 			.register("divine_perception_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_sense_stage"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_stage"),
-							2, 33, 0.2f
+							1, 20, 0.0f,
+							0, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("6.5"), new BigDecimal("4")))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("6.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("2"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("0.5"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("5"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("3"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("2.5"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("27000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("3"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.01"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.001"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.002"))
-					.setStat(System.DIVINE, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("4"), new BigDecimal("2.5")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("4")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("35000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("3"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("3"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.02"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.001"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.003"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("7"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.001"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("2"))
 			);
 
 	public static RegistryObject<CultivationStage> DIVINE_AWARENESS_STAGE = STAGE_REGISTER
 			.register("divine_awareness_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_perception_stage"),
-							new ResourceLocation(WuxiaCraft.MOD_ID,	"divine_consciousness_stage"),
-							2, 50, 0.4f
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_consciousness_stage"),
+							2, 30, 0.4f,
+							0, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("8.5"), new BigDecimal("6")))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("8.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("2"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("0.5"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("5"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("3"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("2.5"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("81000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.01"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("3"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.01"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.001"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.002"))
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("8"), new BigDecimal("4")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("8")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("76000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.015"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("5"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("4"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.03"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.002"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.004"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("10"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.001"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("3"))
 			);
 
-	
-	
-	
+	//Change realms -> big leap in stats
 	public static RegistryObject<CultivationStage> DIVINE_CONSCIOUSNESS_STAGE = STAGE_REGISTER
 			.register("divine_consciousness_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_comprehension_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_awareness_stage"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_observation_stage"),
-							3, 70, 0.0f
+							2, 42, 0.5f,
+							3, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("10.5"), new BigDecimal("8")))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("10.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("4"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("2"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("7"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("243000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.02"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("6"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.02"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.002"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.004"))
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("10"), new BigDecimal("4")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("2.5")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("133000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.02"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("43"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("14"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.12"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.008"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.015"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("25"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.003"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("3"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("2"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("4"))
+							.setStat(System.DIVINE, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
 			);
 
 	public static RegistryObject<CultivationStage> DIVINE_OBSERVATION_STAGE = STAGE_REGISTER
 			.register("divine_observation_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_comprehension_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_consciousness_stage"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_understanding_stage"),
-							3, 95, 0.0f
+							2, 58, 0.5f,
+							5, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("12.5"), new BigDecimal("10")))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("12.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("4"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("2"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("7"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("729000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.02"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("6"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.02"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.002"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.004"))
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("12"), new BigDecimal("5")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("8")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("200000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.02"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("12"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("2"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.03"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.003"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.007"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("18"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.005"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("4"))
 			);
 
 	public static RegistryObject<CultivationStage> DIVINE_UNDERSTANDING_STAGE = STAGE_REGISTER
 			.register("divine_understanding_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_comprehension_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_observation_stage"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_comprehension_stage"),
-							4, 124, 0.8f
+							2, 83, 0.6f,
+							7, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("14.5"), new BigDecimal("12")))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("14.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("4"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("2"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("7"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("2187000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.02"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("6"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.02"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.002"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.004"))
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("16"), new BigDecimal("7")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("12")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("430000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.04"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("12"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("3"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.04"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.004"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.009"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("25"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.007"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("2"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("1"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("5"))
 			);
 
 	public static RegistryObject<CultivationStage> DIVINE_COMPREHENSION_STAGE = STAGE_REGISTER
 			.register("divine_comprehension_stage",
-					() -> new CultivationStage(
+					() -> new DivineCultivationStage(
 							System.DIVINE,
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_comprehension_realm"),
 							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_understanding_stage"),
-							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_comprehension_stage"),
-							5, 160, 0.9f
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_baron_stage"),
+							3, 118, 0.6f,
+							9, false
 					)
-					.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("16.5"), new BigDecimal("14")))
-					.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("16.5")))
-					.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("4"))
-					.setStat(PlayerStat.STRENGTH, new BigDecimal("2"))
-					.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("8"))
-					.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("7"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("6561000"))
-					.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.02"))
-					.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("6"))
-					.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.02"))
-					.setStat(System.ESSENCE, PlayerSystemStat.CAST_SPEED, new BigDecimal("0.002"))
-					.setStat(System.ESSENCE, PlayerSystemStat.COOLDOWN_SPEED, new BigDecimal("0.004"))
-					.setStat(System.DIVINE, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))//placeholder for next stage
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("16"), new BigDecimal("7")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("12")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("1300000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.008"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("22"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("4"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.04"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.004"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.009"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("42"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.023"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("2"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("2"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("6"))
 			);
-			
+
+	public static RegistryObject<CultivationStage> DIVINE_BARON_STAGE = STAGE_REGISTER
+			.register("divine_baron_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_covenant_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_comprehension_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_viscount_stage"),
+							3, 166, 0.7f,
+							13, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("35"), new BigDecimal("15")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("25")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("1800000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.13"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("86"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("20"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.14"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.014"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.022"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("84"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.012"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("10"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("6"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
+							.setStat(System.DIVINE, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_VISCOUNT_STAGE = STAGE_REGISTER
+			.register("divine_viscount_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_covenant_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_baron_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_count_stage"),
+							3, 230, 0.7f,
+							18, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("48"), new BigDecimal("18")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("35")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("3000000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.2"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("14"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("6"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.06"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.006"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.009"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("56"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.02"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("4"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("3"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("6"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_COUNT_STAGE = STAGE_REGISTER
+			.register("divine_count_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_covenant_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_viscount_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_marquess_stage"),
+							3, 316, 0.8f,
+							24, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("64"), new BigDecimal("23")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("48")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("5000000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.3"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("16"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("7"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.06"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.006"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.009"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("72"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("5"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("3"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("6"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_MARQUESS_STAGE = STAGE_REGISTER
+			.register("divine_marquess_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_covenant_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_count_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_duke_stage"),
+							4, 420, 0.8f,
+							32, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("86"), new BigDecimal("28")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("64")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("8000000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.5"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("34"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("9"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.08"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.009"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.014"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("96"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.04"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("8"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("4"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_DUKE_STAGE = STAGE_REGISTER
+			.register("divine_duke_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_kingdom_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_marquess_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_grand_duke_stage"),
+							4, 548, 0.9f,
+							48, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("104"), new BigDecimal("32")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("78")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("120000000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.8"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("134"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("30"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.18"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.022"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.036"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("144"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.1"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("15"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("12"))
+							.setStat(PlayerStat.EXERCISE_COST, new BigDecimal("0.1"))
+							.setStat(System.DIVINE, PlayerSystemStat.ADDITIONAL_GRID_RADIUS, new BigDecimal("1"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_GRAND_DUKE_STAGE = STAGE_REGISTER
+			.register("divine_grand_duke_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_kingdom_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_duke_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_archduke_stage"),
+							4, 712, 0.9f,
+							72, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("128"), new BigDecimal("36")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("78")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("70000000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("1.4"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("24"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("12"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.8"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.009"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.014"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("92"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.06"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("8"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("9"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("7"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_ARCHDUKE_STAGE = STAGE_REGISTER
+			.register("divine_archduke_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_kingdom_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_grand_duke_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_king_stage"),
+							4, 940, 1.0f,
+							92, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("164"), new BigDecimal("40")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("120")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("120000000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("2.4"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("28"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("14"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.8"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.009"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.013"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("124"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.08"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("10"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("11"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("8"))
+			);
+
+	public static RegistryObject<CultivationStage> DIVINE_KING_STAGE = STAGE_REGISTER
+			.register("divine_king_stage",
+					() -> new DivineCultivationStage(
+							System.DIVINE,
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_kingdom_realm"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_archduke_stage"),
+							new ResourceLocation(WuxiaCraft.MOD_ID, "divine_king_stage"),
+							5, 1168, 1.0f,
+							124, true
+					)
+							.setOnCultivate(cultivateFlatAmountsDivine(new BigDecimal("228"), new BigDecimal("45")))
+							.setOnCultivationFailure(cultivateFailureEnergyDivine(new BigDecimal("178")))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("270000000"))
+							.setStat(System.DIVINE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("3.8"))
+							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("44"))
+							.setStat(PlayerStat.STRENGTH, new BigDecimal("16"))
+							.setStat(PlayerStat.AGILITY, new BigDecimal("0.8"))
+							.setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.016"))
+							.setStat(PlayerStat.HEALTH_REGEN_COST, new BigDecimal("0.026"))
+							.setStat(System.DIVINE, PlayerSystemStat.MAX_ENERGY, new BigDecimal("172"))
+							.setStat(System.DIVINE, PlayerSystemStat.ENERGY_REGEN, new BigDecimal("0.1"))
+							.setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("13"))
+							.setStat(PlayerStat.DETECTION_RESISTANCE, new BigDecimal("14"))
+							.setStat(PlayerStat.DETECTION_RANGE, new BigDecimal("9"))
+			);
 
 	//*********************************
 	// essence stages
@@ -994,8 +1224,8 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 							new ResourceLocation(WuxiaCraft.MOD_ID, "essence_golden_core_stage"),
 							2, 83, 0.6f
 					)
-							.setOnCultivate(cultivateFlatAmounts(new BigDecimal("25"), new BigDecimal("12")))
-							.setOnCultivationFailure(cultivateFailureEnergy(new BigDecimal("18")))
+							.setOnCultivate(cultivateFlatAmounts(new BigDecimal("16"), new BigDecimal("7")))
+							.setOnCultivationFailure(cultivateFailureEnergy(new BigDecimal("12")))
 							.setStat(System.ESSENCE, PlayerSystemStat.MAX_CULTIVATION_BASE, new BigDecimal("1300000"))
 							.setStat(System.ESSENCE, PlayerSystemStat.CULTIVATION_SPEED, new BigDecimal("0.008"))
 							.setStat(PlayerStat.MAX_HEALTH, new BigDecimal("22"))
@@ -1486,7 +1716,8 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 			}
 		};
 	}
-		public static Consumer<Player> cultivateFlatAmountsDivine(BigDecimal energy, BigDecimal cultivationBase) {
+	
+	public static Consumer<Player> cultivateFlatAmountsDivine(BigDecimal energy, BigDecimal cultivationBase) {
 		return player -> {
 			var cultivation = Cultivation.get(player);
 			var divineData = cultivation.getSystemData(System.DIVINE);
@@ -1504,7 +1735,7 @@ public static RegistryObject<CultivationStage> DIVINE_MORTAL_STAGE = STAGE_REGIS
 		};
 	}
 
-		public static Consumer<Player> cultivateFailureEnergyDivine(BigDecimal energy) {
+	public static Consumer<Player> cultivateFailureEnergyDivine(BigDecimal energy) {
 		return player -> {
 			var cultivation = Cultivation.get(player);
 			var divineData = cultivation.getSystemData(System.DIVINE);

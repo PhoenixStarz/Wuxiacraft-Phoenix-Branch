@@ -34,6 +34,7 @@ public class EnergiesOverlay implements IGuiOverlay {
 		for (var system : System.values()) {
 			var energy = cultivation.getStat(system, PlayerSystemStat.ENERGY);
 			var max_energy = cultivation.getStat(system, PlayerSystemStat.MAX_ENERGY);
+			if (max_energy.compareTo(BigDecimal.ZERO) < 1) return;
 			var energy_ratio = energy.divide(max_energy, RoundingMode.HALF_UP);
 			int barFill = energy_ratio.multiply(new BigDecimal("60")).intValue();
 			guiGraphics.blit(ENERGY_BAR, 0, 3 + position * 17, 0, 0, 62, 9, 64, 64); // black bar

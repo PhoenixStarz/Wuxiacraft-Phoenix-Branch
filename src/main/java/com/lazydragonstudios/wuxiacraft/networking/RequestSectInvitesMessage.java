@@ -1,7 +1,7 @@
 package com.lazydragonstudios.wuxiacraft.networking;
 
 import com.lazydragonstudios.wuxiacraft.sect.Sect;
-import com.lazydragonstudios.wuxiacraft.world.data.SectSavedData;
+import com.lazydragonstudios.wuxiacraft.world.data.WuxiaSavedData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,16 +34,16 @@ public record RequestSectInvitesMessage() {
 			MinecraftServer server = sender.getServer();
 			if (server == null) return;
 			var overWorld = server.overworld();
-			var sectSavedData = SectSavedData.get(overWorld);
+		//	var wuxiaSavedData = WuxiaSavedData.get(overWorld);
 			var senderId = sender.getUUID();
 			HashMap<UUID, Sect> invitees = new HashMap<>();
-			for (var sect : sectSavedData.sects.values()) {
+		/* 	for (var sect : wuxiaSavedData.sects.values()) {
 				if (sect.sectInvites.contains(senderId)) {
 					var sectData = new Sect();
-					sectData.lodData(sect.sharePublicInformation());
+					sectData.loadData(sect.sharePublicInformation());
 					invitees.put(sect.getSectId(), sectData);
 				}
-			}
+			} */
 			if (!invitees.isEmpty()) {
 				WuxiaPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> sender), new SendSectInvitesToClientMessage(invitees));
 			}

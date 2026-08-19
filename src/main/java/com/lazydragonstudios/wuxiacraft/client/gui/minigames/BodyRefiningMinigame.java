@@ -10,6 +10,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.BodyCultivationContainer;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ElementalGenerator;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
 import com.lazydragonstudios.wuxiacraft.networking.SelectBodyPartElementMessage;
 import com.lazydragonstudios.wuxiacraft.networking.RemoveSelectedElementByBodyPartMessage;
@@ -87,6 +88,7 @@ public class BodyRefiningMinigame implements Minigame {
 		this.loadBodyParts();
 
 		for (var elementLocation : WuxiaRegistries.ELEMENTS.get().getKeys()) {
+			if (elementLocation.getPath().equals(WuxiaElements.DEMONIC.getId())) continue;
 			boolean cancel = true;
 			for (var knownAspect : cultivation.getAspects().getKnownAspects().stream().toList()) {
 				if (WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(knownAspect) instanceof ElementalGenerator generator) {
@@ -153,6 +155,8 @@ public class BodyRefiningMinigame implements Minigame {
 				case "space": elementColor = 0x25053E;
 					break;
 				case "time": elementColor = 0x6FF1A6;
+					break;
+				case "rebirth": elementColor = 0x22ADFE;
 					break;
 			}
 			var button = new WuxiaButton(0, 0, 123, 14, Component.translatable("wuxiacraft.body_part." + partLocation.getPath()),

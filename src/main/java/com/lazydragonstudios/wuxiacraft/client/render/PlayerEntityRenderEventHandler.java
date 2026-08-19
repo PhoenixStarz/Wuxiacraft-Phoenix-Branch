@@ -1,10 +1,12 @@
 package com.lazydragonstudios.wuxiacraft.client.render;
 
+import com.lazydragonstudios.wuxiacraft.WuxiaCraft;
 import com.lazydragonstudios.wuxiacraft.blocks.*;
 import com.lazydragonstudios.wuxiacraft.capabilities.ClientAnimationState;
 import com.lazydragonstudios.wuxiacraft.client.render.renderer.AnimatedPlayerRenderer;
 import com.lazydragonstudios.wuxiacraft.client.render.renderer.AuraRenderer;
 import com.lazydragonstudios.wuxiacraft.client.render.renderer.BodyTransformationRenderer;
+import com.lazydragonstudios.wuxiacraft.client.render.renderer.DemonicAuraRenderer;
 import com.lazydragonstudios.wuxiacraft.client.render.renderer.GhostRenderer;
 import com.lazydragonstudios.wuxiacraft.cultivation.BodyCultivationContainer;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
@@ -53,6 +55,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class PlayerEntityRenderEventHandler {
@@ -236,18 +239,31 @@ public class PlayerEntityRenderEventHandler {
 	@SubscribeEvent
 	public static void onRenderAura(RenderLivingEvent.Post<AbstractClientPlayer, ? extends Model> event) {
 		if (!(event.getEntity() instanceof AbstractClientPlayer target)) return;
-		var player = Minecraft.getInstance().player;
-		if (player == null) return;
 		var renderer = (AuraRenderer) Minecraft.getInstance().getEntityRenderDispatcher().renderers.get(WuxiaEntities.AURA_ENTITY.get());
 		if (renderer == null) return;
-		var cultivation = Cultivation.get(player);
+		var cultivation = Cultivation.get(target);
 		if (!cultivation.isCombat()) return;
-		//rel = max(barrier/maxBarrier, 0.3);
 		if (cultivation.getStat(PlayerStat.BARRIER).compareTo(BigDecimal.ZERO) <= 0) return;
+		if (cultivation.getStat(PlayerStat.MAX_BARRIER).compareTo(BigDecimal.ZERO) <= 0) return;
+		//rel = max(barrier/maxBarrier, 0.3);
 		var barrierRelative = cultivation.getStat(PlayerStat.BARRIER)
 				.divide(cultivation.getStat(PlayerStat.MAX_BARRIER), RoundingMode.HALF_UP).max(new BigDecimal("0.3")).floatValue();
 		event.getPoseStack().pushPose();
 		event.getPoseStack().scale(barrierRelative, barrierRelative, barrierRelative);
+		renderer.render(target, target.yBodyRot, event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight());
+		event.getPoseStack().popPose();
+	}
+
+	@SubscribeEvent
+	public static void onRenderDemonicAura(RenderLivingEvent.Post<AbstractClientPlayer, ? extends Model> event) {
+		if (!(event.getEntity() instanceof AbstractClientPlayer target)) return;
+		var renderer = (DemonicAuraRenderer) Minecraft.getInstance().getEntityRenderDispatcher().renderers.get(WuxiaEntities.DEMONIC_AURA_ENTITY.get());
+		if (renderer == null) return;
+		var cultivation = Cultivation.get(target);
+		if (cultivation.getDemonicStage() < 10) return;
+		var renderRelative = Math.min(1f, cultivation.getDemonicStage()/20f);
+		event.getPoseStack().pushPose();
+		event.getPoseStack().scale(renderRelative, 1f, renderRelative);
 		renderer.render(target, target.yBodyRot, event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight());
 		event.getPoseStack().popPose();
 	}

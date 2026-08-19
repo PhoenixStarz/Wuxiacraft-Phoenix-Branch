@@ -30,7 +30,7 @@ public record SendSectInvitesToClientMessage(HashMap<UUID, Sect> invitees) {
 			var sectTag = buf.readNbt();
 			if (sectTag == null) sectTag = new CompoundTag();
 			var sect = new Sect();
-			sect.lodData(sectTag);
+			sect.loadData(sectTag);
 			invitees.put(uuid, sect);
 		}
 		return new SendSectInvitesToClientMessage(invitees);

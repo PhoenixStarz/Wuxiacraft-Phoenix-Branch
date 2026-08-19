@@ -1,0 +1,115 @@
+{
+  "devouring_data": [
+		{ "item": "minecraft:gravel", "element": "wuxiacraft:earth", "value": "0.9" },
+		{ "item": "minecraft:coarse_dirt", "element": "wuxiacraft:earth", "value": "0.9" },
+		{ "item": "minecraft:dirt", "element": "wuxiacraft:earth", "value": "0.9" },
+		{ "item": "minecraft:calcite", "element": "wuxiacraft:earth", "value": "1.4" },
+		{ "item": "minecraft:tuff", "element": "wuxiacraft:earth", "value": "1.4" },
+		{ "item": "minecraft:granite", "element": "wuxiacraft:earth", "value": "1.4" },
+		{ "item": "minecraft:diorite", "element": "wuxiacraft:earth", "value": "1.4" },
+		{ "item": "minecraft:andesite", "element": "wuxiacraft:earth", "value": "1.4" },
+		{ "item": "minecraft:sandstone", "element": "wuxiacraft:earth", "value": "1.6" },
+		{ "item": "minecraft:red_sandstone", "element": "wuxiacraft:earth", "value": "1.6" },
+		{ "item": "minecraft:sand", "element": "wuxiacraft:earth", "value": "0.9" },
+		{ "item": "minecraft:red_sand", "element": "wuxiacraft:earth", "value": "0.9" },
+		{ "item": "minecraft:stone", "element": "wuxiacraft:earth", "value": "1.4" },
+		{ "item": "minecraft:cobblestone", "element": "wuxiacraft:earth", "value": "1.3" },
+   	 	{ "item": "minecraft:deepslate", "element": "wuxiacraft:earth", "value": "1.4" },
+		{ "item": "minecraft:cobbled_deepslate", "element": "wuxiacraft:earth", "value": "1.3" },
+
+		{ "item": "minecraft:grass_block", "element": "wuxiacraft:earth", "value": "0.7" },
+		{ "item": "minecraft:grass_block", "element": "wuxiacraft:wood", "value": "0.4" },
+		{ "item": "minecraft:moss_block", "element": "wuxiacraft:earth", "value": "0.7" },
+		{ "item": "minecraft:moss_block", "element": "wuxiacraft:wood", "value": "0.4" },
+
+		{ "item": "minecraft:netherrack", "element": "wuxiacraft:fire", "value": "0.8" },
+		{ "item": "minecraft:nether_bricks", "element": "wuxiacraft:fire", "value": "1.6" },
+		{ "item": "minecraft:basalt", "element": "wuxiacraft:fire", "value": "1.4" },
+		{ "item": "minecraft:blackstone", "element": "wuxiacraft:fire", "value": "1.4" },
+		{ "item": "minecraft:quartz", "element": "wuxiacraft:fire", "value": "2" },
+		{ "item": "minecraft:quartz_block", "element": "wuxiacraft:fire", "value": "14" },
+		{ "item": "minecraft:blaze_rod", "element": "wuxiacraft:fire", "value": "5" },
+		{ "item": "minecraft:magma_cream", "element": "wuxiacraft:fire", "value": "2.4" },
+		{ "item": "minecraft:obsidian", "element": "wuxiacraft:fire", "value": "2" },
+		{ "item": "minecraft:obsidian", "element": "wuxiacraft:water", "value": "2" },
+		{ "item": "minecraft:obsidian", "element": "wuxiacraft:earth", "value": "2" },
+    	{ "item": "minecraft:tnt", "element": "wuxiacraft:fire", "value": "6" },
+    	{ "item": "minecraft:tnt", "element": "wuxiacraft:earth", "value": "2" },
+
+		{ "item": "minecraft:end_stone", "element": "wuxiacraft:space", "value": "2" },
+		{ "item": "minecraft:shulker_shell", "element": "wuxiacraft:space", "value": "12" },
+		{ "item": "minecraft:dragon_head", "element": "wuxiacraft:space", "value": "48" },
+
+		{ "item": "minecraft:phantom_membrane", "element": "wuxiacraft:wind", "value": "5" },
+
+		{ "item": "minecraft:ice", "element": "wuxiacraft:water", "value": "0.5" },
+		{ "item": "minecraft:packed_ice", "element": "wuxiacraft:water", "value": "3" },
+		{ "item": "minecraft:blue_ice", "element": "wuxiacraft:water", "value": "18" },
+		{ "item": "minecraft:prismarine", "element": "wuxiacraft:water", "value": "3" },
+		{ "item": "minecraft:dark_prismarine", "element": "wuxiacraft:water", "value": "6" },
+
+		{ "item": "minecraft:coal_block", "element": "wuxiacraft:earth", "value": "11.2" },
+		{ "item": "minecraft:coal_block", "element": "wuxiacraft:fire", "value": "5.6" },
+    	{ "item": "minecraft:coal", "element": "wuxiacraft:earth", "value": "1.6" },
+		{ "item": "minecraft:coal", "element": "wuxiacraft:fire", "value": "0.8" },
+		{ "item": "minecraft:charcoal", "element": "wuxiacraft:wood", "value": "1.6" },
+		{ "item": "minecraft:charcoal", "element": "wuxiacraft:fire", "value": "0.4" },
+    
+		{ "item": "minecraft:brick", "element": "wuxiacraft:earth", "value": "1" },
+		{ "item": "minecraft:brick", "element": "wuxiacraft:fire", "value": "1" },
+		{ "item": "minecraft:clay", "element": "wuxiacraft:earth", "value": "1" },
+		{ "item": "minecraft:clay", "element": "wuxiacraft:water", "value": "1" },
+		{ "item": "minecraft:dripstone_block", "element": "wuxiacraft:earth", "value": "1" },
+		{ "item": "minecraft:dripstone_block", "element": "wuxiacraft:water", "value": "1" },
+
+		{ "item": "minecraft:glowstone_dust", "element": "wuxiacraft:light", "value": "1" },
+		{ "item": "minecraft:glowstone", "element": "wuxiacraft:light", "value": "3" },
+
+    	{ "item": "minecraft:sculk", "element": "wuxiacraft:dark", "value": "1" },
+		{ "item": "minecraft:echo_shard", "element": "wuxiacraft:dark", "value": "7" },
+		{ "item": "minecraft:sculk_catalyst", "element": "wuxiacraft:dark", "value": "32" },
+
+		{ "item": "minecraft:acacia_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:birch_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:dark_oak_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:jungle_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:oak_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:spruce_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:mangrove_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:cherry_log", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:bamboo_block", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:crimson_stem", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:crimson_stem", "element": "wuxiacraft:fire", "value": "1" },
+		{ "item": "minecraft:warped_stem", "element": "wuxiacraft:wood", "value": "2" },
+		{ "item": "minecraft:warped_stem", "element": "wuxiacraft:fire", "value": "1" },
+
+  		{ "item": "minecraft:lapis_lazuli", "element": "wuxiacraft:earth", "value": "1" },
+		{ "item": "minecraft:lapis_block", "element": "wuxiacraft:earth", "value": "7" },
+
+  		{ "item": "minecraft:copper_ingot", "element": "wuxiacraft:metal", "value": "1" },
+		{ "item": "minecraft:copper_block", "element": "wuxiacraft:metal", "value": "7" },
+
+		{ "item": "minecraft:iron_ingot", "element": "wuxiacraft:metal", "value": "2" },
+		{ "item": "minecraft:iron_block", "element": "wuxiacraft:metal", "value": "14" },
+
+		{ "item": "minecraft:gold_ingot", "element": "wuxiacraft:metal", "value": "3" },
+		{ "item": "minecraft:gold_block", "element": "wuxiacraft:metal", "value": "24" },
+
+		{ "item": "minecraft:diamond", "element": "wuxiacraft:earth", "value": "4" },
+		{ "item": "minecraft:diamond_block", "element": "wuxiacraft:earth", "value": "32" },
+
+		{ "item": "minecraft:emerald", "element": "wuxiacraft:earth", "value": "3" },
+  		{ "item": "minecraft:emerald_block", "element": "wuxiacraft:earth", "value": "24" },
+
+		{ "item": "minecraft:redstone", "element": "wuxiacraft:lightning", "value": "2" },
+  		{ "item": "minecraft:redstone_block", "element": "wuxiacraft:lightning", "value": "14" },
+
+		{ "item": "minecraft:netherite", "element": "wuxiacraft:metal", "value": "4" },
+		{ "item": "minecraft:netherite", "element": "wuxiacraft:fire", "value": "4" },
+		{ "item": "minecraft:netherite_block", "element": "wuxiacraft:metal", "value": "32" },
+		{ "item": "minecraft:netherite_block", "element": "wuxiacraft:fire", "value": "32" },
+
+		{ "item": "wuxiacraft:celestial_iron", "element": "wuxiacraft:metal", "value": "8" },
+		{ "item": "wuxiacraft:celestial_iron_block", "element": "wuxiacraft:metal", "value": "64" }
+  	]
+}

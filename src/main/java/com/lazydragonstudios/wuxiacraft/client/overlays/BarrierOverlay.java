@@ -39,6 +39,7 @@ public class BarrierOverlay implements IGuiOverlay {
 		MathContext mathContext =  new MathContext(6, RoundingMode.HALF_UP);
 		var max_barrier = cultivation.getStat(PlayerStat.MAX_BARRIER);
 		var barrier = cultivation.getStat(PlayerStat.BARRIER);
+		if (max_barrier.compareTo(BigDecimal.ZERO) < 1) return;
 		int fill = barrier.multiply(new BigDecimal("81"), mathContext).divide(max_barrier, mathContext).min(new BigDecimal(81)).intValue();
 		guiGraphics.blit(BARRIER_BAR, i, j, fill, 9, 0, 9, fill, 9, 81, 18);
 		//text

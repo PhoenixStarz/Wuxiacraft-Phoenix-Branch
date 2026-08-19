@@ -6,7 +6,12 @@ import com.lazydragonstudios.wuxiacraft.client.gui.minigames.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.*;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRealms;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
+import com.lazydragonstudios.wuxiacraft.init.WuxiaTechniqueAspects;
+import com.lazydragonstudios.wuxiacraft.networking.AttemptRebirthMessage;
 import com.lazydragonstudios.wuxiacraft.networking.StartTribulationMessage;
 import com.lazydragonstudios.wuxiacraft.networking.BroadcastAnimationChangeRequestMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
@@ -27,6 +32,8 @@ import net.minecraft.server.level.ServerPlayer;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.LinkedList;
 import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
@@ -44,6 +51,7 @@ public class MeditateScreen extends Screen {
 	private System system = System.ESSENCE;
 
 	private boolean canBreakThrough = false;
+	private boolean canRebirth = false;
 
 	private static final HashMap<ResourceLocation, Supplier<Minigame>> stageMiniGames = new HashMap<>();
 
@@ -85,10 +93,18 @@ public class MeditateScreen extends Screen {
 		stageMiniGames.put(WuxiaRealms.DIVINE_FEELING_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_SENSE_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_PERCEPTION_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_AWARENESS_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_CONSCIOUSNESS_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_OBSERVATION_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_UNDERSTANDING_STAGE.getId(), DivineMinigame::new);
-		stageMiniGames.put(WuxiaRealms.DIVINE_COMPREHENSION_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_BARON_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_VISCOUNT_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_COUNT_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_MARQUESS_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_DUKE_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_GRAND_DUKE_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_ARCHDUKE_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_KING_STAGE.getId(), DivineMinigame::new);
 	}
 
 	private int guiTop = 0;
@@ -137,6 +153,9 @@ public class MeditateScreen extends Screen {
 		if (this.canBreakThrough) {
 			guiGraphics.blit(MEDITATE_SCREEN, 69, 170, 0, 170, 63, 14);
 		}
+		if (this.canRebirth) {
+			guiGraphics.blit(MEDITATE_SCREEN, 135, 170, 0, 170, 63, 14);
+		}
 		this.renderLabels(guiGraphics, mouseX, mouseY, partialTicks);
 		if (this.minigame == null) {
 			guiGraphics.pose().popPose();
@@ -167,6 +186,11 @@ public class MeditateScreen extends Screen {
 			var width = this.font.width(component);
 			guiGraphics.drawString(this.font, component, (int) (100 - width / 2f), 172, 0xFFAA00);
 		}
+		if (this.canRebirth) {
+			var component = Component.translatable("wuxiacraft.gui.rebirth");
+			var width = this.font.width(component);
+			guiGraphics.drawString(this.font, component, (int) (165 - width / 2f), 172, 0xC644FF);
+		}
 	}
 
 	public void addChild(AbstractWidget widget) {
@@ -187,6 +211,7 @@ public class MeditateScreen extends Screen {
 				if (minigame == null) break;
 				this.system = system;
 				this.canBreakThrough = false;
+				this.canRebirth = false;
 				this.minigame.close(this);
 				var newMinigame = minigame.get();
 				newMinigame.init(this);
@@ -198,6 +223,13 @@ public class MeditateScreen extends Screen {
 			if (MathUtil.inBounds(mouseX - this.guiLeft, mouseY - this.guiTop, 69, 170, 63, 14)) {
 				var stage = cultivation.getSystemData(this.system).getStage();
 				WuxiaPacketHandler.INSTANCE.sendToServer(new StartTribulationMessage(stage.numberOfLightningStrikes, stage.lightningStrength, stage.lightningStrengthGrowth, this.system));
+				this.onClose();
+				return true;
+			}
+		}
+		if (this.canRebirth) {
+			if (MathUtil.inBounds(mouseX - this.guiLeft, mouseY - this.guiTop, 135, 170, 63, 14)) {
+				WuxiaPacketHandler.INSTANCE.sendToServer(new AttemptRebirthMessage());
 				this.onClose();
 				return true;
 			}
@@ -240,6 +272,59 @@ public class MeditateScreen extends Screen {
 		var player = Minecraft.getInstance().player;
 		if (player == null) return;
 		var cultivation = Cultivation.get(player);
+		int iR = 0;
+		for (System systems : System.values()) {
+			var systemData = cultivation.getSystemData(systems);
+			var stage = cultivation.getSystemData(systems).getStage();
+			if (systemData.currentStage.equals(stage.nextStage) && cultivation.getStat(systems, PlayerSystemStat.CULTIVATION_BASE)
+					.compareTo(cultivation.getStat(systems, PlayerSystemStat.MAX_CULTIVATION_BASE)) >= 0) {
+				iR++;
+				} else break;
+		}
+		if (iR >=3) {
+			int iS = 0;
+			var aspectData = cultivation.getAspects();
+			List<TechniqueAspect> neededAspects = new LinkedList<TechniqueAspect>(WuxiaRegistries.TECHNIQUE_ASPECT.get().getValues().stream().toList());
+			neededAspects.remove(WuxiaTechniqueAspects.UNKNOWN.get());
+			neededAspects.remove(WuxiaTechniqueAspects.EMPTY.get());
+			neededAspects.remove(WuxiaTechniqueAspects.DEVOURING.get());
+			neededAspects.remove(WuxiaTechniqueAspects.CONSUMPTION.get());
+			neededAspects.remove(WuxiaTechniqueAspects.GLUTTONY.get());
+			neededAspects.remove(WuxiaTechniqueAspects.BEELZEBUB.get());
+			neededAspects.remove(WuxiaTechniqueAspects.DIAMOND_CONSTRUCT.get());
+			if(cultivation.getRebirths() < 1) {
+				neededAspects.remove(WuxiaTechniqueAspects.ASHES_OF_REBIRTH.get());
+				neededAspects.remove(WuxiaTechniqueAspects.REKINDLED_SPARK.get());
+				neededAspects.remove(WuxiaTechniqueAspects.IGNITION.get());
+				neededAspects.remove(WuxiaTechniqueAspects.EMBER_OF_REKINDLING.get());
+				neededAspects.remove(WuxiaTechniqueAspects.CINDER_OF_RENEWAL.get());
+				neededAspects.remove(WuxiaTechniqueAspects.SPIRITUAL_RECONSTRUCTION.get());
+			}
+			if(cultivation.getRebirths() < 2) {
+				neededAspects.remove(WuxiaTechniqueAspects.INFERNO.get());
+				neededAspects.remove(WuxiaTechniqueAspects.RENEWAL.get());
+				neededAspects.remove(WuxiaTechniqueAspects.RESURRECTION.get());
+				neededAspects.remove(WuxiaTechniqueAspects.FLAME_OF_PURIFICATION.get());
+				neededAspects.remove(WuxiaTechniqueAspects.SPARK_OF_AWAKENING.get());
+				neededAspects.remove(WuxiaTechniqueAspects.SPIRIT_OF_RESTORATION.get());
+			}
+			if(cultivation.getRebirths() < 3) {
+				neededAspects.remove(WuxiaTechniqueAspects.ASCENT.get());
+				neededAspects.remove(WuxiaTechniqueAspects.TRANSCENDENCE.get());
+				neededAspects.remove(WuxiaTechniqueAspects.THE_ETERNAL_CYCLE.get());
+				neededAspects.remove(WuxiaTechniqueAspects.ESSENCE_OF_REBIRTH.get());
+			}
+			for (var knownAspectLocation : cultivation.getAspects().getKnownAspects().stream().toList()) {
+				var knownAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(knownAspectLocation);
+				if (!neededAspects.contains(knownAspect)) continue;
+				var currentCheckpoint = knownAspect.getCurrentCheckpoint(aspectData.getAspectProficiency(knownAspectLocation));
+				if (currentCheckpoint == knownAspect.checkpoints.getLast()) {
+					iS++;
+				} 
+			}
+			if(iS >= neededAspects.size())
+			this.canRebirth = true;
+		}
 		var systemData = cultivation.getSystemData(this.system);
 		var stage = systemData.getStage();
 		var expectedMinigame = stageMiniGames.get(systemData.currentStage);
@@ -256,7 +341,7 @@ public class MeditateScreen extends Screen {
 		if (this.minigame == null) return;
 		this.minigame.tick();
 		if(!cultivation.isTribulating())
-		if (this.system != System.BODY || (stage.nextStage != null && !stage.equals(stage.nextStage)))
+		if (this.system != System.BODY || (stage.nextStage != null && !systemData.currentStage.equals(stage.nextStage)))
 		this.canBreakThrough = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_BASE)
 				.compareTo(cultivation.getStat(system, PlayerSystemStat.MAX_CULTIVATION_BASE)) >= 0;
 	}

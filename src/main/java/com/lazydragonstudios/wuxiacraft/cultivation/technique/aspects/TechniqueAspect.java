@@ -196,7 +196,7 @@ public abstract class TechniqueAspect {
 		WuxiaLabel currentCheckpoint = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui.checkpoint",
 				Component.translatable("wuxiacraft.checkpoint." + checkpoint.name)), 0xFFAA00);
 		WuxiaLabel currentProficiency = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui.proficiency", proficiency.toEngineeringString()), 0xFFAA00);
-		WuxiaLabelBox descriptionLabel = new WuxiaLabelBox(5, 25, 190, Component.translatable("Description: wuxiacraft.aspect." + nameLocation.getPath() + ".description"));
+		WuxiaLabelBox descriptionLabel = new WuxiaLabelBox(5, 25, 190, Component.translatable("wuxiacraft.gui.description", Component.translatable("wuxiacraft.aspect." + nameLocation.getPath() + ".description")));
 		LinkedList<AbstractWidget> widgets = new LinkedList<>();
 		widgets.add(nameLabel);
 		widgets.add(checkpointsWidget);

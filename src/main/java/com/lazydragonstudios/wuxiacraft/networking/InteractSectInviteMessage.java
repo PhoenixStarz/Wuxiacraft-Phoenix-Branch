@@ -1,6 +1,6 @@
 package com.lazydragonstudios.wuxiacraft.networking;
 
-import com.lazydragonstudios.wuxiacraft.world.data.SectSavedData;
+import com.lazydragonstudios.wuxiacraft.world.data.WuxiaSavedData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,8 +30,8 @@ public record InteractSectInviteMessage(UUID serverId, boolean accepted) {
 			MinecraftServer server = sender.getServer();
 			if (server == null) return;
 			var overWorld = server.overworld();
-			var sectSavedData = SectSavedData.get(overWorld);
-			var sect = sectSavedData.sects.get(msg.serverId);
+		/*	var wuxiaSavedData = WuxiaSavedData.get(overWorld);
+			var sect = wuxiaSavedData.sects.get(msg.serverId);
 			if (sect == null) return;
 			if (sect.sectInvites.contains(sender.getUUID())) {
 				sect.sectInvites.remove(sender.getUUID());
@@ -39,7 +39,7 @@ public record InteractSectInviteMessage(UUID serverId, boolean accepted) {
 					sect.getMembers().add(sender.getUUID());
 					sect.getMembersName().put(sender.getUUID(), sender.getDisplayName());
 				}
-			}
+			}*/
 		});
 	}
 

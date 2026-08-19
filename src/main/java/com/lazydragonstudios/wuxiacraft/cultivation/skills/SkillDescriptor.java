@@ -141,7 +141,7 @@ public class SkillDescriptor {
 		for(var aspect : this.skillChain) {
 			baseStat = aspect.applyStat(cultivation, stat, baseStat);
 		}
-		return baseStat.multiply(cultivation.getSystemData(System.ESSENCE).getStat(PlayerStat.STRENGTH), mc).multiply(BigDecimal.valueOf(cultivation.getStrengthRegulator()), mc);
+		return baseStat.multiply(cultivation.getStat(PlayerStat.STRENGTH), mc).multiply(BigDecimal.valueOf(cultivation.getStrengthRegulator()), mc);
 	}
 
 }

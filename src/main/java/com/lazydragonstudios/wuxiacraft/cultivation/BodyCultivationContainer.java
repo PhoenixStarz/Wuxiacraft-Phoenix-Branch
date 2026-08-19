@@ -71,6 +71,17 @@ public class BodyCultivationContainer extends SystemContainer {
 		super(System.BODY);
 	}
 
+	public void forgeAllParts(BigDecimal amount) {
+		for (var bodyPartLocation : this.unlockedParts()) {
+			BigDecimal forgedAmount = this.bodyPartsForging.getOrDefault(bodyPartLocation, BigDecimal.ZERO);
+			this.bodyPartsForging.put(bodyPartLocation, forgedAmount.add(amount).setScale(6, RoundingMode.HALF_DOWN));
+			
+			BigDecimal maxCultivationBase = this.getStat(PlayerSystemStat.MAX_CULTIVATION_BASE);
+			forgedAmount = this.bodyPartsForging.getOrDefault(bodyPartLocation, BigDecimal.ZERO);
+			this.bodyPartsForging.put(bodyPartLocation, forgedAmount.min(maxCultivationBase).setScale(6, RoundingMode.HALF_DOWN).max(BigDecimal.ZERO));
+		}
+	}
+
 	public void forgePart(ResourceLocation bodyPartLocation, ResourceLocation elementLocation, BigDecimal amount) {
 		var partElementLocation = getBodyPartElementLocation(bodyPartLocation);
 		var opposingElement = WuxiaRegistries.ELEMENTS.get().getValue(elementLocation);
@@ -451,32 +462,21 @@ public class BodyCultivationContainer extends SystemContainer {
 
 	@Override
 	public void addCultivationBase(Player player, ICultivation cultivation, BigDecimal amount, HashMap<ResourceLocation, BigDecimal> elementHash) {
+		cultivation.getSystemData(System.ESSENCE).consumeEnergy(amount.multiply(new BigDecimal("0.3")));
+		amount = super.handleCultivationBaseModifiers(player, cultivation, amount);
 		var elements = this.techniqueData.modifier.elements;
 		var sumOfAllElements = BigDecimal.ZERO;
-		var grid = this.techniqueData.grid.getGrid();
-		var aspects = cultivation.getAspects();
 		var partsToCultivateByElement = new HashMap<ResourceLocation, HashSet<ResourceLocation>>();
 		for (var elementLocation : elements.keySet()) {
 			BigDecimal modifier = BigDecimal.ONE;
 			for (var elementKey : elementHash.keySet()) {
-		 		if (elementLocation == elementKey) modifier = elementHash.get(elementKey);
+		 		if (elementLocation.equals(elementKey)) modifier = elementHash.get(elementKey);
 			}
 			cultivation.addStat(elementLocation, PlayerElementalStat.COMPREHENSION, BigDecimal.valueOf(elements.get(elementLocation)).multiply(new BigDecimal("0.01").multiply(modifier)));
 			partsToCultivateByElement.put(elementLocation, this.getAllBodyPartsWithElement(elementLocation));
 			sumOfAllElements = sumOfAllElements.add(BigDecimal.valueOf(elements.get(elementLocation)));
 		}
-		//Adds aspect proficiency
-		for (var aspectLocation : grid.values()) {
-			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
-			BigDecimal modifier = BigDecimal.ONE;
-			for (var elementKey : elementHash.keySet()) {
-				if (aspect instanceof ElementalGenerator apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
-				else if (aspect instanceof ElementalConverter apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);
-				else if (aspect instanceof ElementalConsumer apsectE && apsectE.element == elementKey) modifier = elementHash.get(elementKey);				
-			}
-			aspects.addAspectProficiency(aspectLocation, amount.multiply(modifier), cultivation);
-		}
-		this.techniqueData.grid.fixProficiencies(aspects);
+		super.handleAspectProficiencyGain(player, cultivation, amount, elementHash);
 		//Adds Pill Resonance
 		if (player.hasEffect(WuxiaMobEffects.PILL_RESONANCE.get())) {
 			var instance = player.getEffect(WuxiaMobEffects.PILL_RESONANCE.get());
@@ -487,41 +487,12 @@ public class BodyCultivationContainer extends SystemContainer {
 			}
 		}
 		var cultSpeed = cultivation.getStat(system, PlayerSystemStat.CULTIVATION_SPEED);
-		amount = amount.multiply(BigDecimal.ONE.add(cultSpeed).multiply(BigDecimal.valueOf(WuxiaConfigs.CULTIVATION_SPEED_MULTIPLIER.get())));
-		Map<ResourceKey<Level>, Double> multiplierMap = WuxiaConfigs.getDimensionMultipliers();
-		ResourceKey<Level> currentDim = player.level().dimension();
-		if (multiplierMap.containsKey(currentDim)) {
-    		amount = amount.multiply(BigDecimal.valueOf(multiplierMap.get(currentDim)));
-		}
-		String AFKS = WuxiaConfigs.AFK_SYSTEM.get();
-		var AFKtimer = cultivation.getStat(PlayerStat.CULTPOINT).intValue();
-		BigDecimal AFKmulti = BigDecimal.ZERO;
-		int cheeseburger = 0; //<-- just a little thing to stop config mistypes from stoping cultivation
-		if (AFKS.equals("enabled") || AFKS.equals("enabled+") || AFKS.equals("detrimental")) {
-			if (AFKtimer >= 2000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 4000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 6000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 8000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 10000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			cheeseburger++;
-		}
-		if (AFKS.equals("enabled") || AFKS.equals("enabled+") || AFKS.equals("beneficial") || AFKS.equals("beneficial+")) {
-			if (AFKtimer >= 11000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 12000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 13000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 14000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			if (AFKtimer >= 15000) AFKmulti = AFKmulti.add(new BigDecimal("0.2"));
-			cheeseburger++;
-		}
-		if (AFKS.equals("enabled+") || AFKS.equals("beneficial+")) {
-			if (AFKtimer > 15000) AFKmulti = AFKmulti.add(BigDecimal.valueOf((AFKtimer-15000)/10000));
-		}
-		if (cheeseburger == 0) AFKmulti = BigDecimal.ONE;
-		amount = amount.multiply(AFKmulti);
-		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).subtract(BigDecimal.TEN));
+		amount = amount.add(cultSpeed);
 		if (sumOfAllElements.compareTo(BigDecimal.ZERO) <= 0) return;
 		for (var elementLocation : partsToCultivateByElement.keySet()) {
-			var elementAmount = BigDecimal.valueOf(elements.get(elementLocation));
+			BigDecimal modifier = BigDecimal.ONE;
+			if (elementHash.keySet().contains(elementLocation)) modifier = elementHash.get(elementLocation);
+			var elementAmount = BigDecimal.valueOf(elements.get(elementLocation)).multiply(modifier);
 			var elementWeight = elementAmount.divide(sumOfAllElements, RoundingMode.HALF_UP);
 			var elementPartsCount = partsToCultivateByElement.get(elementLocation).size();
 			if (elementPartsCount == 0) continue;

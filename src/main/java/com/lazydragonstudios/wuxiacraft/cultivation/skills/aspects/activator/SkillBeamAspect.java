@@ -7,6 +7,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.SkillStat;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspectType;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.SkillHitAspect;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.modifier.SkillHitModifierAspect;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaParticleTypes;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaSkillAspects;
@@ -23,7 +24,7 @@ public class SkillBeamAspect extends SkillActivatorAspect {
 
 	public SkillBeamAspect(ICultivation cultivation) {
 		super(cultivation);
-		setSkillStat(SkillStat.COST, new BigDecimal("0.04"));
+		setSkillStat(SkillStat.COST, new BigDecimal("0.08"));
 		setSkillStat(SkillStat.STRENGTH, new BigDecimal("0.03"));
 		setSkillStat(SkillStat.CAST_TIME, new BigDecimal("0"));
 		setSkillStat(SkillStat.COOLDOWN, new BigDecimal("0"));
@@ -54,9 +55,12 @@ public class SkillBeamAspect extends SkillActivatorAspect {
 			caster.swinging = true;
 			if (result.getType() == HitResult.Type.MISS) return false;
 			for (var link : skill.getSkillChain()) {
-				if (!(link instanceof SkillHitAspect hitAspect)) continue;
-				hitAspect.activate(caster, skill, result);
-				break;
+				if (link instanceof SkillHitAspect hitAspect) {
+					hitAspect.activate(caster, skill, result);
+				} else
+				if (link instanceof SkillHitModifierAspect hitModifierAspect) {
+					hitModifierAspect.activate(caster, skill, result);
+				} else continue;
 			}
 			return true;
 		});

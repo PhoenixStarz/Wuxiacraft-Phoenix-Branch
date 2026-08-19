@@ -11,6 +11,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaDamageTypes;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaSkillAspects;
+import com.lazydragonstudios.wuxiacraft.util.SkillUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -47,6 +48,7 @@ public class SkillBreakAspect extends SkillHitAspect {
 				var blockPos = blockHitResult.getBlockPos();
 				if (!caster.mayInteract(caster.level(), blockPos)) return false;
 				var blockState = caster.level().getBlockState(blockPos);
+				if (!SkillUtil.canPlayerBreak(caster.level(), blockPos, blockState, caster)) return false;
 				var destroySpeed = blockState.getDestroySpeed(caster.level(), blockPos);
 				int toolLevel = (Integer) this.getSkillParameters().get("tool_level").getValue();
 				if (destroySpeed < 0) return false;
@@ -73,7 +75,7 @@ public class SkillBreakAspect extends SkillHitAspect {
 			} else if (result instanceof EntityHitResult entityHitResult) {
 				var target = entityHitResult.getEntity();
 				if (target instanceof LivingEntity livingEntity) {
-					var damage = skillStrength.multiply(new BigDecimal("0.5"));
+					var damage = skillStrength;
 					var damageSource = new WuxiaDamageSource(caster.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.SKILL_BREAK), WuxiaElements.PHYSICAL.get(), livingEntity, damage);
 					target.hurt(damageSource, damageSource.getDamage().floatValue());
 				}

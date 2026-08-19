@@ -6,6 +6,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillActivati
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspect;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.SkillAspectType;
 import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.SkillHitAspect;
+import com.lazydragonstudios.wuxiacraft.cultivation.skills.aspects.hit.modifier.SkillHitModifierAspect;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaSkillAspects;
 import net.minecraft.world.entity.player.Player;
 
@@ -35,7 +36,7 @@ public class SkillActivatorAspect extends SkillAspect {
 
 	@Override
 	public boolean canConnect(SkillAspect aspect) {
-		return aspect instanceof SkillActivationModifierAspect || aspect instanceof SkillHitAspect;
+		return aspect instanceof SkillActivationModifierAspect || aspect instanceof SkillHitAspect || aspect instanceof SkillHitModifierAspect;
 	}
 
 	@Override

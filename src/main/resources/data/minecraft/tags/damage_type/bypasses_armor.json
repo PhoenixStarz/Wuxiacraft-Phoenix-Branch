@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "wuxiacraft:blood_burning_skill",
+    "wuxiacraft:demonic_corruption",
+    "wuxiacraft:energy_excess_body",
+    "wuxiacraft:energy_excess_divine",
+    "wuxiacraft:energy_excess_essence"
+  ]
+}
