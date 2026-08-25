@@ -67,7 +67,6 @@ public class Cultivation implements ICultivation {
 		this.tribulating = false;
     	this.tribulation = new Tribulation(1, 1, 1, System.ESSENCE);
 		this.formationCore = null;
-		this.barrierFormationCore = null;
 		this.extraHealthFromAttributes = 0.0;
 		this.masterDiscipleContainer = new MasterDiscipleContainer();
 	}
@@ -131,12 +130,6 @@ public class Cultivation implements ICultivation {
 	private BlockPos formationCore;
 
 	/**
-	 * formation stored in players Formation Barrier Badge
-	 */
-	@Nullable
-	private BlockPos barrierFormationCore;
-
-	/**
 	 * is divine sense on
 	 */
 	private boolean isDivineSense;
@@ -176,7 +169,6 @@ public class Cultivation implements ICultivation {
 	private boolean isTribulating = false;
 
 	public Tribulation tribulation;
-
 
 	/**
 	 * An internal variable updated every tick to check if within formation range to add stats
@@ -221,11 +213,6 @@ public class Cultivation implements ICultivation {
 	}
 
 	@Override
-	public void setBarrierFormation(@Nullable BlockPos blockPos) {
-		this.barrierFormationCore = blockPos;
-	}
-
-	@Override
 	public void setStat(System system, PlayerSystemStat stat, BigDecimal value) {
 		this.getSystemData(system).setStat(stat, value);
 	}
@@ -234,12 +221,6 @@ public class Cultivation implements ICultivation {
 	@Nullable
 	public BlockPos getFormation() {
 		return this.formationCore;
-	}
-	
-	@Override
-	@Nullable
-	public BlockPos getBarrierFormation() {
-		return this.barrierFormationCore;
 	}
 
 	@Override
@@ -431,13 +412,6 @@ public class Cultivation implements ICultivation {
 			formationTag.putInt("z", this.formationCore.getZ());
 			tag.put("formation", formationTag);
 		}
-		if (this.barrierFormationCore != null) {
-			var formationTag = new CompoundTag();
-			formationTag.putInt("x", this.barrierFormationCore.getX());
-			formationTag.putInt("y", this.barrierFormationCore.getY());
-			formationTag.putInt("z", this.barrierFormationCore.getZ());
-			tag.put("barrier-formation", formationTag);
-		}
 		tag.put("master-disciple", this.masterDiscipleContainer.serialize());
 		tag.putBoolean("combat-mode", this.isCombat());
 		tag.putLong("time-of-day", this.getToD());
@@ -505,15 +479,6 @@ public class Cultivation implements ICultivation {
 			this.formationCore = new BlockPos(x, y, z);
 		} else {
 			this.formationCore = null;
-		}
-		if (tag.contains("barrier-formation")) {
-			var formationTag = tag.getCompound("barrier-formation");
-			int x = formationTag.getInt("x");
-			int y = formationTag.getInt("y");
-			int z = formationTag.getInt("z");
-			this.barrierFormationCore = new BlockPos(x, y, z);
-		} else {
-			this.barrierFormationCore = null;
 		}
 		if (tag.contains("regulators")) {
 			var regulatorsTag = tag.getCompound("regulators");

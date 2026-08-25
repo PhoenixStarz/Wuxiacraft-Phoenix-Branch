@@ -1,6 +1,6 @@
 {
-  "chanced_aspects_blocks": [
-    { "block": "minecraft:magma_block", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
+	"chanced_aspects_blocks": [
+		{ "block": "minecraft:magma_block", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
 		{ "block": "minecraft:netherrack", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
 		{ "block": "minecraft:basalt", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
 		{ "block": "minecraft:fire", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
@@ -19,7 +19,7 @@
 		{ "block": "minecraft:soul_sand", "aspect": "wuxiacraft:mind_flare", "chance": 3000.0 },
 		{ "block": "minecraft:soul_soil", "aspect": "wuxiacraft:mind_flare", "chance": 3000.0 },
 		{ "block": "minecraft:soul_fire", "aspect": "wuxiacraft:mind_flare", "chance": 3000.0 },
-			
+
 		{ "block": "minecraft:dirt", "aspect": "wuxiacraft:dust", "chance": 1000.0 },
 		{ "block": "minecraft:gravel", "aspect": "wuxiacraft:dust", "chance": 1000.0 },
 		{ "block": "minecraft:sand", "aspect": "wuxiacraft:dust", "chance": 1000.0 },
@@ -39,7 +39,7 @@
 		{ "block": "minecraft:gravel", "aspect": "wuxiacraft:stillness", "chance": 3000.0 },
 		{ "block": "minecraft:stone", "aspect": "wuxiacraft:stillness", "chance": 3000.0 },
 		{ "block": "minecraft:deepslate", "aspect": "wuxiacraft:stillness", "chance": 3000.0 },
-	
+
 		{ "block": "minecraft:seagrass", "aspect": "wuxiacraft:drop", "chance": 1000.0 },
 		{ "block": "minecraft:sea_pickle", "aspect": "wuxiacraft:drop", "chance": 1000.0 },
 		{ "block": "minecraft:clay", "aspect": "wuxiacraft:drop", "chance": 1000.0 },
@@ -59,7 +59,7 @@
 		{ "block": "minecraft:seagrass", "aspect": "wuxiacraft:waving", "chance": 3000.0 },
 		{ "block": "minecraft:sea_pickle", "aspect": "wuxiacraft:waving", "chance": 3000.0 },
 		{ "block": "minecraft:kelp", "aspect": "wuxiacraft:waving", "chance": 3000.0 },
-	
+
 		{ "block": "minecraft:grass_block", "aspect": "wuxiacraft:seed", "chance": 1000.0 },
 		{ "block": "minecraft:grass", "aspect": "wuxiacraft:seed", "chance": 1000.0 },
 		{ "block": "minecraft:moss_block", "aspect": "wuxiacraft:seed", "chance": 1000.0 },
@@ -215,12 +215,12 @@
 		{ "block": "minecraft:sculk_vein", "aspect": "wuxiacraft:dim", "chance": 9000.0 },
 		{ "block": "minecraft:sculk_vein", "aspect": "wuxiacraft:gloom", "chance": 9000.0 },
 		{ "block": "minecraft:sculk_vein", "aspect": "wuxiacraft:eclipse", "chance": 9000.0 },
-				
+		
 		{ "block": "minecraft:emerald_ore", "aspect": "wuxiacraft:breeze", "chance": 3000.0 },
 		{ "block": "minecraft:emerald_ore", "aspect": "wuxiacraft:gust", "chance": 9000.0 },
 		{ "block": "minecraft:emerald_ore", "aspect": "wuxiacraft:airflow", "chance": 9000.0 },
 		{ "block": "minecraft:emerald_ore", "aspect": "wuxiacraft:gale", "chance": 9000.0 },
-		{ "block": "minecraft:emerald_ore", "aspect": "wuxiacraft:draft", "chance": 9000.0 },		
+		{ "block": "minecraft:emerald_ore", "aspect": "wuxiacraft:draft", "chance": 9000.0 },
 
 		{ "block": "minecraft:lily_of_the_valley", "aspect": "wuxiacraft:venom", "chance": 3000.0 },
 		{ "block": "minecraft:lily_of_the_valley", "aspect": "wuxiacraft:miasma", "chance": 9000.0 },
@@ -239,23 +239,23 @@
 		{ "block": "wuxiacraft:spirit_stone_vein_3","aspect": "wuxiacraft:essence_gathering", "chance": 60.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_4","aspect": "wuxiacraft:essence_gathering", "chance": 40.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:essence_gathering", "chance": 20.0 },
-		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:essence_gathering", "chance": 10.0 },
-		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:essence_gathering", "chance": 5.0 },
+		{ "block": "wuxiacraft:spirit_stone_vein_6","aspect": "wuxiacraft:essence_gathering", "chance": 10.0 },
+		{ "block": "wuxiacraft:spirit_stone_vein_7","aspect": "wuxiacraft:essence_gathering", "chance": 5.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_1","aspect": "wuxiacraft:divine_gathering", "chance": 100.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_2","aspect": "wuxiacraft:divine_gathering", "chance": 80.0 },
 		{ "block": "wuxiacraft:deepslate_spirit_stone_vein_2","aspect": "wuxiacraft:divine_gathering", "chance": 80.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_3","aspect": "wuxiacraft:divine_gathering", "chance": 60.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_4","aspect": "wuxiacraft:divine_gathering", "chance": 40.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:divine_gathering", "chance": 20.0 },
-		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:divine_gathering", "chance": 10.0 },
-		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:divine_gathering", "chance": 5.0 },
+		{ "block": "wuxiacraft:spirit_stone_vein_6","aspect": "wuxiacraft:divine_gathering", "chance": 10.0 },
+		{ "block": "wuxiacraft:spirit_stone_vein_7","aspect": "wuxiacraft:divine_gathering", "chance": 5.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_1","aspect": "wuxiacraft:body_gathering", "chance": 100.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_2","aspect": "wuxiacraft:body_gathering", "chance": 80.0 },
 		{ "block": "wuxiacraft:deepslate_spirit_stone_vein_2","aspect": "wuxiacraft:body_gathering", "chance": 80.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_3","aspect": "wuxiacraft:body_gathering", "chance": 60.0 },
 		{ "block": "wuxiacraft:spirit_stone_vein_4","aspect": "wuxiacraft:body_gathering", "chance": 40.0 },
-		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:body_gathering", "chance": 20.0 }
-		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:body_gathering", "chance": 10.0 }
-		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:body_gathering", "chance": 5.0 }
-  ]
+		{ "block": "wuxiacraft:spirit_stone_vein_5","aspect": "wuxiacraft:body_gathering", "chance": 20.0 },
+		{ "block": "wuxiacraft:spirit_stone_vein_6","aspect": "wuxiacraft:body_gathering", "chance": 10.0 },
+		{ "block": "wuxiacraft:spirit_stone_vein_7","aspect": "wuxiacraft:body_gathering", "chance": 5.0 }
+	]
 }

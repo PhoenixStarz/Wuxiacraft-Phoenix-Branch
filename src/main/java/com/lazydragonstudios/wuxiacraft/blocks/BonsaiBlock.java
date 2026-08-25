@@ -59,7 +59,7 @@ import java.util.function.Supplier;
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         int age = state.getValue(AGE);
-        if (age == MAX_AGE) {
+        if (age != MAX_AGE) {
             return InteractionResult.FAIL;
         } else if (age > 1) {
             popResource(level, pos, new ItemStack(item.get(), 1));

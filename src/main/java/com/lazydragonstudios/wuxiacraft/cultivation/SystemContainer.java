@@ -106,16 +106,16 @@ public class SystemContainer {
 	public void handleAspectProficiencyGain(Player player, ICultivation cultivation, BigDecimal amount, HashMap<ResourceLocation, BigDecimal> elementHash) {
 		var grid = this.techniqueData.grid.getGrid();
 		var aspects = cultivation.getAspects();
-		for (var aspectLocation : grid.values()) {
-			//Applies Enlightenment
-			if (player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
-				var instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
-				if (instance != null) {
-					int amplifier = instance.getAmplifier();
-					//amount = amount * (1.05 ^ amplifier+1))
-					amount = amount.multiply(new BigDecimal(1.05).pow(amplifier+1));
-				}
+		//Applies Enlightenment
+		if (player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
+			var instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
+			if (instance != null) {
+				int amplifier = instance.getAmplifier();
+				//amount = amount * (1.05 ^ amplifier+1))
+				amount = amount.multiply(new BigDecimal(1.05).pow(amplifier+1));
 			}
+		}
+		for (var aspectLocation : grid.values()) {
 			var aspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspectLocation);
 			BigDecimal modifier = BigDecimal.ONE;
 			for (var elementKey : elementHash.keySet()) {

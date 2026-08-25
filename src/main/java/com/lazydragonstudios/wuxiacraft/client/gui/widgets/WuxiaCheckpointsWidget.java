@@ -38,6 +38,7 @@ public class WuxiaCheckpointsWidget extends AbstractWidget {
 		this.aspectLocation = aspectLocation;
 		this.aspect = aspect;
 		checkpointsFill.clear();
+		if (this.aspect.checkpoints.getLast() == null) return;
 		var maxAmount = this.aspect.checkpoints.getLast().proficiencyRequired();
 		var iterator = this.aspect.checkpoints.iterator();
 		var aux = iterator.next(); // this is always true because there is always a no_checkpoint at the beginning
@@ -90,6 +91,7 @@ public class WuxiaCheckpointsWidget extends AbstractWidget {
 		int currentFillLeft = 0;
 		int index = 0; //using indexOf while iterating a linked list is rather stupid so just add +1 to each iteration
 
+		if (this.aspect.checkpoints.getLast() != null);
 		for (var checkpoint : this.aspect.checkpoints) {
 			int fillWidth = checkpointsFill.get(checkpoint);
 			if (checkpoint == currentCheckpoint) {

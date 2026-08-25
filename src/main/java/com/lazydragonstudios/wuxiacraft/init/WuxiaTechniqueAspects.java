@@ -19,6 +19,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -1955,7 +1956,7 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.6")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("1.1"),
 							cultivation -> { 
-								cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "prismatic_radiance"), cultivation);
+								cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "supernova"), cultivation);
 								tryToLearnTimeConversionEssence(cultivation);
 							}))
 	);
@@ -2917,45 +2918,45 @@ public class WuxiaTechniqueAspects {
 			() -> new ConditionalElementalGenerator(1d, WuxiaElements.DEMONIC.getId()) {
 				@Override public void onCultivate(CultivatingEvent event) { devourCultivate(event);}}
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("3000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500"), new BigDecimal("0.25")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000"), new BigDecimal("0.5")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"), new BigDecimal("1"),
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500"), new BigDecimal("0.05")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000"), new BigDecimal("0.15")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"), new BigDecimal("0.25"),
 			cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "consumption"), cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> CONSUMPTION = ASPECTS.register("consumption",
-			() -> new ConditionalElementalGenerator(4d, WuxiaElements.DEMONIC.getId()) {
+			() -> new ConditionalElementalGenerator(2d, WuxiaElements.DEMONIC.getId()) {
 				@Override public void onCultivate(CultivatingEvent event) { devourCultivate(event);}}
 					.setCanLearn(cultivation -> cultivation.getAspects()
 						.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "devouring")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("27000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("67500"), new BigDecimal("0.25")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("135000"), new BigDecimal("0.5")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("270000"), new BigDecimal("1"),
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("67500"), new BigDecimal("0.05")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("135000"), new BigDecimal("0.15")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("270000"), new BigDecimal("0.25"),
 			cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "gluttony"), cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> GLUTTONY = ASPECTS.register("gluttony",
-			() -> new ConditionalElementalGenerator(16d, WuxiaElements.DEMONIC.getId()) {
+			() -> new ConditionalElementalGenerator(3d, WuxiaElements.DEMONIC.getId()) {
 				@Override public void onCultivate(CultivatingEvent event) { devourCultivate(event);}}
 				.setCanLearn(cultivation -> cultivation.getAspects()
 						.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "consumption")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("243000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("607500"), new BigDecimal("0.25")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1215000"), new BigDecimal("0.5")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("2430000"), new BigDecimal("1"),
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("607500"), new BigDecimal("0.05")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1215000"), new BigDecimal("0.15")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("2430000"), new BigDecimal("0.25"),
 			cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "beelzebub"), cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> BEELZEBUB = ASPECTS.register("beelzebub",
-			() -> new ConditionalElementalGenerator(64d, WuxiaElements.DEMONIC.getId()) {
+			() -> new ConditionalElementalGenerator(4d, WuxiaElements.DEMONIC.getId()) {
 				@Override public void onCultivate(CultivatingEvent event) { devourCultivate(event);}}
 				.setCanLearn(cultivation -> cultivation.getAspects()
 						.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "gluttony")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("2187000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("5647500"), new BigDecimal("0.25")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("10935000"), new BigDecimal("0.5")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("21870000"), new BigDecimal("1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("5647500"), new BigDecimal("0.05")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("10935000"), new BigDecimal("0.15")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("21870000"), new BigDecimal("0.25")))
 	);
 
 	//////////////////////////////////////////
@@ -3307,7 +3308,8 @@ public class WuxiaTechniqueAspects {
 	private static void devourCultivate(CultivatingEvent event) {
 		var player = event.getPlayer();
 		ICultivation cultivation = Cultivation.get(player);
-		var techniqueData = cultivation.getSystemData(event.getSystem()).techniqueData;
+		System system = event.getSystem();
+		var techniqueData = cultivation.getSystemData(system).techniqueData;
 		int devourCount = 0;
 		double DevourMulti = 0d;
 		var grid = techniqueData.grid;
@@ -3332,9 +3334,9 @@ public class WuxiaTechniqueAspects {
 
 				double durabilityMulti = Math.min(durability, devourCount*(int)DevourMulti)/100d;
 				for (System systems : System.values()) {
-					String system = systems.toString().toLowerCase();
-					if (itemTag.contains(system)) {
-						CompoundTag cTag = itemTag.getCompound(system);
+					String strSystem = systems.toString().toLowerCase();
+					if (itemTag.contains(strSystem)) {
+						CompoundTag cTag = itemTag.getCompound(strSystem);
 						BigDecimal amount = new BigDecimal(cTag.getDouble("amount")*durabilityMulti);
 						BodyCultivationContainer bodyData = (BodyCultivationContainer) cultivation.getSystemData(System.BODY);
 						if (systems == System.BODY) {
@@ -3350,12 +3352,28 @@ public class WuxiaTechniqueAspects {
 			if (devourData.size() <= 0) return;
 			if (devourCount > itemStack.getCount()) devourCount = itemStack.getCount();
 			var baseAmount = event.getAmount();
+			MobEffectInstance instance = null;
+			BigDecimal demonicScale = new BigDecimal(devourCount*DevourMulti*2d);
+			if (system == System.ESSENCE && player.hasEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get())) {
+				instance = player.getEffect(WuxiaMobEffects.SPIRITUAL_RESONANCE.get());
+			} else
+			if (system == System.BODY && player.hasEffect(WuxiaMobEffects.PILL_RESONANCE.get())) {
+				instance = player.getEffect(WuxiaMobEffects.PILL_RESONANCE.get());
+			} else
+			if (system == System.DIVINE && player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
+				instance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
+			}
+			if (instance != null) {
+				var amplifier = instance.getAmplifier();
+				//amount = amount * (1 + (2 ^ amplifier))
+				demonicScale = demonicScale.multiply(BigDecimal.ONE.add(new BigDecimal("2").pow(amplifier)));
+			}
 			for (var element : devourData.keySet()) {
 				baseAmount = baseAmount.add(devourData.get(element).multiply(new BigDecimal(devourCount*DevourMulti)));
-				if (event.getSystem() != System.BODY)
-				cultivation.addStat(event.getSystem(), element, PlayerSystemElementalStat.FOUNDATION, baseAmount.multiply(new BigDecimal(devourCount*DevourMulti/10d)));
+				if (system != System.BODY)
+				cultivation.addStat(system, element, PlayerSystemElementalStat.FOUNDATION, baseAmount.multiply(new BigDecimal(devourCount*DevourMulti/10d)));
 				cultivation.addStat(element, PlayerElementalStat.COMPREHENSION, baseAmount.multiply(new BigDecimal(devourCount*DevourMulti*3d/10d)));
-				cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, new BigDecimal(devourCount*DevourMulti/5d));
+				cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, demonicScale);
 			}
 			itemStack.shrink(devourCount);
 			event.setAmount(baseAmount);

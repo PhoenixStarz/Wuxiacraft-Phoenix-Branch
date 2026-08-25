@@ -113,52 +113,50 @@ public class TechniqueUtil {
 
 	public static void loadChancedAspectsBlocks() {
 		String path = "/data/wuxiacraft/aspects/chanced_aspects_blocks.json";
+		try (InputStream in = TechniqueUtil.class.getResourceAsStream(path)) {
+			if (in == null) WuxiaCraft.LOGGER.error("Missing resource: " + path);
 
-			try (InputStream in = TechniqueUtil.class.getResourceAsStream(path)) {
-				if (in == null) WuxiaCraft.LOGGER.error("Missing resource: " + path);
+			JsonObject root = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+			JsonArray arr = root.getAsJsonArray("chanced_aspects_blocks");
+			for (JsonElement e : arr) {
+				JsonObject obj = e.getAsJsonObject();
 
-				JsonObject root = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
-				JsonArray arr = root.getAsJsonArray("chanced_aspects_blocks");
-				for (JsonElement e : arr) {
-					JsonObject obj = e.getAsJsonObject();
+				ResourceLocation blockId = new ResourceLocation(obj.get("block").getAsString());
+				ResourceLocation aspectId = new ResourceLocation(obj.get("aspect").getAsString());
+				double chance = obj.get("chance").getAsDouble();
 
-					ResourceLocation blockId = new ResourceLocation(obj.get("block").getAsString());
-					ResourceLocation aspectId = new ResourceLocation(obj.get("aspect").getAsString());
-					double chance = obj.get("chance").getAsDouble();
+				Block block = ForgeRegistries.BLOCKS.getValue(blockId);
+				if (block == null) WuxiaCraft.LOGGER.error("Unknown block: " + blockId);
 
-					Block block = ForgeRegistries.BLOCKS.getValue(blockId);
-					if (block == null) WuxiaCraft.LOGGER.error("Unknown block: " + blockId);
-
-					addBlockToAspectChanced(block, aspectId, chance);
-				}
-			} catch (Exception ex) {
-				WuxiaCraft.LOGGER.error("Failed to load chanced aspects blocks", ex);
+				addBlockToAspectChanced(block, aspectId, chance);
 			}
+		} catch (Exception ex) {
+			WuxiaCraft.LOGGER.error("Failed to load chanced aspects blocks", ex);
 		}
+	}
 
 	public static void loadChancedAspectsEntities() {
 		String path = "/data/wuxiacraft/aspects/chanced_aspects_entities.json";
+		try (InputStream in = TechniqueUtil.class.getResourceAsStream(path)) {
+			if (in == null) WuxiaCraft.LOGGER.error("Missing resource: " + path);
 
-			try (InputStream in = TechniqueUtil.class.getResourceAsStream(path)) {
-				if (in == null) WuxiaCraft.LOGGER.error("Missing resource: " + path);
+			JsonObject root = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+			JsonArray arr = root.getAsJsonArray("chanced_aspects_entities");
+			for (JsonElement e : arr) {
+				JsonObject obj = e.getAsJsonObject();
 
-				JsonObject root = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
-				JsonArray arr = root.getAsJsonArray("chanced_aspects_entities");
-				for (JsonElement e : arr) {
-					JsonObject obj = e.getAsJsonObject();
+				ResourceLocation entityID = new ResourceLocation(obj.get("entity").getAsString());
+				ResourceLocation aspectId = new ResourceLocation(obj.get("aspect").getAsString());
+				double chance = obj.get("chance").getAsDouble();
 
-					ResourceLocation entityID = new ResourceLocation(obj.get("entity").getAsString());
-					ResourceLocation aspectId = new ResourceLocation(obj.get("aspect").getAsString());
-					double chance = obj.get("chance").getAsDouble();
+				EntityType<?> entity = ForgeRegistries.ENTITY_TYPES.getValue(entityID);
+				if (entity == null) WuxiaCraft.LOGGER.error("Unknown entity: " + entityID);
 
-					EntityType<?> entity = ForgeRegistries.ENTITY_TYPES.getValue(entityID);
-					if (entity == null) WuxiaCraft.LOGGER.error("Unknown entity: " + entityID);
-
-					addEntityToAspectChanced(entity, aspectId, chance);
-				}
-			} catch (Exception ex) {
-				WuxiaCraft.LOGGER.error("Failed to load chanced aspects entity", ex);
+				addEntityToAspectChanced(entity, aspectId, chance);
 			}
+		} catch (Exception ex) {
+			WuxiaCraft.LOGGER.error("Failed to load chanced aspects entities", ex);
 		}
+	}
 
 }

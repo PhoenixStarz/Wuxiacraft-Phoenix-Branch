@@ -1,6 +1,6 @@
 {
-  "chanced_aspects_entities": [
-    	{ "entity": "minecraft:blaze", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
+	"chanced_aspects_entities": [
+		{ "entity": "minecraft:blaze", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
 		{ "entity": "minecraft:magma_cube", "aspect": "wuxiacraft:cinder", "chance": 1000.0 },
 		{ "entity": "minecraft:blaze", "aspect": "wuxiacraft:ember", "chance": 3000.0 },
 		{ "entity": "minecraft:magma_cube", "aspect": "wuxiacraft:ember", "chance": 3000.0 },
@@ -12,7 +12,7 @@
 		{ "entity": "minecraft:magma_cube", "aspect": "wuxiacraft:magic_burning", "chance": 3000.0 },
 		{ "entity": "minecraft:skeleton", "aspect": "wuxiacraft:mind_flare", "chance": 3000.0 },
 		{ "entity": "minecraft:wither_skeleton", "aspect": "wuxiacraft:mind_flare", "chance": 3000.0 },
-			
+
 		{ "entity": "minecraft:silverfish", "aspect": "wuxiacraft:dust", "chance": 1000.0 },
 		{ "entity": "minecraft:silverfish", "aspect": "wuxiacraft:dirt", "chance": 3000.0 },
 		{ "entity": "minecraft:silverfish", "aspect": "wuxiacraft:pebbles", "chance": 9000.0 },
@@ -25,7 +25,7 @@
 		{ "entity": "minecraft:bat", "aspect": "wuxiacraft:hardening", "chance": 3000.0 },
 		{ "entity": "minecraft:bat", "aspect": "wuxiacraft:tremor", "chance": 3000.0 },
 		{ "entity": "minecraft:bat", "aspect": "wuxiacraft:stillness", "chance": 3000.0 },
-	
+
 		{ "entity": "minecraft:cod", "aspect": "wuxiacraft:drop", "chance": 1000.0 },
 		{ "entity": "minecraft:salmon", "aspect": "wuxiacraft:drop", "chance": 1000.0 },
 		{ "entity": "minecraft:squid", "aspect": "wuxiacraft:drop", "chance": 1000.0 },
@@ -46,21 +46,21 @@
 		{ "entity": "minecraft:guardian", "aspect": "wuxiacraft:waving", "chance": 3000.0 },
 		{ "entity": "minecraft:drowned", "aspect": "wuxiacraft:waving", "chance": 3000.0 },
 		{ "entity": "minecraft:cod", "aspect": "wuxiacraft:waving", "chance": 3000.0 },
-	
+
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:ore", "chance": 200.0 },
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:metal_nugget", "chance": 600.0 },
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:metal_ingot", "chance": 1800.0 },
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:metal_skin", "chance": 600.0 },
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:sharpness", "chance": 600.0 },
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:magnetization", "chance": 600.0 },
-	
+
 		{ "entity": "minecraft:zombie", "aspect": "wuxiacraft:devouring", "chance": 9000.0 },
 		{ "entity": "minecraft:husk", "aspect": "wuxiacraft:devouring", "chance": 9000.0 },
 		{ "entity": "minecraft:zoglin", "aspect": "wuxiacraft:devouring", "chance": 9000.0 },
 
 		{ "entity": "minecraft:piglin", "aspect": "wuxiacraft:blood_burning", "chance": 1000.0 },
-    	{ "entity": "minecraft:piglin_brute", "aspect": "wuxiacraft:blood_burning", "chance": 1000.0 },
-    	{ "entity": "minecraft:hoglin", "aspect": "wuxiacraft:blood_burning", "chance": 1000.0 },
+		{ "entity": "minecraft:piglin_brute", "aspect": "wuxiacraft:blood_burning", "chance": 1000.0 },
+		{ "entity": "minecraft:hoglin", "aspect": "wuxiacraft:blood_burning", "chance": 1000.0 },
 		
 		{ "entity": "minecraft:fox", "aspect": "wuxiacraft:kitsune_transformation", "chance": 1000.0 },
 		{ "entity": "minecraft:ender_dragon", "aspect": "wuxiacraft:dragon_transformation", "chance": 10.0 },
@@ -83,7 +83,7 @@
 		{ "entity": "minecraft:phantom", "aspect": "wuxiacraft:gust", "chance": 9000.0 },
 		{ "entity": "minecraft:phantom", "aspect": "wuxiacraft:airflow", "chance": 9000.0 },
 		{ "entity": "minecraft:phantom", "aspect": "wuxiacraft:gale", "chance": 9000.0 },
-		{ "entity": "minecraft:phantom", "aspect": "wuxiacraft:draft", "chance": 9000.0 },		
+		{ "entity": "minecraft:phantom", "aspect": "wuxiacraft:draft", "chance": 9000.0 },
 		{ "entity": "minecraft:ghast", "aspect": "wuxiacraft:breeze", "chance": 3000.0 },
 		{ "entity": "minecraft:ghast", "aspect": "wuxiacraft:gust", "chance": 9000.0 },
 		{ "entity": "minecraft:ghast", "aspect": "wuxiacraft:airflow", "chance": 9000.0 },
@@ -97,10 +97,15 @@
 		{ "entity": "minecraft:cave_spider", "aspect": "wuxiacraft:corrosion", "chance": 9000.0 },
 
 		{ "entity": "minecraft:allay", "aspect": "wuxiacraft:starry_bath", "chance": 3000.0 },
-		{ "entity": "minecraft:vex", "aspect": "wuxiacraft:starlight_bath", "chance": 9000.0 },
+		{ "entity": "minecraft:allay", "aspect": "wuxiacraft:starlight_bath", "chance": 9000.0 },
 		{ "entity": "minecraft:allay", "aspect": "wuxiacraft:lumen", "chance": 9000.0 },
 		{ "entity": "minecraft:allay", "aspect": "wuxiacraft:shine", "chance": 9000.0 },
 		{ "entity": "minecraft:allay", "aspect": "wuxiacraft:flare", "chance": 9000.0 },
+		{ "entity": "minecraft:vex", "aspect": "wuxiacraft:starry_bath", "chance": 3000.0 },
+		{ "entity": "minecraft:vex", "aspect": "wuxiacraft:starlight_bath", "chance": 9000.0 },
+		{ "entity": "minecraft:vex", "aspect": "wuxiacraft:lumen", "chance": 9000.0 },
+		{ "entity": "minecraft:vex", "aspect": "wuxiacraft:shine", "chance": 9000.0 },
+		{ "entity": "minecraft:vex", "aspect": "wuxiacraft:flare", "chance": 9000.0 },
 
 		{ "entity": "minecraft:warden", "aspect": "wuxiacraft:shadow_bath", "chance": 300.0 },
 		{ "entity": "minecraft:warden", "aspect": "wuxiacraft:dusk_bath", "chance": 900.0 },
@@ -113,23 +118,23 @@
 		{ "entity": "minecraft:sniffer", "aspect": "wuxiacraft:time_tear", "chance": 30000.0 },
 		{ "entity": "minecraft:sniffer", "aspect": "wuxiacraft:temporal_amplification", "chance": 30000.0 },
 
-		{ "entity": "wuxiacraft:snake_entity_type", "aspect": "wuxiacraft:essence_gathering", "chance": 80.0 },
-		{ "entity": "wuxiacraft:desert_snake_entity_type", "aspect": "wuxiacraft:essence_gathering", "chance": 60.0 },
-		{ "entity": "wuxiacraft:red_snake_entity_type", "aspect": "wuxiacraft:essence_gathering", "chance": 40.0 },
-		{ "entity": "wuxiacraft:blue_snake_entity_type", "aspect": "wuxiacraft:essence_gathering", "chance": 20.0 },
-		{ "entity": "wuxiacraft:white_snake_entity_type", "aspect": "wuxiacraft:essence_gathering", "chance": 10.0 },
-		{ "entity": "wuxiacraft:black_snake_entity_type", "aspect": "wuxiacraft:essence_gathering", "chance": 5.0 },
-		{ "entity": "wuxiacraft:snake_entity_type", "aspect": "wuxiacraft:divine_gathering", "chance": 80.0 },
-		{ "entity": "wuxiacraft:desert_snake_entity_type", "aspect": "wuxiacraft:divine_gathering", "chance": 60.0 },
-		{ "entity": "wuxiacraft:red_snake_entity_type", "aspect": "wuxiacraft:divine_gathering", "chance": 40.0 },
-		{ "entity": "wuxiacraft:blue_snake_entity_type", "aspect": "wuxiacraft:divine_gathering", "chance": 20.0 },
-		{ "entity": "wuxiacraft:white_snake_entity_type", "aspect": "wuxiacraft:divine_gathering", "chance": 10.0 },
-		{ "entity": "wuxiacraft:black_snake_entity_type", "aspect": "wuxiacraft:divine_gathering", "chance": 5.0 },
-		{ "entity": "wuxiacraft:snake_entity_type", "aspect": "wuxiacraft:body_gathering", "chance": 80.0 },
-		{ "entity": "wuxiacraft:desert_snake_entity_type", "aspect": "wuxiacraft:body_gathering", "chance": 60.0 },
-		{ "entity": "wuxiacraft:red_snake_entity_type", "aspect": "wuxiacraft:body_gathering", "chance": 40.0 },
-		{ "entity": "wuxiacraft:blue_snake_entity_type", "aspect": "wuxiacraft:body_gathering", "chance": 20.0 },
-		{ "entity": "wuxiacraft:white_snake_entity_type", "aspect": "wuxiacraft:body_gathering", "chance": 10.0 }
-		{ "entity": "wuxiacraft:black_snake_entity_type", "aspect": "wuxiacraft:body_gathering", "chance": 5.0 }
-  ]
+		{ "entity": "wuxiacraft:snake", "aspect": "wuxiacraft:essence_gathering", "chance": 80.0 },
+		{ "entity": "wuxiacraft:desert_snake", "aspect": "wuxiacraft:essence_gathering", "chance": 60.0 },
+		{ "entity": "wuxiacraft:red_snake", "aspect": "wuxiacraft:essence_gathering", "chance": 40.0 },
+		{ "entity": "wuxiacraft:blue_snake", "aspect": "wuxiacraft:essence_gathering", "chance": 20.0 },
+		{ "entity": "wuxiacraft:white_snake", "aspect": "wuxiacraft:essence_gathering", "chance": 10.0 },
+		{ "entity": "wuxiacraft:black_snake", "aspect": "wuxiacraft:essence_gathering", "chance": 5.0 },
+		{ "entity": "wuxiacraft:snake", "aspect": "wuxiacraft:divine_gathering", "chance": 80.0 },
+		{ "entity": "wuxiacraft:desert_snake", "aspect": "wuxiacraft:divine_gathering", "chance": 60.0 },
+		{ "entity": "wuxiacraft:red_snake", "aspect": "wuxiacraft:divine_gathering", "chance": 40.0 },
+		{ "entity": "wuxiacraft:blue_snake", "aspect": "wuxiacraft:divine_gathering", "chance": 20.0 },
+		{ "entity": "wuxiacraft:white_snake", "aspect": "wuxiacraft:divine_gathering", "chance": 10.0 },
+		{ "entity": "wuxiacraft:black_snake", "aspect": "wuxiacraft:divine_gathering", "chance": 5.0 },
+		{ "entity": "wuxiacraft:snake", "aspect": "wuxiacraft:body_gathering", "chance": 80.0 },
+		{ "entity": "wuxiacraft:desert_snake", "aspect": "wuxiacraft:body_gathering", "chance": 60.0 },
+		{ "entity": "wuxiacraft:red_snake", "aspect": "wuxiacraft:body_gathering", "chance": 40.0 },
+		{ "entity": "wuxiacraft:blue_snake", "aspect": "wuxiacraft:body_gathering", "chance": 20.0 },
+		{ "entity": "wuxiacraft:white_snake", "aspect": "wuxiacraft:body_gathering", "chance": 10.0 },
+		{ "entity": "wuxiacraft:black_snake", "aspect": "wuxiacraft:body_gathering", "chance": 5.0 }
+	]
 }

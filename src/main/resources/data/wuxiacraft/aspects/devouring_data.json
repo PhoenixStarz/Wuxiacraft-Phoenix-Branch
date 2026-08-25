@@ -104,8 +104,8 @@
 		{ "item": "minecraft:redstone", "element": "wuxiacraft:lightning", "value": "2" },
   		{ "item": "minecraft:redstone_block", "element": "wuxiacraft:lightning", "value": "14" },
 
-		{ "item": "minecraft:netherite", "element": "wuxiacraft:metal", "value": "4" },
-		{ "item": "minecraft:netherite", "element": "wuxiacraft:fire", "value": "4" },
+		{ "item": "minecraft:netherite_ingot", "element": "wuxiacraft:metal", "value": "4" },
+		{ "item": "minecraft:netherite_ingot", "element": "wuxiacraft:fire", "value": "4" },
 		{ "item": "minecraft:netherite_block", "element": "wuxiacraft:metal", "value": "32" },
 		{ "item": "minecraft:netherite_block", "element": "wuxiacraft:fire", "value": "32" },
 

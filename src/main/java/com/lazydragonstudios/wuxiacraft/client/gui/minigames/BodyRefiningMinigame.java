@@ -88,8 +88,8 @@ public class BodyRefiningMinigame implements Minigame {
 		this.loadBodyParts();
 
 		for (var elementLocation : WuxiaRegistries.ELEMENTS.get().getKeys()) {
-			if (elementLocation.getPath().equals(WuxiaElements.DEMONIC.getId())) continue;
 			boolean cancel = true;
+			if (elementLocation.getPath().equals(WuxiaElements.DEMONIC.getId())) continue;
 			for (var knownAspect : cultivation.getAspects().getKnownAspects().stream().toList()) {
 				if (WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(knownAspect) instanceof ElementalGenerator generator) {
 					if (generator.element.equals(elementLocation)) {

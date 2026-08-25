@@ -42,7 +42,6 @@ public class WuxiaFlowPanel extends WuxiaScrollPanel {
 	public void setWidth(int width) {
 		super.setWidth(width);
 		this.rearrangeItems();
-		;
 	}
 
 	/**

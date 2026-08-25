@@ -113,7 +113,7 @@ public class PlayerEntityRenderEventHandler {
 		var range = cultivation.getStat(PlayerStat.DETECTION_RANGE).doubleValue();
 		if (player.distanceTo(target) > range) return;
 		var detectionStrength = cultivation.getStat(PlayerStat.DETECTION_STRENGTH);
-		var detectionResistance = BigDecimal.valueOf(event.getEntity().getMaxHealth()).divide(new BigDecimal(2));
+		var detectionResistance = BigDecimal.valueOf(event.getEntity().getMaxHealth()).divide(new BigDecimal(10));
 		if (detectionStrength.compareTo(detectionResistance) <= 0) return;
 
 		PoseStack poseStack = event.getPoseStack();

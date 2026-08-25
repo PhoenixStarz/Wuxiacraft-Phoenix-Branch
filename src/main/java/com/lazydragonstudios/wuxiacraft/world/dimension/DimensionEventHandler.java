@@ -100,10 +100,9 @@ public class DimensionEventHandler {
 
 	@SubscribeEvent
 	public static void onExplosion(ExplosionEvent event) {
-	Level level = event.getLevel();
-	if (!(level.dimension().equals(DimensionManager.DIVINE_DIMENSION))) return;
-	event.setCanceled(true);
+		Level level = event.getLevel();
+		if (!(level.dimension().equals(DimensionManager.DIVINE_DIMENSION))) return;
+		event.setCanceled(true);
 	}
 	
-
 }

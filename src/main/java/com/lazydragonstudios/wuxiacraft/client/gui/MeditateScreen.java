@@ -97,6 +97,7 @@ public class MeditateScreen extends Screen {
 		stageMiniGames.put(WuxiaRealms.DIVINE_CONSCIOUSNESS_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_OBSERVATION_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_UNDERSTANDING_STAGE.getId(), DivineMinigame::new);
+		stageMiniGames.put(WuxiaRealms.DIVINE_COMPREHENSION_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_BARON_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_VISCOUNT_STAGE.getId(), DivineMinigame::new);
 		stageMiniGames.put(WuxiaRealms.DIVINE_COUNT_STAGE.getId(), DivineMinigame::new);

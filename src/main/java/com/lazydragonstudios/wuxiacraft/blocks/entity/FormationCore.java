@@ -195,13 +195,40 @@ public class FormationCore extends BlockEntity {
 		if (level1 == null) return false;
 		var finalAttackDamage = BigDecimal.valueOf(attacker.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
 		if (attacker instanceof Player player) {
-			var attackerStrengthStat = Cultivation.get(player).getStat(PlayerStat.STRENGTH, false);
+			var attackerStrengthStat = Cultivation.get(player).getStat(PlayerStat.STRENGTH, false).divide(BigDecimal.TEN);
 			finalAttackDamage = attackerStrengthStat.add(BigDecimal.valueOf(attackStrength));
 		}
+		var barrierMaxHP = this.getStat(FormationStat.BARRIER_MAX_AMOUNT);
 		var barrierHP = this.getStat(FormationStat.BARRIER_AMOUNT);
 		var barrierDefense = this.getStat(FormationStat.BARRIER_STRENGTH);
-		var barrierDamage = finalAttackDamage.subtract(barrierDefense).max(new BigDecimal("0.25"));
+		var barrierDamage = finalAttackDamage.subtract(barrierDefense).max(BigDecimal.ZERO);
 		var finalHP = barrierHP.subtract(barrierDamage);
+		this.setStat(FormationStat.BARRIER_AMOUNT, finalHP);
+		boolean barrierBroke = false;
+		BigDecimal addedCoolDown = new BigDecimal("30");
+		if (!(finalHP.equals(barrierMaxHP))) {
+			if (finalHP.compareTo(BigDecimal.ZERO) > 0) {
+				this.setStat(FormationStat.BARRIER_COOLDOWN, addedCoolDown);
+			} else {
+				this.setStat(FormationStat.BARRIER_COOLDOWN, new BigDecimal("300"));
+				if (!level1.isClientSide) {
+					this.level.playSound(null, attacker.getOnPos(), SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 6f, 0.6f);
+				}
+				barrierBroke = true;
+			}
+		}
+		if (!level1.isClientSide) {
+			this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
+		}
+		return barrierBroke;
+	}
+
+	public boolean attackBarrierOther(BigDecimal attackStrength) {
+		Level level1 = this.level;
+		if (level1 == null) return false;
+		var barrierMaxHP = this.getStat(FormationStat.BARRIER_MAX_AMOUNT);
+		var barrierHP = this.getStat(FormationStat.BARRIER_AMOUNT);
+		var finalHP = barrierHP.subtract(attackStrength);
 		this.setStat(FormationStat.BARRIER_AMOUNT, finalHP);
 		boolean barrierBroke = false;
 		BigDecimal addedCoolDown = new BigDecimal("30");
@@ -209,9 +236,6 @@ public class FormationCore extends BlockEntity {
 			this.setStat(FormationStat.BARRIER_COOLDOWN, addedCoolDown);
 		} else {
 			this.setStat(FormationStat.BARRIER_COOLDOWN, new BigDecimal("300"));
-			if (!level1.isClientSide) {
-				this.level.playSound(null, attacker.getOnPos(), SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 6f, 0.6f);
-			}
 			barrierBroke = true;
 		}
 		if (!level1.isClientSide) {

@@ -35,16 +35,19 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
@@ -52,6 +55,8 @@ import net.minecraftforge.fml.common.Mod;
 import org.checkerframework.checker.units.qual.C;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.LinkedList;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -99,33 +104,35 @@ public class FormationEventHandler {
 			}
 			level.getProfiler().pop();
 			return;
-		} else {
-			var playerPos = new BlockPos((int)player.getX(), (int)player.getY(), (int)player.getZ());
-			var chunk = level.getChunkAt(playerPos);
-			var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
-			for (var core : activeFormationCores) {
-				if (player == core.getOwner()) continue;
-				var coreRange = 12 + core.getRuneRange() * 2;
-				var distSqr = playerPos.distSqr(core.getBlockPos());
-				if (distSqr > coreRange * coreRange) continue;
-				var badge = getItemBadge(player, core, STATS_TAG);
-				if (badge == ItemStack.EMPTY) continue;
-				var formationPos = core.getBlockPos();
-				if (formationPos != null) {
-					cultivation.setBarrierFormation(formationPos);
+		}
+		var playerPos = new BlockPos((int)player.getX(), (int)player.getY(), (int)player.getZ());
+		var chunk = level.getChunkAt(playerPos);
+		var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
+		for (var core : activeFormationCores) {
+			if (player == core.getOwner()) continue;
+			var coreRange = 12 + core.getRuneRange() * 2;
+			var distSqr = playerPos.distSqr(core.getBlockPos());
+			var badge = getItemBadge(player, core, STATS_TAG);
+			if (distSqr > coreRange * coreRange || badge == ItemStack.EMPTY) {
+				cultivation.getFormationStats().setFormationActive(null);
+				continue;
+			}
+			var formationPos = core.getBlockPos();
+			if (formationPos != null) {
+				cultivation.getFormationStats().setFormationActive(formationPos);
+				cultivation.getFormationStats().copyFrom(core.getFormationPlayerStats());
+				cultivation.getFormationStats().setRange(12 + core.getRuneRange() * 2);
+				cultivation.setWithinFormationRange(player.getX(), player.getY(), player.getZ());
+				if (cultivation.isWithinFormationRange()) {
+					level.getProfiler().pop();
+					return;
 				}
 			}
 		}
-		for (int i = 0; i < 2; i++) {
 		var formationPos = cultivation.getFormation();
-			if (i == 1) formationPos = cultivation.getBarrierFormation();
-			if (formationPos == null) continue;
+		if (formationPos != null) {
 			var blockEntity = level.getBlockEntity(formationPos);
-			if (!(blockEntity instanceof FormationCore core)) {
-				level.getProfiler().pop();
-				return;
-			}
-			if (!core.isActive()) {
+			if (!(blockEntity instanceof FormationCore core) || !core.isActive()) {
 				level.getProfiler().pop();
 				return;
 			}
@@ -302,6 +309,28 @@ public class FormationEventHandler {
 			if (distSqr > barrierRange * barrierRange) continue;
 			WuxiaPacketHandler.INSTANCE.sendToServer(new PlayerAttackBarrierMessage(core.getBlockPos(), (float) event.getEntity().getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
 			core.attackBarrierMelee(event.getEntity(), (float) event.getEntity().getAttribute(Attributes.ATTACK_DAMAGE).getValue());
+		}
+	}
+
+	@SubscribeEvent
+	public static void onExplosionInsideBarrier(ExplosionEvent event) {
+		Level level = event.getLevel();
+		Explosion explosion = event.getExplosion();
+		Vec3 explosionVec3 = explosion.getPosition();
+		BlockPos explosionPos = new BlockPos((int)explosionVec3.x(), (int)explosionVec3.y(), (int)explosionVec3.z());
+		var chunk = level.getChunkAt(explosionPos);
+		var activeFormationCores = getActiveFormationCoresNearby(chunk, level);
+		for (var core : activeFormationCores) {
+			List<BlockPos> list = new ArrayList<>(explosion.getToBlow());
+			var barrierAmount = core.getStat(FormationStat.BARRIER_AMOUNT);
+			if (barrierAmount.compareTo(BigDecimal.ZERO) <= 0) continue;
+			var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
+			for (BlockPos effectedPos : list) {
+				var distSqr = effectedPos.distSqr(core.getBlockPos());
+				if (distSqr > barrierRange * barrierRange) continue;
+				explosion.getToBlow().remove(effectedPos);
+				core.attackBarrierOther(BigDecimal.ONE);
+			}
 		}
 	}
 

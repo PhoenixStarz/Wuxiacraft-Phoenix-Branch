@@ -23,10 +23,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PlayerRideable;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -129,10 +132,32 @@ public class FormationTicker implements BlockEntityTicker<FormationCore> {
 				}
 			}
 			for (var entity : entities) {
-				if (entity instanceof Boat boat && boat.hasPassenger(allowedPlayers::contains)) continue;
-				if (entity instanceof AbstractMinecart cart && cart.hasPassenger(allowedPlayers::contains)) continue;
+				if (entity instanceof Boat boat) {
+					Boolean cont = true;
+					for (var ridingEntities : boat.getPassengers()) {
+						if (ridingEntities instanceof Player player && !allowedPlayers.contains(player)) {
+							cont = false;
+							break;
+						}
+					}
+					if (cont) continue;
+				}
+				if (entity instanceof AbstractMinecart cart) {
+					Boolean cont = true;
+					for (var ridingEntities : cart.getPassengers()) {
+						if (ridingEntities instanceof Player player && !allowedPlayers.contains(player)) {
+							cont = false;
+							break;
+						}
+					}
+					if (cont) continue;
+				}
 				if (entity instanceof PlayerRideable && entity.hasPassenger(allowedPlayers::contains)) continue;
-				if (entity instanceof Projectile proj && allowedPlayers.contains(proj.getOwner())) continue;
+				if (entity instanceof ArmorStand) continue;
+				if (entity instanceof Projectile proj) {
+					if (allowedPlayers.contains(proj.getOwner())) continue;
+					core.attackBarrierMelee((LivingEntity)proj.getOwner(), 1.0f);
+				}
 				if (entity instanceof Player player && (player.isCreative() || player.isSpectator())) continue;
 				if (allowedPlayers.contains(entity)) continue;
 				if (entity instanceof Monster monster) {

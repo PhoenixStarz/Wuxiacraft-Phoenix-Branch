@@ -186,9 +186,9 @@ public class WuxiaBlocks {
 					() -> new StatRuneBlock(BlockBehaviour.Properties.of().strength(material.blockStrength))
 							.addStat(FormationStat.ENERGY_COST, material.materialModifier.multiply(new BigDecimal("8")))
 							.addStat(FormationStat.BARRIER_RANGE, new BigDecimal("4").add(material.materialModifier))
-							.addStat(FormationStat.BARRIER_MAX_AMOUNT, material.materialModifier.multiply(new BigDecimal("80")))
-							.addStat(FormationStat.BARRIER_STRENGTH, material.materialModifier.multiply(BigDecimal.TEN))
-							.addStat(FormationStat.BARRIER_REGEN, material.materialModifier.multiply(new BigDecimal("0.2")))
+							.addStat(FormationStat.BARRIER_MAX_AMOUNT, material.materialModifier.multiply(new BigDecimal("10")))
+							.addStat(FormationStat.BARRIER_STRENGTH, material.materialModifier)
+							.addStat(FormationStat.BARRIER_REGEN, material.materialModifier.multiply(new BigDecimal("0.02")))
 			));
 			for (var system : System.values()) {
 				ENERGY_RUNES.putIfAbsent(system, new HashMap<>());

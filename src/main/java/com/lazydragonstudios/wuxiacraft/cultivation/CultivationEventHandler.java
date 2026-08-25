@@ -268,8 +268,11 @@ public class CultivationEventHandler {
 			BigDecimal maxEnergyMultiplicand = new BigDecimal(cultivation.isWithinFormationRange() ? "1" : "0.7");
 			boolean canRegenBodyEnergy = cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY).compareTo(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(maxEnergyMultiplicand)) < 0;
 			if (canRegenBodyEnergy) {
-				bodyData.addEnergy(finalEnergyRegen);
+				bodyData.addEnergy(cultivation.getStat(System.BODY, PlayerSystemStat.MAX_ENERGY).multiply(maxEnergyMultiplicand).subtract(cultivation.getStat(System.BODY, PlayerSystemStat.ENERGY))
+						.min(finalEnergyRegen).max(BigDecimal.ZERO));
+					//^energy regen limiter based of max energy 
 				if (finalEnergyRegen.floatValue() > 5 ) finalEnergyRegen = new BigDecimal(5);
+				if (!cultivation.isWithinFormationRange())
 				player.causeFoodExhaustion(finalEnergyRegen.floatValue());
 			}
 		}
@@ -280,12 +283,21 @@ public class CultivationEventHandler {
 		for (var system : System.values()) {
 			var systemData = cultivation.getSystemData(system);
 			if (system != System.BODY) { //body already regenerated at that points
-				if (systemData.getStage().canRegenEnergy())
-				systemData.addEnergy((cultivation.getStat(system, PlayerSystemStat.MAX_ENERGY).subtract(cultivation.getStat(system, PlayerSystemStat.ENERGY))).min(cultivation.getStat(system, PlayerSystemStat.ENERGY_REGEN)).max(BigDecimal.ZERO));
-			}	//^energy regen limiter based of max energy 
+				if (systemData.getStage().canRegenEnergy() || cultivation.isWithinFormationRange())
+				systemData.addEnergy(cultivation.getStat(system, PlayerSystemStat.MAX_ENERGY).subtract(cultivation.getStat(system, PlayerSystemStat.ENERGY))
+						.min(cultivation.getStat(system, PlayerSystemStat.ENERGY_REGEN)).max(BigDecimal.ZERO));
+					//^energy regen limiter based of max energy 
+			}	
 			//kill if above 150%
+			var systemDamageType = WuxiaDamageTypes.ENERGY_EXCESS_ESSENCE;
+			if (system == System.BODY) {
+				systemDamageType = WuxiaDamageTypes.ENERGY_EXCESS_BODY;
+			} else
+			if (system == System.DIVINE) {
+				systemDamageType = WuxiaDamageTypes.ENERGY_EXCESS_DIVINE;
+			} 
 			if (cultivation.getStat(system, PlayerSystemStat.ENERGY).compareTo(cultivation.getStat(system, PlayerSystemStat.MAX_ENERGY).multiply(new BigDecimal("1.5"))) > 0) {
-				killPlayerWithExplosion(player, systemData, player.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.ENERGY_EXCESS_ESSENCE),
+				killPlayerWithExplosion(player, systemData, player.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(systemDamageType),
 						//energy * 3 * max_health -> just to guarantee death
 						cultivation.getStat(system, PlayerSystemStat.ENERGY).multiply(new BigDecimal("3")).multiply(cultivation.getStat(PlayerStat.MAX_HEALTH)));
 				//or regulate it slowly to 100%
@@ -375,6 +387,7 @@ public class CultivationEventHandler {
 	private static void handleParticlesWhenFlying(Player player, ICultivation cultivation) {
 		if (!(player.level() instanceof ServerLevel level)) return;
 		if (!cultivation.canFly()) return;
+		if (player.isInvisible()) return;
 		if (!player.getAbilities().flying) return;
 		if (cultivation.getTimer() % 5 != 0) return;
 		ParticleOptions particle = (ParticleOptions) WuxiaParticleTypes.FLIGHT_PARTICLE.get();
