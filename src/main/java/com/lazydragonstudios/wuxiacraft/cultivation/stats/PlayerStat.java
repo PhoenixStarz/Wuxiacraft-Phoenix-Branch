@@ -24,8 +24,6 @@ public enum PlayerStat {
 	LIVES(new BigDecimal(WuxiaConfigs.INITIAL_LIVES.get()), true, 0),
 	MAX_LIVES(new BigDecimal(WuxiaConfigs.MAX_LIVES.get()), false, 0),
 	CULTPOINT(new BigDecimal("10000.0"), true, 0),
-	REBIRTHS(BigDecimal.ZERO, true, 0),
-
 	HUNGER_REGEN(BigDecimal.ZERO, false, 2),
 	HUNGER_REGEN_COST(BigDecimal.ZERO, false, 2)
 	;

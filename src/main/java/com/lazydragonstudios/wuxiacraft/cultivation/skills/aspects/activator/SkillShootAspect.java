@@ -24,7 +24,7 @@ public class SkillShootAspect extends SkillActivatorAspect {
 			var casterCultivation = Cultivation.get(caster);
 			var essenceData = casterCultivation.getSystemData(System.ESSENCE);
 			BigDecimal cost = skillAspects.getAppliedStats(casterCultivation, SkillStat.COST);
-			if (!essenceData.consumeEnergy(cost)) return false;
+			if (!essenceData.consumeEnergy(cost.divide(BigDecimal.TEN))) return false;
 			var level = caster.level();
 			var lookAngle = caster.getLookAngle();
 			var entity = new ThrowSkill(WuxiaEntities.THROW_SKILL_TYPE.get(), level, skillAspects);

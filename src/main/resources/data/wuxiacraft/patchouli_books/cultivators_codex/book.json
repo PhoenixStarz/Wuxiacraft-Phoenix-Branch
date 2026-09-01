@@ -1,0 +1,11 @@
+{
+  "name": "wuxiacraft.info.cultivators_codex.title",
+  "landing_text": "wuxiacraft.info.cultivators_codex.landing",
+  "book_texture": "wuxiacraft:textures/gui/cultivators_codex.png",
+  "version": 1,
+  "model": "wuxiacraft:cultivators_codex",
+  "show_progress": false,
+  "creative_tab": "wuxiacraft:wuxia_random_items",
+  "text_overflow_mode": "resize",
+  "use_resource_pack": true
+}

@@ -353,7 +353,7 @@ public class WuxiaItems {
 	);
 	
 	public static RegistryObject<Item> BLUE_SNAKE_SPAWN_EGG = ITEMS.register("blue_snake_spawn_egg",
-			() -> new ForgeSpawnEggItem(WuxiaEntities.BLUE_SNAKE_ENTITY_TYPE::get, 1807, 16514950, new Item.Properties())
+			() -> new ForgeSpawnEggItem(WuxiaEntities.BLUE_SNAKE_ENTITY_TYPE::get, 38091, 16514950, new Item.Properties())
 	);
 	
 	public static RegistryObject<Item> WHITE_SNAKE_SPAWN_EGG = ITEMS.register("white_snake_spawn_egg",
@@ -361,7 +361,7 @@ public class WuxiaItems {
 	);
 	
 	public static RegistryObject<Item> BLACK_SNAKE_SPAWN_EGG = ITEMS.register("black_snake_spawn_egg",
-			() -> new ForgeSpawnEggItem(WuxiaEntities.BLACK_SNAKE_ENTITY_TYPE::get, 851983, 16514950, new Item.Properties())
+			() -> new ForgeSpawnEggItem(WuxiaEntities.BLACK_SNAKE_ENTITY_TYPE::get, 0, 16514950, new Item.Properties())
 	);
 
 }

@@ -11,7 +11,7 @@ import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
 import com.lazydragonstudios.wuxiacraft.networking.CultivationSyncMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
@@ -28,7 +28,7 @@ import java.math.RoundingMode;
 public class StatCommand {
 
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-		dispatcher.register(Commands.literal("stat")
+		dispatcher.register(Commands.literal("wuxiastat")
 				.requires(commandSourceStack -> commandSourceStack.hasPermission(2))
 				.then(Commands.argument("target", EntityArgument.player())
 						.then(Commands.literal("get")
@@ -56,20 +56,20 @@ public class StatCommand {
 						)
 						.then(Commands.literal("set")
 								.then(Commands.argument("stat", EnumArgument.enumArgument(PlayerStat.class))
-										.then(Commands.argument("amount", IntegerArgumentType.integer())
+										.then(Commands.argument("amount", DoubleArgumentType.doubleArg())
 												.executes(StatCommand::setStat)
 										)
 								)
 								.then(Commands.argument("element", ElementArgument.id())
 										.then(Commands.argument("stat", EnumArgument.enumArgument(PlayerElementalStat.class))
-												.then(Commands.argument("amount", IntegerArgumentType.integer())
+												.then(Commands.argument("amount", DoubleArgumentType.doubleArg())
 														.executes(StatCommand::setElementalStat)
 												)
 										)
 								)
 								.then(Commands.argument("system", EnumArgument.enumArgument(System.class))
 										.then(Commands.argument("stat", EnumArgument.enumArgument(PlayerSystemStat.class))
-												.then(Commands.argument("amount", IntegerArgumentType.integer())
+												.then(Commands.argument("amount", DoubleArgumentType.doubleArg())
 														.executes(StatCommand::setSystemStat)
 												)
 										)
@@ -77,7 +77,7 @@ public class StatCommand {
 								.then(Commands.argument("system", EnumArgument.enumArgument(System.class))
 										.then(Commands.argument("element", ElementArgument.id())
 												.then(Commands.argument("stat", EnumArgument.enumArgument(PlayerSystemElementalStat.class))
-														.then(Commands.argument("amount", IntegerArgumentType.integer())
+														.then(Commands.argument("amount", DoubleArgumentType.doubleArg())
 																.executes(StatCommand::setSystemElementalStat)
 														)
 												)
@@ -160,7 +160,7 @@ public class StatCommand {
 
 	public static int setStat(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
-		int amount = IntegerArgumentType.getInteger(ctx, "amount");
+		double amount = DoubleArgumentType.getDouble(ctx, "amount");
 		var playerStat = ctx.getArgument("stat", PlayerStat.class);
 
 		ICultivation cultivation = Cultivation.get(target);
@@ -178,7 +178,7 @@ public class StatCommand {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
 		var element = ElementArgument.getAspectLocation(ctx, "element");
 		var stat = ctx.getArgument("stat", PlayerElementalStat.class);
-		int amount = IntegerArgumentType.getInteger(ctx, "amount");
+		double amount = DoubleArgumentType.getDouble(ctx, "amount");
 
 		ICultivation cultivation = Cultivation.get(target);
 		var message = Component.empty();
@@ -198,7 +198,7 @@ public class StatCommand {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
 		System system = ctx.getArgument("system", System.class);
 		PlayerSystemStat stat = ctx.getArgument("stat", PlayerSystemStat.class);
-		int amount = IntegerArgumentType.getInteger(ctx, "amount");
+		double amount = DoubleArgumentType.getDouble(ctx, "amount");
 
 		ICultivation cultivation = Cultivation.get(target);
 		var message = Component.empty();
@@ -216,7 +216,7 @@ public class StatCommand {
 		System system = ctx.getArgument("system", System.class);
 		PlayerSystemElementalStat stat = ctx.getArgument("stat", PlayerSystemElementalStat.class);
 		var element = ElementArgument.getAspectLocation(ctx, "element");
-		int amount = IntegerArgumentType.getInteger(ctx, "amount");
+		double amount = DoubleArgumentType.getDouble(ctx, "amount");
 
 		ICultivation cultivation = Cultivation.get(target);
 		var message = Component.empty();

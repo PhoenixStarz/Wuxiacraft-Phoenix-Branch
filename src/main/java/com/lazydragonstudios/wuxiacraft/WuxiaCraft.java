@@ -14,6 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
@@ -55,6 +56,7 @@ public class WuxiaCraft {
 		WuxiaBodyParts.BODY_PART_TYPES.register(modEventBus);
 		WuxiaBodyParts.BODY_PARTS.register(modEventBus);
 		WuxiacraftFeatures.FEATURES.register(modEventBus);
+		WuxiaArgumentTypes.ARGUMENT_TYPES.register(modEventBus);
 
 		WuxiaConfigs.registerConfigs();
 	}
@@ -70,19 +72,12 @@ public class WuxiaCraft {
 		TechniqueUtil.loadChancedAspectsEntities();
 		TechniqueUtil.initWeaponTechniques();
 		TechniqueUtil.initTransformationAspects();
-		registerArgumentTypes();
 	}
 
 	public void onRegisterCommands(final RegisterCommandsEvent event) {
 		var dispatcher = event.getDispatcher();
 		CultivationCommand.register(dispatcher);
 		StatCommand.register(dispatcher);
-		CreateDefaultManualCommand.register(dispatcher);
 	}
 
-	public void registerArgumentTypes() {
-		ArgumentTypeInfos.registerByClass(AspectArgument.class, SingletonArgumentInfo.contextFree(AspectArgument::id));
-		ArgumentTypeInfos.registerByClass(StageArgument.class, SingletonArgumentInfo.contextFree(StageArgument::id));
-		ArgumentTypeInfos.registerByClass(ElementArgument.class, SingletonArgumentInfo.contextFree(ElementArgument::id));
-	}
 }

@@ -228,7 +228,7 @@ public abstract class TechniqueAspect {
 	 * This is the checkpoints for this technique. Take care that when using onReached, make sure you don't add repeated entries
 	 * On reached is going to be called a lot, use {@link AspectContainer#learnAspect)} that it's safe
 	 */
-		public static class Checkpoint {
+	public static class Checkpoint {
 
 		private final String name;
 
@@ -322,6 +322,6 @@ public abstract class TechniqueAspect {
 					"skills=" + skills + ']';
 		}
 
-		}
+	}
 
 }

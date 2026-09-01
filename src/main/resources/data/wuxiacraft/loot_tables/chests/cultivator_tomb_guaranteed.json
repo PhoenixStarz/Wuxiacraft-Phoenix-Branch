@@ -9,10 +9,65 @@
 					"functions": [
 						{
 							"function": "minecraft:set_nbt",
-							"tag": "{\"name\":\"wuxiacraft.technique.fire_manipulation\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":0,\"value\":\"wuxiacraft:cinder\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:cinder\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:magic_burning\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:magic_burning\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":-1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+							"tag": "{\"name\":\"wuxiacraft.technique.chronicles_of_fire_forging\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:cinder\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:scorch\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
 						}
 					],
-					"name": "wuxiacraft:essence_manual",
+					"name": "wuxiacraft:body_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.ocean_tide_body\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:drop\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:splash\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:body_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.druidic_body\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:seed\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:bark\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:body_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.steel_forged_body\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:ore\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:metal_skin\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:body_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.mountain_bone_body\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:dust\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:hardening\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:body_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.surging_thunder\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:spark\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:conduit\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:body_manual",
 					"weight": 1
 				},
 				{
@@ -20,10 +75,10 @@
 					"functions": [
 						{
 							"function": "minecraft:set_nbt",
-							"tag": "{\"name\":\"wuxiacraft.technique.legends_of_water\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":-1,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:drop\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:drop\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:stream\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+							"tag": "{\"name\":\"wuxiacraft.technique.storm_forged_body\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:breeze\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:airflow\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
 						}
 					],
-					"name": "wuxiacraft:essence_manual",
+					"name": "wuxiacraft:body_manual",
 					"weight": 1
 				},
 				{
@@ -31,10 +86,10 @@
 					"functions": [
 						{
 							"function": "minecraft:set_nbt",
-							"tag": "{\"name\":\"wuxiacraft.technique.nature_observation\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:seed\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:seed\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:branching\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+							"tag": "{\"name\":\"wuxiacraft.technique.venom_etched_body\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:venom\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:corruption\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
 						}
 					],
-					"name": "wuxiacraft:essence_manual",
+					"name": "wuxiacraft:body_manual",
 					"weight": 1
 				},
 				{
@@ -42,10 +97,10 @@
 					"functions": [
 						{
 							"function": "minecraft:set_nbt",
-							"tag": "{\"name\":\"wuxiacraft.technique.lightning_replication\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":1,\"keyY\":-1,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:spark\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:arc\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+							"tag": "{\"name\":\"wuxiacraft.technique.radiant_tempering\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:starry_bath\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:lumen\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
 						}
 					],
-					"name": "wuxiacraft:essence_manual",
+					"name": "wuxiacraft:body_manual",
 					"weight": 1
 				},
 				{
@@ -53,11 +108,66 @@
 					"functions": [
 						{
 							"function": "minecraft:set_nbt",
-							"tag": "{\"name\":\"wuxiacraft.technique.metallic_reinforcement\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":-1,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:ore\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:sharpness\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+							"tag": "{\"name\":\"wuxiacraft.technique.umbral_imbuement\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:shadow_bath\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:dim\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:body_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.qi_tempering\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:qi_strand\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:qi_tempering\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:body_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:body_manual",
+					"weight": 4
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.fire_manipulation\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:cinder\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:magic_burning\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
 						}
 					],
 					"name": "wuxiacraft:essence_manual",
-					"weight": 1
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.legends_of_water\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:drop\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:stream\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.nature_observation\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:seed\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:branching\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.metallic_reinforcement\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:ore\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:sharpness\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 2
 				},
 				{
 					"type": "minecraft:item",
@@ -68,6 +178,17 @@
 						}
 					],
 					"name": "wuxiacraft:essence_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.lightning_replication\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:spark\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:arc\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
 					"weight": 1
 				},
 				{
@@ -75,10 +196,186 @@
 					"functions": [
 						{
 							"function": "minecraft:set_nbt",
-							"tag": "{\"name\":\"wuxiacraft.technique.sword_basic_set\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:basic_sword_set\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:pure_qi_flow\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+							"tag": "{\"name\":\"wuxiacraft.technique.gale_circulation\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:breeze\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:gale\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
 						}
 					],
 					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.malignant_infusion\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:venom\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:malignance\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.stellarthread_binding\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:starry_bath\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:shine\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.midnight_tethering\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:shadow_bath\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:gloom\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.qi_flow\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:qi_strand\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:qi_flow\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 4
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.sword_basic_set\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:basic_sword_set\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:qi_flow\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:essence_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:essence_manual",
+					"weight": 4
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.burning_clarity\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:cinder\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:mind_flare\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.drifting_oceans_current\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:drop\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:waving\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.verdant_spirit\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:seed\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:swaying\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.steel_bound_discipline\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:ore\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:magnetization\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.grounding_oath\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:dust\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:stillness\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.stormwake_thunder\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:spark\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:flash\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.seven_drifting_winds\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:breeze\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:draft\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.corrosive_insight\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:venom\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:corrosion\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.dawn_spirit_illumination\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:starry_bath\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:flare\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.void_crown_eclipse\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:shadow_bath\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:eclipse\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
+					"weight": 1
+				},
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{\"name\":\"wuxiacraft.technique.qi_enlightenment\",\"radius\":1,\"technique-grid\":{\"grid\":[{\"keyX\":0,\"keyY\":0,\"value\":\"wuxiacraft:start\",\"proficiency\":\"10\"},{\"keyX\":1,\"keyY\":0,\"value\":\"wuxiacraft:qi_strand\",\"proficiency\":\"10\"},{\"keyX\":0,\"keyY\":1,\"value\":\"wuxiacraft:qi_enlightenment\",\"proficiency\":\"10\"},{\"keyX\":-1,\"keyY\":1,\"value\":\"wuxiacraft:divine_gathering\",\"proficiency\":\"10\"}]}}"
+						}
+					],
+					"name": "wuxiacraft:divine_manual",
 					"weight": 4
 				}
 			],

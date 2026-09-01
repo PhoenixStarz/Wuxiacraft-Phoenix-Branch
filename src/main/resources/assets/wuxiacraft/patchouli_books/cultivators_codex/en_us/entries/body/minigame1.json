@@ -1,0 +1,20 @@
+{
+  "name": "Body Refining Minigame",
+  "icon": "wuxiacraft:pill_3",
+  "category": "wuxiacraft:body",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "There are four parts to the body refinement selection screen, 1: body part groups, 2: body part selection list, 3: elements, 4: body part types. $(br2)Body Part Selection List: in the middle of the menu you can select a body part from the list. When you have selected a body part from the list you can see the forged element in the top right corner and the amount forged underneath."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br)Body parts will change color based on the element they are assigned to. $(br2)Body Part Groups: to the left of the body part selection list you can apply a group filter the body part selection list. $(br2)Elements: directly to the right of the body part selection list you can select an element to assign to the selected body part."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br2)You can remove an assigned element from a selected body part by double clicking the selected part. $(br2)Body Part Types: to the right of the body part selection list you can apply a type filter the body part selection list."  
+    }
+  ]
+}

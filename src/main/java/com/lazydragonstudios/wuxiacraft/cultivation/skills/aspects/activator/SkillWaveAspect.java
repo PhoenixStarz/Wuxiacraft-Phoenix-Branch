@@ -26,7 +26,7 @@ public class SkillWaveAspect extends SkillActivatorAspect {
 			var casterCultivation = Cultivation.get(caster);
 			var essenceData = casterCultivation.getSystemData(System.ESSENCE);
 			BigDecimal cost = skillAspects.getAppliedStats(casterCultivation, SkillStat.COST);
-			if (!essenceData.consumeEnergy(cost)) return false;
+			if (!essenceData.consumeEnergy(cost.divide(BigDecimal.TEN))) return false;
 			var level = caster.level();
 			Vec3 forward = caster.getLookAngle().normalize();
 			Vec3 up = new Vec3(0, 1, 0);

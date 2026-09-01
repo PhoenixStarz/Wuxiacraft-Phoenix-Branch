@@ -3,33 +3,60 @@ package com.lazydragonstudios.wuxiacraft.item;
 import com.lazydragonstudios.wuxiacraft.effects.WuxiaEffect;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaMobEffects;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class SpiritFruit extends ItemNameBlockItem {
+public class SpiritFruit extends Item {
 
 	private final int strength;
+	private final Block block;
 
 	public SpiritFruit(Block block, Properties properties, int strength) {
-		super(block, properties);
+		super(properties);
+		this.block = block;
 		this.strength = strength;
 	}
 
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
+		BlockHitResult hitResult = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos clickedPos = hitResult.getBlockPos();
+			BlockPos bushPos = clickedPos.relative(hitResult.getDirection());
+
+			BlockState bushState = this.block.defaultBlockState();
+
+			// Check whether the bush can survive there
+			if (level.getBlockState(bushPos).isAir()
+					&& bushState.canSurvive(level, bushPos)) {
+				if (!level.isClientSide) {
+					level.setBlock(bushPos, bushState, Block.UPDATE_ALL);
+					itemstack.shrink(1);
+				}
+				level.playSound(player, bushPos, SoundEvents.SWEET_BERRY_BUSH_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+				return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+			}
+		}
 		player.startUsingItem(hand);
 		return InteractionResultHolder.consume(itemstack);
 	}

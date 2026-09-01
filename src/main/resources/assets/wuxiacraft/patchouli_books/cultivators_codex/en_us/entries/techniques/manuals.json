@@ -1,0 +1,18 @@
+{
+  "name": "Manuals",
+  "icon": "minecraft:book",
+  "category": "wuxiacraft:techniques",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Right click a manual in to learn the aspects inside. $(br)Shift right click with a manual on a technique to copy the manual to your grid. $(br)You can give manuals to other players in order to share aspects. $(br)A manuals color determines what cultivation type it's assigned to, Red for Body, Yellow for Essence, Purple for Divine."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Manual Types",
+      "item": "wuxiacraft:body_manual,wuxiacraft:essence_manual,wuxiacraft:divine_manual",
+      "text": "The three types of manuals"
+    }
+  ]
+}

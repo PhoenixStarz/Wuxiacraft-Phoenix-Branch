@@ -24,7 +24,7 @@ public class SkillSelfAspect extends SkillActivatorAspect {
 			var casterCultivation = Cultivation.get(caster);
 			var essenceData = casterCultivation.getSystemData(System.ESSENCE);
 			BigDecimal cost = skill.getAppliedStats(casterCultivation, SkillStat.COST);
-			if (!essenceData.consumeEnergy(cost)) return false;
+			if (!essenceData.consumeEnergy(cost.divide(BigDecimal.TEN))) return false;
 			var result = new EntityHitResult(caster, caster.getEyePosition());
 			caster.swinging = true;
 			for (var link : skill.getSkillChain()) {

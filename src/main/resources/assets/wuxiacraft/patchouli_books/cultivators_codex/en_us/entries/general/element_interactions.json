@@ -1,0 +1,16 @@
+{
+  "name": "Elemental Interactions",
+  "icon": "minecraft:paper",
+  "category": "wuxiacraft:general",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Certain elements interact with each other. $(br)If an element begets another element it will feed it's foundation into the other element at an increased rate gaining more foundation than normall. However, if an element suppresses another thier foundations will cancel eachother lossing more foundation than gained normally."
+    },
+        {
+      "type": "patchouli:text",
+      "text": "Basic Elemental Interactions: $(br)Fire begets Earth while suppressing Metal. $(br2)Earth begets Metal while suppressing Water. $(br2)Metal begets Water while suppressing Wood. $(br2)Water begets Wood while suppressing Fire. $(br2)Wood begets Fire while suppressing Earth."
+    }
+  ]
+}

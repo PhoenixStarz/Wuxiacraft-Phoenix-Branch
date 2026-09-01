@@ -9,13 +9,14 @@ import com.lazydragonstudios.wuxiacraft.cultivation.technique.AspectContainer;
 import com.lazydragonstudios.wuxiacraft.networking.CultivationSyncMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.util.LogicalSidedProvider;
@@ -56,14 +57,14 @@ public class CultivationCommand {
 						.then(Commands.literal("tech")
 								.then(Commands.literal("add")
 										.then(Commands.argument("aspect", AspectArgument.id())
-												.then(Commands.argument("amount", IntegerArgumentType.integer())
+												.then(Commands.argument("amount", DoubleArgumentType.doubleArg())
 														.executes(CultivationCommand::addTechniqueAspectProficiency)
 												)
 										)
 								)
 								.then(Commands.literal("remove")
 										.then(Commands.argument("aspect", AspectArgument.id())
-												.then(Commands.argument("amount", IntegerArgumentType.integer())
+												.then(Commands.argument("amount", DoubleArgumentType.doubleArg())
 														.executes(CultivationCommand::removeTechniqueAspectProficiency)
 												)
 										)
@@ -83,6 +84,11 @@ public class CultivationCommand {
 												)
 										)
 								)
+								.then(Commands.literal("addAll")
+										.then(Commands.argument("amount", DoubleArgumentType.doubleArg())
+												.executes(CultivationCommand::addAllTechniqueAspectProficiencies)
+										)
+								)
 						)
 				)
 		);
@@ -100,7 +106,7 @@ public class CultivationCommand {
 	public static int getCultivation(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
 		ICultivation cultivation = Cultivation.get(target);
-		var message = Component.empty();
+		MutableComponent message = Component.empty();
 		for (var system : System.values()) {
 			String systemName = system.name();
 			message.append(systemName).append(" stats: ").append("\n");
@@ -119,7 +125,7 @@ public class CultivationCommand {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
 		ICultivation cultivation = Cultivation.get(target);
 		cultivation.deserialize(new Cultivation().serialize());
-		var message = Component.literal("Cultivation successfully reset, I feel sorry about that dude!");
+		MutableComponent message = Component.literal("Cultivation successfully reset, I feel sorry about that dude!");
 		ctx.getSource().sendSuccess(() -> message, true);
 		syncClientCultivation(target);
 		return 1;
@@ -133,7 +139,7 @@ public class CultivationCommand {
 		var systemData = cultivation.getSystemData(system);
 		systemData.currentStage = stageLocation;
 		systemData.calculateStats(cultivation);
-		Component message = Component.translatable("wuxiacraft.command.set_stage",
+		MutableComponent message = Component.translatable("wuxiacraft.command.set_stage",
 				Component.translatable(stageLocation.getNamespace() + ".stage." + stageLocation.getPath()));
 		ctx.getSource().sendSuccess(() -> message, true);
 		syncClientCultivation(target);
@@ -143,13 +149,14 @@ public class CultivationCommand {
 	public static int addTechniqueAspectProficiency(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
 		ResourceLocation aspectLocation = AspectArgument.getAspectLocation(ctx, "aspect");
-		int amount = IntegerArgumentType.getInteger(ctx, "amount");
+		double amount = DoubleArgumentType.getDouble(ctx, "amount");
 
 		ICultivation cultivation = Cultivation.get(target);
+		MutableComponent message = Component.empty();
 
 		cultivation.getAspects().addAspectProficiency(aspectLocation, new BigDecimal(amount), cultivation);
-		var message = Component.translatable("wuxiacraft.command.add_proficiency",
-				Component.translatable(aspectLocation.getNamespace() + ".aspect." + aspectLocation.getPath() + ".name"));
+		message.append(Component.translatable("wuxiacraft.command.add_proficiency",
+				Component.translatable(aspectLocation.getNamespace() + ".aspect." + aspectLocation.getPath() + ".name")));
 		ctx.getSource().sendSuccess(() -> message, true);
 		syncClientCultivation(target);
 		return 1;
@@ -158,10 +165,10 @@ public class CultivationCommand {
 	public static int removeTechniqueAspectProficiency(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
 		ResourceLocation aspectLocation = AspectArgument.getAspectLocation(ctx, "aspect");
-		int amount = IntegerArgumentType.getInteger(ctx, "amount");
+		double amount = DoubleArgumentType.getDouble(ctx, "amount");
 
 		ICultivation cultivation = Cultivation.get(target);
-		var message = Component.empty();
+		MutableComponent message = Component.empty();
 
 		cultivation.getAspects().subtractAspectProficiency(aspectLocation, new BigDecimal(amount));
 		message.append(Component.translatable("wuxiacraft.command.proficiency_subtract",
@@ -176,7 +183,7 @@ public class CultivationCommand {
 		ResourceLocation aspectLocation = AspectArgument.getAspectLocation(ctx, "aspect");
 
 		ICultivation cultivation = Cultivation.get(target);
-		var message = Component.empty();
+		MutableComponent message = Component.empty();
 
 		cultivation.getAspects().setAspectAndProficiency(aspectLocation, BigDecimal.ZERO);
 		message.append(Component.translatable("wuxiacraft.command.clear_proficiency",
@@ -190,10 +197,24 @@ public class CultivationCommand {
 		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
 
 		ICultivation cultivation = Cultivation.get(target);
-		var message = Component.empty();
+		MutableComponent message = Component.empty();
 		var aspects = new AspectContainer();
 		cultivation.getAspects().deserialize(aspects.serialize(), cultivation);
 		message.append(Component.translatable("wuxiacraft.command.clear_all_aspects"));
+		ctx.getSource().sendSuccess(() -> message, true);
+		syncClientCultivation(target);
+		return 1;
+	}
+
+	public static int addAllTechniqueAspectProficiencies(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+		ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
+		double amount = DoubleArgumentType.getDouble(ctx, "amount");
+
+		ICultivation cultivation = Cultivation.get(target);
+		MutableComponent message = Component.empty();
+
+		cultivation.getAspects().addAllAspectsProficiency(new BigDecimal(amount), cultivation);
+		message.append(Component.translatable("wuxiacraft.command.add_all_proficiency"));
 		ctx.getSource().sendSuccess(() -> message, true);
 		syncClientCultivation(target);
 		return 1;

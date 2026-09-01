@@ -1,0 +1,12 @@
+{
+  "name": "Tribulations",
+  "icon": "minecraft:lightning_rod",
+  "category": "wuxiacraft:general",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Each of the Cultivation types have a similar but different kind of tribulation. $(br)Essense has a heavenly lightning tribulation, Divine has a soul crushing tribulation, while Body has a body withering tribulation. $(br2)Certain things like lingering demonic foundation and actions from a previous life can increase a tribulations requirements."
+    }
+  ]
+}

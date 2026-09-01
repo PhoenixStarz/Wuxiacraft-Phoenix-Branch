@@ -198,7 +198,19 @@ public class WuxiaButton extends AbstractButton {
 		guiGraphics.setColor(1f, 1f, 1f, 1f);
 
 		var font = Minecraft.getInstance().font;
-		guiGraphics.drawCenteredString(font, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - font.lineHeight) / 2, this.textColor);
+		int textWidth = font.width(this.getMessage().getString());
+		float scale = 1.0F;
+		if (textWidth > this.width) {
+			scale = (float) this.width / textWidth;
+		}
+
+		guiGraphics.pose().pushPose();
+		guiGraphics.pose().scale(scale, scale, 1.0F);
+		// Compensate coordinates for the scale
+		int cx = (int) ((this.getX() + this.width / 2) / scale);
+		int cy = (int) ((this.getY() + (this.height - font.lineHeight) / 2) / scale);
+		guiGraphics.drawCenteredString(font, this.getMessage(), cx, cy, this.textColor);
+		guiGraphics.pose().popPose();
 	}
 
 	@Override

@@ -1,0 +1,27 @@
+{
+  "name": "Technique Grid",
+  "icon": "minecraft:item_frame",
+  "category": "wuxiacraft:techniques",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "In order to enter a technique tab enter the Introspection Screen ($(k:wuxiacraft.key.introspection)) select one of the three technique scroll icons with the corresponding color for the cultivation type you want. $(br2)The list on the left is the aspect list where you will pull your aspects from. you can use the search bar above to filer the aspects on the list."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br)Start by placing down the start aspect, then place down a generator aspect, then connect a converter aspect to the generator aspect, then connect the system gathering aspect to the converter aspect, then finally compile and save your custom technique. $(br2)A technique is only valid if you see the cultivation speed value at the top right corner of the menu."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/techniques/single.png",
+        "wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/techniques/double.png",
+        "wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/techniques/triple.png",
+        "wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/techniques/dual.png"
+      ],
+      "text": "Examples of Valid Techniques. $(br)Your grid will grow larger as you reach higher stages.",
+      "border": true
+    }
+  ]
+}

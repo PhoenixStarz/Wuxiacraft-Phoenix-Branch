@@ -79,6 +79,21 @@ public class AspectContainer {
 		}
 		countKnownAspects();
 	}
+	
+	public void addAllAspectsProficiency(BigDecimal amount, ICultivation cultivation) {
+		for (var aspect : WuxiaRegistries.TECHNIQUE_ASPECT.get().getKeys()) {
+			if (this.aspectAndProficiency.containsKey(aspect)) {
+				TechniqueAspect aspectInstance = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(aspect);
+				if (aspectInstance == null) return;
+				this.aspectAndProficiency.put(aspect, this.aspectAndProficiency.get(aspect).add(amount).max(BigDecimal.ZERO));
+			} else {
+				if (amount.compareTo(BigDecimal.TEN) >= 0) {
+					this.aspectAndProficiency.put(aspect, amount);
+				}
+			}
+			countKnownAspects();
+		}
+	}
 
 	public void setAspectAndProficiency(ResourceLocation aspect, BigDecimal amount) {
 		this.aspectAndProficiency.put(aspect, amount.max(BigDecimal.ZERO));

@@ -1,0 +1,12 @@
+{
+  "name": "Sects",
+  "icon": "minecraft:barrier",
+  "category": "wuxiacraft:general",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sects are currently not implemented."
+    }
+  ]
+}

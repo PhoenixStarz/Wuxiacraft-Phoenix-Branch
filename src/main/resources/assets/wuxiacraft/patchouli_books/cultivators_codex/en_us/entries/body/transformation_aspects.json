@@ -1,0 +1,16 @@
+{
+  "name": "Transformation Aspects",
+  "icon": "minecraft:enchanted_golden_apple",
+  "category": "wuxiacraft:body",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Body Transformation aspects boost the amount of stats body cultivation gives to the cultivator. $(br2)At the bottom left of the Body Refinement Screen you can select the Transformations Group."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br2)When the Transformations filter is selected any transformation aspects which meet the required proficiency will apear and you may select one in order to display it on your character. $(br2)If a transformation is selected you may deselect it by double clicking it."
+    }
+  ]
+}

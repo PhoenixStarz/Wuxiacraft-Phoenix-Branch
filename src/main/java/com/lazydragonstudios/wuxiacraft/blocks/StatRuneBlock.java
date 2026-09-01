@@ -9,12 +9,19 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -28,18 +35,22 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class StatRuneBlock extends Block {
+public class StatRuneBlock extends Block implements SimpleWaterloggedBlock {
 
 	public final HashMap<FormationStat, BigDecimal> formationStats;
 	public final HashMap<System, HashMap<FormationSystemStat, BigDecimal>> formationSystemStats;
 
 	public final VoxelShape VOXEL_SHAPE = Shapes.or(Block.box(1, 0, 1, 15, 2, 15));
 
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
 	public StatRuneBlock(Properties properties) {
 		super(properties);
 		formationStats = new HashMap<>();
 		formationSystemStats = new HashMap<>();
+		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
 	}
+	
 
 	public StatRuneBlock addStat(FormationStat stat, BigDecimal value) {
 		this.formationStats.put(stat, value);
@@ -82,4 +93,20 @@ public class StatRuneBlock extends Block {
 			}
 		}
 	}
+	
+	@Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(WATERLOGGED);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        return defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
 }

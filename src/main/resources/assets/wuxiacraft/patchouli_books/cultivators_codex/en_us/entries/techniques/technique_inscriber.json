@@ -1,0 +1,17 @@
+{
+  "name": "Technique Inscriber",
+  "icon": "wuxiacraft:technique_inscriber",
+  "category": "wuxiacraft:techniques",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Technique inscribers can be used to create your own technique. The long bar on the top is the name bar fill it in to name your technique. The three colored buttons at the bottom selects which cultivation type the maunal takes on. The upper button to the right is for the ink sacs. The lower button to the right is for the books. The scribe button in the middle creates the finalized technique."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:technique_inscriber",
+      "text": "Technique Inscriber Recipe. $(br2)Technique Inscribers can also be found inside Technique Stores which are some times inside villages."
+    }
+  ]
+}

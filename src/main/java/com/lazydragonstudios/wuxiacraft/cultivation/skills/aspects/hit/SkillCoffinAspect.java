@@ -63,7 +63,7 @@ public class SkillCoffinAspect extends SkillHitAspect {
 							if (!SkillUtil.canPlayerPlace(caster.level(), blockPos, caster.level().getBlockState(blockPos), caster)) return false;
 							if (!(caster.level().getBlockState(blockPos).getBlock() instanceof AirBlock)) continue;
 							if (caster.level() instanceof ServerLevel serverLevel) {
-								serverLevel.setBlockAndUpdate(blockPos , Blocks.SAND.defaultBlockState());
+								serverLevel.setBlockAndUpdate(blockPos , Blocks.SANDSTONE.defaultBlockState());
 							}
 						}
 					}

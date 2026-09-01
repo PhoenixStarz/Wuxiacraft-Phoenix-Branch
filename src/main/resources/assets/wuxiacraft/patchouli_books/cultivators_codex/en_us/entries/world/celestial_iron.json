@@ -1,0 +1,37 @@
+{
+  "name": "Celestial Iron",
+  "icon": "wuxiacraft:celestial_iron_ingot",
+  "category": "wuxiacraft:world",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A rare glowing form of iron infused with qi. $(br2)Celestial armor gives a boost to elemental resistance, while the tools give a boost to elemental pierce. $(br2)More durible than diamond and faster than gold!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:celestial_helmet",
+      "recipe2": "wuxiacraft:celestial_chestplate"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:celestial_leggings",
+      "recipe2": "wuxiacraft:celestial_boots"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:celestial_sword",
+      "recipe2": "wuxiacraft:celestial_axe"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:celestial_pickaxe",
+      "recipe2": "wuxiacraft:celestial_shovel"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:celestial_hoe",
+      "recipe2": "wuxiacraft:celestial_iron_rune_stencil"
+    }
+  ]
+}

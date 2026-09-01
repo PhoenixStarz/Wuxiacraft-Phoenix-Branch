@@ -72,6 +72,7 @@ public class BodyCultivationContainer extends SystemContainer {
 	}
 
 	public void forgeAllParts(BigDecimal amount) {
+		amount = amount.divide(BigDecimal.valueOf(this.unlockedParts().size()), RoundingMode.HALF_UP).setScale(8, RoundingMode.HALF_DOWN);
 		for (var bodyPartLocation : this.unlockedParts()) {
 			BigDecimal forgedAmount = this.bodyPartsForging.getOrDefault(bodyPartLocation, BigDecimal.ZERO);
 			this.bodyPartsForging.put(bodyPartLocation, forgedAmount.add(amount).setScale(6, RoundingMode.HALF_DOWN));
@@ -182,23 +183,9 @@ public class BodyCultivationContainer extends SystemContainer {
 		var ECBoost = BigDecimal.ONE;
 		var barrierBoost = BigDecimal.ONE;
 		var DCStrBoost = BigDecimal.ONE;
-		this.bodyTransformation = null;
-		this.displayBodyTransformation = null;
+		this.bodyTransformation = this.getDisplayBodyTransformation();
 		var knownTransformationAspects = aspectData.getKnownAspects().stream()
-				.filter(aspectLocation -> TechniqueUtil.getTransformationAspects().contains(aspectLocation))
-				.sorted(Comparator.comparing(aspectData::getAspectProficiency).reversed()).toList();
-		if (!knownTransformationAspects.isEmpty()) {
-			var transformationAspectLocation = knownTransformationAspects.get(0);
-			var transformationAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(transformationAspectLocation);
-			if (transformationAspect != null) {
-				var checkpoint = transformationAspect.getCurrentCheckpoint(aspectData.getAspectProficiency(transformationAspectLocation));
-				if (checkpoint instanceof BodyTransformationAspect.TransformationCheckpoint transformationCheckpoint) {
-					this.bodyTransformation = transformationCheckpoint.getTransformationLocation();
-					this.displayBodyTransformation = transformationCheckpoint.getTransformationLocation();
-					var modifier = transformationCheckpoint.modifier();
-				}
-			}
-		}
+				.filter(aspectLocation -> TechniqueUtil.getTransformationAspects().contains(aspectLocation)).toList();
 		for (var transformationAspectLocation : knownTransformationAspects) {
 			var transformationAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(transformationAspectLocation);
 			if (transformationAspect != null) {

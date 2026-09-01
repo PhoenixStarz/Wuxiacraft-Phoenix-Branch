@@ -16,11 +16,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationState, boolean combat, ResourceLocation bodyTransformation) {
+public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationState, CompoundTag cultivation, boolean combat, ResourceLocation bodyTransformation) {
 
 	public static void encode(AnimationChangeUpdateMessage msg, FriendlyByteBuf buf) {
 		buf.writeUUID(msg.playerId);
 		buf.writeNbt(msg.animationState);
+		buf.writeNbt(msg.cultivation);
 		buf.writeBoolean(msg.combat);
 		buf.writeResourceLocation(msg.bodyTransformation);
 	}
@@ -28,7 +29,8 @@ public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationS
 	public static AnimationChangeUpdateMessage decode(FriendlyByteBuf buf) {
 		UUID playerId = buf.readUUID();
 		CompoundTag animationState = buf.readAnySizeNbt();
-		return new AnimationChangeUpdateMessage(playerId, animationState, buf.readBoolean(), buf.readResourceLocation());
+		CompoundTag cultivation = buf.readAnySizeNbt();
+		return new AnimationChangeUpdateMessage(playerId, animationState, cultivation, buf.readBoolean(), buf.readResourceLocation());
 	}
 
 	public static void handleMessageCommon(AnimationChangeUpdateMessage msg, Supplier<NetworkEvent.Context> ctxSupplier) {
@@ -51,6 +53,7 @@ public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationS
 			IClientAnimationState animationState = ClientAnimationState.get(target);
 			animationState.deserialize(msg.animationState);
 			ICultivation cultivation = Cultivation.get(target);
+			cultivation.deserialize(msg.cultivation);
 			cultivation.setExercising(animationState.isExercising());
 			cultivation.setCombat(msg.combat);
 			if(ForgeRegistries.ENTITY_TYPES.containsKey(msg.bodyTransformation)) {

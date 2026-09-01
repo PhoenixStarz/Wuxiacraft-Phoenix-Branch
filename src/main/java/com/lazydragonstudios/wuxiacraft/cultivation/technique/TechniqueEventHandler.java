@@ -207,12 +207,12 @@ public class TechniqueEventHandler {
 			return;
 		}
 		systemData.techniqueData.grid.deserialize(techGrid.serialize());
-		WuxiaPacketHandler.INSTANCE.sendToServer(new RequestTechniqueDataChange(system, systemData.techniqueData.serialize()));
 		if (player instanceof ServerPlayer serverPlayer) {
 			serverPlayer.sendSystemMessage(Component.translatable(name).append(" ")
 			.append(Component.translatable("wuxiacraft.copy_successful"))
 			, true);
-		}
+		} else 
+		WuxiaPacketHandler.INSTANCE.sendToServer(new RequestTechniqueDataChange(system, systemData.techniqueData.serialize()));
 	}
 
 		

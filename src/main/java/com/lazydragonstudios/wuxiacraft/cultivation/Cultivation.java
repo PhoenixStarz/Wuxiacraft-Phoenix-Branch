@@ -186,7 +186,7 @@ public class Cultivation implements ICultivation {
 	@Nullable
 	@Override
 	public ResourceLocation getBodyTransformation() {
-		return ((BodyCultivationContainer) this.getSystemData(System.BODY)).getBodyTransformation();
+		return ((BodyCultivationContainer) this.getSystemData(System.BODY)).getDisplayBodyTransformation();
 	}
 
 	public void setBodyTransformation(ResourceLocation bodyTransformation) {
@@ -325,11 +325,8 @@ public class Cultivation implements ICultivation {
 			if(stat == PlayerStat.MAX_HEALTH) {
 				statValue = statValue.add(BigDecimal.valueOf(extraHealthFromAttributes));
 			} else
-			if(stat == PlayerStat.REBIRTHS) {
-				statValue = new BigDecimal(this.getRebirths());
-			} else
 			if(stat == PlayerStat.MAX_LIVES) {
-				statValue = statValue.add(new BigDecimal(this.getRebirths()));
+				statValue = statValue.add(new BigDecimal(this.getRebirths()*2));
 			}
 			statValue = statValue.max(BigDecimal.ZERO);
 			this.playerStats.put(stat, statValue.setScale(6, RoundingMode.HALF_DOWN));

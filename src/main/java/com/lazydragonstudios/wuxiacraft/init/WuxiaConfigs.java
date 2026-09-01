@@ -19,6 +19,7 @@ public class WuxiaConfigs {
     // Server Config Values
 
     // Common Config Values
+    public static ForgeConfigSpec.BooleanValue STARTER_BOOK;
     public static ForgeConfigSpec.BooleanValue LIVES_ENABLED;
     public static ForgeConfigSpec.LongValue INITIAL_LIVES;
     public static ForgeConfigSpec.LongValue MAX_LIVES;
@@ -43,6 +44,10 @@ public class WuxiaConfigs {
     private static void registerCommonConfig() {
         ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
         COMMON_BUILDER.comment("Common Config for WuxiaCraft").push("cultivation");
+
+        STARTER_BOOK = COMMON_BUILDER
+                .comment("Whether the Starter Book is given on first login. Default(true)")
+                .define("starterBook", true);
 
         LIVES_ENABLED = COMMON_BUILDER
                 .comment("Whether the lives are enabled or not. Default(true)")

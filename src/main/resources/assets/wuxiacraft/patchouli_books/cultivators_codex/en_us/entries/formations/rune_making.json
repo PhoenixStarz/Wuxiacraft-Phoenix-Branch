@@ -1,0 +1,17 @@
+{
+  "name": "Rune Making",
+  "icon": "wuxiacraft:iron_rune_stencil",
+  "category": "wuxiacraft:formations",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Manual Rune Creation: shift-right click while hold a rune stencil to change rune type, then mine an appropriate block and a rune of the selected type will drop. $(br2)Using a Rune Making Table: right click the table and slot appropriate block and rune stencil, select rune type, and then collect rune from rune slot."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:runemaking_table",
+      "recipe2": "wuxiacraft:iron_rune_stencil"
+    }
+  ]
+}

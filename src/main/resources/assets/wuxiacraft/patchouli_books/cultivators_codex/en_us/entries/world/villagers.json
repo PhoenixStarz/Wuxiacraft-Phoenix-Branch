@@ -1,0 +1,17 @@
+{
+  "name": "Villagers",
+  "icon": "minecraft:villager_spawn_egg",
+  "category": "wuxiacraft:world",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Villages can have technique stores which contain bookshelfs and a technique inscriber. $(br2)Villagers can gain the Cultivator profession from the technique inscriber and then they'll be able to buy cultivation adjacent materials for emeralds from the player."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:villager{VillagerData:{profession:'wuxiacraft:cultivator',type:'plains',level:4}}",
+      "text": "Villagers with the cultivator profession can sell manuals to players."
+    }
+  ]
+}

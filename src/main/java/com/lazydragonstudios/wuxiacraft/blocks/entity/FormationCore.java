@@ -137,12 +137,14 @@ public class FormationCore extends BlockEntity {
 				cultivation.getFormationStats().copyFrom(this.formationPlayerStats);
 			}
 			this.active = true;
+			if (!this.level.isClientSide && player != null) {
+				this.level.playSound(null, player.getOnPos(), SoundEvents.NOTE_BLOCK_BIT.value(), SoundSource.BLOCKS, 6f, 0.6f);
+			}
 		} else {
 			deactivate();
 		}
 		if (level.getPlayerByUUID(playerId) instanceof ServerPlayer serverPlayer) {
-			serverPlayer.sendSystemMessage(Component.translatable("Energy")
-					.append(Component.literal(" "+(energyGeneration.subtract(energyCost)))),
+			serverPlayer.sendSystemMessage(Component.translatable("wuxiacraft.gui.energy", energyGeneration.subtract(energyCost)),
 				true);
 		}
 		this.setChanged();
@@ -193,7 +195,9 @@ public class FormationCore extends BlockEntity {
 	public boolean attackBarrierMelee(LivingEntity attacker, float attackStrength) {
 		Level level1 = this.level;
 		if (level1 == null) return false;
-		var finalAttackDamage = BigDecimal.valueOf(attacker.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
+		var finalAttackDamage = BigDecimal.valueOf(attackStrength);
+		if (attacker != null)
+			finalAttackDamage = BigDecimal.valueOf(attacker.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
 		if (attacker instanceof Player player) {
 			var attackerStrengthStat = Cultivation.get(player).getStat(PlayerStat.STRENGTH, false).divide(BigDecimal.TEN);
 			finalAttackDamage = attackerStrengthStat.add(BigDecimal.valueOf(attackStrength));

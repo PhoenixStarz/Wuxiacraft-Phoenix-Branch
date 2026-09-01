@@ -1,0 +1,16 @@
+{
+  "name": "Snakes",
+  "icon": "wuxiacraft:snake_spawn_egg",
+  "category": "wuxiacraft:world",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Snakes drop eggs and spirit stones. $(br2)Snakes can be found throughout the overworld, nether, and end. $(br)Snakes vary in strength and the stronger the snake the higher the tier of spirit stones droped."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "wuxiacraft:snake"
+    }
+  ]
+}

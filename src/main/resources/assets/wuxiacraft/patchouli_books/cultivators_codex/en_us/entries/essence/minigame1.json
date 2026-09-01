@@ -1,0 +1,21 @@
+{
+  "name": "Holding Minigame",
+  "icon": "wuxiacraft:spirit_stone_3",
+  "category": "wuxiacraft:essence",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "These are the steps you follow in order to compete the Holding Click Minigame. 1: press and hold down left click on an orb untill it goes away, 2: you're finished."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/essence/minigame1/1.png",
+        "wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/essence/minigame1/2.png",
+        "wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/essence/minigame1/3.png"
+      ],
+      "border": true
+    }
+  ]
+}

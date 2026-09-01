@@ -71,10 +71,10 @@ public class TechniqueTab extends IntrospectionTab {
 		var systemData = cultivation.getSystemData(this.system);
 		this.modifier = systemData.techniqueData.modifier;
 
-		searchField = new WuxiaTextField(36 + 3, 36, 110, 20);
+		searchField = new WuxiaTextField(36 + 3, 36, 123, 20);
 		searchField.editBox.setResponder(this::reloadAspects);
 
-		aspectsPanel = new WuxiaFlowPanel(36, 36 + 20 + 3, 116, scaledHeight + 16, Component.empty());
+		aspectsPanel = new WuxiaFlowPanel(36, 36 + 20 + 3, 126, scaledHeight + 16, Component.empty());
 		aspectsPanel.margin = 5;
 		techniqueStatsPanel = new WuxiaScrollPanel(scaledWidth - 200, 36, 200, scaledHeight - 55 - 36, Component.empty()) {
 

@@ -1,0 +1,19 @@
+{
+  "name": "Soul Core",
+  "icon": "wuxiacraft:soul_core",
+  "category": "wuxiacraft:demonic",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Soul cores are dropped when a cultivator loses all of thier lives. $(br)Soul Cores allow cultivators to reclaim the dormant cultivation within through consumption. $(br)Consuming a soul core by hand takes longer then using the proper methods, but will provide less demonic foundation. $(br2)When a soul core is fully used up it'll grant one extra life."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "wuxiacraft:soul_core"
+      },
+        "text": "This is a soul core"
+    }
+  ]
+}

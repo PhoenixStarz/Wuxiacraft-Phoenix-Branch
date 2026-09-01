@@ -43,7 +43,7 @@ public class BarrierOverlay implements IGuiOverlay {
 		int fill = barrier.multiply(new BigDecimal("81"), mathContext).divide(max_barrier, mathContext).min(new BigDecimal(81)).intValue();
 		guiGraphics.blit(BARRIER_BAR, i, j, fill, 9, 0, 9, fill, 9, 81, 18);
 		//text
-		String life = StatsUtil.getShortHealthAmount(barrier);
+		String life = StatsUtil.getShortHealthAmount(barrier) + "/" + StatsUtil.getShortHealthAmount(max_barrier);
 		int healthStringWidth = gui.getFont().width(life);
 		guiGraphics.pose().pushPose();
 		guiGraphics.pose().translate((int) (i + (81f - healthStringWidth) / 2), j + 2, 1f);

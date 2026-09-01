@@ -54,6 +54,7 @@
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:sharpness", "chance": 600.0 },
 		{ "entity": "minecraft:iron_golem", "aspect": "wuxiacraft:magnetization", "chance": 600.0 },
 
+		{ "entity": "minecraft:player", "aspect": "wuxiacraft:devouring", "chance": 30.0 },
 		{ "entity": "minecraft:zombie", "aspect": "wuxiacraft:devouring", "chance": 9000.0 },
 		{ "entity": "minecraft:husk", "aspect": "wuxiacraft:devouring", "chance": 9000.0 },
 		{ "entity": "minecraft:zoglin", "aspect": "wuxiacraft:devouring", "chance": 9000.0 },

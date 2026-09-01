@@ -1,0 +1,19 @@
+{
+  "name": "Divine Cultivation",
+  "icon": "wuxiacraft:spirit_fruit_2",
+  "category": "wuxiacraft:divine",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "In order to cultivate divine, one must press $(k:wuxiacraft.key.meditate) and complete the minigame in the proper tab. However, one must have a valid technique."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "wuxiacraft:spirit_fruit_1"
+      },
+      "text": "Spirit fruits can be used to boost the amount of divine cultivation base and aspect proficiency gain."
+    }
+  ]
+}

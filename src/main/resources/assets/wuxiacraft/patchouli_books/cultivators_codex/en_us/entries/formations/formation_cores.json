@@ -1,0 +1,17 @@
+{
+  "name": "Formation Cores",
+  "icon": "wuxiacraft:emerald_formation_core",
+  "category": "wuxiacraft:formations",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Formation Cores determine the range in which runes are counted in a formation. $(br2)In order to create a formation core one must right click with valid block in hand on a formation core base to slot an valid core."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:formation_core_base",
+      "text": "Crafting recipe for the Formation Core Base need to make a Formation Core."
+    }
+  ]
+}

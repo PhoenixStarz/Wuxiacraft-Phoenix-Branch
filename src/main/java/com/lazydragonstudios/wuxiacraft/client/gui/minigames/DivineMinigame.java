@@ -12,6 +12,7 @@ import com.lazydragonstudios.wuxiacraft.networking.MeditateMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import com.lazydragonstudios.wuxiacraft.networking.TeleportToDivineDimensionMessage;
 import com.lazydragonstudios.wuxiacraft.util.MathUtil;
+import com.lazydragonstudios.wuxiacraft.world.dimension.DimensionManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
@@ -168,6 +169,8 @@ public class DivineMinigame implements Minigame {
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if (this.canTeleport) {
 			var component = Component.translatable("wuxiacraft.gui.teleport");
+			if (Minecraft.getInstance().player.level().dimension().equals(DimensionManager.DIVINE_DIMENSION))
+				component = Component.translatable("wuxiacraft.gui.teleport_out");
 			int width = this.font.width(component);
 			guiGraphics.drawString(this.font, component, (int) (35 - width / 2f), 28, 0x58AB6B);
 		}

@@ -1,0 +1,40 @@
+{
+  "name": "Stats",
+  "icon": "minecraft:experience_bottle",
+  "category": "wuxiacraft:general",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Press $(k:wuxiacraft.key.introspection) to open up your introspection screen the inital tab is the stats tab. $(br)The Sliders at the top of the screen control the percentage of their stat applied respectfully. $(br)The Strength stat effects the damage you deal. $(br)The Max Health stat is the amount of health increased through cultivation."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Agility Stat effects your movement speed. $(br)The Health regeneration stat effects health regenerated though body energy being converted into hp and the Health regeneration cost stat is the cost in body energy of this. $(br)Exercise Cost is the cost in hunger exercising costs and the Exercise Conversion stat effects the speed of body cultivation."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Barrier is the amount of barrier you have, while Max Barrier is the maximum value barrier can have. Barrier regeneration is the about barrier regenerates per tick, while the cost is the cost in essence energy of the regeneration. Barrier cooldown is the time remaining untill barrier starts to regenerate after being broken."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Detection Range is the range in blocks of divine sense. Detection Strength is the ablity to peirce of Detection Resistance, while Detection Resistance is the ability to avoid detection. $(br)Lives is the amount of lives you have left if it reaches zero your cultivaiton is reset, while Max Lives is the maximum amount of lives you can have at once."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Hunger Regen is the amount of hunger you regenerate through cultivation, while Hunger Regen Cost is the amount in Essence energy it uses. $(br) The Elemental Comprehension stat is the total comprehension of that element you have, while the Elemental Resistance Stat is a flat damage reducation when taking damage of that element and Elemental Pierce negates the protection, when attacking others."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Energy bars that the top display the amount of energy you have in a given system. $(br)The Realm title is the realm you are current at. $(br)The Stage Title is the stage you are currently at. $(br)The Cultivation Base stat is the amount of cultivaiton base that you have, when your cultivation base stat is maxed out you can breakthrough to the next stage."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Energy Stat is the current energy you have in that system. $(br)The Energy Regeneration stat is the amount of energy you regenerate per tick. $(br)The Max Energy stat is the maximum energy you can have in that system. $(br)The Additiional Gride Radius stat shows your increased grid radius size from cultivation. $(br)The Cast Speed and Cooldown stat effect skill cast speed and cooldown."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br2)Click on the plus button next to a foundation if you have one to reveal the amount of stats it provides."
+    }
+  ]
+}

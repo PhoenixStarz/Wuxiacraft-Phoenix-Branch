@@ -40,6 +40,7 @@ public class WuxiaPacketHandler {
 		INSTANCE.registerMessage(serverMessagesID++, RequestSectInvitesMessage.class, RequestSectInvitesMessage::encode, RequestSectInvitesMessage::decode, RequestSectInvitesMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, SelectBodyPartElementMessage.class, SelectBodyPartElementMessage::encode, SelectBodyPartElementMessage::decode, SelectBodyPartElementMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, RemoveSelectedElementByBodyPartMessage.class, RemoveSelectedElementByBodyPartMessage::encode, RemoveSelectedElementByBodyPartMessage::decode, RemoveSelectedElementByBodyPartMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+		INSTANCE.registerMessage(serverMessagesID++, SelectBodyTransformationMessage.class, SelectBodyTransformationMessage::encode, SelectBodyTransformationMessage::decode, SelectBodyTransformationMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		INSTANCE.registerMessage(serverMessagesID++, TeleportToDivineDimensionMessage.class, TeleportToDivineDimensionMessage::encode, TeleportToDivineDimensionMessage::decode, TeleportToDivineDimensionMessage::handleMessage, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 
 		int clientMessagesID = 200;

@@ -9,13 +9,16 @@ import com.lazydragonstudios.wuxiacraft.cultivation.body.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.BodyCultivationContainer;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
-import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ElementalGenerator;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.ElementSystemConverter;
+import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.BodyTransformationAspect;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
 import com.lazydragonstudios.wuxiacraft.networking.SelectBodyPartElementMessage;
+import com.lazydragonstudios.wuxiacraft.networking.SelectBodyTransformationMessage;
 import com.lazydragonstudios.wuxiacraft.networking.RemoveSelectedElementByBodyPartMessage;
 import com.lazydragonstudios.wuxiacraft.networking.WuxiaPacketHandler;
 import com.lazydragonstudios.wuxiacraft.util.MathUtil;
+import com.lazydragonstudios.wuxiacraft.util.TechniqueUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -25,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class BodyRefiningMinigame implements Minigame {
@@ -52,6 +56,7 @@ public class BodyRefiningMinigame implements Minigame {
 	private BodyPartGroup selectedPartGroup = null;
 	private ResourceLocation selectedBodyPart = null;
 	private ResourceLocation selectedPartType = null;
+	private Boolean selectedTransformations = false;
 
 	private Font font;
 
@@ -89,10 +94,10 @@ public class BodyRefiningMinigame implements Minigame {
 
 		for (var elementLocation : WuxiaRegistries.ELEMENTS.get().getKeys()) {
 			boolean cancel = true;
-			if (elementLocation.getPath().equals(WuxiaElements.DEMONIC.getId())) continue;
+			if (elementLocation.getPath().equals(WuxiaElements.DEMONIC.getId().getPath())) continue;
 			for (var knownAspect : cultivation.getAspects().getKnownAspects().stream().toList()) {
-				if (WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(knownAspect) instanceof ElementalGenerator generator) {
-					if (generator.element.equals(elementLocation)) {
+				if (WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(knownAspect) instanceof ElementSystemConverter con) {
+					if (con.element.equals(elementLocation) && con.system == System.BODY) {
 						cancel = false;
 						break;
 					}
@@ -112,10 +117,16 @@ public class BodyRefiningMinigame implements Minigame {
 			this.partTypesSelector.addChild(button);
 			this.typeButtons.put(partType, button);
 		}
-
+		var button = new WuxiaButton(0,0,60,14, Component.translatable("wuxiacraft.gui.transformation_selection_button"),
+				() -> selectTransformationsBoolean());
+		this.partGroupsSelector.addChild(button);
+		this.groupButtons.put(null, button);
 	}
 	
 	public void loadBodyParts() {
+		this.selectedTransformations = false;
+		var transformationButton = this.groupButtons.get(null);
+		if (transformationButton != null) transformationButton.setColor(1f, 1f, 1f);	
 		this.bodyPartsSelector.clearChildren();
 		this.partButtons.clear();
 		if (Minecraft.getInstance().player == null) return;
@@ -171,8 +182,10 @@ public class BodyRefiningMinigame implements Minigame {
 			var button = this.groupButtons.get(this.selectedPartGroup);
 			button.setColor(1f, 1f, 1f);
 		}
-		if (this.selectedPartGroup == location) {
+		if (this.selectedPartGroup == location) {			
+			var button = this.groupButtons.get(location);
 			this.selectedPartGroup = null;
+			button.setColor(1f, 1f, 1f);
 		} else
 		this.selectedPartGroup = location;
 		if (this.selectedPartGroup != null) {
@@ -217,7 +230,9 @@ public class BodyRefiningMinigame implements Minigame {
 			button.setColor(1f, 1f, 1f);
 		}
 		if (this.selectedPartType == location) {
+			var button = this.typeButtons.get(location);
 			this.selectedPartType = null;
+			button.setColor(1f, 1f, 1f);
 		} else
 		this.selectedPartType = location;
 		if (this.selectedPartType != null) {
@@ -226,6 +241,81 @@ public class BodyRefiningMinigame implements Minigame {
 		}
 		this.selectedBodyPart = null;
 		this.loadBodyParts();
+	}
+
+	public void selectTransformationsBoolean() {
+		var button = this.groupButtons.get(null);
+		if (button == null) return;
+		if (this.selectedTransformations == false) {
+			button.setColor(1f, 0.7f, 0.2f);
+			this.selectedTransformations = true;
+			this.selectedBodyPart = null;
+			this.loadTransformations();
+		} else {
+			button.setColor(1f, 1f, 1f);
+			this.loadBodyParts();
+		}
+	}
+
+	public void loadTransformations() {
+		if (this.selectedPartGroup != null) {
+			var button = this.groupButtons.get(this.selectedPartGroup);
+			button.setColor(1f, 1f, 1f);
+			this.selectedPartGroup = null;
+		}
+		if (this.selectedPartType != null) {
+			var button = this.typeButtons.get(this.selectedPartType);
+			button.setColor(1f, 1f, 1f);
+			this.selectedPartType = null;
+		}		
+		this.bodyPartsSelector.clearChildren();
+		this.partButtons.clear();
+		if (Minecraft.getInstance().player == null) return;
+		var cultivation = Cultivation.get(Minecraft.getInstance().player);
+		var bodyData = (BodyCultivationContainer) cultivation.getSystemData(System.BODY);
+		var aspectData = cultivation.getAspects();
+		var knownTransformationAspects = aspectData.getKnownAspects().stream()
+				.filter(aspectLocation -> TechniqueUtil.getTransformationAspects().contains(aspectLocation))
+				.sorted(Comparator.comparing(aspectData::getAspectProficiency).reversed()).toList();
+		for (var transformationAspectLocation : knownTransformationAspects) {
+			var transformationAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(transformationAspectLocation);
+			if (transformationAspect != null) {
+				var checkpoint = transformationAspect.getCurrentCheckpoint(aspectData.getAspectProficiency(transformationAspectLocation));
+				if (checkpoint instanceof BodyTransformationAspect.TransformationCheckpoint transformationCheckpoint) {
+					var button = new WuxiaButton(0, 0, 123, 14, Component.translatable("wuxiacraft.aspect." + transformationAspectLocation.getPath() + ".name"),
+							() -> selectABodyTransformation(transformationCheckpoint.getTransformationLocation()), 0xFFFFFF);
+					this.bodyPartsSelector.addChild(button);
+					this.partButtons.put(transformationCheckpoint.getTransformationLocation(), button);
+				}
+			}
+		}
+		if (bodyData.getDisplayBodyTransformation() != null) {
+			var button = this.partButtons.get(bodyData.getDisplayBodyTransformation());
+			button.setColor(1f, 0.7f, 0.2f);
+		}
+	}
+
+	public void selectABodyTransformation(ResourceLocation location) {
+		if (Minecraft.getInstance().player == null) return;
+		var cultivation = Cultivation.get(Minecraft.getInstance().player);
+		var bodyData = (BodyCultivationContainer) cultivation.getSystemData(System.BODY);
+
+		if (bodyData.getDisplayBodyTransformation() != null) {
+			var button = this.partButtons.get(bodyData.getDisplayBodyTransformation());
+			button.setColor(1f, 1f, 1f);
+		}
+		if (bodyData.getDisplayBodyTransformation() == location) {
+			var button = this.partButtons.get(location);
+			bodyData.setDisplayTransformation(null);
+			button.setColor(1f, 1f, 1f);
+			WuxiaPacketHandler.INSTANCE.sendToServer(new SelectBodyTransformationMessage(new ResourceLocation("wuxiacraft:none")));
+		} else
+		bodyData.setDisplayTransformation(location);
+		if (bodyData.getDisplayBodyTransformation() != null) {
+			var button = this.partButtons.get(bodyData.getDisplayBodyTransformation());
+			button.setColor(1f, 0.7f, 0.2f);
+			WuxiaPacketHandler.INSTANCE.sendToServer(new SelectBodyTransformationMessage(location));
+		}
 	}
 
 	@Override

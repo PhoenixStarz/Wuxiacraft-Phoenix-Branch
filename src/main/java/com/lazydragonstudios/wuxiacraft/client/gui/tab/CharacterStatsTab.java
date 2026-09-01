@@ -27,6 +27,8 @@ public class CharacterStatsTab extends IntrospectionTab {
 
 	private final HashMap<PlayerStat, WuxiaLabel> displayLabels = new HashMap<>();
 
+	private WuxiaLabel rebirthLabel;
+
 	private final HashMap<ResourceLocation, HashMap<PlayerElementalStat, WuxiaLabel>> displayElementalLabels = new HashMap<>();
 
 	private final HashMap<System, HashMap<PlayerSystemStat, WuxiaLabel>> displaySystemLabels = new HashMap<>();
@@ -62,10 +64,14 @@ public class CharacterStatsTab extends IntrospectionTab {
 		for (var stat : PlayerStat.values()) {
 			if (WuxiaConfigs.AFK_SYSTEM.get().equals("disabled") && stat == PlayerStat.CULTPOINT) continue;
 			BigDecimal statDecimal = cultivation.getStat(stat);
-			if (stat == PlayerStat.REBIRTHS && statDecimal.compareTo(BigDecimal.ZERO) < 1) continue;
 			var statValue = statDecimal.setScale(Math.min(statDecimal.scale(), 2), RoundingMode.HALF_UP).toEngineeringString();
 			var label = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui." + stat.name().toLowerCase(), statValue), color);
 			displayLabels.put(stat, label);
+			statsPanel.addChild(label);
+		}
+		if (cultivation.getRebirths() > 0) {
+			var label = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui.rebirths", cultivation.getRebirths()), color);
+			rebirthLabel = label;
 			statsPanel.addChild(label);
 		}
 		for (var elementLocation : cultivation.getElementalStats().keySet()) {
@@ -91,6 +97,7 @@ public class CharacterStatsTab extends IntrospectionTab {
 			systemStatPanel.addChild(realmNameLabel);
 			systemStatPanel.addChild(stageNameLabel);
 			for (var stat : PlayerSystemStat.values()) {
+				if (system != System.ESSENCE && (stat == PlayerSystemStat.CAST_SPEED||stat == PlayerSystemStat.COOLDOWN_SPEED)) continue;
 				BigDecimal statDecimal = cultivation.getStat(system, stat);
 				var statValue = statDecimal.setScale(Math.min(statDecimal.scale(), 2), RoundingMode.HALF_UP).toEngineeringString();
 				var label = new WuxiaLabel(0, 0, Component.translatable("wuxiacraft.gui." + stat.name().toLowerCase(), statValue), color);
@@ -148,6 +155,9 @@ public class CharacterStatsTab extends IntrospectionTab {
 			BigDecimal statDecimal = cultivation.getStat(stat);
 			var statValue = statDecimal.setScale(Math.min(stat.displayScale, statDecimal.scale()), RoundingMode.HALF_UP).toEngineeringString();
 			displayLabels.get(stat).setMessage(Component.translatable("wuxiacraft.gui." + stat.name().toLowerCase(), statValue));
+		}
+		if (cultivation.getRebirths() > 0) {
+			rebirthLabel.setMessage(Component.translatable("wuxiacraft.gui.rebirths", String.valueOf(cultivation.getRebirths())));
 		}
 		for (var elementLocation : this.displayElementalLabels.keySet()) {
 			for (var stat : this.displayElementalLabels.get(elementLocation).keySet()) {

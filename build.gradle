@@ -83,8 +83,13 @@ dependencies {
 
 	runtimeOnly fg.deobf("squeek.appleskin:appleskin-forge:${appleskin_version}")
 
+	// Jade
 	compileOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
 	runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
+
+	//Patchouli
+	compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
 
 	runtimeOnly fg.deobf("curse.maven:architectury-api-419699:4663010")
 	runtimeOnly fg.deobf("curse.maven:cloth-config-348521:4633444")
@@ -107,6 +112,9 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	} // Jade
+	maven {
+		url 'https://maven.blamejared.com' 
+	} //Patchouli
 }
 
 tasks.named('processResources', ProcessResources).configure {

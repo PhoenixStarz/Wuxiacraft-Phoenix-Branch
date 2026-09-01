@@ -57,9 +57,9 @@ public class AspectsTab extends IntrospectionTab {
 		var freeXSpace = Minecraft.getInstance().getWindow().getGuiScaledWidth() - 36;
 		var freeYSpace = Minecraft.getInstance().getWindow().getGuiScaledHeight() - 36;
 		var stretchedSpace = freeXSpace - 200;
-		this.aspectsPanel.setWidth(stretchedSpace);
+		this.aspectsPanel.setWidth(-32 + stretchedSpace);
 		this.aspectsPanel.setHeight(freeYSpace);
-		this.aspectsStatsPanel.setX(36 + stretchedSpace);
+		this.aspectsStatsPanel.setX(8 + stretchedSpace);
 		this.aspectsStatsPanel.setHeight(freeYSpace);
 	}
 

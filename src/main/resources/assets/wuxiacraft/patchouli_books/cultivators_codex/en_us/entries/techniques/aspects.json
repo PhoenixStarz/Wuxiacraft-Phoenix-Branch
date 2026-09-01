@@ -1,0 +1,16 @@
+{
+  "name": "Aspects",
+  "icon": "minecraft:bookshelf",
+  "category": "wuxiacraft:techniques",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Aspects come in many forms and can have differing effects and cultivation styles. $(br)You can learn aspects through manuals, tribulations, breaking blocks, and or killing entities. $(br)Generator aspects generate an amount of elemental energy. $(br2)Converter aspects convert elemental energy into cultivation speed and elemental foundation."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "System Gathering Aspects allow for the technique to be valid and for it to have a properly assigned system attached to it. $(br)Transformation Aspects transform the user and increase stats gained through body cultivation. $(br2)Demonic Aspects allow for power through consumption. $(br2)Conditional Generators are like normal generator, but they can vary in output through enviromental conditions."
+    }
+  ]
+}

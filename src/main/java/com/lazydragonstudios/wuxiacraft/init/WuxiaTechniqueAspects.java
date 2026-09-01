@@ -412,13 +412,13 @@ public class WuxiaTechniqueAspects {
 	public static RegistryObject<TechniqueAspect> DIAMOND_CONSTRUCT = ASPECTS.register("diamond_construct",
 			() -> new ElementSystemConverter(300d, WuxiaElements.EARTH.getId(), System.BODY)
 					.setCanLearn(cultivation -> cultivation.getAspects()
-							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "earthen_construct"))
-							&& cultivation.getAspects()
-							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "crystal")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("100000"), new BigDecimal("0.2")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.4")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.6")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("1.1")))
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "crystal"))
+							|| cultivation.getAspects()
+							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "earthen_construct")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("100000"), new BigDecimal("0.1")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.4")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("0.6")))
 	);
 
 	public static RegistryObject<TechniqueAspect> TREMOR = ASPECTS.register("tremor",
@@ -624,10 +624,7 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.4")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.6")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("1.1"),
-							cultivation -> { 
-								tryToLearnSpaceConversionBody(cultivation);
-								cultivation.getAspects().learnAspect(ResourceLocation.tryBuild(WuxiaCraft.MOD_ID, "azure_dragon_transformation"), cultivation);
-							}))
+							cultivation -> tryToLearnSpaceConversionBody(cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> STREAM = ASPECTS.register("stream",
@@ -1926,10 +1923,7 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.4")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.6")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("1.1"),
-							cultivation -> { 
-								tryToLearnTimeConversionBody(cultivation);
-								cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "light_kitsune_transformation"), cultivation);
-							}))
+							cultivation -> tryToLearnTimeConversionBody(cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> SHINE = ASPECTS.register("shine",
@@ -2285,7 +2279,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 		public static RegistryObject<TechniqueAspect> SPACE_DOMINATION = ASPECTS.register("space_domination",
-			() -> new ElementalGenerator(729d, WuxiaElements.SPACE.getId())
+			() -> new ElementalGenerator(1239.3d, WuxiaElements.SPACE.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_expansion")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("729000")))
@@ -2296,7 +2290,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPACE_EMBODIMENT = ASPECTS.register("space_embodiment",
-			() -> new ElementalGenerator(2187d, WuxiaElements.SPACE.getId())
+			() -> new ElementalGenerator(3717.9d, WuxiaElements.SPACE.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_creation")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("2187000")))
@@ -2307,7 +2301,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPACE_APOTHEOSIS = ASPECTS.register("space_apotheosis",
-			() -> new ElementalGenerator(6561d, WuxiaElements.SPACE.getId())
+			() -> new ElementalGenerator(11153.7d, WuxiaElements.SPACE.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_domination")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("6561000")))
@@ -2322,7 +2316,7 @@ public class WuxiaTechniqueAspects {
 	//////////////////////////////////////////
 
 	public static RegistryObject<TechniqueAspect> SPATIAL_TEMPERING = ASPECTS.register("spatial_tempering",
-			() -> new ElementSystemConverter(5d, WuxiaElements.SPACE.getId(), System.BODY)
+			() -> new ElementSystemConverter(5.1d, WuxiaElements.SPACE.getId(), System.BODY)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_detection"))
 							|| cultivation.getAspects()
@@ -2335,7 +2329,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPATIAL_BODY = ASPECTS.register("spatial_body",
-			() -> new ElementSystemConverter(20d, WuxiaElements.SPACE.getId(), System.BODY)
+			() -> new ElementSystemConverter(20.4d, WuxiaElements.SPACE.getId(), System.BODY)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_tempering"))
 							&& cultivation.getAspects()
@@ -2343,12 +2337,11 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("100000"), new BigDecimal("0.2")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("500000"), new BigDecimal("0.4")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("1500000"), new BigDecimal("0.6")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("1.1"),
-							cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_kitsune_transformation"), cultivation)))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("3500000"), new BigDecimal("1.1")))
 	);
 
 	public static RegistryObject<TechniqueAspect> SPACE_TEAR = ASPECTS.register("space_tear",
-			() -> new ElementSystemConverter(5d, WuxiaElements.SPACE.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(5.1d, WuxiaElements.SPACE.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_detection"))
 							|| cultivation.getAspects()
@@ -2361,7 +2354,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPATIAL_VORTEX = ASPECTS.register("spatial_vortex",
-			() -> new ElementSystemConverter(20d, WuxiaElements.SPACE.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(20.4d, WuxiaElements.SPACE.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_tear"))
 							&& cultivation.getAspects()
@@ -2374,7 +2367,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPATIAL_TRIBULATION = ASPECTS.register("spatial_tribulation",
-			() -> new ElementSystemConverter(100d, WuxiaElements.SPACE.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(102d, WuxiaElements.SPACE.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_vortex"))
 							&& cultivation.getAspects()
@@ -2386,7 +2379,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPATIAL_AMPLIFICATION = ASPECTS.register("spatial_amplification",
-			() -> new ElementSystemConverter(5d, WuxiaElements.SPACE.getId(), System.DIVINE)
+			() -> new ElementSystemConverter(5.1d, WuxiaElements.SPACE.getId(), System.DIVINE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "space_detection"))
 							|| cultivation.getAspects()
@@ -2399,7 +2392,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPATIAL_COMPRESSION = ASPECTS.register("spatial_compression",
-			() -> new ElementSystemConverter(20d, WuxiaElements.SPACE.getId(), System.DIVINE)
+			() -> new ElementSystemConverter(20.4d, WuxiaElements.SPACE.getId(), System.DIVINE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_amplification"))
 							&& cultivation.getAspects()
@@ -2476,7 +2469,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 		public static RegistryObject<TechniqueAspect> TIME_DOMINATION = ASPECTS.register("time_domination",
-			() -> new ElementalGenerator(729d, WuxiaElements.TIME.getId())
+			() -> new ElementalGenerator(1239.3d, WuxiaElements.TIME.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "time_expansion")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("729000")))
@@ -2487,7 +2480,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TIME_EMBODIMENT = ASPECTS.register("time_embodiment",
-			() -> new ElementalGenerator(2187d, WuxiaElements.TIME.getId())
+			() -> new ElementalGenerator(3717.9d, WuxiaElements.TIME.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "time_creation")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("2187000")))
@@ -2498,7 +2491,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TIME_APOTHEOSIS = ASPECTS.register("time_apotheosis",
-			() -> new ElementalGenerator(6561d, WuxiaElements.TIME.getId())
+			() -> new ElementalGenerator(11153.7d, WuxiaElements.TIME.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "time_domination")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("6561000")))
@@ -2513,7 +2506,7 @@ public class WuxiaTechniqueAspects {
 	//////////////////////////////////////////
 
 	public static RegistryObject<TechniqueAspect> TEMPORAL_TEMPERING = ASPECTS.register("temporal_tempering",
-			() -> new ElementSystemConverter(5d, WuxiaElements.TIME.getId(), System.BODY)
+			() -> new ElementSystemConverter(5.1d, WuxiaElements.TIME.getId(), System.BODY)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "time_detection"))
 							|| cultivation.getAspects()
@@ -2526,7 +2519,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TEMPORAL_BODY = ASPECTS.register("temporal_body",
-			() -> new ElementSystemConverter(20d, WuxiaElements.TIME.getId(), System.BODY)
+			() -> new ElementSystemConverter(20.4d, WuxiaElements.TIME.getId(), System.BODY)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "temporal_tempering"))
 							&& cultivation.getAspects()
@@ -2538,7 +2531,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TIME_TEAR = ASPECTS.register("time_tear",
-			() -> new ElementSystemConverter(5d, WuxiaElements.TIME.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(5.1d, WuxiaElements.TIME.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "time_detection"))
 							|| cultivation.getAspects()
@@ -2551,7 +2544,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TEMPORAL_VORTEX = ASPECTS.register("temporal_vortex",
-			() -> new ElementSystemConverter(20d, WuxiaElements.TIME.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(20.4d, WuxiaElements.TIME.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "time_tear"))
 							&& cultivation.getAspects()
@@ -2564,7 +2557,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TEMPORAL_TRIBULATION = ASPECTS.register("temporal_tribulation",
-			() -> new ElementSystemConverter(100d, WuxiaElements.TIME.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(102d, WuxiaElements.TIME.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "temporal_vortex"))
 							&& cultivation.getAspects()
@@ -2576,7 +2569,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TEMPORAL_AMPLIFICATION = ASPECTS.register("temporal_amplification",
-			() -> new ElementSystemConverter(5d, WuxiaElements.TIME.getId(), System.DIVINE)
+			() -> new ElementSystemConverter(5.1d, WuxiaElements.TIME.getId(), System.DIVINE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "time_detection"))
 							|| cultivation.getAspects()
@@ -2590,7 +2583,7 @@ public class WuxiaTechniqueAspects {
 
 	
 	public static RegistryObject<TechniqueAspect> TEMPORAL_COMPRESSION = ASPECTS.register("temporal_compression",
-			() -> new ElementSystemConverter(20d, WuxiaElements.TIME.getId(), System.DIVINE)
+			() -> new ElementSystemConverter(20.4d, WuxiaElements.TIME.getId(), System.DIVINE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "temporal_amplification"))
 							&& cultivation.getAspects()
@@ -2607,7 +2600,7 @@ public class WuxiaTechniqueAspects {
 	//////////////////////////////////////////
 
 	public static RegistryObject<TechniqueAspect> ASHES_OF_REBIRTH = ASPECTS.register("ashes_of_rebirth",
-			() -> new ElementalGenerator(2d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(3d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getRebirths() > 0)
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("1000")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("2500"), new BigDecimal("0.2")))
@@ -2617,7 +2610,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> REKINDLED_SPARK = ASPECTS.register("rekindled_spark",
-			() -> new ElementalGenerator(6d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(9d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getRebirths() > 0)
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("3000")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500"), new BigDecimal("0.2")))
@@ -2627,7 +2620,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> IGNITION = ASPECTS.register("ignition",
-			() -> new ElementalGenerator(18d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(27d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "ashes_of_rebirth"))
 							&& cultivation.getRebirths() > 0)
@@ -2639,7 +2632,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> INFERNO = ASPECTS.register("inferno",
-			() -> new ElementalGenerator(54, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(81d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "rekindled_spark"))
 							&& cultivation.getRebirths() > 1)
@@ -2651,7 +2644,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> RENEWAL = ASPECTS.register("renewal",
-			() -> new ElementalGenerator(162d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(243d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "ignition"))
 							&& cultivation.getRebirths() > 1)
@@ -2663,7 +2656,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> RESURRECTION = ASPECTS.register("resurrection",
-			() -> new ElementalGenerator(483d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(729d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "inferno"))
 							&& cultivation.getRebirths() > 1)
@@ -2675,7 +2668,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> ASCENT = ASPECTS.register("ascent",
-			() -> new ElementalGenerator(1458d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(2187d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "renewal"))
 							&& cultivation.getRebirths() > 2)
@@ -2687,7 +2680,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> TRANSCENDENCE = ASPECTS.register("transcendence",
-			() -> new ElementalGenerator(2187d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(6561d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "resurrection"))
 							&& cultivation.getRebirths() > 2)
@@ -2699,7 +2692,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> THE_ETERNAL_CYCLE = ASPECTS.register("the_eternal_cycle",
-			() -> new ElementalGenerator(4374d, WuxiaElements.REBIRTH.getId())
+			() -> new ElementalGenerator(19683d, WuxiaElements.REBIRTH.getId())
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "ascent"))
 							&& cultivation.getRebirths() > 2)
@@ -2714,7 +2707,7 @@ public class WuxiaTechniqueAspects {
 	//////////////////////////////////////////
 
 	public static RegistryObject<TechniqueAspect> EMBER_OF_REKINDLING = ASPECTS.register("ember_of_rekindling",
-			() -> new ElementSystemConverter(6d, WuxiaElements.REBIRTH.getId(), System.BODY)
+			() -> new ElementSystemConverter(9d, WuxiaElements.REBIRTH.getId(), System.BODY)
 					.setCanLearn(cultivation -> (cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "ashes_of_rebirth"))
 							|| cultivation.getAspects()
@@ -2728,7 +2721,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> FLAME_OF_PURIFICATION = ASPECTS.register("flame_of_purification",
-			() -> new ElementSystemConverter(24d, WuxiaElements.REBIRTH.getId(), System.BODY)
+			() -> new ElementSystemConverter(36d, WuxiaElements.REBIRTH.getId(), System.BODY)
 					.setCanLearn(cultivation -> (cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "ember_of_rekindling"))
 							&& cultivation.getAspects()
@@ -2741,7 +2734,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> CINDER_OF_RENEWAL = ASPECTS.register("cinder_of_renewal",
-			() -> new ElementSystemConverter(6d, WuxiaElements.REBIRTH.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(9d, WuxiaElements.REBIRTH.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> (cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "ashes_of_rebirth"))
 							|| cultivation.getAspects()
@@ -2755,7 +2748,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPARK_OF_AWAKENING = ASPECTS.register("spark_of_awakening",
-			() -> new ElementSystemConverter(24d, WuxiaElements.REBIRTH.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(36d, WuxiaElements.REBIRTH.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "cinder_of_renewal"))
 							&& cultivation.getAspects()
@@ -2769,7 +2762,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> ESSENCE_OF_REBIRTH = ASPECTS.register("essence_of_rebirth",
-			() -> new ElementSystemConverter(120d, WuxiaElements.REBIRTH.getId(), System.ESSENCE)
+			() -> new ElementSystemConverter(180d, WuxiaElements.REBIRTH.getId(), System.ESSENCE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spark_of_awakening"))
 							&& cultivation.getAspects()
@@ -2782,7 +2775,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPIRITUAL_RECONSTRUCTION = ASPECTS.register("spiritual_reconstruction",
-			() -> new ElementSystemConverter(6d, WuxiaElements.REBIRTH.getId(), System.DIVINE)
+			() -> new ElementSystemConverter(9d, WuxiaElements.REBIRTH.getId(), System.DIVINE)
 					.setCanLearn(cultivation -> (cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "ashes_of_rebirth"))
 							|| cultivation.getAspects()
@@ -2796,7 +2789,7 @@ public class WuxiaTechniqueAspects {
 	);
 
 	public static RegistryObject<TechniqueAspect> SPIRIT_OF_RESTORATION = ASPECTS.register("spirit_of_restoration",
-			() -> new ElementSystemConverter(24d, WuxiaElements.REBIRTH.getId(), System.DIVINE)
+			() -> new ElementSystemConverter(36d, WuxiaElements.REBIRTH.getId(), System.DIVINE)
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spiritual_reconstruction"))
 							&& cultivation.getAspects()
@@ -2992,10 +2985,9 @@ public class WuxiaTechniqueAspects {
 	//////////////////////////////////////////
 	//       Body Transformation Ones       //
 	//////////////////////////////////////////
+	/// see BodyCultivationContainer for stat increases.
 	public static RegistryObject<TechniqueAspect> KITSUNE_TRANSFORMATION = ASPECTS.register("kitsune_transformation",
 			() -> new BodyTransformationAspect(WuxiaElements.PHYSICAL.getId(), 3)
-					.<ElementToStatsConsumer>setStat(PlayerStat.STRENGTH, new BigDecimal("0.1"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.AGILITY, new BigDecimal("0.4"))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_one_tail", new BigDecimal("3000"), WuxiaEntities.KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("0.1")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_two_tails", new BigDecimal("9000"), WuxiaEntities.KITSUNE_TWO_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("0.3")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_three_tails", new BigDecimal("15000"), WuxiaEntities.KITSUNE_THREE_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("0.6")))
@@ -3005,14 +2997,11 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_seven_tails", new BigDecimal("60000"), WuxiaEntities.KITSUNE_SEVEN_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("1.8")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_eight_tails", new BigDecimal("90000"), WuxiaEntities.KITSUNE_EIGHT_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("2.1")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_nine_tails", new BigDecimal("150000"), WuxiaEntities.KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("2.7"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "light_kitsune_transformation"), cultivation, new BigDecimal("150000"))))
+							cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "light_kitsune_transformation"), cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> LIGHT_KITSUNE_TRANSFORMATION = ASPECTS.register("light_kitsune_transformation",
 			() -> new BodyTransformationAspect(WuxiaElements.LIGHT.getId(), 9)
-					.<ElementToStatsConsumer>setStat(PlayerStat.STRENGTH, new BigDecimal("0.6"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.AGILITY, new BigDecimal("1.8"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("0.2"))
 					.setCanLearn(cultivation -> cultivation.getAspects()
 						.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "stellar_conducation")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_one_tail", new BigDecimal("30000"), WuxiaEntities.LIGHT_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("0.1")))
@@ -3024,15 +3013,11 @@ public class WuxiaTechniqueAspects {
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_seven_tails", new BigDecimal("600000"), WuxiaEntities.LIGHT_KITSUNE_SEVEN_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("1.8")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_eight_tails", new BigDecimal("900000"), WuxiaEntities.LIGHT_KITSUNE_EIGHT_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("2.1")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_nine_tails", new BigDecimal("1500000"), WuxiaEntities.LIGHT_KITSUNE_NINE_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("2.7"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_kitsune_transformation"), cultivation, new BigDecimal("1500000"))))
+							cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_kitsune_transformation"), cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> SPATIAL_KITSUNE_TRANSFORMATION = ASPECTS.register("spatial_kitsune_transformation",
 			() -> new BodyTransformationAspect(WuxiaElements.SPACE.getId(), 27)
-					.<ElementToStatsConsumer>setStat(PlayerStat.STRENGTH, new BigDecimal("1"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.AGILITY, new BigDecimal("3"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.DETECTION_STRENGTH, new BigDecimal("0.35"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.EXERCISE_CONVERSION, new BigDecimal("0.05"))
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "spatial_body")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("kitsune_one_tail", new BigDecimal("300000"), WuxiaEntities.SPATIAL_KITSUNE_ONE_TAIL_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("0.1")))
@@ -3048,23 +3033,16 @@ public class WuxiaTechniqueAspects {
 
 	public static RegistryObject<TechniqueAspect> DRAGON_TRANSFORMATION = ASPECTS.register("dragon_transformation",
 			() -> new BodyTransformationAspect(WuxiaElements.PHYSICAL.getId(), 5)
-					.<ElementToStatsConsumer>setStat(PlayerStat.STRENGTH, new BigDecimal("0.75"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.35"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.1"))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("internal_dragon_transformation", new BigDecimal("3000"), new BigDecimal("0.1")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("dragon_transformation", new BigDecimal("15000"), WuxiaEntities.HALF_DRAGON_BODY_TRANSFORMATION_ENTITY.getId(), new BigDecimal("0.2")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("dragon_resemblance", new BigDecimal("60000"), WuxiaEntities.HALF_DRAGON_BODY_ARMED_TRANSFORMATION_ENTITY.getId(), new BigDecimal("0.8")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("draconian_presence", new BigDecimal("240000"), WuxiaEntities.HALF_DRAGON_BODY_HORNED_TRANSFORMATION_ENTITY.getId(), new BigDecimal("1.6")))
 					.addCheckpoint(new BodyTransformationAspect.TransformationCheckpoint("full_dragon_transformation", new BigDecimal("2000000"), WuxiaEntities.HALF_DRAGON_BODY_HORNED_TRANSFORMATION_ENTITY.getId(), new BigDecimal("3.2"),
-							cultivation -> cultivation.getAspects().learnAspectWithProficiency(new ResourceLocation(WuxiaCraft.MOD_ID, "azure_dragon_transformation"), cultivation, new BigDecimal("2000000"))))
+							cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "azure_dragon_transformation"), cultivation)))
 	);
 
 	public static RegistryObject<TechniqueAspect> AZURE_DRAGON_TRANSFORMATION = ASPECTS.register("azure_dragon_transformation",
 			() -> new BodyTransformationAspect(WuxiaElements.WATER.getId(), 15)
-					.<ElementToStatsConsumer>setStat(PlayerStat.STRENGTH, new BigDecimal("1.5"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.MAX_HEALTH, new BigDecimal("0.75"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.HEALTH_REGEN, new BigDecimal("0.2"))
-					.<ElementToStatsConsumer>setStat(PlayerStat.MAX_BARRIER, new BigDecimal("0.4"))
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "inner_stream")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("internal_dragon_transformation", new BigDecimal("300000"), new BigDecimal("0.1")))
@@ -3343,7 +3321,7 @@ public class WuxiaTechniqueAspects {
 							bodyData.forgeAllParts(amount);
 						} else
 						cultivation.addStat(systems, PlayerSystemStat.CULTIVATION_BASE, amount);
-						cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount);
+						cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount.multiply(new BigDecimal(20)));
 					}
 				}
 			}
@@ -3371,9 +3349,9 @@ public class WuxiaTechniqueAspects {
 			for (var element : devourData.keySet()) {
 				baseAmount = baseAmount.add(devourData.get(element).multiply(new BigDecimal(devourCount*DevourMulti)));
 				if (system != System.BODY)
-				cultivation.addStat(system, element, PlayerSystemElementalStat.FOUNDATION, baseAmount.multiply(new BigDecimal(devourCount*DevourMulti/10d)));
-				cultivation.addStat(element, PlayerElementalStat.COMPREHENSION, baseAmount.multiply(new BigDecimal(devourCount*DevourMulti*3d/10d)));
-				cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, demonicScale);
+				cultivation.addStat(system, element, PlayerSystemElementalStat.FOUNDATION, new BigDecimal(devourCount*DevourMulti/10d));
+				cultivation.addStat(element, PlayerElementalStat.COMPREHENSION, new BigDecimal(devourCount*DevourMulti*3d/10d));
+				cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, demonicScale.multiply(new BigDecimal(10)));
 			}
 			itemStack.shrink(devourCount);
 			event.setAmount(baseAmount);

@@ -1,0 +1,30 @@
+{
+  "name": "Building Formations",
+  "icon": "wuxiacraft:formation_core_base",
+  "category": "wuxiacraft:formations",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Formations require a greater than or equal to zero amount of energy to activate. $(br)Generation runes generate that energy and cultivation, energy, and barrier runes consume that energy to power themselves. $(br2)Building a formation requires that all runes be with in the formation's core's range in a radius. Only runes on the same Y level as the core will be counted"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "       ","       ", "       ", "   0   ", "       ", "       ", "       " ],
+          [ "GGGGGGG","GGGGGGG", "GGCCCGG", "GECFCEG", "GGCBCGG", "GGGCGGG", "GGGGGGG" ]
+        ],
+        "mapping": {
+          "B": "wuxiacraft:stone_barrier_rune",
+          "F": "wuxiacraft:copper_formation_core",
+          "G": "wuxiacraft:copper_generation_rune",
+          "C": "wuxiacraft:essence_copper_cultivation_rune",
+          "E": "wuxiacraft:essence_copper_energy_rune"
+        },
+        "offset": [0, -1, 0]
+      },
+      "text": "Simple starter formation core build."
+    }
+  ]
+}

@@ -33,7 +33,7 @@ public class SkillBeamAspect extends SkillActivatorAspect {
 			var casterCultivation = Cultivation.get(caster);
 			var essenceData = casterCultivation.getSystemData(System.ESSENCE);
 			BigDecimal cost = skill.getAppliedStats(casterCultivation, SkillStat.COST);
-			if (!essenceData.consumeEnergy(cost)) {
+			if (!essenceData.consumeEnergy(cost.divide(BigDecimal.TEN))) {
 				skill.setStat(SkillStat.COOLDOWN, new BigDecimal("220")); // 11s
 				return false;
 			}

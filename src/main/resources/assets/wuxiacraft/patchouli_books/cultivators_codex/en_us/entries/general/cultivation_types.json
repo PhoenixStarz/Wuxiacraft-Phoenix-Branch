@@ -1,0 +1,12 @@
+{
+  "name": "Cultivation Types",
+  "icon": "minecraft:torch",
+  "category": "wuxiacraft:general",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "There are there main types of cultivation them being essence, body, and divine. $(br2)Beyond the normal stats each type also grants. $(br)Essence grants skills and stats related to skills. $(br)Body grants more stats, but takes longer to progress. $(br)Divine grants divine sense and a divine realm at a high enough stage."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Spirit Stone Veins",
+  "icon": "wuxiacraft:spirit_stone_vein_1",
+  "category": "wuxiacraft:world",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Spirit Stone Veins are the most common way to obtain spirit stones, as they are commonly mined throughout the worlds."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Spirit Stone Veins",
+      "item": "wuxiacraft:spirit_stone_vein_1,wuxiacraft:spirit_stone_vein_3,wuxiacraft:spirit_stone_vein_5,wuxiacraft:spirit_stone_vein_7",
+      "text": "Stone, Deepslate, Netherrack, End Stone variants"
+    }
+  ]
+}

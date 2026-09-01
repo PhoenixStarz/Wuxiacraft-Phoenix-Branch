@@ -1,0 +1,22 @@
+{
+  "name": "Skills",
+  "icon": "minecraft:arrow",
+  "category": "wuxiacraft:general",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Skills are unlocked through Essence Cultivation and scale with the strength stat. $(br)In order to save a skill to the skill selection menu one must first place down a activator aspect, then an hit aspect, optionally one can place a hit modifier aspect after or instead of a hit aspect. $(br)Skills use Essence energy to cast(press $(k:wuxiacraft.key.cast_skill) to cast) and have a castime and cooldown period."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/skills/example.png"],
+      "text": "Example skill using punch, hit, and temporal tear from the time element.",
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br2)you can only cast skills when in combat mode. To enter combat mode press($(k:wuxiacraft.key.combat_mode)). Press $(k:wuxiacraft.key.skill_wheel) to open the selection tab, move the camera to select a different skill to cast. Before casting a skill it'll check to see if you have enough energy to cast and if it needs any other conditions to cast. during casting the skill will cast if able. After casting the skill will go on cooldown."
+    }
+  ]
+}

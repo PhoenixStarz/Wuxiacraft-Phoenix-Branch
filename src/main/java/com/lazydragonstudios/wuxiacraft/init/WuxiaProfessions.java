@@ -172,7 +172,8 @@ public class WuxiaProfessions {
 		for (ResourceLocation manualLocation : WuxiaDefaultTechniqueManuals.getAllKeys()) {
 			if (manualLocation.getPath().equalsIgnoreCase("qi_tempering") ||
 				manualLocation.getPath().equalsIgnoreCase("qi_flow") ||
-				manualLocation.getPath().equalsIgnoreCase("qi_enlightenment")) { 
+				manualLocation.getPath().equalsIgnoreCase("qi_enlightenment") ||
+				manualLocation.getPath().equalsIgnoreCase("sword_basic_set")) { 
 			Supplier<ItemStack> manualSupplier = WuxiaDefaultTechniqueManuals.getDefaultManual(manualLocation);
 			if (manualSupplier != null) manuals.add(manualSupplier.get());
 			}

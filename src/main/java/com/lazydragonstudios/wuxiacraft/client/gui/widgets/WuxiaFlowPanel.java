@@ -48,23 +48,45 @@ public class WuxiaFlowPanel extends WuxiaScrollPanel {
 	 * rearranges items in lines and makes items top align in the line
 	 */
 	protected void rearrangeItems() {
-		int currentLeftPos = 0;
+		int availableWidth = this.width;
+		int currentLeftPos = margin;
 		int currentTopPos = margin;
 		int currentLineHeight = 0;
 		this.contentWidth = 0;
-		for (var widget : this.children) {
-			if (currentLeftPos + widget.getWidth() > this.width - this.scrollBarWidth) {
-				currentLeftPos = 0;
-				currentTopPos += currentLineHeight + margin;
-			}
-			widget.setX(currentLeftPos + margin);
-			widget.setY(currentTopPos);
-			currentLeftPos = widget.getX() + widget.getWidth();
-			currentLineHeight = Math.max(currentLineHeight, widget.getHeight());
-			this.contentWidth = Math.max(this.contentWidth, widget.getX() + widget.getWidth());
-			this.contentHeight = Math.max(this.contentHeight, widget.getY() + widget.getHeight());
+		this.contentHeight = 0;
+		layoutItems(availableWidth);
+		boolean needsVerticalScrollBar = this.contentHeight > this.height;
+
+		if (needsVerticalScrollBar) {
+			availableWidth = Math.max(0, this.width - this.scrollBarWidth);
+			this.contentWidth = 0;
+			this.contentHeight = 0;
+			layoutItems(availableWidth);
 		}
-		this.totalScrollWidth = Math.max(0, this.contentWidth - this.width + this.contentWidth > this.width ? scrollBarWidth : 0);
-		this.totalScrollHeight = Math.max(0, this.contentHeight - this.height + this.contentHeight > this.height ? scrollBarHeight : 0);
+
+		boolean needsHorizontalScrollBar = this.contentWidth > this.width;
+		this.totalScrollWidth = Math.max(0,this.contentWidth - this.width);
+		this.totalScrollHeight = Math.max(0,this.contentHeight - this.height);
 	}
+
+	private void layoutItems(int availableWidth) {
+		int currentLeftPos = margin;
+		int currentTopPos = margin;
+		int currentLineHeight = 0;
+
+		for (AbstractWidget widget : this.children) {
+			if (currentLeftPos + widget.getWidth() > availableWidth - margin) {
+				currentLeftPos = margin;
+				currentTopPos += currentLineHeight + margin;
+				currentLineHeight = 0;
+			}
+			widget.setX(currentLeftPos);
+			widget.setY(currentTopPos);
+			currentLeftPos += widget.getWidth() + margin;
+			currentLineHeight = Math.max(currentLineHeight, widget.getHeight());
+			this.contentWidth = Math.max(this.contentWidth, widget.getX() + widget.getWidth() + margin);
+			this.contentHeight = Math.max(this.contentHeight, widget.getY() + widget.getHeight() + margin);
+		}
+	}
+
 }

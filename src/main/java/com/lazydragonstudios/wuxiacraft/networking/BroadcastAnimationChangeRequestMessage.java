@@ -55,9 +55,10 @@ public class BroadcastAnimationChangeRequestMessage {
 				var bodyTransformation = cultivation.getBodyTransformation();
 				if (bodyTransformation == null) bodyTransformation = new ResourceLocation("wuxiacraft:none");
 				animationState = animationStateInstance.serialize();
+				var messageCultivation = cultivation.serialize();
 				for (var target : level.players()) {
 					WuxiaPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) target),
-							new AnimationChangeUpdateMessage(player.getUUID(), animationState, msg.combat, bodyTransformation));
+							new AnimationChangeUpdateMessage(player.getUUID(), animationState, messageCultivation, msg.combat, bodyTransformation));
 				}
 			});
 		}

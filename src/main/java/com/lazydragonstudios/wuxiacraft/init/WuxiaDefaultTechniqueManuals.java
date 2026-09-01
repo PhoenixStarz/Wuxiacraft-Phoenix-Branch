@@ -224,6 +224,12 @@ public class WuxiaDefaultTechniqueManuals {
 		qi_enlightenment.addGridNode(new Point(0, 1), WuxiaTechniqueAspects.QI_ENLIGHTENMENT.getId(), BigDecimal.TEN);
 		qi_enlightenment.addGridNode(new Point(-1, 1), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), BigDecimal.TEN);
 		registerDivineManual(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_enlightenment"), 1, qi_enlightenment);
+		TechniqueGrid sword_basic_set = new TechniqueGrid();
+		sword_basic_set.addGridNode(new Point(0, 0), WuxiaTechniqueAspects.START.getId(), BigDecimal.TEN);
+		sword_basic_set.addGridNode(new Point(1, 0), WuxiaTechniqueAspects.BASIC_SWORD_SET.getId(), BigDecimal.TEN);
+		sword_basic_set.addGridNode(new Point(0, 1), WuxiaTechniqueAspects.QI_FLOW.getId(), BigDecimal.TEN);
+		sword_basic_set.addGridNode(new Point(-1, 1), WuxiaTechniqueAspects.ESSENCE_GATHERING.getId(), BigDecimal.TEN);
+		registerEssenceManual(new ResourceLocation(WuxiaCraft.MOD_ID, "sword_basic_set"), 1, sword_basic_set);
 
 		TechniqueGrid spacing_out = new TechniqueGrid();
 		spacing_out.addGridNode(new Point(0, 0), WuxiaTechniqueAspects.DIVINE_GATHERING.getId(), BigDecimal.TEN);

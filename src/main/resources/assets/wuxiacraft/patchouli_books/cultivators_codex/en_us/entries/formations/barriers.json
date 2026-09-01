@@ -1,0 +1,44 @@
+{
+  "name": "Barriers",
+  "icon": "wuxiacraft:netherite_formation_badge",
+  "category": "wuxiacraft:formations",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Barrier are able to prevent block breaking, interacting, and exploding within barrier range. $(br)Max barrier, stength, and regen increase proportionately to the value of the barrier runes inside the formation core's range. While, amount increases per tick by regen amount and range is the highest value of any given barrier rune."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Break Badges",
+      "item": {
+        "tag": "wuxiacraft:break_badge"
+      },
+        "text": "Players with these Badges that are keyed the appropriate formation are able to break blocks within it's barrier range. ."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Interact Badges",
+      "item": {
+        "tag": "wuxiacraft:interact_badge"
+      },
+      "text": "Players with these Badges that are keyed the appropriate formation are able to interact with blocks within it's barrier range. ."
+    },
+        {
+      "type": "patchouli:spotlight",
+      "title": "Formation Stat Sharing Badges",
+      "item": {
+        "tag": "wuxiacraft:formation_stats_badge"
+      },
+      "text": "Players with these Badges that are keyed the appropriate formation are able to share the formation's stats within it's formation's rune range."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Rune and Core Access Badges",
+      "item": {
+        "tag": "wuxiacraft:core_access_badge"
+      },
+      "text": "Players with these Badges that are keyed the appropriate formation are able to break and interact with runes and formation cores within the formation core's range."
+    }
+  ]
+}

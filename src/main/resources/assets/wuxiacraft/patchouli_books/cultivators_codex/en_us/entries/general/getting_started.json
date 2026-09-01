@@ -1,0 +1,38 @@
+{
+  "name": "Getting Started",
+  "icon": "minecraft:writable_book",
+  "category": "wuxiacraft:general",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "At the bottom right corner of the screen there are three bars which display the amount of energy you have in a given system(cultivation type). $(br)If combat mode is enabled a sword will apear below the energy bars. Combat mode allows you to cast skills and apply the strength stat to melee attacks. Combat mode also has a visual aura indicator at higher stages"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Key Mappings",
+      "text": "Press $(k:wuxiacraft.key.introspection) to open the Introspection Menu. $(br)Press $(k:wuxiacraft.key.meditate) to Meditate in order to do cultivation stuff. $(br)Press $(k:wuxiacraft.key.exercise) to exercise and body cultivate. $(br)Press $(k:wuxiacraft.key.cast_skill) to cast a skill when in combat mode. $(br)Press $(k:wuxiacraft.key.combat_mode) to toggle combat mode. $(br)Press $(k:wuxiacraft.key.divine_sense) to Activate Divine Sense. $(br)Press $(k:wuxiacraft.key.skill_wheel) to open up skill wheel when in combat mode."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The easiest way to start is to find a village and a technique store and then trade with the villager to get a manual. If there is no technique store craft a technique inscriber and assign a villager to it. Right click the manual to learn it's aspects then shift-right click the technique inscriber to copy down the manual to your grid. Depending on the type of manual and it's cultivation type, cultivate acordingly."
+    },
+    {
+      "type": "patchouli:relations",
+      "entries": [
+        "wuxiacraft:essence/essence_cultivation",
+        "wuxiacraft:body/body_cultivation",
+        "wuxiacraft:divine/divine_cultivation",
+        "wuxiacraft:world/villagers",
+        "wuxiacraft:techniques/technique_inscriber",
+        "wuxiacraft:techniques/manuals",
+        "wuxiacraft:world/tombs",
+        "wuxiacraft:general/cultivation_resources",
+        "wuxiacraft:general/stats",
+        "wuxiacraft:formations/runes",
+        "wuxiacraft:formations/formation_cores",
+        "wuxiacraft:formations/building_formations"
+      ]
+    }
+  ]
+}

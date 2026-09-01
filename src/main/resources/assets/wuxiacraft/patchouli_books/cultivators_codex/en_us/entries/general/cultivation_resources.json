@@ -1,0 +1,37 @@
+{
+  "name": "Cultivation Resources",
+  "icon": "wuxiacraft:spirit_stone_1",
+  "category": "wuxiacraft:general",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:spirit_stone_2_from_1",
+      "text": "Spirit stones can be upgraded in tier from crafting, but can also be dropped from snakes and mined from spirit stone veins and or spirit geodes."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "wuxiacraft:spirit_fruit_1"
+      },
+        "text": "Spirit fruits can be harvested from bonsais which grow in the wilderness. They also increase aspect proficiency gain."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "wuxiacraft:pill_1",
+      "text": "Pills can be crafted from spirit stones and fruit. $(br)This is just an example, there are higher tiered pills you can craft using higher tiered materials."
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "wuxiacraft:celestial_iron_ingot_from_smelting_raw_celestial_iron",
+      "text": "A rare material that augments elemental pierce and resistance when used in tools and or armor."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "wuxiacraft:soul_core"
+      },
+        "text": "Dropped when a cultivator losses all their lives used in demonic cultivation."
+    }
+  ]
+}

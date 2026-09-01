@@ -1,0 +1,12 @@
+{
+  "name": "Demonic Cultivation",
+  "icon": "minecraft:spider_eye",
+  "category": "wuxiacraft:demonic",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Demonic Cultivation is a faster way to power, but it comes with heavy downsides and a long recovery time. $(br2)Demonic Foundation gives negitive stats and can lead to demonic corruption, which inverts health regen and gives an aura to let others know of your misdeeds, while making tribulations harder."
+    }
+  ]
+}

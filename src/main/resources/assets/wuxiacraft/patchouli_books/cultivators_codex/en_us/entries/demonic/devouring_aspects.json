@@ -1,0 +1,16 @@
+{
+  "name": "Devouring Aspects",
+  "icon": "minecraft:nether_wart",
+  "category": "wuxiacraft:demonic",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Devouring aspects consume valid items to give cultivation base plus a corresponding elemental foundation and comprehension when finishing a minigame or through a completed exercise cycle. However, you will also gain more demonic foundation than the other gains you had received."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br2)Devouring aspects can also be used to consume soul cores at a faster rate with the side effect of a higher demonic foundation gain. $(br2)Devouring aspects can be learned through killing other players or at a lower chance you can kill zombies/husks instead"
+    }
+  ]
+}

@@ -6,11 +6,8 @@ import com.lazydragonstudios.wuxiacraft.client.gui.minigames.*;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.System;
 import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerSystemStat;
-import com.lazydragonstudios.wuxiacraft.cultivation.technique.aspects.*;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaElements;
 import com.lazydragonstudios.wuxiacraft.init.WuxiaRealms;
-import com.lazydragonstudios.wuxiacraft.init.WuxiaRegistries;
-import com.lazydragonstudios.wuxiacraft.init.WuxiaTechniqueAspects;
 import com.lazydragonstudios.wuxiacraft.networking.AttemptRebirthMessage;
 import com.lazydragonstudios.wuxiacraft.networking.StartTribulationMessage;
 import com.lazydragonstudios.wuxiacraft.networking.BroadcastAnimationChangeRequestMessage;
@@ -72,19 +69,19 @@ public class MeditateScreen extends Screen {
 		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_GATHERING_STAGE.getId(), HoldingClickMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_PATHWAYS_STAGE.getId(), HoldingClickMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_CONDENSATION_STAGE.getId(), HoldingClickMinigame::new);
-		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_PHENOMENON_STAGE.getId(), DraggingToDanTianMinigame::new);
+		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_PHENOMENON_STAGE.getId(), HoldingClickMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_SHAPING_STAGE.getId(), DraggingToDanTianMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_MOLDING_STAGE.getId(), DraggingToDanTianMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_QI_SOLIDIFICATION_STAGE.getId(), DraggingToDanTianMinigame::new);
-		stageMiniGames.put(WuxiaRealms.ESSENCE_CORE_SHAPING_STAGE.getId(), DraggingThroughPathwaysMinigame::new);
+		stageMiniGames.put(WuxiaRealms.ESSENCE_CORE_SHAPING_STAGE.getId(), DraggingToDanTianMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_GOLDEN_CORE_STAGE.getId(), DraggingThroughPathwaysMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_CORE_EXPANSION_STAGE.getId(), DraggingThroughPathwaysMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_REVOLVING_CORE_STAGE.getId(), DraggingThroughPathwaysMinigame::new);
-		stageMiniGames.put(WuxiaRealms.ESSENCE_IMMORTAL_TRANSFORMATION_STAGE.getId(), ClosingTheCircleMinigame::new);
+		stageMiniGames.put(WuxiaRealms.ESSENCE_IMMORTAL_TRANSFORMATION_STAGE.getId(), DraggingThroughPathwaysMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_IMMORTAL_POND_STAGE.getId(), ClosingTheCircleMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_RIVER_EXPANSION_STAGE.getId(), ClosingTheCircleMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_BOUNDLESS_SEA_STAGE.getId(), ClosingTheCircleMinigame::new);
-		stageMiniGames.put(WuxiaRealms.ESSENCE_IMMORTAL_OCEAN_STAGE.getId(), DraggingAllAspectsToDantianMinigame::new);
+		stageMiniGames.put(WuxiaRealms.ESSENCE_IMMORTAL_OCEAN_STAGE.getId(), ClosingTheCircleMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_OCEAN_OBLITERATION_STAGE.getId(), DraggingAllAspectsToDantianMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_STARRY_FIELD_STAGE.getId(), DraggingAllAspectsToDantianMinigame::new);
 		stageMiniGames.put(WuxiaRealms.ESSENCE_GALAXY_STAGE.getId(), DraggingAllAspectsToDantianMinigame::new);
@@ -280,50 +277,9 @@ public class MeditateScreen extends Screen {
 			if (systemData.currentStage.equals(stage.nextStage) && cultivation.getStat(systems, PlayerSystemStat.CULTIVATION_BASE)
 					.compareTo(cultivation.getStat(systems, PlayerSystemStat.MAX_CULTIVATION_BASE)) >= 0) {
 				iR++;
-				} else break;
+			} else break;
 		}
 		if (iR >=3) {
-			int iS = 0;
-			var aspectData = cultivation.getAspects();
-			List<TechniqueAspect> neededAspects = new LinkedList<TechniqueAspect>(WuxiaRegistries.TECHNIQUE_ASPECT.get().getValues().stream().toList());
-			neededAspects.remove(WuxiaTechniqueAspects.UNKNOWN.get());
-			neededAspects.remove(WuxiaTechniqueAspects.EMPTY.get());
-			neededAspects.remove(WuxiaTechniqueAspects.DEVOURING.get());
-			neededAspects.remove(WuxiaTechniqueAspects.CONSUMPTION.get());
-			neededAspects.remove(WuxiaTechniqueAspects.GLUTTONY.get());
-			neededAspects.remove(WuxiaTechniqueAspects.BEELZEBUB.get());
-			neededAspects.remove(WuxiaTechniqueAspects.DIAMOND_CONSTRUCT.get());
-			if(cultivation.getRebirths() < 1) {
-				neededAspects.remove(WuxiaTechniqueAspects.ASHES_OF_REBIRTH.get());
-				neededAspects.remove(WuxiaTechniqueAspects.REKINDLED_SPARK.get());
-				neededAspects.remove(WuxiaTechniqueAspects.IGNITION.get());
-				neededAspects.remove(WuxiaTechniqueAspects.EMBER_OF_REKINDLING.get());
-				neededAspects.remove(WuxiaTechniqueAspects.CINDER_OF_RENEWAL.get());
-				neededAspects.remove(WuxiaTechniqueAspects.SPIRITUAL_RECONSTRUCTION.get());
-			}
-			if(cultivation.getRebirths() < 2) {
-				neededAspects.remove(WuxiaTechniqueAspects.INFERNO.get());
-				neededAspects.remove(WuxiaTechniqueAspects.RENEWAL.get());
-				neededAspects.remove(WuxiaTechniqueAspects.RESURRECTION.get());
-				neededAspects.remove(WuxiaTechniqueAspects.FLAME_OF_PURIFICATION.get());
-				neededAspects.remove(WuxiaTechniqueAspects.SPARK_OF_AWAKENING.get());
-				neededAspects.remove(WuxiaTechniqueAspects.SPIRIT_OF_RESTORATION.get());
-			}
-			if(cultivation.getRebirths() < 3) {
-				neededAspects.remove(WuxiaTechniqueAspects.ASCENT.get());
-				neededAspects.remove(WuxiaTechniqueAspects.TRANSCENDENCE.get());
-				neededAspects.remove(WuxiaTechniqueAspects.THE_ETERNAL_CYCLE.get());
-				neededAspects.remove(WuxiaTechniqueAspects.ESSENCE_OF_REBIRTH.get());
-			}
-			for (var knownAspectLocation : cultivation.getAspects().getKnownAspects().stream().toList()) {
-				var knownAspect = WuxiaRegistries.TECHNIQUE_ASPECT.get().getValue(knownAspectLocation);
-				if (!neededAspects.contains(knownAspect)) continue;
-				var currentCheckpoint = knownAspect.getCurrentCheckpoint(aspectData.getAspectProficiency(knownAspectLocation));
-				if (currentCheckpoint == knownAspect.checkpoints.getLast()) {
-					iS++;
-				} 
-			}
-			if(iS >= neededAspects.size())
 			this.canRebirth = true;
 		}
 		var systemData = cultivation.getSystemData(this.system);

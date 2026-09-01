@@ -31,6 +31,7 @@ import net.minecraft.world.entity.PlayerRideable;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -154,6 +155,7 @@ public class FormationTicker implements BlockEntityTicker<FormationCore> {
 				}
 				if (entity instanceof PlayerRideable && entity.hasPassenger(allowedPlayers::contains)) continue;
 				if (entity instanceof ArmorStand) continue;
+				if (entity instanceof Npc) continue;
 				if (entity instanceof Projectile proj) {
 					if (allowedPlayers.contains(proj.getOwner())) continue;
 					core.attackBarrierMelee((LivingEntity)proj.getOwner(), 1.0f);

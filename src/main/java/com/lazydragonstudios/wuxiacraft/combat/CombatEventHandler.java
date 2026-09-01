@@ -60,7 +60,7 @@ public class CombatEventHandler {
 		DamageSource source = event.getSource();
 		if (source instanceof WuxiaDamageSource wuxiaDamage) damage = wuxiaDamage.getDamage();
 		else if (source.getEntity() instanceof Player attacker) {
-			damage = damage.add(Cultivation.get(attacker).getStat(PlayerStat.STRENGTH, false));
+			damage = damage.add(Cultivation.get(attacker).getStat(PlayerStat.STRENGTH, false).multiply(new BigDecimal(0.55)));
 		}
 		if (barrier_amount.compareTo(BigDecimal.ZERO) > 0) {
 			cultivation.setStat(PlayerStat.BARRIER, barrier_amount.subtract(damage).max(BigDecimal.ZERO));
@@ -173,7 +173,7 @@ public class CombatEventHandler {
 
 		ICultivation cultivation = Cultivation.get(player);
 		if (!cultivation.isCombat()) return;
-		event.setAmount(event.getAmount() + cultivation.getStat(PlayerStat.STRENGTH).floatValue());
+		event.setAmount(event.getAmount() + cultivation.getStat(PlayerStat.STRENGTH).multiply(new BigDecimal(0.55)).floatValue());
 		//if it was a punch, then we apply a little of knock back
 		if (player.getItemInHand(InteractionHand.MAIN_HAND) != ItemStack.EMPTY) return;
 		LivingEntity target = event.getEntity();

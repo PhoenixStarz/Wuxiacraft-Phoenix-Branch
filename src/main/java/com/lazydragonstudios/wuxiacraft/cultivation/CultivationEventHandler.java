@@ -10,7 +10,6 @@ import com.lazydragonstudios.wuxiacraft.init.*;
 import com.lazydragonstudios.wuxiacraft.networking.*;
 import com.lazydragonstudios.wuxiacraft.world.data.WuxiaSavedData;
 import com.lazydragonstudios.wuxiacraft.world.dimension.DimensionManager;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -21,6 +20,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -43,7 +43,9 @@ import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.event.level.SleepFinishedTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.network.PacketDistributor;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.awt.*;
 import java.math.BigDecimal;
@@ -176,7 +178,7 @@ public class CultivationEventHandler {
 		if (cultivation.getDemonicStage() > 20) {
 			Holder<DamageType> damageType = player.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WuxiaDamageTypes.DEMONIC_CORRUPTION);
 			player.hurt(new WuxiaDamageSource(damageType, WuxiaElements.DEMONIC.get(), player,
-					regen.multiply(new BigDecimal(cultivation.getDemonicStage()/100)).add(new BigDecimal(0.1))), 0.1f+regen.floatValue()*cultivation.getDemonicStage()/100);
+					regen.multiply(new BigDecimal(cultivation.getDemonicStage()/100f)).add(BigDecimal.ONE)), regen.floatValue() * cultivation.getDemonicStage()/100f + 1f);
 		}else {
 			if (player.getHealth() < player.getMaxHealth() && bodyData.hasEnergy(maxEnergy.multiply(new BigDecimal("0.25"))) && bodyData.consumeEnergy(cost)) {
 				player.heal(regen.floatValue());
@@ -201,7 +203,7 @@ public class CultivationEventHandler {
 							demonicFoundation.subtract(maxCultivationBase.multiply(new BigDecimal(0.00138))).max(BigDecimal.ZERO));
 					cultivation.setDemonicStage(10*demonicFoundation.intValue()/maxCultivationBase.intValue());
 					cultivation.addStat(WuxiaElements.DEMONIC.getId(), PlayerElementalStat.COMPREHENSION, 
-							demonicFoundation.subtract(cultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION).divide(BigDecimal.TEN)));
+							demonicFoundation.subtract(cultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION)).divide(new BigDecimal(100)));
 				}
 				syncClientCultivation((ServerPlayer) player);
 				for (var system : System.values()) {
@@ -242,7 +244,7 @@ public class CultivationEventHandler {
 		for (int i = 0; i < 10; i++) {
 			var skill = skillData.getSkillAt(i);
 			if (skill.getStatValue(SkillStat.CURRENT_COOLDOWN).compareTo(BigDecimal.ZERO) > 0) {
-				skill.addStat(SkillStat.CURRENT_COOLDOWN, new BigDecimal("-1").multiply(cultivation.getSystemData(System.ESSENCE).getStat(PlayerSystemStat.COOLDOWN_SPEED)));
+				skill.addStat(SkillStat.CURRENT_COOLDOWN, new BigDecimal("-1").multiply(cultivation.getSystemData(System.ESSENCE).getStat(PlayerSystemStat.COOLDOWN_SPEED).multiply(BigDecimal.TEN)));
 			} else if (skill.getStatValue(SkillStat.CURRENT_MAX_COOLDOWN).compareTo(BigDecimal.ZERO) > 0) {
 				skill.setStat(SkillStat.CURRENT_MAX_COOLDOWN, BigDecimal.ZERO);
 			}
@@ -562,6 +564,25 @@ public class CultivationEventHandler {
 		cultivation.setStat(PlayerStat.CULTPOINT, cultivation.getStat(PlayerStat.CULTPOINT).add(BigDecimal.valueOf((T1-T2)/100L)).min(BigDecimal.valueOf(WuxiaConfigs.MAX_CULTPOINTS.get())));
 		syncClientCultivation((ServerPlayer) player);
 		fixEnergies(player);
+		CompoundTag playerData = event.getEntity().getPersistentData();
+        CompoundTag data;
+        if (!playerData.contains(Player.PERSISTED_NBT_TAG)) {
+            data = new CompoundTag();
+        } else {
+            data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
+        }
+        if (!player.level().isClientSide()) {
+       	 	if (ModList.get() != null && ModList.get().getModContainerById("patchouli").isPresent()) {
+                if (WuxiaConfigs.STARTER_BOOK.get()){
+                    if (!data.getBoolean("wuxiacraft:starterBook")) {
+                        ItemStack book = PatchouliAPI.get().getBookStack(new ResourceLocation("wuxiacraft:cultivators_codex"));
+                        event.getEntity().addItem(book);
+                        data.putBoolean("wuxiacraft:starterBook", true);
+                        playerData.put(Player.PERSISTED_NBT_TAG, data);
+                    }
+                }
+            }
+        }
 	}
 
 	public static void fixEnergies(Player player) {

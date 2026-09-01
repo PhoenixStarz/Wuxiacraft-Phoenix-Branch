@@ -18,9 +18,9 @@ public class ToolMaterialTiers
 
     public static final Tier CELESTIAL_IRON = new ForgeTier(3,// mining level
             1872,                // durability
-            (float) 10,          // efficiency 
-            (float) 4,           // attack 
-            16,                  // enchantAbility 
+            (float) 13,          // mining speed 
+            (float) 4,           // attackDamageBonus 
+            16,                  // enchantmentValue 
             BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.of(WuxiaItems.CELESTIAL_IRON_INGOT.get()));
     
     public static void register()

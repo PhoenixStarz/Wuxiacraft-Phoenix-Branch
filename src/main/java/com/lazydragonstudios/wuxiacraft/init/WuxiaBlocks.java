@@ -40,10 +40,10 @@ public class WuxiaBlocks {
 			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 3, Blocks.COPPER_BLOCK, FORMATION_CORE_BASE.get()));
 
 	public static RegistryObject<Block> IRON_FORMATION_CORE = BLOCKS.register("iron_formation_core",
-			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 5, Blocks.IRON_BLOCK, FORMATION_CORE_BASE.get()));
+			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 4, Blocks.IRON_BLOCK, FORMATION_CORE_BASE.get()));
 
 	public static RegistryObject<Block> LAPIS_FORMATION_CORE = BLOCKS.register("lapis_formation_core",
-			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 3, Blocks.LAPIS_BLOCK, FORMATION_CORE_BASE.get()));
+			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 5, Blocks.LAPIS_BLOCK, FORMATION_CORE_BASE.get()));
 
 	public static RegistryObject<Block> GOLD_FORMATION_CORE = BLOCKS.register("gold_formation_core",
 			() -> new FormationCoreBlock(BlockBehaviour.Properties.of().strength(2f), 7, Blocks.GOLD_BLOCK, FORMATION_CORE_BASE.get()));

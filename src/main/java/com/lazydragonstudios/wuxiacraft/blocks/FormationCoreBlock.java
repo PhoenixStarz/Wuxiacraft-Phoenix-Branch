@@ -16,17 +16,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEventListener;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -39,7 +46,7 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class FormationCoreBlock extends BaseEntityBlock {
+public class FormationCoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
 	public static final VoxelShape VOXEL_SHAPE = Shapes.or(
 			Block.box(0d, 0d, 0d, 4d, 4d, 4d),
@@ -59,11 +66,14 @@ public class FormationCoreBlock extends BaseEntityBlock {
 
 	private final Block baseBlock;
 
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
 	public FormationCoreBlock(Properties properties, int formationRadius, Block coreBlock, Block baseBlock) {
 		super(properties);
 		this.formationRadius = formationRadius;
 		this.coreBlock = coreBlock;
 		this.baseBlock = baseBlock;
+		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
 	@Override
@@ -121,16 +131,25 @@ public class FormationCoreBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos thisPos) {
-		BlockPos below = thisPos.below();
-		BlockState belowState = levelReader.getBlockState(below);
-		return belowState.isFaceSturdy(levelReader, below, Direction.UP);
-	}
-
-	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> tooltipList, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, blockGetter, tooltipList, tooltipFlag);
 		var comp = Component.translatable("wuxiacraft.gui.formation.radius", this.formationRadius);
 		tooltipList.add(comp);
 	}
+
+	@Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(WATERLOGGED);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        return defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
 }

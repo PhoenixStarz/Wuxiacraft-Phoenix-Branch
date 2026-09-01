@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores/celestial_iron",
+    "#forge:ores/spirit_stone_vein"
+  ]
+}

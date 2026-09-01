@@ -29,7 +29,7 @@ public class SkillTouchAspect extends SkillActivatorAspect {
 			BigDecimal cost = skill.getStatValue(SkillStat.COST).multiply(BigDecimal.valueOf(casterCultivation.getStrengthRegulator()));
 			var result = SkillUtil.getHitResult(caster, caster.getBlockReach(), e -> e != caster);
 			if (result.getType() == HitResult.Type.MISS) return false;
-			if (!essenceData.consumeEnergy(cost)) return false;
+			if (!essenceData.consumeEnergy(cost.divide(BigDecimal.TEN))) return false;
 			caster.swinging = true;
 			for (var link : skill.getSkillChain()) {
 				if (link instanceof SkillHitAspect hitAspect) {

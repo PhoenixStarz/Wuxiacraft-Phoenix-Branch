@@ -182,7 +182,8 @@ public class FormationEventHandler {
 				var barrierRange = core.getStat(FormationStat.BARRIER_RANGE).doubleValue();
 				var distSqr = event.getPos().distSqr(core.getBlockPos());
 				if (distSqr > barrierRange * barrierRange) continue;
-				if (event.getState().getBlock() instanceof FormationCoreBlock || event.getState().getBlock() instanceof StatRuneBlock) {
+				Block block = level.getBlockState(event.getPos()).getBlock();
+				if ((block instanceof FormationCoreBlock || block instanceof StatRuneBlock) && core.containsRune(event.getPos())) {
 					var badge = getItemBadge(breaker, core, CORE_ACCESS_TAG);
 					if (badge != ItemStack.EMPTY) continue;
 				} else {
@@ -210,7 +211,7 @@ public class FormationEventHandler {
 			var distSqr = event.getPos().distSqr(core.getBlockPos());
 			if (distSqr > barrierRange * barrierRange) continue;
 			Block block = level.getBlockState(event.getPos()).getBlock();
-			if (block instanceof FormationCoreBlock || block instanceof StatRuneBlock) {
+			if ((block instanceof FormationCoreBlock || block instanceof StatRuneBlock) && core.containsRune(event.getPos())) {
 				var badge = getItemBadge(interactive, core, CORE_ACCESS_TAG);
 				if (badge != ItemStack.EMPTY) continue;
 			} else {

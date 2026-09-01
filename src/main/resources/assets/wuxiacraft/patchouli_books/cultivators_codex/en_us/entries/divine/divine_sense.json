@@ -1,0 +1,16 @@
+{
+  "name": "Divine Sense",
+  "icon": "minecraft:ender_eye",
+  "category": "wuxiacraft:divine",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Divine Sense is used to detect the souls of other players within your detection range. $(br)If your detection stength is greater than the other players detection resistance thier soul will be highlighted for you to see. $(br2)When you progress enough in divine cultivation you can press $(k:wuxiacraft.key.divine_sense) to activate divine sense."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br2)Pressing shift while divine sense is active will highlight nearby mobs if your detection stength is high enough. $(br2)If you are crouching while divine sense is active, nearby cultivation resources will be highlighted."
+    }
+  ]
+}

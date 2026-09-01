@@ -109,7 +109,7 @@
 		{ "item": "minecraft:netherite_block", "element": "wuxiacraft:metal", "value": "32" },
 		{ "item": "minecraft:netherite_block", "element": "wuxiacraft:fire", "value": "32" },
 
-		{ "item": "wuxiacraft:celestial_iron", "element": "wuxiacraft:metal", "value": "8" },
+		{ "item": "wuxiacraft:celestial_iron_ingot", "element": "wuxiacraft:metal", "value": "8" },
 		{ "item": "wuxiacraft:celestial_iron_block", "element": "wuxiacraft:metal", "value": "64" }
   	]
 }

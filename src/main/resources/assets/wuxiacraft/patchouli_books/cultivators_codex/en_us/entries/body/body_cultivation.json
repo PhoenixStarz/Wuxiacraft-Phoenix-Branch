@@ -1,0 +1,19 @@
+{
+  "name": "Body Cultivation",
+  "icon": "wuxiacraft:pill_2",
+  "category": "wuxiacraft:body",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "In order to cultivate one's body, one must hold down the $(k:wuxiacraft.key.exercise). However, one must have a valid technique and be cultivating an element which matches at least one of the cultivator's body parts assigned elements."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "wuxiacraft:pill_1"
+      },
+      "text": "Pills can be used to boost the amount of body cultivation base gain."
+    }
+  ]
+}

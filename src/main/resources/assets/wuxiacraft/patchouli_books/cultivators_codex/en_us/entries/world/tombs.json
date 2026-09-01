@@ -1,0 +1,18 @@
+{
+  "name": "Cultivator Tombs",
+  "icon": "minecraft:skeleton_skull",
+  "category": "wuxiacraft:world",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Tombs from a long death cultivator. $(br2)Full of bones, rot, and treasures left behind. $(br2)They might just contain that one maunal you where looking for."
+    },
+    {
+      "type": "patchouli:image",
+      "images": ["wuxiacraft:patchouli_books/cultivators_codex/textures/gui/entries/world/tomb.png"],
+      "text": "Front side of a tomb.",
+      "border": true
+    }
+  ]
+}

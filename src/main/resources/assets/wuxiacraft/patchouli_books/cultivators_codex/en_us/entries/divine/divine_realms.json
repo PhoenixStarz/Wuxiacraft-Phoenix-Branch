@@ -1,0 +1,16 @@
+{
+  "name": "Divine Realms",
+  "icon": "minecraft:black_shulker_box",
+  "category": "wuxiacraft:divine",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "When one reaches a high enough stage in thier divine cultivation they unlock thier own personal divine realm. $(br2)In order to enter your realm you must reach a high enough stage and then click the Enter Realm button. $(br2)To bring other players into your realm you must a high enough stage and press the Pull Nearby button."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br2)When inside your divine realm you have a limited radius to build inside of which grows in size has you progress in your divine cultivation. $(br2)If you fall into the void or travel to far from your realm's center you will be pulled back to your realm's center."
+    }
+  ]
+}

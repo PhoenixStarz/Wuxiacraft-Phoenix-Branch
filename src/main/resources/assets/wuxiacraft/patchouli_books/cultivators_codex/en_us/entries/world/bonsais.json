@@ -1,0 +1,27 @@
+{
+  "name": "Bonsais",
+  "icon": "wuxiacraft:spirit_fruit_1",
+  "category": "wuxiacraft:world",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Bonsais grow in the wilds and drop spirit fruits. $(br2)Over time they can breakthough to the next tier. $(br2)Bonsais can be planted using spirit fruits. $(br2)The higher the tier of bonsai the longer it'll take to grow."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock": {
+        "pattern": [
+          [ "B" ],
+          [ "0" ]
+        ],
+          "mapping": {
+          "B": "wuxiacraft:bonsai_1[age=3]",
+          "G": "minecraft:grass_block"
+        },
+        "offset": [0, 1, 0]
+      },
+      "text": "A bonsai found in the wild."
+    }
+  ]
+}

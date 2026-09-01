@@ -1,0 +1,19 @@
+{
+  "name": "Essence Cultivation",
+  "icon": "wuxiacraft:spirit_stone_2",
+  "category": "wuxiacraft:essence",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "In order to cultivate essence, one must press $(k:wuxiacraft.key.meditate) and complete the minigame in the proper tab. However, one must have a valid technique."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "wuxiacraft:spirit_stone_1"
+      },
+        "text": "Spirit stones can be used to boost the amount of essence cultivation base gain."
+    }
+  ]
+}

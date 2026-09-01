@@ -1,0 +1,18 @@
+{
+  "name": "Runes",
+  "icon": "wuxiacraft:essence_gold_energy_rune",
+  "category": "wuxiacraft:formations",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Formation Runes are used to alter the stats provided by a formation to whitelisted players. $(br)Generator runes create formation energy, $(br)System Cultivation Speed runes consume energy to increase a systems cultivation speed, $(br)System Energy Regen runes consume energy to increase a systems energy regeneration rate. When the formation active it's stats are visible in the Introspection menu."
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "wuxiacraft:rune/block_from_smelting_rune_copper",
+      "recipe2": "wuxiacraft:rune/block_from_smelting_rune_gold",
+      "text": "Runes can be recycled back into their base block form through the smelting them in the furnace."
+    }
+  ]
+}

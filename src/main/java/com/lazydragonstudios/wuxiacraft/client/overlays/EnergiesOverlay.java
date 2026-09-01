@@ -36,7 +36,7 @@ public class EnergiesOverlay implements IGuiOverlay {
 			var max_energy = cultivation.getStat(system, PlayerSystemStat.MAX_ENERGY);
 			if (max_energy.compareTo(BigDecimal.ZERO) < 1) return;
 			var energy_ratio = energy.divide(max_energy, RoundingMode.HALF_UP);
-			int barFill = energy_ratio.multiply(new BigDecimal("60")).intValue();
+			int barFill = Math.min(60, energy_ratio.multiply(new BigDecimal("60")).intValue());
 			guiGraphics.blit(ENERGY_BAR, 0, 3 + position * 17, 0, 0, 62, 9, 64, 64); // black bar
 			guiGraphics.blit(ENERGY_BAR, 64, position * 17, position * 15, 36, 15, 15, 64, 64); // icon
 			guiGraphics.blit(ENERGY_BAR, 1, 3 + position * 17, 0, 9 + position * 9, barFill, 9, 64, 64); // bar fill

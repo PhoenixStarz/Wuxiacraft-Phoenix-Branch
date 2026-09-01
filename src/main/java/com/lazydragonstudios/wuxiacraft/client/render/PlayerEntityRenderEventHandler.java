@@ -32,6 +32,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -54,7 +55,9 @@ import com.mojang.math.Axis;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -167,73 +170,81 @@ public class PlayerEntityRenderEventHandler {
 		poseStack.popPose();
 	}
 
-	private static List<BlockPos> cachedBlocks = new ArrayList<>();
+    private static final Set<BlockPos> CACHED_BLOCKS = new HashSet<>();
     private static int scanTick = 0;
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRenderWorldLast(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS)
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
             return;
+        }
 
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
+
         if (player == null) return;
 
         var cultivation = Cultivation.get(player);
-        if (!cultivation.isDivineSense()) return;
-        if (!player.isCrouching()) return;
-
         double range = cultivation.getStat(PlayerStat.DETECTION_RANGE).doubleValue();
-        var level = player.level();
 
-		scanTick++;
+        if (!(range > 0.0D && cultivation.isDivineSense() && player.isCrouching())) {
+            CACHED_BLOCKS.clear();
+            return;
+        }
 
+        Level level = player.level();
         BlockPos center = player.blockPosition();
-        int r = (int) Math.ceil(range);
-        if (r <= 0) return;
 
-        int x = (scanTick % (r*2))-r;
-		if (scanTick > r*2) scanTick = 0;
-        for (int y = -r; y <= r; y++) {
-            for (int z = -r; z <= r; z++) {
-				BlockPos pos = center.offset(x, y, z);
-				Block block = level.getBlockState(pos).getBlock();
-				if (block instanceof BonsaiBlock || block instanceof VeinBlock ||
-					block instanceof BuddingSpiritCrystalBlock || block instanceof SpiritCrystalCluster) {
-					cachedBlocks.add(pos.immutable());
-				}
-			}
-		}
-        
+        int radius = (int) Math.ceil(range);
+        int scanWidth = radius * 2 + 1;
+        int x = (scanTick % scanWidth) - radius;
+        scanTick++;
+
+        if (scanTick >= scanWidth) {
+            scanTick = 0;
+        }
+
+        for (int y = -radius; y <= radius; y++) {
+            for (int z = -radius; z <= radius; z++) {
+                BlockPos pos = center.offset(x, y, z);
+
+                if (isDetectableBlock(level, pos)) {
+                    CACHED_BLOCKS.add(pos.immutable());
+                }
+            }
+        }
+
+        CACHED_BLOCKS.removeIf(pos -> {
+            Block block = level.getBlockState(pos).getBlock();
+            return center.distSqr(pos) > range * range || !isDetectableBlock(block);
+        });
 
         PoseStack poseStack = event.getPoseStack();
-        MultiBufferSource buffer = mc.renderBuffers().bufferSource();
+        Vec3 cameraPosition = mc.gameRenderer.getMainCamera().getPosition();
 
-        Vec3 cam = mc.gameRenderer.getMainCamera().getPosition();
+        var bufferSource = mc.renderBuffers().bufferSource();
+        var vertexConsumer = bufferSource.getBuffer(WuxiaRenderTypes.outlineThroughBlocks.get());
 
-
-		cachedBlocks.removeIf(pos -> {
-			Block block = level.getBlockState(pos).getBlock();
-			return center.distSqr(pos) > range * range ||
-				(!(block instanceof BonsaiBlock) && !(block instanceof VeinBlock) &&
-				 !(block instanceof BuddingSpiritCrystalBlock) && !(block instanceof SpiritCrystalCluster));
-		});
-
-		for (BlockPos pos : cachedBlocks) {
-
-            AABB box = new AABB(pos).move(
-                    -cam.x,
-                    -cam.y,
-                    -cam.z
-            );
-
+        for (BlockPos pos : CACHED_BLOCKS) {
+            AABB box = new AABB(pos).move(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
             LevelRenderer.renderLineBox(
                     poseStack,
-                    buffer.getBuffer(RenderType.lines()),
+                    vertexConsumer,
                     box,
-                    0.2f, 0.8f, 1.0f, 1.0f
+                    0.2F, 0.8F, 1.0F, 1.0F
             );
         }
+    }
+    
+	private static boolean isDetectableBlock(Level level, BlockPos pos) {
+        return isDetectableBlock(level.getBlockState(pos).getBlock());
+    }
+
+    private static boolean isDetectableBlock(Block block) {
+        return block instanceof BonsaiBlock
+                || block instanceof VeinBlock
+                || block instanceof BuddingSpiritCrystalBlock
+                || block instanceof SpiritCrystalCluster;
     }
 
 	@SubscribeEvent
@@ -249,7 +260,7 @@ public class PlayerEntityRenderEventHandler {
 		var barrierRelative = cultivation.getStat(PlayerStat.BARRIER)
 				.divide(cultivation.getStat(PlayerStat.MAX_BARRIER), RoundingMode.HALF_UP).max(new BigDecimal("0.3")).floatValue();
 		event.getPoseStack().pushPose();
-		event.getPoseStack().scale(barrierRelative, barrierRelative, barrierRelative);
+		event.getPoseStack().scale(barrierRelative, 1f, barrierRelative);
 		renderer.render(target, target.yBodyRot, event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight());
 		event.getPoseStack().popPose();
 	}

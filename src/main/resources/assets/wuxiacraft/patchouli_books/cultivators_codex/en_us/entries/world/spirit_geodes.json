@@ -1,0 +1,18 @@
+{
+  "name": "Spirit Geodes",
+  "icon": "wuxiacraft:budding_spirit_crystal_block",
+  "category": "wuxiacraft:world",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Spirit Geodes are found through out the overworld and contain quite the bounty of low tier spirit stones. $(br2)Budding Spirit Crystal Blocks grow Spirit Crystal Clusters and over time clusters connected to the budding block will grow in tier."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Spirit Geode Materials",
+      "item": "wuxiacraft:spirit_crystal_block,wuxiacraft:budding_spirit_crystal_block,wuxiacraft:spirit_crystal_cluster_1,wuxiacraft:spirit_stone_1",
+      "text": "Materials found in Spirit Geodes."
+    }
+  ]
+}
