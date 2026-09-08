@@ -204,7 +204,7 @@ public class CultivationEventHandler {
 					cultivation.setDemonicStage(10*demonicFoundation.intValue()/maxCultivationBase.intValue());
 					cultivation.addStat(WuxiaElements.DEMONIC.getId(), PlayerElementalStat.COMPREHENSION, 
 							demonicFoundation.subtract(cultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION)).divide(new BigDecimal(100)));
-				}
+				} else if (cultivation.getDemonicStage() != 0) cultivation.setDemonicStage(0);
 				syncClientCultivation((ServerPlayer) player);
 				for (var system : System.values()) {
 					var systemData = cultivation.getSystemData(system);
@@ -548,7 +548,8 @@ public class CultivationEventHandler {
 				BigDecimal demonicFoundation = oldCultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION);
 				BigDecimal maxCultivationBase = oldCultivation.getStat(System.ESSENCE, PlayerSystemStat.MAX_CULTIVATION_BASE);
 				oldCultivation.setStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, 
-						demonicFoundation.subtract(maxCultivationBase).min(BigDecimal.ZERO));
+						demonicFoundation.subtract(maxCultivationBase).max(BigDecimal.ZERO));
+				oldCultivation.setDemonicStage(0);
 			}
 		}
 		event.getOriginal().invalidateCaps();

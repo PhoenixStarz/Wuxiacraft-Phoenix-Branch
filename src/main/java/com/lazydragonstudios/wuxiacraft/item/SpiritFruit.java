@@ -68,9 +68,26 @@ public class SpiritFruit extends Item {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-		if (livingEntity instanceof Player player && !player.isCreative())
-		stack.shrink(1);
-		livingEntity.addEffect(new MobEffectInstance(WuxiaMobEffects.ENLIGHTENMENT.get(), 120 * 20, this.strength, true, true, false));
+		if (livingEntity instanceof Player player) {
+			if (!player.isCreative())stack.shrink(1);
+			int duration = 120 * 20;
+			if (player.hasEffect(WuxiaMobEffects.ENLIGHTENMENT.get())) {
+				var effectInstance = player.getEffect(WuxiaMobEffects.ENLIGHTENMENT.get());
+				if (effectInstance != null) {
+					if (effectInstance.getAmplifier() == this.strength) {
+						duration = effectInstance.getDuration();
+						if (duration >= 12000) {
+							duration += 600;
+						} else if (duration >= 2400) {
+							duration += 1200;
+						} else {
+							duration += 2400;
+						}
+					}
+				}
+			}
+			player.addEffect(new MobEffectInstance(WuxiaMobEffects.ENLIGHTENMENT.get(), duration, this.strength, true, true, false));
+		}
 		return stack;
 	}
 

@@ -74,7 +74,7 @@ public class SoulCore extends Item {
 						bodyData.forgeAllParts(amount);
 					} else
 					cultivation.addStat(systems, PlayerSystemStat.CULTIVATION_BASE, amount);
-					cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount.multiply(new BigDecimal(10)));
+					cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount.multiply(new BigDecimal(5)));
 				}
 			}
 		}

@@ -378,8 +378,10 @@ public class BodyCultivationContainer extends SystemContainer {
 			int scale = statValue.scale();
 			statValue = statValue.setScale(Math.min(10, scale), RoundingMode.DOWN);
 			containerTag.putString("stat-" + stat.name().toLowerCase(), statValue.toPlainString());
-			this.playerStats.put(stat, statValue);
+		//	this.playerStats.put(stat, statValue);
 		}
+		if (getDisplayBodyTransformation() != null)
+		containerTag.putString("transformation", getDisplayBodyTransformation().toString());
 		return containerTag;
 	}
 
@@ -412,6 +414,8 @@ public class BodyCultivationContainer extends SystemContainer {
 				this.selectedElementByBodyPart.put(bodyPartLocation, new ResourceLocation(tag.getString(selectedElementTagName)));
 			}
 		}
+		if (tag.contains("transformation"))
+			this.setDisplayTransformation(new ResourceLocation(tag.getString("transformation")));
 	}
 
 	private ResourceLocation getBodyPartElementLocation(ResourceLocation bodyPartLocation) {

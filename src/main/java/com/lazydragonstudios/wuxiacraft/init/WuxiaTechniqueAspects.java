@@ -2819,9 +2819,9 @@ public class WuxiaTechniqueAspects {
 					.setCanLearn(cultivation -> cultivation.getAspects()
 							.knowsAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_strand")))
 					.addCheckpoint(new TechniqueAspect.Checkpoint("basic", new BigDecimal("3000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000")))
-					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"),
+					.addCheckpoint(new TechniqueAspect.Checkpoint("intermediate", new BigDecimal("7500"), new BigDecimal("0.2")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("advanced", new BigDecimal("15000"), new BigDecimal("0.4")))
+					.addCheckpoint(new TechniqueAspect.Checkpoint("expert", new BigDecimal("30000"), new BigDecimal("0.6"),
 							cultivation -> cultivation.getAspects().learnAspect(new ResourceLocation(WuxiaCraft.MOD_ID, "qi_whirlpool"), cultivation)))
 	);
 	
@@ -3321,7 +3321,7 @@ public class WuxiaTechniqueAspects {
 							bodyData.forgeAllParts(amount);
 						} else
 						cultivation.addStat(systems, PlayerSystemStat.CULTIVATION_BASE, amount);
-						cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount.multiply(new BigDecimal(20)));
+						cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount.multiply(BigDecimal.TEN));
 					}
 				}
 			}
@@ -3351,7 +3351,7 @@ public class WuxiaTechniqueAspects {
 				if (system != System.BODY)
 				cultivation.addStat(system, element, PlayerSystemElementalStat.FOUNDATION, new BigDecimal(devourCount*DevourMulti/10d));
 				cultivation.addStat(element, PlayerElementalStat.COMPREHENSION, new BigDecimal(devourCount*DevourMulti*3d/10d));
-				cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, demonicScale.multiply(new BigDecimal(10)));
+				cultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, demonicScale.multiply(new BigDecimal(5)));
 			}
 			itemStack.shrink(devourCount);
 			event.setAmount(baseAmount);

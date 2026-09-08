@@ -72,8 +72,7 @@ public class WuxiaRenderTypes extends RenderType {
 					.setLightmapState(NO_LIGHTMAP)
 					.setOverlayState(NO_OVERLAY)
 					.setWriteMaskState(COLOR_WRITE)
-					.createCompositeState(false)
-);
+					.createCompositeState(false));
 	
 
 	public WuxiaRenderTypes(String nameIn, VertexFormat formatIn, VertexFormat.Mode drawModeIn, int bufferSizeIn, boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn) {

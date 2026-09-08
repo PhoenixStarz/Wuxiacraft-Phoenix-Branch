@@ -26,7 +26,7 @@
     },
         {
       "type": "patchouli:spotlight",
-      "title": "Formation Stat Sharing Badges",
+      "title": "Stat Sharing Badges",
       "item": {
         "tag": "wuxiacraft:formation_stats_badge"
       },
@@ -34,7 +34,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "title": "Rune and Core Access Badges",
+      "title": "Core Access Badges",
       "item": {
         "tag": "wuxiacraft:core_access_badge"
       },

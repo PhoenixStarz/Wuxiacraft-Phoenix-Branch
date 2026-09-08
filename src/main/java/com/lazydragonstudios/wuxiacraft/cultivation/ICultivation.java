@@ -43,6 +43,8 @@ public interface ICultivation {
 
 	void setBodyTransformation(ResourceLocation bodyTransformation);
 
+	void forceSetStat(PlayerStat stat, BigDecimal value);
+
 	void setStat(PlayerStat stat, BigDecimal value);
 
 	void setStat(ResourceLocation element, PlayerElementalStat stat, BigDecimal value);

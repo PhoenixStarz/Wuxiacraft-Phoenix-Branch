@@ -4,6 +4,7 @@ import com.lazydragonstudios.wuxiacraft.capabilities.ClientAnimationState;
 import com.lazydragonstudios.wuxiacraft.capabilities.IClientAnimationState;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
+import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -15,13 +16,16 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.UUID;
 import java.util.function.Supplier;
+import java.math.BigDecimal;
 
-public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationState, CompoundTag cultivation, boolean combat, ResourceLocation bodyTransformation) {
+public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationState, double barrier, double maxBarrier, int demonicStage, boolean combat, ResourceLocation bodyTransformation) {
 
 	public static void encode(AnimationChangeUpdateMessage msg, FriendlyByteBuf buf) {
 		buf.writeUUID(msg.playerId);
 		buf.writeNbt(msg.animationState);
-		buf.writeNbt(msg.cultivation);
+		buf.writeDouble(msg.barrier);
+		buf.writeDouble(msg.maxBarrier);
+		buf.writeInt(msg.demonicStage);
 		buf.writeBoolean(msg.combat);
 		buf.writeResourceLocation(msg.bodyTransformation);
 	}
@@ -29,8 +33,7 @@ public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationS
 	public static AnimationChangeUpdateMessage decode(FriendlyByteBuf buf) {
 		UUID playerId = buf.readUUID();
 		CompoundTag animationState = buf.readAnySizeNbt();
-		CompoundTag cultivation = buf.readAnySizeNbt();
-		return new AnimationChangeUpdateMessage(playerId, animationState, cultivation, buf.readBoolean(), buf.readResourceLocation());
+		return new AnimationChangeUpdateMessage(playerId, animationState, buf.readDouble(), buf.readDouble(), buf.readInt(), buf.readBoolean(), buf.readResourceLocation());
 	}
 
 	public static void handleMessageCommon(AnimationChangeUpdateMessage msg, Supplier<NetworkEvent.Context> ctxSupplier) {
@@ -53,9 +56,11 @@ public record AnimationChangeUpdateMessage(UUID playerId, CompoundTag animationS
 			IClientAnimationState animationState = ClientAnimationState.get(target);
 			animationState.deserialize(msg.animationState);
 			ICultivation cultivation = Cultivation.get(target);
-			cultivation.deserialize(msg.cultivation);
 			cultivation.setExercising(animationState.isExercising());
 			cultivation.setCombat(msg.combat);
+			cultivation.setStat(PlayerStat.BARRIER, BigDecimal.valueOf(msg.barrier));
+			cultivation.forceSetStat(PlayerStat.MAX_BARRIER, BigDecimal.valueOf(msg.maxBarrier));
+			cultivation.setDemonicStage(msg.demonicStage);
 			if(ForgeRegistries.ENTITY_TYPES.containsKey(msg.bodyTransformation)) {
 				cultivation.setBodyTransformation(msg.bodyTransformation);
 			} else {

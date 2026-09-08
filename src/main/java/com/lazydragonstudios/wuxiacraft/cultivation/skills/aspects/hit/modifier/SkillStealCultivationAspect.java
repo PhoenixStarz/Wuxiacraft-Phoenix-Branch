@@ -47,7 +47,7 @@ public class SkillStealCultivationAspect extends SkillHitModifierAspect {
 							targetCultivation.addStat(systems, PlayerSystemStat.CULTIVATION_BASE, amount.negate());
 							casterCultivation.addStat(systems, PlayerSystemStat.CULTIVATION_BASE, amount);
 						}
-						casterCultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount.multiply(new BigDecimal(20)));
+						casterCultivation.addStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, amount.multiply(BigDecimal.TEN));
 					}
 				}
 			}

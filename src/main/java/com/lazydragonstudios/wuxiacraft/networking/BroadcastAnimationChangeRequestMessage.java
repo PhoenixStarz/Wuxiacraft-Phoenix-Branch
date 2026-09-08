@@ -4,6 +4,7 @@ import com.lazydragonstudios.wuxiacraft.capabilities.ClientAnimationState;
 import com.lazydragonstudios.wuxiacraft.capabilities.IClientAnimationState;
 import com.lazydragonstudios.wuxiacraft.cultivation.Cultivation;
 import com.lazydragonstudios.wuxiacraft.cultivation.ICultivation;
+import com.lazydragonstudios.wuxiacraft.cultivation.stats.PlayerStat;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -52,13 +53,15 @@ public class BroadcastAnimationChangeRequestMessage {
 				ICultivation cultivation = Cultivation.get(player);
 				cultivation.setExercising(animationStateInstance.isExercising());
 				cultivation.setCombat(msg.combat);
+				double barrier = cultivation.getStat(PlayerStat.BARRIER).doubleValue();
+				double maxBarrier = cultivation.getStat(PlayerStat.MAX_BARRIER).doubleValue();
+				int demonicStage = cultivation.getDemonicStage();
 				var bodyTransformation = cultivation.getBodyTransformation();
 				if (bodyTransformation == null) bodyTransformation = new ResourceLocation("wuxiacraft:none");
 				animationState = animationStateInstance.serialize();
-				var messageCultivation = cultivation.serialize();
 				for (var target : level.players()) {
 					WuxiaPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) target),
-							new AnimationChangeUpdateMessage(player.getUUID(), animationState, messageCultivation, msg.combat, bodyTransformation));
+							new AnimationChangeUpdateMessage(player.getUUID(), animationState, barrier, maxBarrier, demonicStage, msg.combat, bodyTransformation));
 				}
 			});
 		}

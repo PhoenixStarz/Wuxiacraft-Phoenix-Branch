@@ -49,7 +49,7 @@ public class SkillShareCultivationAspect extends SkillHitModifierAspect {
 						}
 						targetCultivation.setStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION, 
 							cultivation.getStat(System.ESSENCE, WuxiaElements.DEMONIC.getId(), PlayerSystemElementalStat.FOUNDATION)
-								.subtract(amount.multiply(BigDecimal.TEN)).max(BigDecimal.ZERO));
+								.subtract(amount.multiply(new BigDecimal(5))).max(BigDecimal.ZERO));
 					}
 				}
 			}

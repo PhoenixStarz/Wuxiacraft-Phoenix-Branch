@@ -195,6 +195,11 @@ public class Cultivation implements ICultivation {
 	}
 
 	@Override
+	public void forceSetStat(PlayerStat stat, BigDecimal value) {
+		this.playerStats.put(stat, value.max(BigDecimal.ZERO).setScale(6, RoundingMode.HALF_UP));
+	}
+
+	@Override
 	public void setStat(PlayerStat stat, BigDecimal value) {
 		if (!stat.isModifiable) return;
 		this.playerStats.put(stat, value.max(BigDecimal.ZERO).setScale(6, RoundingMode.HALF_UP));
